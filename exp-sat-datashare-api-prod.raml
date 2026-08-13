@@ -1,21 +1,9 @@
 #%RAML 1.0
-title: SAT Datashare Experience API
+title: exp-sat-datashare-api-prod
 version: v1
 protocols: [ HTTPS ]
-baseUri: https://{environment}.example.com/exp-sat-datashare-api-prod
-baseUriParameters:
-  environment:
-    type: string
-    enum: [ api, api-test, api-dev ]
-    default: api
-    description: Deployment environment host prefix
+baseUri: https://api.example.com/exp-sat-datashare-api-prod
 mediaType: application/json
-description: |
-  Production Experience API for SAT datashare collection reads.
-  All eight resources currently share the same query-parameter trait so
-  filters can later be specialized per endpoint without changing resource shape.
-
-securedBy: [ client-id-enforcement ]
 
 uses:
   types: libraries/types.raml
@@ -27,97 +15,26 @@ traits:
 resourceTypes:
   collection: !include resourceTypes/collection.raml
 
-securitySchemes:
-  client-id-enforcement:
-    type: Pass Through
-    description: MuleSoft Client ID Enforcement. Provide registered client_id and client_secret on every request.
-    describedBy:
-      headers:
-        client_id:
-          type: string
-          required: true
-          example: 7f3a1c2e4b5d6a7c8e9f0a1b
-        client_secret:
-          type: string
-          required: true
-          example: 9d8c7b6a5e4f3d2c1b0a9e8d
-      responses:
-        401:
-          description: Unauthorized — missing or invalid client credentials
-          body:
-            application/json:
-              type: types.ErrorResponse
-              examples:
-                unauthorized: !include examples/errors/error-401.json
-
 /v1/invoicing:
-  type:
-    collection:
-      responseType: types.InvoiceCollection
-      example: !include examples/invoicing.json
-  get:
-    displayName: Get invoicing
-    description: Retrieve invoicing records for the requested date range.
+  type: { collection: { responseType: types.InvoiceCollection, example: !include examples/invoicing.json } }
 
 /v1/ordering:
-  type:
-    collection:
-      responseType: types.OrderCollection
-      example: !include examples/ordering.json
-  get:
-    displayName: Get ordering
-    description: Retrieve ordering records for the requested date range.
+  type: { collection: { responseType: types.OrderCollection, example: !include examples/ordering.json } }
 
 /v1/products:
-  type:
-    collection:
-      responseType: types.ProductCollection
-      example: !include examples/products.json
-  get:
-    displayName: Get products
-    description: Retrieve product master records for the requested date range.
+  type: { collection: { responseType: types.ProductCollection, example: !include examples/products.json } }
 
 /v1/routes:
-  type:
-    collection:
-      responseType: types.RouteCollection
-      example: !include examples/routes.json
-  get:
-    displayName: Get routes
-    description: Retrieve route records for the requested date range.
+  type: { collection: { responseType: types.RouteCollection, example: !include examples/routes.json } }
 
 /v1/salesreps:
-  type:
-    collection:
-      responseType: types.SalesRepCollection
-      example: !include examples/salesreps.json
-  get:
-    displayName: Get sales reps
-    description: Retrieve sales representative records for the requested date range.
+  type: { collection: { responseType: types.SalesRepCollection, example: !include examples/salesreps.json } }
 
 /v1/stores:
-  type:
-    collection:
-      responseType: types.StoreCollection
-      example: !include examples/stores.json
-  get:
-    displayName: Get stores
-    description: Retrieve store records for the requested date range.
+  type: { collection: { responseType: types.StoreCollection, example: !include examples/stores.json } }
 
 /v1/inventory:
-  type:
-    collection:
-      responseType: types.InventoryCollection
-      example: !include examples/inventory.json
-  get:
-    displayName: Get inventory
-    description: Retrieve inventory snapshots for the requested date range.
+  type: { collection: { responseType: types.InventoryCollection, example: !include examples/inventory.json } }
 
 /v1/warehouses:
-  type:
-    collection:
-      responseType: types.WarehouseCollection
-      example: !include examples/warehouses.json
-  get:
-    displayName: Get warehouses
-    description: Retrieve warehouse records for the requested date range.
+  type: { collection: { responseType: types.WarehouseCollection, example: !include examples/warehouses.json } }
