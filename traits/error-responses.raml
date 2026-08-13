@@ -1,0 +1,78 @@
+#%RAML 1.0 Trait
+usage: Standard error responses for SAT Datashare Experience API
+
+uses:
+  types: ../libraries/types.raml
+
+responses:
+  400:
+    description: Bad Request — missing or invalid query parameters
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          missingDates: !include ../examples/errors/error-400.json
+  401:
+    description: Unauthorized — missing or invalid client credentials
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          unauthorized: !include ../examples/errors/error-401.json
+  403:
+    description: Forbidden — client is not allowed to access this resource
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          forbidden: !include ../examples/errors/error-403.json
+  404:
+    description: Not Found — resource path does not exist
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          notFound: !include ../examples/errors/error-404.json
+  405:
+    description: Method Not Allowed
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          methodNotAllowed: !include ../examples/errors/error-405.json
+  406:
+    description: Not Acceptable — requested media type is not supported
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          notAcceptable: !include ../examples/errors/error-406.json
+  429:
+    description: Too Many Requests — rate limit exceeded
+    headers:
+      Retry-After:
+        type: string
+        example: "60"
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          rateLimited: !include ../examples/errors/error-429.json
+  500:
+    description: Internal Server Error
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          internalError: !include ../examples/errors/error-500.json
+  503:
+    description: Service Unavailable — upstream system is unavailable
+    headers:
+      Retry-After:
+        type: string
+        example: "30"
+    body:
+      application/json:
+        type: types.ErrorResponse
+        examples:
+          unavailable: !include ../examples/errors/error-503.json

@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "limit": "500",
+    "offset": "0",
+    "total": 2
+  },
+  "data": [
+    {
+      "orderId": "ORD-88210",
+      "orderDate": "2026-08-02",
+      "storeId": "ST-204",
+      "salesRepId": "SR-12",
+      "productId": "P1001",
+      "productName": "BIC",
+      "quantity": "48",
+      "status": "SHIPPED",
+      "warehouseId": "WH-01"
+    },
+    {
+      "orderId": "ORD-88211",
+      "orderDate": "2026-08-08",
+      "storeId": "ST-318",
+      "salesRepId": "SR-19",
+      "productId": "P1001",
+      "productName": "BIC",
+      "quantity": "24",
+      "status": "OPEN",
+      "warehouseId": "WH-01"
+    }
+  ]
+}

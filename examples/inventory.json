@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "limit": "500",
+    "offset": "0",
+    "total": 2
+  },
+  "data": [
+    {
+      "warehouseId": "WH-01",
+      "productId": "P1001",
+      "productName": "BIC",
+      "onHandQty": "1250",
+      "availableQty": "1180",
+      "reservedQty": "70",
+      "asOfDate": "2026-08-10"
+    },
+    {
+      "warehouseId": "WH-02",
+      "productId": "P1001",
+      "productName": "BIC",
+      "onHandQty": "640",
+      "availableQty": "640",
+      "reservedQty": "0",
+      "asOfDate": "2026-08-10"
+    }
+  ]
+}

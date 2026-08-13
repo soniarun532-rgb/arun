@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "limit": "500",
+    "offset": "0",
+    "total": 2
+  },
+  "data": [
+    {
+      "warehouseId": "WH-01",
+      "warehouseName": "Central DC",
+      "city": "Dallas",
+      "state": "TX",
+      "status": "ACTIVE"
+    },
+    {
+      "warehouseId": "WH-02",
+      "warehouseName": "North DC",
+      "city": "Fort Worth",
+      "state": "TX",
+      "status": "ACTIVE"
+    }
+  ]
+}

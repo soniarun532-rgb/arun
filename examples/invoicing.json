@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "limit": "500",
+    "offset": "0",
+    "total": 2
+  },
+  "data": [
+    {
+      "invoiceId": "INV-100045",
+      "invoiceDate": "2026-08-03",
+      "storeId": "ST-204",
+      "salesRepId": "SR-12",
+      "productId": "P1001",
+      "productName": "BIC",
+      "quantity": "24",
+      "unitPrice": "1.25",
+      "totalAmount": "30.00",
+      "currency": "USD",
+      "status": "PAID"
+    },
+    {
+      "invoiceId": "INV-100046",
+      "invoiceDate": "2026-08-05",
+      "storeId": "ST-318",
+      "salesRepId": "SR-12",
+      "productId": "P1001",
+      "productName": "BIC",
+      "quantity": "12",
+      "unitPrice": "1.25",
+      "totalAmount": "15.00",
+      "currency": "USD",
+      "status": "OPEN"
+    }
+  ]
+}

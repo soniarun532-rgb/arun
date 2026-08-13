@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "limit": "500",
+    "offset": "0",
+    "total": 2
+  },
+  "data": [
+    {
+      "productId": "P1001",
+      "productName": "BIC",
+      "category": "Writing Instruments",
+      "uom": "CASE",
+      "status": "ACTIVE"
+    },
+    {
+      "productId": "P2044",
+      "productName": "PaperMate",
+      "category": "Writing Instruments",
+      "uom": "CASE",
+      "status": "ACTIVE"
+    }
+  ]
+}
