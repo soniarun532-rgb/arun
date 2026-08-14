@@ -12,25 +12,49 @@ resourceTypes:
   collection: !include resourceTypes/collection.raml
 
 /v1/invoicing:
-  type: { collection: { responseType: types.InvoiceCollection, queryTrait: invoicingQuery } }
+  type:
+    collection:
+      responseType: types.InvoiceCollection
+      queryTrait: invoicingQuery
 
 /v1/ordering:
-  type: { collection: { responseType: types.OrderCollection, queryTrait: orderingQuery } }
+  type:
+    collection:
+      responseType: types.OrderCollection
+      queryTrait: orderingQuery
 
 /v1/products:
-  type: { collection: { responseType: types.ProductCollection, queryTrait: productsQuery } }
+  type:
+    collection:
+      responseType: types.ProductCollection
+      queryTrait: productsQuery
 
 /v1/routes:
-  type: { collection: { responseType: types.RouteCollection, queryTrait: routesQuery } }
+  type:
+    collection:
+      responseType: types.RouteCollection
+      queryTrait: routesQuery
 
 /v1/salesreps:
-  type: { collection: { responseType: types.SalesRepCollection, queryTrait: salesrepsQuery } }
+  type:
+    collection:
+      responseType: types.SalesRepCollection
+      queryTrait: salesrepsQuery
 
 /v1/stores:
-  type: { collection: { responseType: types.StoreCollection, queryTrait: storesQuery } }
+  type:
+    collection:
+      responseType: types.StoreCollection
+      queryTrait: storesQuery
 
 /v1/inventory:
-  type: { collection: { responseType: types.InventoryCollection, queryTrait: inventoryQuery } }
+  type:
+    collection:
+      responseType: types.InventoryCollection
+      queryTrait: inventoryQuery
 
 /v1/warehouses:
-  type: { collection: { responseType: types.WarehouseCollection, queryTrait: warehousesQuery } }
+  type:
+    collection:
+      responseType: types.WarehouseCollection
+      queryTrait: warehousesQuery
