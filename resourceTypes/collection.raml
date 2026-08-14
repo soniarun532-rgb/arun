@@ -1,12 +1,16 @@
 #%RAML 1.0 ResourceType
-usage: Collection GET resource used by all SAT Datashare list endpoints
+usage: Collection GET. Applies the named query trait and shared errors from libraries/traits.raml.
+
+uses:
+  t: ../libraries/traits.raml
 
 description: Collection of <<resourcePathName>>
 get:
   displayName: Get <<resourcePathName>>
   description: Retrieve <<resourcePathName>> for the given date range.
   is:
-    - errorResponses
+    - t.<<queryTrait>>
+    - t.errorResponses
   responses:
     200:
       description: Successful retrieval of <<resourcePathName>>
@@ -14,4 +18,4 @@ get:
         application/json:
           type: <<responseType>>
           examples:
-            success: <<example>>
+            success: !include ../examples/records.json

@@ -8,15 +8,12 @@ types:
     properties:
       code:
         type: string
-        description: Machine-readable error code
         example: BAD_REQUEST
       message:
         type: string
-        description: Human-readable error description
         example: Invalid query parameter value
       correlationId:
         type: string
-        description: Request correlation identifier for tracing
         example: 7c9e6679-7425-40de-944b-e07fc1f90ae7
       timestamp:
         type: datetime
@@ -24,7 +21,6 @@ types:
       details:
         type: string
         required: false
-        description: Optional additional diagnostic information
 
   ErrorResponse:
     type: object
@@ -32,296 +28,79 @@ types:
     properties:
       error: ErrorDetail
 
-  PaginationMeta:
+  DataShareRecord:
     type: object
     additionalProperties: false
     properties:
-      limit:
-        type: string
-        example: "500"
-      offset:
-        type: string
-        example: "0"
-      total:
+      RECORDID:
         type: integer
-        example: 1250
+        example: 1
+      USERID:
+        type: integer
+        example: 2
+      USERNAME:
+        type: string
+        example: TEST ACCOUNT
+      SHOPID:
+        type: integer
+        example: 185
+      CUSTOMERNAME:
+        type: string
+        example: NEW CUSTOMER
+      CUSTOMERCATEGORY:
+        type: string
+        example: RETAIL SHOP
+      LOCATION_NAME:
+        type: string
+        example: GIKAMBURA
+      LOCATION_ID:
+        type: integer
+        example: 4
+      ACCOUNTNAME:
+        type: nil | string
+        example: null
+      USERCATEGORY:
+        type: string
+        example: SOLUTECH
+      REGION_NAME:
+        type: string
+        example: NAIROBI
+      PRODUCTCATEGORY:
+        type: nil | string
+        example: null
+      BRAND_NAME:
+        type: string
+        example: LIGHTERS
+      CSKU:
+        type: nil | string
+        example: null
+      MECHANISM:
+        type: string
+        example: BOGOF
+      BEFOREVALUE:
+        type: string
+        example: "300"
+      AFTERVALUE:
+        type: string
+        example: "250"
+      NOTES:
+        type: string
+        example: test
+      ENTRYTIME:
+        type: string
+        example: "2026-06-08T16:28:55"
+      CREATED_AT:
+        type: string
+        example: "2026-06-08T16:28:57"
+      UPDATED_AT:
+        type: string
+        example: "2026-06-08T16:28:57"
 
-  Invoice:
-    type: object
-    additionalProperties: false
-    properties:
-      invoiceId:
-        type: string
-        example: INV-100045
-      invoiceDate:
-        type: string
-        example: "2026-08-03"
-      storeId:
-        type: string
-        example: ST-204
-      salesRepId:
-        type: string
-        example: SR-12
-      productId:
-        type: string
-        example: P1001
-      productName:
-        type: string
-        example: BIC
-      quantity:
-        type: string
-        example: "24"
-      unitPrice:
-        type: string
-        example: "1.25"
-      totalAmount:
-        type: string
-        example: "30.00"
-      currency:
-        type: string
-        example: USD
-      status:
-        type: string
-        example: PAID
-
-  InvoiceCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Invoice
-
-  Order:
-    type: object
-    additionalProperties: false
-    properties:
-      orderId:
-        type: string
-        example: ORD-88210
-      orderDate:
-        type: string
-        example: "2026-08-02"
-      storeId:
-        type: string
-        example: ST-204
-      salesRepId:
-        type: string
-        example: SR-12
-      productId:
-        type: string
-        example: P1001
-      productName:
-        type: string
-        example: BIC
-      quantity:
-        type: string
-        example: "48"
-      status:
-        type: string
-        example: SHIPPED
-      warehouseId:
-        type: string
-        example: WH-01
-
-  OrderCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Order
-
-  Product:
-    type: object
-    additionalProperties: false
-    properties:
-      productId:
-        type: string
-        example: P1001
-      productName:
-        type: string
-        example: BIC
-      category:
-        type: string
-        example: Writing Instruments
-      uom:
-        type: string
-        example: CASE
-      status:
-        type: string
-        example: ACTIVE
-
-  ProductCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Product
-
-  Route:
-    type: object
-    additionalProperties: false
-    properties:
-      routeId:
-        type: string
-        example: RT-EAST-07
-      routeName:
-        type: string
-        example: East Metro
-      salesRepId:
-        type: string
-        example: SR-12
-      warehouseId:
-        type: string
-        example: WH-01
-      status:
-        type: string
-        example: ACTIVE
-
-  RouteCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Route
-
-  SalesRep:
-    type: object
-    additionalProperties: false
-    properties:
-      salesRepId:
-        type: string
-        example: SR-12
-      firstName:
-        type: string
-        example: Jordan
-      lastName:
-        type: string
-        example: Lee
-      email:
-        type: string
-        example: jordan.lee@example.com
-      routeId:
-        type: string
-        example: RT-EAST-07
-      status:
-        type: string
-        example: ACTIVE
-
-  SalesRepCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: SalesRep
-
-  Store:
-    type: object
-    additionalProperties: false
-    properties:
-      storeId:
-        type: string
-        example: ST-204
-      storeName:
-        type: string
-        example: Metro Mart #204
-      address:
-        type: string
-        example: 100 Main St
-      city:
-        type: string
-        example: Austin
-      state:
-        type: string
-        example: TX
-      postalCode:
-        type: string
-        example: "78701"
-      routeId:
-        type: string
-        example: RT-EAST-07
-      status:
-        type: string
-        example: ACTIVE
-
-  StoreCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Store
-
-  InventoryItem:
-    type: object
-    additionalProperties: false
-    properties:
-      warehouseId:
-        type: string
-        example: WH-01
-      productId:
-        type: string
-        example: P1001
-      productName:
-        type: string
-        example: BIC
-      onHandQty:
-        type: string
-        example: "1250"
-      availableQty:
-        type: string
-        example: "1180"
-      reservedQty:
-        type: string
-        example: "70"
-      asOfDate:
-        type: string
-        example: "2026-08-10"
-
-  InventoryCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: InventoryItem
-
-  Warehouse:
-    type: object
-    additionalProperties: false
-    properties:
-      warehouseId:
-        type: string
-        example: WH-01
-      warehouseName:
-        type: string
-        example: Central DC
-      city:
-        type: string
-        example: Dallas
-      state:
-        type: string
-        example: TX
-      status:
-        type: string
-        example: ACTIVE
-
-  WarehouseCollection:
-    type: object
-    additionalProperties: false
-    properties:
-      meta: PaginationMeta
-      data:
-        type: array
-        items: Warehouse
+  InvoiceCollection: DataShareRecord[]
+  OrderCollection: DataShareRecord[]
+  ProductCollection: DataShareRecord[]
+  RouteCollection: DataShareRecord[]
+  SalesRepCollection: DataShareRecord[]
+  StoreCollection: DataShareRecord[]
+  InventoryCollection: DataShareRecord[]
+  WarehouseCollection: DataShareRecord[]
