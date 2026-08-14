@@ -9,32 +9,47 @@ uses:
   types: libraries/types.raml
 
 traits:
-  queryParams: !include traits/query-params.raml
+  invoicingQuery: !include traits/invoicing-query.raml
+  orderingQuery: !include traits/ordering-query.raml
+  productsQuery: !include traits/products-query.raml
+  routesQuery: !include traits/routes-query.raml
+  salesrepsQuery: !include traits/salesreps-query.raml
+  storesQuery: !include traits/stores-query.raml
+  inventoryQuery: !include traits/inventory-query.raml
+  warehousesQuery: !include traits/warehouses-query.raml
   errorResponses: !include traits/error-responses.raml
 
 resourceTypes:
   collection: !include resourceTypes/collection.raml
 
 /v1/invoicing:
+  is: [ invoicingQuery ]
   type: { collection: { responseType: types.InvoiceCollection, example: !include examples/invoicing.json } }
 
 /v1/ordering:
+  is: [ orderingQuery ]
   type: { collection: { responseType: types.OrderCollection, example: !include examples/ordering.json } }
 
 /v1/products:
+  is: [ productsQuery ]
   type: { collection: { responseType: types.ProductCollection, example: !include examples/products.json } }
 
 /v1/routes:
+  is: [ routesQuery ]
   type: { collection: { responseType: types.RouteCollection, example: !include examples/routes.json } }
 
 /v1/salesreps:
+  is: [ salesrepsQuery ]
   type: { collection: { responseType: types.SalesRepCollection, example: !include examples/salesreps.json } }
 
 /v1/stores:
+  is: [ storesQuery ]
   type: { collection: { responseType: types.StoreCollection, example: !include examples/stores.json } }
 
 /v1/inventory:
+  is: [ inventoryQuery ]
   type: { collection: { responseType: types.InventoryCollection, example: !include examples/inventory.json } }
 
 /v1/warehouses:
+  is: [ warehousesQuery ]
   type: { collection: { responseType: types.WarehouseCollection, example: !include examples/warehouses.json } }
