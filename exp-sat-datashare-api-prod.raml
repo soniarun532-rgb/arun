@@ -5,39 +5,56 @@ protocols: [ HTTPS ]
 baseUri: https://api.example.com/exp-sat-datashare-api-prod
 mediaType: application/json
 
-uses:
-  types: libraries/types.raml
+traits:
+  invoiceQuery: !include traits/invoice-query.raml
+  orderQuery: !include traits/order-query.raml
+  productQuery: !include traits/product-query.raml
+  routeQuery: !include traits/route-query.raml
+  salesRepQuery: !include traits/salesrep-query.raml
+  storeQuery: !include traits/store-query.raml
+  inventoryQuery: !include traits/inventory-query.raml
+  warehouseQuery: !include traits/warehouse-query.raml
+  errorResponses: !include traits/error-responses.raml
 
 resourceTypes:
-  invoice: !include resourceTypes/invoice.raml
-  order: !include resourceTypes/order.raml
-  product: !include resourceTypes/product.raml
-  route: !include resourceTypes/route.raml
-  salesRep: !include resourceTypes/salesrep.raml
-  store: !include resourceTypes/store.raml
-  inventory: !include resourceTypes/inventory.raml
-  warehouse: !include resourceTypes/warehouse.raml
+  collection: !include resourceTypes/collection.raml
 
 /v1/Invoice:
-  type: invoice
+  type: collection
+  is:
+    - invoiceQuery
 
 /v1/Order:
-  type: order
+  type: collection
+  is:
+    - orderQuery
 
 /v1/Product:
-  type: product
+  type: collection
+  is:
+    - productQuery
 
 /v1/Route:
-  type: route
+  type: collection
+  is:
+    - routeQuery
 
 /v1/SalesRep:
-  type: salesRep
+  type: collection
+  is:
+    - salesRepQuery
 
 /v1/Store:
-  type: store
+  type: collection
+  is:
+    - storeQuery
 
 /v1/Inventory:
-  type: inventory
+  type: collection
+  is:
+    - inventoryQuery
 
 /v1/Warehouse:
-  type: warehouse
+  type: collection
+  is:
+    - warehouseQuery

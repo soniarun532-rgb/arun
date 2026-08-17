@@ -1,5 +1,5 @@
 #%RAML 1.0 Library
-usage: Shared data types for SAT Datashare Experience API
+usage: Shared error types for SAT Datashare Experience API
 
 types:
   ErrorDetail:
@@ -27,80 +27,3 @@ types:
     additionalProperties: false
     properties:
       error: ErrorDetail
-
-  DataShareRecord:
-    type: object
-    additionalProperties: false
-    properties:
-      RECORDID:
-        type: integer
-        example: 1
-      USERID:
-        type: integer
-        example: 2
-      USERNAME:
-        type: string
-        example: TEST ACCOUNT
-      SHOPID:
-        type: integer
-        example: 185
-      CUSTOMERNAME:
-        type: string
-        example: NEW CUSTOMER
-      CUSTOMERCATEGORY:
-        type: string
-        example: RETAIL SHOP
-      LOCATION_NAME:
-        type: string
-        example: GIKAMBURA
-      LOCATION_ID:
-        type: integer
-        example: 4
-      ACCOUNTNAME:
-        type: nil | string
-        example: null
-      USERCATEGORY:
-        type: string
-        example: SOLUTECH
-      REGION_NAME:
-        type: string
-        example: NAIROBI
-      PRODUCTCATEGORY:
-        type: nil | string
-        example: null
-      BRAND_NAME:
-        type: string
-        example: LIGHTERS
-      CSKU:
-        type: nil | string
-        example: null
-      MECHANISM:
-        type: string
-        example: BOGOF
-      BEFOREVALUE:
-        type: string
-        example: "300"
-      AFTERVALUE:
-        type: string
-        example: "250"
-      NOTES:
-        type: string
-        example: test
-      ENTRYTIME:
-        type: string
-        example: "2026-06-08T16:28:55"
-      CREATED_AT:
-        type: string
-        example: "2026-06-08T16:28:57"
-      UPDATED_AT:
-        type: string
-        example: "2026-06-08T16:28:57"
-
-  InvoiceCollection: DataShareRecord[]
-  OrderCollection: DataShareRecord[]
-  ProductCollection: DataShareRecord[]
-  RouteCollection: DataShareRecord[]
-  SalesRepCollection: DataShareRecord[]
-  StoreCollection: DataShareRecord[]
-  InventoryCollection: DataShareRecord[]
-  WarehouseCollection: DataShareRecord[]
