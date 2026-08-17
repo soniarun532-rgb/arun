@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<!-- Endpoint C: GET /api/Sales — bi_salesmaster LEFT JOIN bi_customer_visits -->
+	<flow name="get-Sales-main" doc:id="c0a1e001-sales-get-mysql-0001">
+		<http:listener doc:name="GET /api/Sales" doc:id="c0a1e001-sales-listener-0001" config-ref="solutech-system-api-httpListenerConfig" path="/api/Sales" allowedMethods="GET">
+			<http:response statusCode="#[vars.httpStatus default 200]">
+				<http:headers><![CDATA[#[output application/java
+---
+{
+	"Content-Type": "application/json"
+}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]">
+				<http:body><![CDATA[#[payload]]]></http:body>
+				<http:headers><![CDATA[#[output application/java
+---
+{
+	"Content-Type": "application/json"
+}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<logger level="INFO" doc:name="Start GET Sales" message='#["Starting GET /api/Sales queryParams=" ++ write(attributes.queryParams default {}, "application/json")]' />
+		<ee:transform doc:name="Validate Sales query params">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="fromDate"><![CDATA[attributes.queryParams.fromDate default ""]]></ee:set-variable>
+				<ee:set-variable variableName="toDate"><![CDATA[attributes.queryParams.toDate default ""]]></ee:set-variable>
+				<ee:set-variable variableName="Database"><![CDATA[attributes.queryParams.Database default ""]]></ee:set-variable>
+				<ee:set-variable variableName="PageNumber"><![CDATA[(attributes.queryParams.PageNumber default "1") as Number default 1]]></ee:set-variable>
+				<ee:set-variable variableName="pageSize"><![CDATA[(p("db.page.size") default "100") as Number]]></ee:set-variable>
+				<ee:set-variable variableName="productIds"><![CDATA[%dw 2.0
+output application/java
+var raw = attributes.queryParams.Product_ID default null
+var asArray =
+	if (raw == null or raw == "") []
+	else if (raw is Array) raw
+	else (raw as String) splitBy ","
+---
+asArray map ((trim($ as String))) filter ((v) -> v matches /^\d+$/)]]></ee:set-variable>
+				<ee:set-variable variableName="validationError"><![CDATA[%dw 2.0
+output application/java
+var fromDate = attributes.queryParams.fromDate default ""
+var toDate = attributes.queryParams.toDate default ""
+var dbName = attributes.queryParams.Database default ""
+var page = (attributes.queryParams.PageNumber default "1") as String
+---
+if (fromDate == "" or !(fromDate matches /^\d{4}-\d{2}-\d{2}$/))
+	"fromDate is required as YYYY-MM-DD"
+else if (toDate == "" or !(toDate matches /^\d{4}-\d{2}-\d{2}$/))
+	"toDate is required as YYYY-MM-DD"
+else if (dbName == "" or !(dbName matches /^[A-Za-z][A-Za-z0-9_]*$/))
+	"Database is required and must be a valid schema name"
+else if (!(page matches /^\d+$/) or ((page as Number) < 1))
+	"PageNumber must be a positive integer"
+else
+	null]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Sales params valid?">
+			<when expression="#[vars.validationError != null]">
+				<ee:transform doc:name="400 Sales">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	status: 400,
+	error: vars.validationError
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</when>
+			<otherwise>
+				<ee:transform doc:name="Build Sales SQL">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
+output text/plain
+var schema = vars.Database
+var ids = vars.productIds default []
+var productFilter = if (sizeOf(ids) > 0) (" AND a.product_id IN (" ++ (ids joinBy ",") ++ ")") else ""
+var offset = ((vars.PageNumber as Number) - 1) * (vars.pageSize as Number)
+---
+"SELECT a.SHOPID AS STOREID, a.USERID AS SalesRepID, b.routeid AS RouteID, a.product_id AS ProductID, '???' AS DistributorID, a.Supplier_id AS WarehouseID, a.SALE_ORDER_ID AS OrderNumber, a.Entry_ID AS InvoiceNumber, DATE_FORMAT(a.Created_AT, '%d/%m/%Y') AS InvoiceDate, DATE_FORMAT(a.Created_AT, '%H:%i:%s') AS InvoiceTimepart, a.Payment_Status AS InvoiceStatus, a.packaging AS UnitOfMeasure, 'KES' AS Currency, a.quantity AS QuantityInvoiced, a.value_sold AS AmountInvoiced, '???' AS Discount, '???' AS VATAmount, a.Entry_Type AS TransType FROM " ++ schema ++ ".bi_salesmaster AS a LEFT JOIN " ++ schema ++ ".bi_customer_visits AS b ON a.VisitID = b.visitid WHERE a.Created_AT BETWEEN :fromTs AND :toTs" ++ productFilter ++ " ORDER BY a.Created_AT, a.Entry_ID LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (offset as String)]]></ee:set-variable>
+						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	fromTs: vars.fromDate ++ " 00:00:00",
+	toTs: vars.toDate ++ " 00:00:00"
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<logger level="INFO" doc:name="Sales SQL" message='#["GET /api/Sales sqlParams=" ++ write(vars.sqlParams, "application/json")]' />
+				<db:select doc:name="Query bi_salesmaster" config-ref="MySQL_Config">
+					<db:sql><![CDATA[#[vars.sql]]]></db:sql>
+					<db:input-parameters><![CDATA[#[vars.sqlParams]]]></db:input-parameters>
+				</db:select>
+				<ee:transform doc:name="Sales JSON page">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	status: "success",
+	endpoint: "Sales",
+	pageNumber: vars.PageNumber as Number,
+	pageSize: vars.pageSize as Number,
+	count: sizeOf(payload default []),
+	data: payload default []
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="httpStatus"><![CDATA[200]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End GET Sales" message='#["Ending GET /api/Sales httpStatus=" ++ (vars.httpStatus default 200)]' />
+		<error-handler ref="global-error-handler" />
+	</flow>
+</mule>
