@@ -4,35 +4,34 @@
       xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
       xmlns:http="http://www.mulesoft.org/schema/mule/http"
       xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
-      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
         http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
-        http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
-        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+        http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
 
-    <global-property name="mule.env" value="dev"/>
-    <global-property name="secure.key" value="local-dev-key-16"/>
+    <global-property name="mule.env" value="dev" doc:name="Global_Property_mule.env"/>
+    <global-property name="secure.key" value="local-dev-key-16" doc:name="Global_Property_secure.key"/>
 
-    <configuration-properties file="properties/config-${mule.env}.yaml" doc:name="Environment properties"/>
+    <configuration-properties file="properties/config-common.yaml" doc:name="Configuration_Properties_common"/>
+    <configuration-properties file="properties/config-${mule.env}.yaml" doc:name="Configuration_Properties_env"/>
 
     <secure-properties:config name="Secure_Properties_Config"
                               key="${secure.key}"
                               file="properties/secure-${mule.env}.yaml"
                               fileType="YAML"
-                              doc:name="Secure Properties Config">
+                              doc:name="Secure_Properties_Config">
         <secure-properties:encrypt algorithm="AES" mode="CBC"/>
     </secure-properties:config>
 
-    <http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config">
+    <http:listener-config name="HTTP_Listener_config" doc:name="HTTP_Listener_config">
         <http:listener-connection host="${http.host}" port="${http.port}"/>
     </http:listener-config>
 
-    <http:request-config name="Process_API_Request_config"
+    <http:request-config name="HTTP_Request_config_prc-solutech-api"
                          responseTimeout="${process.api.responseTimeout}"
-                         doc:name="Process API Request config">
+                         doc:name="HTTP_Request_config_prc-solutech-api">
         <http:request-connection protocol="HTTPS" host="${process.api.host}" port="${process.api.port}"/>
     </http:request-config>
 
@@ -40,98 +39,5 @@
                    raml="api/exp-sat-datashare-prod-api.raml"
                    outboundHeadersMapName="outboundHeaders"
                    httpStatusVarName="httpStatus"
-                   doc:name="APIKit Router Config"/>
-
-    <error-handler name="global-error-handler" doc:name="Global Error Handler">
-        <on-error-propagate type="APIKIT:BAD_REQUEST, HTTP:BAD_REQUEST" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="400"/>
-            <set-variable variableName="errorCode" value="BAD_REQUEST"/>
-            <set-variable variableName="errorMessage" value="fromDate and toDate are required query parameters"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="APIKIT:NOT_FOUND, HTTP:NOT_FOUND" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="404"/>
-            <set-variable variableName="errorCode" value="NOT_FOUND"/>
-            <set-variable variableName="errorMessage" value="The requested resource was not found"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="405"/>
-            <set-variable variableName="errorCode" value="METHOD_NOT_ALLOWED"/>
-            <set-variable variableName="errorMessage" value="HTTP method is not allowed for this resource"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="APIKIT:NOT_ACCEPTABLE" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="406"/>
-            <set-variable variableName="errorCode" value="NOT_ACCEPTABLE"/>
-            <set-variable variableName="errorMessage" value="Requested Accept header is not supported. Use application/json"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="HTTP:UNAUTHORIZED, HTTP:CLIENT_SECURITY" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="401"/>
-            <set-variable variableName="errorCode" value="UNAUTHORIZED"/>
-            <set-variable variableName="errorMessage" value="Missing or invalid client credentials"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="HTTP:FORBIDDEN" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="403"/>
-            <set-variable variableName="errorCode" value="FORBIDDEN"/>
-            <set-variable variableName="errorMessage" value="Client is not authorized to access this resource"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="HTTP:TOO_MANY_REQUESTS" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="429"/>
-            <set-variable variableName="errorCode" value="TOO_MANY_REQUESTS"/>
-            <set-variable variableName="errorMessage" value="Rate limit exceeded. Retry after the duration in Retry-After"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="HTTP:CONNECTIVITY, HTTP:TIMEOUT, HTTP:SERVICE_UNAVAILABLE" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="503"/>
-            <set-variable variableName="errorCode" value="SERVICE_UNAVAILABLE"/>
-            <set-variable variableName="errorMessage" value="Upstream datashare system is temporarily unavailable"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-        <on-error-propagate type="ANY" enableNotifications="true" logException="true">
-            <set-variable variableName="httpStatus" value="#[vars.httpStatus default 500]"/>
-            <set-variable variableName="errorCode" value="INTERNAL_SERVER_ERROR"/>
-            <set-variable variableName="errorMessage" value="An unexpected error occurred while processing the request"/>
-            <ee:transform>
-                <ee:message>
-                    <ee:set-payload resource="dwl/error-response.dwl"/>
-                </ee:message>
-            </ee:transform>
-        </on-error-propagate>
-    </error-handler>
+                   doc:name="APIkit_Router_config"/>
 </mule>

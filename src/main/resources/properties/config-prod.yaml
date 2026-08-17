@@ -1,16 +1,8 @@
 http:
-  host: "0.0.0.0"
   port: "8081"
-
-api:
-  name: "exp-sat-datashare-prod-api"
-  version: "v1"
 
 process:
   api:
-    host: "prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
-    port: "443"
-    basePath: "/api"
     responseTimeout: "60000"
     database: "PROD_DATABASE"
     supplier: "PROD_SUPPLIER"
