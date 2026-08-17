@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="post-Business-Central-Adapter_Sales_Document-Subflow" doc:id="7ac99566-a7a3-44d0-a461-9baae58754f3" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="dbc34d3e-82c5-4ab4-9ee4-3a5c47209aae" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Sales_Document invoked. Payload" doc:id="c995b28a-ad70-48cf-8f81-65f9c4ee884b" message="[Prc-BusinessCentral] POST /Adapter_Sales_Document invoked. Payload: #[vars.TransformedPayload]" />
+		<http:request method="#[vars.request_method]" doc:name="POST to Business Central Adapter_Sales_Document" doc:id="f0d150e1-2456-4573-a334-2660bbd90334" config-ref="HTTP_Request_BC_Process_Layer" path='#["/api/" ++ vars.request_endpoint]'>
+						<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[vars.TransformedPayload]]]></http:body>
+						<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.TARGET_Environment,
+	"\$system" : vars.TARGET_System ,
+	"\$tenantGuidBusinessCentral" : vars.TARGET_GUID,
+	"\$companyBusinessCentral" : vars.TARGET_Company
+}]]]></http:query-params>
+					</http:request>
+		<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Sales_Document Received Response" doc:id="508b357f-7923-444e-a795-4551270f6b7a" message="[Prc-BusinessCentral] POST /Adapter_Sales_Document Received Response:#[payload]" />
+		<logger level="INFO" doc:name="End Logger" doc:id="89c5f7bc-2d64-45f1-a4f9-5ba7963a5c8f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+</mule>

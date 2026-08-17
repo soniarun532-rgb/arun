@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="post-v1-integrations-customers-main-impl" doc:id="28230fd8-92ed-4991-b680-217db97c5cb0">
+    	 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+    <logger level="INFO" message="[Sys-Solutech] POST /customers invoked. Payload: #[payload]" doc:name="[Sys-Solutech] POST /customers invoked. Payload"/>
+
+    <!-- 🔑 Get OAuth Token -->
+		<ee:transform doc:name="Target Queryparams" doc:id="382abdcb-05ac-41cc-9dc2-ccc697820185">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company"><![CDATA[(attributes.queryParams.Target_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment"><![CDATA[(attributes.queryParams.Target_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID"><![CDATA[(attributes.queryParams.Target_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System"><![CDATA[(attributes.queryParams.Target_System default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value='#["customers"]' doc:name="request_endpoint to customers" doc:id="4b6fd40c-5104-4474-bbb0-926058b20e72" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name="request_method to POST" doc:id="5929369f-6205-4b7a-acb7-58330c97c816" variableName="request_method"/>
+		<set-variable value='#["test"]' doc:name="access_token" doc:id="a5883eaf-37b5-47da-b64d-3cfa7fbdfb21" variableName="access_token"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Sys-Solutech" doc:id="f12f5ef6-4fd7-4adf-9e45-f3b58e155a3d" config-ref="HTTP_Request_Solutech_Sys_Layer" path='#["/api/v1/integrations/" ++ vars.request_endpoint]'>
+						<reconnect count="${http.request.retry.count}" frequency="${http.request.retry.interval}"/>
+			<http:headers><![CDATA[#[{
+            'Authorization': 'Bearer ' ++ vars.access_token,
+            'Content-Type': 'application/json'
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"Target_GUID" : vars.Target_GUID default null,
+	"Target_Environment" : vars.Target_Environment default null,
+	"Target_Company" : vars.Target_Company default null,
+	"Target_System" : vars.Target_System default null
+}]]]></http:query-params>
+
+		
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /customers Received Response" doc:id="232d5ae7-a3bf-4a01-8fec-10572f66f68c" message="[Prc-BusinessCentral] POST /customers Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="0cc23919-d676-4e76-a638-1f4a75bb5567" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+
+
+</flow>
+		<flow name="post-v1-integrations-products-main-impl" doc:id="0cceff1b-e101-418d-864d-4e4a129ce69d">
+    	 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+    <logger level="INFO" message="[Sys-Solutech] POST /products invoked. Payload: #[payload]" doc:name="[Sys-Solutech] POST /products invoked. Payload"/>
+
+    <!-- 🔑 Get OAuth Token -->
+		<ee:transform doc:name="Target Queryparams" doc:id="d8d8cc28-e9df-450a-98cd-d598e64fb61d">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company"><![CDATA[(attributes.queryParams.Target_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment"><![CDATA[(attributes.queryParams.Target_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID"><![CDATA[(attributes.queryParams.Target_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System"><![CDATA[(attributes.queryParams.Target_System default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value='#["products"]' doc:name="request_endpoint to products" doc:id="5f403597-034d-4ad7-8284-d64eabf7b1d7" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name="request_method to POST" doc:id="b802dd4f-1f51-483f-a4be-feef7a065b7c" variableName="request_method"/>
+		<set-variable value='#["test"]' doc:name="access_token" doc:id="923941d3-cce8-44a0-8c00-c1f647434fff" variableName="access_token"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Sys-Solutech" doc:id="2018a89d-eb9c-4b61-8859-b3c674de0de1" config-ref="HTTP_Request_Solutech_Sys_Layer" path='#["/api/v1/integrations/" ++ vars.request_endpoint]'>
+						<reconnect count="${http.request.retry.count}" blocking="false" frequency="${http.request.retry.interval}"/>
+			<http:headers><![CDATA[#[{
+            'Authorization': 'Bearer ' ++ vars.access_token,
+            'Content-Type': 'application/json'
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"Target_GUID" : vars.Target_GUID default null,
+	"Target_Environment" : vars.Target_Environment default null,
+	"Target_Company" : vars.Target_Company default null,
+	"Target_System" : vars.Target_System default null
+}]]]></http:query-params>
+
+		
+
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /products Received Response" doc:id="a2ad99aa-7765-4c60-8400-ac2d930aed33" message="[Prc-BusinessCentral] POST /products Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="acbd4861-e7e9-41b4-a9f6-5d7c45d0aa6a" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+
+
+</flow>
+		<flow name="post-v1-integrations-stock-transfer-main-impl" doc:id="c579b877-535c-4663-ab35-670e93eb7d29">
+    	 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+    <logger level="INFO" message="[Sys-Solutech] POST /stock-transfer invoked. Payload: #[payload]" doc:name="[Sys-Solutech] POST /stock-transfer invoked. Payload"/>
+
+    <!-- 🔑 Get OAuth Token -->
+		<ee:transform doc:name="Target Queryparams" doc:id="adccdfdc-d33f-4863-bc06-c9b29be7b7dc">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company" ><![CDATA[(attributes.queryParams.Target_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment" ><![CDATA[(attributes.queryParams.Target_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID" ><![CDATA[(attributes.queryParams.Target_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System" ><![CDATA[(attributes.queryParams.Target_Company default null)]]></ee:set-variable>
+			
+</ee:variables>
+		</ee:transform>
+		<set-variable value='#["stock-transfer"]' doc:name="request_endpoint to stock-transfer" doc:id="8d6f9b86-d25d-4868-bab5-858a1c200b99" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name="request_method to POST" doc:id="4d299233-0869-4361-8464-c61a1c99cccf" variableName="request_method"/>
+		<set-variable value='#["test"]' doc:name="access_token" doc:id="7d5fc629-cdac-4ab0-9aeb-26a7be689c56" variableName="access_token"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Sys-Solutech" doc:id="08c6f477-c1dc-443c-b128-d71caedc7764" config-ref="HTTP_Request_Solutech_Sys_Layer" path='#["/api/v1/integrations/" ++ vars.request_endpoint]'>
+						<reconnect count="${http.request.retry.count}" blocking="false" frequency="${http.request.retry.interval}"/>
+			<http:headers><![CDATA[#[{
+            'Authorization': 'Bearer ' ++ vars.access_token,
+            'Content-Type': 'application/json'
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"Target_GUID" : vars.Target_GUID default null,
+	"Target_Environment" : vars.Target_Environment default null,
+	"Target_Company" : vars.Target_Company default null,
+	"Target_System" : vars.Target_System default null
+}]]]></http:query-params>
+
+		
+
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /stock-transfer Received Response" doc:id="24b1a41a-0b5f-4090-86ae-ecd51e33e3ff" message="[Prc-BusinessCentral] POST /stock-transfer Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="bd21f3c0-00b9-4d06-be64-a53ec1ad2614" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+
+</flow>
+		<sub-flow name="post-oauth-token-main-impl" doc:id="ca4d1eac-7121-4326-9b2d-065b75ee180a" >
+		<logger level="INFO" message="Client Secret: #[if (p('env') == 'dev') p('secure::erp.solutechlabs.client_secret') else '********']" doc:name="Client Secret"/>
+		<http:request method="POST" doc:name="POST to Microsoft Entra ID" doc:id="8c1ba3fd-8ea3-455e-ad1c-c8ee3d3bf3c4" path="/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token" sendBodyMode="ALWAYS" config-ref="HTTP_Request_microsoftonline_oauth2_config">
+			<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+    grant_type: p("microsoftonline.oauth2.grant_type"),
+    client_id: p("microsoftonline.oauth2.client_id"),
+    client_secret: p("secure::microsoftonline.oauth2.client_secret"),
+    scope: p("microsoftonline.oauth2.scope")
+}]]]></http:body>
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"Name" : "Content-Type",
+	"Value" : "application/json"
+}]]]></http:headers>
+		</http:request>
+		<set-variable value="#[payload.access_token]" doc:name="Token" doc:id="3d9974ac-117b-4e85-9f69-625f648edcb8" variableName="access_token"/>
+		
+		<logger level="INFO" doc:name="access_token" doc:id="875ad2cb-397c-415b-a119-3c0b66271ed0" message="access_token:#[vars.access_token]"/>
+	</sub-flow>
+<flow name="Adapter_Customer-main" doc:id="104134f9-72b3-49fe-84ef-b929e4b1f0b1">
+		 <!-- 🟢 Log start -->
+    <logger level="INFO" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' doc:name="Start Logger" />
+    <logger level="INFO" message="[Sys-Solutech] POST /Adapter_Customer invoked. Payload: #[payload],queryParams:#[attributes.queryParams]" doc:name="[Sys-Solutech] POST /Adapter_Customer invoked. Payload,queryParams" />
+
+    <!-- 🔑 Get OAuth Token -->
+		<ee:transform doc:name="Transform Message" doc:id="c9e3f8ce-7bb0-47cb-9214-30171c4cd3f0">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Body"><![CDATA[payload]]></ee:set-variable>
+				<ee:set-variable variableName="request_endpoint"><![CDATA["Integration_Customer"]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA[(attributes.queryParams.ACTION default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_System"><![CDATA[(attributes.queryParams.SOURCE_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_GUID"><![CDATA[(attributes.queryParams.Source_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Environment"><![CDATA[(attributes.queryParams.SOURCE_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Company"><![CDATA[(attributes.queryParams.SOURCE_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_System"><![CDATA[(attributes.queryParams.TARGET_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_GUID"><![CDATA[(attributes.queryParams.TARGET_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Environment"><![CDATA[(attributes.queryParams.TARGET_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Company"><![CDATA[(attributes.queryParams.TARGET_Company default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Check TARGET_System" doc:id="3e701612-06cf-4ed5-b91e-8e6c7ae4564f">
+			<when expression='#[lower(vars.TARGET_System ) == "bc"]'>
+				<ee:transform doc:name="SAT to BC Mappings" doc:id="d82dd2f4-99a7-4968-984f-010d5e8352d2">
+			<ee:message>
+			</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="TransformedPayload"><![CDATA[%dw 2.0
+output application/json skipNullOn = "everywhere"
+var body = vars.Body
+//var length_orgcode = sizeOf(vars.Body.organization_code default "")
+var length_customer_code = sizeOf(vars.Body.customer_code default "")
+---
+if ( length_customer_code > 0 ) {
+	"Customers": [{
+		"Customer_No": body.customer_code,
+		"EXT_Cust_Ref_No": body.record_id
+	}]
+}
+else
+{
+	"Customers": [{
+		"Customer_No": "",
+		"Name": body.name,
+		"Contact_Name": body.contact_person,
+		"Address": body.address,
+		"Address_2": body.location,
+		"City": body.region,
+		"Post_Code": body.postal_address,
+		"Country_Code": body.country_code,
+		"Phone_No": body.phone_number,
+		"Email": body.email,
+		"Gen_Bus_Posting_Group": "DOMESTIC",
+		"Customer_Posting_Group": body.category,
+		"Customer_Price_Group": "",
+		"Customer_Disc_Group": "",
+		"Tin_No": body.vat_number,
+		"Solutech_Customer_Ref_No": body.record_id as String,
+		"Blocked": if ( body.account_status == "1" ) 0
+                else if ( body.account_status == "0" ) 1
+                else
+                    0,
+		"Credit_Limit": body.credit_limit,
+		"Payment_Terms_Code": body.payment_terms_code,
+		"VAT_Bus_Posting_Group": "LOCAL",
+		"EXT_Cust_Ref_No": body.record_id as String
+	}]
+}]]></ee:set-variable>
+					</ee:variables>
+		</ee:transform>
+				<flow-ref doc:name="post-Business-Central-Adapter_Customer-subflow" doc:id="a9e10cf4-22de-4c65-83eb-f95e60c73987" name="post-Business-Central-Adapter_Customer-subflow" />
+		<logger level="INFO" doc:name="End Logger" doc:id="dcfffaa0-a673-4701-ace5-8c96f7c4172b" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+			</when>
+			<otherwise>
+				<logger level="INFO" doc:name="TARGET_System" doc:id="ae6e19ae-374d-4873-b99b-b1378d40bb8d" message="#[lower(vars.TARGET_System)]" />
+			</otherwise>
+		</choice>
+	
+</flow>
+<flow name="post-Business-Central-Adapter_Customer-subflow" doc:id="54b0b4c7-e766-454a-8add-a67c47ff0568">
+    		 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+<logger level="INFO" message="[Prc-BusinessCentral] POST /Adapter_Customer invoked. Payload: #[vars.TransformedPayload]" doc:name="[Prc-BusinessCentral] POST /Adapter_Customer invoked. Payload"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Business Central Adapter_Customer" doc:id="bcd5c9c0-f2c5-4e1b-88aa-f26fb1f4bd83" config-ref="HTTP_Request_BC_Process_Layer" path='#["/api/" ++ vars.request_endpoint]'>
+			<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[vars.TransformedPayload]]]></http:body>
+				<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.TARGET_Environment,
+	"\$system" : vars.TARGET_System ,
+	"\$tenantGuidBusinessCentral" : vars.TARGET_GUID,
+	"\$companyBusinessCentral" : vars.TARGET_Company
+}]]]></http:query-params>
+		
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Customer Received Response" doc:id="752e9d1e-65f4-472f-8c98-7ca4e2c473af" message="[Prc-BusinessCentral] POST /Adapter_Customer Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="4bce24d5-b084-42a9-9b6f-3cba7adc4829" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+</flow>
+	<flow name="Adapter_Inventory_Transfer_Request-main" doc:id="ca0cfa51-7b72-40ea-9a0b-993fe5cbcf88" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="93acb031-abbc-4d24-ba10-d0eb5bee2d72" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] POST /Adapter_Inventory_Transfer_Request invoked. Payload,queryParams" doc:id="25aea41f-f415-4c27-b669-e25f1c251c74" message="[Sys-Solutech] POST /Adapter_Inventory_Transfer_Request invoked. Payload: #[payload],queryParams:#[attributes.queryParams]" />
+		<ee:transform doc:name="Transform Message" doc:id="d9821c7a-42c5-47af-a0b3-b8d548ea27e9">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="Body"><![CDATA[payload]]></ee:set-variable>
+				<ee:set-variable variableName="request_endpoint"><![CDATA["Integration_TransferOrder"]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA[(attributes.queryParams.ACTION default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_System"><![CDATA[(attributes.queryParams.SOURCE_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_GUID"><![CDATA[(attributes.queryParams.Source_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Environment"><![CDATA[(attributes.queryParams.SOURCE_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Company"><![CDATA[(attributes.queryParams.SOURCE_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_System"><![CDATA[(attributes.queryParams.TARGET_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_GUID" ><![CDATA[(attributes.queryParams.TARGET_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Environment" ><![CDATA[(attributes.queryParams.TARGET_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Company" ><![CDATA[(attributes.queryParams.TARGET_Company default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Check TARGET_System" doc:id="ebb21b5e-bb75-48b5-8ba4-ff5fc6084f2b" >
+			<when expression='#[lower(vars.TARGET_System ) == "bc"]' >
+				<ee:transform doc:name="SAT to BC Mappings" doc:id="1385bacb-cdd9-4fbf-9a06-67bea7ccc4de" >
+					<ee:message >
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="TransformedPayload" ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+var Body = vars.Body
+var postingDate =
+    if (Body.record_date != null)
+        (Body.record_date as String splitBy " ")[0]
+    else
+        null
+---
+
+{
+  "TransferHeader": {
+    "Transfer_No": "",
+    "Transfer_from_Code": Body.from_warehouse,
+    "Transfer_to_Code": Body.to_warehouse,
+    "Direct_Transfer": false,
+    "EXT_Doc_Ref_No": Body.record_id as Number default "",
+    "In_Transit_Code": "YR",//Lisa to confirm hard coding 
+    "Posting_Date": postingDate,//Lisa to confirm mapping
+    //"Shipment_Date":  postingDate,//Not Required to be auto populated by BC
+    //"Receipt_Date":  postingDate,//Not Required to be auto populated by BC
+    "Assigned_user": ""
+    //"Shortcut_Dimension_1": "FOP.ADMIN",//Not Required to be auto populated by BC
+    //"Shortcut_Dimension_2": ""//Not Required to be auto populated by BC
+  },
+  "TransferLine": Body.item_list map ((item, index) -> {
+      "Item_No": item.item_code,
+      "Quantity": item.item_quantity as Number,
+      "Qty_to_Ship": item.item_quantity as Number
+      //"Shipment_Date": postingDate,//Not Required to be auto populated by BC
+      //"Receipt_Date": postingDate//Not Required to be auto populated by BC
+    } )
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="post-Business-Central-Adapter_Inventory_Transfer_Request-subflow" doc:id="c203564e-904e-4106-9703-673ea21fb85b" name="post-Business-Central-Adapter_Inventory_Transfer_Request-subflow" />
+				<logger level="INFO" doc:name="End Logger" doc:id="6193818d-0f55-4b37-bf83-29d3b389578d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="TARGET_System" doc:id="33591915-c099-4659-9aff-910fe8fc2096" message="#[lower(vars.TARGET_System)]" />
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="post-Business-Central-Adapter_Inventory_Transfer_Request-subflow" doc:id="d36b79dd-bd5b-49e7-9144-76f0ecf03e85">
+    		 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+<logger level="INFO" message="[Prc-BusinessCentral] POST /Adapter_Inventory_Transfer_Request invoked. Payload: #[vars.TransformedPayload]" doc:name="[Prc-BusinessCentral] POST /Adapter_Inventory_Transfer_Request invoked. Payload"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Business Central Adapter_Inventory_Transfer_Request" doc:id="e159b9c5-670a-4bb9-b79e-3d33037db1dc" config-ref="HTTP_Request_BC_Process_Layer" path='#["/api/" ++ vars.request_endpoint]'>
+			<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[vars.TransformedPayload]]]></http:body>
+				<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.TARGET_Environment,
+	"\$system" : vars.TARGET_System ,
+	"\$tenantGuidBusinessCentral" : vars.TARGET_GUID,
+	"\$companyBusinessCentral" : vars.TARGET_Company
+}]]]></http:query-params>
+		
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Inventory_Transfer_Request Received Response" doc:id="4ccbd62e-aba3-41d6-b371-b91a50e34545" message="[Prc-BusinessCentral] POST /Adapter_Inventory_Transfer_Request Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="3e73aaa4-3209-4a2e-9a77-d91d29e07281" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+</flow>
+	<flow name="Adapter_Sales_Document-main" doc:id="01f2bd15-3c8c-4513-8caf-6273362db23c" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="0cfd083a-a549-4c25-a040-da44856397ad" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] POST /Adapter_Sales_Document invoked. Payload,queryParams" doc:id="02e98bd3-f735-4174-b62a-08703f1964c3" message="[Sys-Solutech] POST /Adapter_Sales_Document invoked. Payload: #[payload],queryParams:#[attributes.queryParams]" />
+		<ee:transform doc:name="Transform Message" doc:id="e170b4f1-fd0c-4b6a-ad05-7d59e1c57c22">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Body"><![CDATA[payload]]></ee:set-variable>
+				<ee:set-variable variableName="request_endpoint"><![CDATA[
+(if ( upper(payload.transaction_type) == "ORDER" ) "Integration_SalesDocument" else if ( upper(payload.transaction_type) == "SALE" ) (if ( isEmpty(payload.sales_order_erp_reference) ) "Integration_CreateAndPostSalesDocument" else "Integration_PostSalesDocument") else if ( upper(payload.transaction_type) == "CREDIT NOTE" ) "Integration_CreateAndPostSalesDocument" else "Invalid Input")]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA[(attributes.queryParams.ACTION default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_System"><![CDATA[(attributes.queryParams.SOURCE_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_GUID"><![CDATA[(attributes.queryParams.Source_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Environment"><![CDATA[(attributes.queryParams.SOURCE_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Company"><![CDATA[(attributes.queryParams.SOURCE_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_System"><![CDATA[(attributes.queryParams.TARGET_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_GUID"><![CDATA[(attributes.queryParams.TARGET_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Environment"><![CDATA[(attributes.queryParams.TARGET_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Company"><![CDATA[(attributes.queryParams.TARGET_Company default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Check TARGET_System" doc:id="7e0c47ff-6021-407f-9301-ce0409aa24fd" >
+			<when expression='#[lower(vars.TARGET_System ) == "bc"]' >
+				<ee:transform doc:name="SAT to BC Mappings" doc:id="dbf4f2c7-d17c-4a7d-9946-3f39b472898b" >
+					<ee:message >
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="TransformedPayload" ><![CDATA[%dw 2.0
+output application/json
+var value=  (if ( upper(vars.Body.transaction_type) == "ORDER" ) "2" else if ( upper(vars.Body.transaction_type) == "SALE" ) "1" else if ( upper(vars.Body.transaction_type) == "CREDIT NOTE" ) "5" else "")
+var Body = vars.Body
+var ts = vars.Body.tax_sync_time
+var ts_formatted = (if (ts != null and ts != "")
+  (ts as LocalDateTime {format: "yyyy-MM-dd HH:mm:ss"})
+    as String {format: "yyyy-MM-dd'T'HH:mm:ss"}
+else
+  ts)
+---
+//This is for sales with order(Converting sales orders to posted sales invoices)
+if ( vars.request_endpoint== "Integration_PostSalesDocument" ) ({
+	"Documents": [{
+		"Document_No": Body.sales_order_erp_reference,
+		"Document_Type": 2,
+		"Ship": true,
+		"Invoice": true,
+		"TaxInvoiceNumber": Body.tax_invoice_number,
+		"TaxVerificationCode": Body.tax_verification_code,
+		"TaxReceiptNumber": Body.tax_receipt_number,
+		"TaxQRCode": Body.tax_qr_code,
+		"TaxSyncTime": ts_formatted,
+		"TaxPrinter": Body.tax_printer,
+		"TaxIdentificationNumber": Body.tax_identification_number,
+		"Items": Body.item_list map ((item, index) ->
+        {
+			"No.": item.item_code,
+			"QtyToShip": item.item_quantity,
+			"QtyToInvoice": item.item_quantity
+		})
+	}]
+})
+//This is for orders and credit notes
+else if ( vars.request_endpoint== "Integration_SalesDocument" )
+({
+	"SalesHeader": {
+		"Invoice_No": "",
+		"Customer_No": Body.customer_code,
+		"Document_Type": value,
+		"Currency_Code": "",
+		//"Solutech_Ref_No": "",
+		"Due_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"Requested_Delivery_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"Promised_Delivery_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"External_Document_No": "",
+		"Your_Reference": Body.lpo_number default "",
+		"Salesperson_Code": Body.user_code,
+		"Campaign_No": "",
+		"Opportunity_No": "",
+		"Responsibility_Center": "",
+		"Assigned_User_ID": Body.user_name,
+		"EXT_Doc_Ref_No": Body.record_id as Number default ""
+	},
+	"SalesLine": Body.item_list map ((item, index) ->
+        {
+		"Line_Type": 2,//1=G/L Account, 2=Item, 3=Resource
+		"Item_No": item.item_code,
+		"Quantity": item.item_quantity,
+		"Unit_Price": item.item_price,
+		"Discount_Percentage": item.discount_rate
+		//"Gen_Prod_Posting_Group": "CONSUMABLES", //agreed with Lisa that the system will be auto populating it
+		//"VAT_Prod_Posting_Group": "",//agreed with Lisa that the system will be auto populating it
+		//"Gen_Bus_Posting_Group": "DOMESTIC"//agreed with Lisa that the system will be auto populating it
+	})
+})
+//This is for direct sales(Van sales) creation of Invoice and direct posting 
+else if ( vars.request_endpoint== "Integration_CreateAndPostSalesDocument" )
+({
+	"SalesHeader": {
+		"Invoice_No": "",
+		"Customer_No": Body.customer_code,
+		"Document_Type": value,
+		"Currency_Code": "",
+		//"Solutech_Ref_No": "",
+		//"Due_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		//"Requested_Delivery_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		//"Promised_Delivery_Date": "2026-02-12",
+		"External_Document_No": Body.record_id as Number default "",
+		"Your_Reference": "",
+		"Salesperson_Code": Body.user_code,
+		//"Campaign_No": "",
+		//"Opportunity_No": "",
+		//"Responsibility_Center": "",
+		//"Assigned_User_ID": Body.user_name,
+		"EXT_Doc_Ref_No": Body.record_id as Number default "",
+		//"Invoice_ID": Body.tax_verification_code
+		"TaxInvoiceNumber": Body.tax_invoice_number,
+		"TaxVerificationCode": Body.tax_verification_code,
+		"TaxReceiptNumber": Body.tax_receipt_number,
+		"TaxQRCode": Body.tax_qr_code,
+		"TaxSyncTime": ts_formatted,
+		"TaxPrinter": Body.tax_printer,
+		"TaxIdentificationNumber": Body.tax_identification_number default ""
+	},
+	"SalesLine": Body.item_list map ((item, index) ->
+        {
+		"Line_Type": 1,//1= Item, 2=G/L Account, 3=Resource,4=Fixed Asset
+		"Item_No": item.item_code,
+		"Quantity": item.item_quantity,
+		"Unit_Price": item.item_price,
+		"Discount_Percentage": item.discount_rate,
+		"Unit_Of_Measure": item.uom_code,
+		"Location_Code": item.store_code //confirmed by Lisa it is required 
+		//"Gen_Prod_Posting_Group": "CONSUMABLES",
+		//"VAT_Prod_Posting_Group": "",
+		//"Gen_Bus_Posting_Group": "DOMESTIC"
+	})
+})
+else 
+({
+	"SalesHeader": {
+		"Invoice_No": Body.lpo_number default "",
+		"Customer_No": Body.customer_code,
+		"Document_Type": value,
+		"Currency_Code": "",
+		"Solutech_Ref_No": "",
+		"Due_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"Requested_Delivery_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"Promised_Delivery_Date": (Body.expected_delivery_date splitBy  " ")[0],
+		"External_Document_No": "",
+		"Your_Reference": "",
+		"Salesperson_Code": Body.user_code,
+		"Campaign_No": "",
+		"Opportunity_No": "",
+		"Responsibility_Center": "",
+		"Assigned_User_ID": Body.user_name,
+		"EXT_Doc_Ref_No": Body.record_id as Number default ""
+	},
+	"SalesLine": Body.item_list map ((item, index) ->
+        {
+		"Line_Type": 2,
+		"Item_No": item.item_code,
+		"Quantity": item.item_quantity,
+		"Unit_Price": item.item_price,
+		"Discount_Percentage": item.discount_rate
+		//"Gen_Prod_Posting_Group": "CONSUMABLES",
+		//"VAT_Prod_Posting_Group": "",
+		//"Gen_Bus_Posting_Group": "DOMESTIC"
+	})
+})
+        ]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<choice doc:name="Choice" doc:id="4d397f68-770e-446f-8d81-5c0c9c5d851c" >
+					<when expression='#[(["1","2","5"] contains (vars.TransformedPayload.SalesHeader.Document_Type)) or ([2] contains (vars.TransformedPayload.Documents.Document_Type[0]))]' >
+						<flow-ref doc:name="post-Business-Central-Adapter_Sales_Document-subflow" doc:id="56fa5c40-ee73-4897-8e9c-864a6d9dd590" name="post-Business-Central-Adapter_Sales_Document-Subflow" />
+					</when>
+					<otherwise >
+						<ee:transform doc:name="Transform Message" doc:id="2c96f8fe-4d33-4946-9b9e-dffd78122d56" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Message": "INVALID VALUE: Sale,Order & Credit Note not found as a Document Type"
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+					</otherwise>
+				</choice>
+			
+</when>
+			<otherwise >
+				<logger level="INFO" doc:name="TARGET_System" doc:id="3d5c4ebf-689e-45a6-bab3-7a5f57da6900" message="#[lower(vars.TARGET_System)]" />
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End Logger" doc:id="6fb05fd9-61db-47f0-a8ed-3acbe4f7e487" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	
+</flow>
+	<flow name="Adapter_Payment_Receipt-main" doc:id="fff9357f-89c9-4b77-ae92-164b9aeca14d" >
+		<logger level="INFO" doc:name="Start Logger" doc:id="a116cb87-c66f-493e-ad7e-03d028bc6646" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] POST /Adapter_Payment_Receipt invoked. Payload,queryParams" doc:id="c454edf7-8cf8-4a0b-8c39-0920d6b16299" message="[Sys-Solutech] POST /Adapter_Payment_Receipt invoked. Payload: #[payload],queryParams:#[attributes.queryParams]" />
+		<ee:transform doc:name="Transform Message" doc:id="d43e8a92-5311-495c-ad4b-70df4b3f5029" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="Body" ><![CDATA[payload]]></ee:set-variable>
+				<ee:set-variable variableName="request_endpoint" ><![CDATA["Integration_PostReceipt"]]></ee:set-variable>
+				<ee:set-variable variableName="request_method" ><![CDATA[(attributes.queryParams.ACTION default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_System" ><![CDATA[(attributes.queryParams.SOURCE_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_GUID" ><![CDATA[(attributes.queryParams.Source_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Environment" ><![CDATA[(attributes.queryParams.SOURCE_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="SOURCE_Company" ><![CDATA[(attributes.queryParams.SOURCE_Company default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_System" ><![CDATA[(attributes.queryParams.TARGET_System default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_GUID" ><![CDATA[(attributes.queryParams.TARGET_GUID default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Environment" ><![CDATA[(attributes.queryParams.TARGET_Environment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="TARGET_Company" ><![CDATA[(attributes.queryParams.TARGET_Company default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Check TARGET_System" doc:id="731f9713-bd29-4516-bb19-4343009dadb8" >
+			<when expression='#[lower(vars.TARGET_System ) == "bc"]' >
+				<ee:transform doc:name="SAT to BC Mappings" doc:id="b81a9f81-95b9-43ae-9285-446a22ffa8af">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="TransformedPayload"><![CDATA[%dw 2.0
+output application/json
+
+var Body = vars.Body
+
+var paymentReference =
+    Body.payment_reference default ""
+
+var postingDate =
+    (Body.record_date as LocalDateTime {
+        format: "yyyy-MM-dd HH:mm:ss"
+    }) as Date
+    
+// Map payment modes to their respective codes
+/* {
+    "Lines":
+        if (!isEmpty(Body.invoices))
+            Body.invoices map (invoice, index) -> {
+                "InvoiceNo": invoice.record_id default "",
+                "Amount": invoice.amount default Body.amount,
+                "Description": (Body.user_code default "") ++ "-" ++ ((invoice.record_id default Body.record_id) as String),
+                "PostingDate": postingDate,
+                "Payment_Method": Body.payment_mode,
+                "Payment_Reference": paymentReference,
+                "CustNo": Body.customer_code,
+		        "SalespersonCode": Body.user_code 
+            }
+        else
+            [
+                {
+                    "InvoiceNo": "",
+                    "Amount": Body.amount,
+                    "Description": (Body.user_code default "") ++ "-" ++ ((Body.record_id default "") as String),
+                    "PostingDate": postingDate,
+                    "Payment_Method": Body.payment_mode,
+                    "Payment_Reference": paymentReference,
+                    "CustNo": Body.customer_code,
+		            "SalespersonCode": Body.user_code  
+                }
+            ]
+}
+*/
+---
+{
+    "Header": {
+        "PaymentNo": (Body.record_id default "") as String,
+        "CustNo": Body.customer_code default "",
+        "Payment_Amount": Body.amount default 0,
+        "Payment_Method": Body.payment_mode default "",
+        "Payment_Reference": paymentReference,
+        "PostingDate": postingDate,
+        //"Description": (Body.user_code default "") ++ "-" ++ ((Body.record_id default "") as String),
+        "Description": Body.user_code default "",
+        "SalespersonCode": Body.user_code default ""
+    },
+
+    "Lines":
+        if (!isEmpty(Body.invoices))
+            Body.invoices map (invoice) -> {
+                "InvoiceNo": invoice.erp_reference default "",
+                "Amount_Allocated": invoice.amount default 0
+            }
+        else
+            []
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="post-Business-Central-Adapter_Payment_Receipt-subflow" doc:id="5d725299-9cd2-402e-9417-272e6656518a" name="post-Business-Central-Adapter_Payment_Receipt-subflow" />
+				<logger level="INFO" doc:name="End Logger" doc:id="8232302c-69b4-4712-8080-aa2875e2cf0f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+			
+</when>
+			<otherwise >
+				<logger level="INFO" doc:name="TARGET_System" doc:id="e3636769-5bfe-4c04-8e74-fefa1f7ed967" message="#[lower(vars.TARGET_System)]" />
+			</otherwise>
+		</choice>
+	</flow>
+		<flow name="post-Business-Central-Adapter_Payment_Receipt-subflow" doc:id="4a848527-735d-4562-93a1-8744b5edb47b">
+    		 <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+<logger level="INFO" message="[Prc-BusinessCentral] POST //Adapter_Payment_Receipt  invoked. Payload: #[vars.TransformedPayload]" doc:name="[Prc-BusinessCentral] POST /Adapter_Payment_Receipt invoked invoked. Payload"/>
+
+    <http:request method="#[vars.request_method]" doc:name="POST to Business Central Adapter_Payment_Receipt" doc:id="38715245-68de-4996-9bdd-8c725a134ec3" config-ref="HTTP_Request_BC_Process_Layer" path='#["/api/" ++ vars.request_endpoint]'>
+			<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[vars.TransformedPayload]]]></http:body>
+				<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.TARGET_Environment,
+	"\$system" : vars.TARGET_System ,
+	"\$tenantGuidBusinessCentral" : vars.TARGET_GUID,
+	"\$companyBusinessCentral" : vars.TARGET_Company
+}]]]></http:query-params>
+		
+</http:request>
+
+<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Payment_Receipt Received Response" doc:id="3768580e-e55b-4ac7-9004-a08e2af920c2" message="[Prc-BusinessCentral] POST //Adapter_Payment_Receipt  Received Response:#[payload]"/>
+		<logger level="INFO" doc:name="End Logger" doc:id="cc89a640-75da-4473-861e-a870c626d278" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+</flow>
+</mule>

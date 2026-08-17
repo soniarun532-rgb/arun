@@ -1,0 +1,28 @@
+#%RAML 1.0 Trait
+queryParameters:
+  fromDate:
+    type: string
+    required: true
+    description: Inclusive start date (YYYY-MM-DD)
+    example: "2026-08-01"
+  toDate:
+    type: string
+    required: true
+    description: Inclusive end date (YYYY-MM-DD)
+    example: "2026-08-10"
+  PageNumber:
+    type: string
+    required: false
+    default: "1"
+    description: Page number
+    example: "1"
+  Database:
+    type: string
+    required: true
+    description: Database name
+    example: DEV_DATABASE
+  Supplier:
+    type: string
+    required: true
+    description: Supplier name
+    example: DEV_SUPPLIER
