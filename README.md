@@ -41,10 +41,18 @@ Prod:
 
 Properties:
 
-- `src/main/resources/properties/config-dev.yaml`
-- `src/main/resources/properties/config-prod.yaml`
+- `src/main/resources/properties/config-common.yaml` (shared host, base path, timeouts)
+- `src/main/resources/properties/config-dev.yaml` (Database, Supplier, port)
+- `src/main/resources/properties/config-prod.yaml` (Database, Supplier, port, prod timeout)
 - `src/main/resources/properties/secure-dev.yaml`
 - `src/main/resources/properties/secure-prod.yaml`
+
+Mule files:
+
+- `src/main/mule/global.xml`
+- `src/main/mule/global-error-handler.xml`
+- `src/main/mule/main.xml`
+- `src/main/mule/call-prc-solutech-api-sub-flow.xml`
 
 Replace `REPLACE_*_CLIENT_ID` / `REPLACE_*_CLIENT_SECRET` in the secure files. To encrypt a value:
 
