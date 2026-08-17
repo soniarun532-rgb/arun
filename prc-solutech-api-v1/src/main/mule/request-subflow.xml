@@ -22,4 +22,20 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<logger level="INFO" doc:name="[Prc-BusinessCentral] POST /Adapter_Sales_Document Received Response" doc:id="508b357f-7923-444e-a795-4551270f6b7a" message="[Prc-BusinessCentral] POST /Adapter_Sales_Document Received Response:#[payload]" />
 		<logger level="INFO" doc:name="End Logger" doc:id="89c5f7bc-2d64-45f1-a4f9-5ba7963a5c8f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
 	</flow>
+	<sub-flow name="call-Sys-Solutech-Subflow" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech01">
+		<logger level="INFO" doc:name="Start Logger" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech02" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] Request" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech03" message='#["[Sys-Solutech] " ++ vars.request_method ++ " " ++ vars.request_path ++ " queryParams: " ++ write(vars.sysQueryParams, "application/json")]' />
+		<http:request method="#[vars.request_method]" doc:name="Call Sys-Solutech" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech04" config-ref="HTTP_Request_Solutech_Sys_Layer" path="#[vars.request_path]" responseTimeout="${http.request.response.timeout}" sendBodyMode="AUTO">
+			<reconnect count="${http.request.retry.count}" frequency="${http.request.retry.interval}" />
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"Authorization": "Bearer " ++ (vars.access_token default p("sys.solutech.access_token")),
+	"Content-Type": "application/json"
+}]]]></http:headers>
+			<http:query-params><![CDATA[#[vars.sysQueryParams default {}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="[Sys-Solutech] Response" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech05" message="[Sys-Solutech] Received Response: #[payload]" />
+		<logger level="INFO" doc:name="End Logger" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech06" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</sub-flow>
 </mule>
