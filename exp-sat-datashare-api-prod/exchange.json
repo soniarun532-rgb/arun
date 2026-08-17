@@ -1,0 +1,8 @@
+{
+  "main": "exp-sat-datashare-api-prod.raml",
+  "name": "exp-sat-datashare-api-prod",
+  "classifier": "raml",
+  "apiVersion": "v1",
+  "tags": ["sat", "datashare", "experience"],
+  "dependencies": []
+}

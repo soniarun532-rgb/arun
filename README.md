@@ -39,6 +39,38 @@ Prod:
 -M-Dsecure.key=<your-aes-key>
 ```
 
+## Exchange RAML (API spec)
+
+Studio resolves the API spec from Exchange:
+
+`e4352f2d-9759-4055-930e-8a13244d0f45:exp-sat-datashare-api-prod:1.0.1:raml`
+
+APIKit:
+
+```
+resource::e4352f2d-9759-4055-930e-8a13244d0f45:exp-sat-datashare-api-prod:1.0.1:raml:zip:exp-sat-datashare-api-prod.raml
+```
+
+The RAML asset lives in `exp-sat-datashare-api-prod/`.
+
+**Install into local Maven (fixes Studio resolve without Exchange publish):**
+
+```
+cd exp-sat-datashare-api-prod
+mvn clean install
+```
+
+Then in Studio: Maven → Update Project → Force Update.
+
+**Publish to Anypoint Exchange:**
+
+Add Exchange credentials in `~/.m2/settings.xml` for server id `anypoint-exchange-v3`, then:
+
+```
+cd exp-sat-datashare-api-prod
+mvn clean deploy
+```
+
 Properties:
 
 - `src/main/resources/properties/config-common.yaml` (shared host, base path, timeouts)

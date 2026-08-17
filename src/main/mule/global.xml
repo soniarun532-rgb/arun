@@ -36,7 +36,7 @@
     </http:request-config>
 
     <apikit:config name="exp-sat-datashare-prod-api-config"
-                   raml="api/exp-sat-datashare-prod-api.raml"
+                   raml="resource::e4352f2d-9759-4055-930e-8a13244d0f45:exp-sat-datashare-api-prod:1.0.1:raml:zip:exp-sat-datashare-api-prod.raml"
                    outboundHeadersMapName="outboundHeaders"
                    httpStatusVarName="httpStatus"
                    doc:name="APIkit_Router_config"/>
