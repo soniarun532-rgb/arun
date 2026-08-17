@@ -1,0 +1,20 @@
+#%RAML 1.0 ResourceType
+uses:
+  t: ../libraries/traits.raml
+  types: ../libraries/types.raml
+
+description: Order collection
+get:
+  displayName: Get Order
+  description: Retrieve Order records for the given date range.
+  is:
+    - t.orderQuery
+    - t.errorResponses
+  responses:
+    200:
+      description: Successful retrieval of Order records
+      body:
+        application/json:
+          type: types.OrderCollection
+          examples:
+            success: !include ../examples/records.json

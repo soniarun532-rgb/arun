@@ -1,0 +1,20 @@
+#%RAML 1.0 ResourceType
+uses:
+  t: ../libraries/traits.raml
+  types: ../libraries/types.raml
+
+description: Product collection
+get:
+  displayName: Get Product
+  description: Retrieve Product records for the given date range.
+  is:
+    - t.productQuery
+    - t.errorResponses
+  responses:
+    200:
+      description: Successful retrieval of Product records
+      body:
+        application/json:
+          type: types.ProductCollection
+          examples:
+            success: !include ../examples/records.json

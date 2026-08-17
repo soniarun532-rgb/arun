@@ -9,52 +9,35 @@ uses:
   types: libraries/types.raml
 
 resourceTypes:
-  collection: !include resourceTypes/collection.raml
+  invoice: !include resourceTypes/invoice.raml
+  order: !include resourceTypes/order.raml
+  product: !include resourceTypes/product.raml
+  route: !include resourceTypes/route.raml
+  salesRep: !include resourceTypes/salesrep.raml
+  store: !include resourceTypes/store.raml
+  inventory: !include resourceTypes/inventory.raml
+  warehouse: !include resourceTypes/warehouse.raml
 
-/v1/invoicing:
-  type:
-    collection:
-      responseType: types.InvoiceCollection
-      queryTrait: invoicingQuery
+/v1/Invoice:
+  type: invoice
 
-/v1/ordering:
-  type:
-    collection:
-      responseType: types.OrderCollection
-      queryTrait: orderingQuery
+/v1/Order:
+  type: order
 
-/v1/products:
-  type:
-    collection:
-      responseType: types.ProductCollection
-      queryTrait: productsQuery
+/v1/Product:
+  type: product
 
-/v1/routes:
-  type:
-    collection:
-      responseType: types.RouteCollection
-      queryTrait: routesQuery
+/v1/Route:
+  type: route
 
-/v1/salesreps:
-  type:
-    collection:
-      responseType: types.SalesRepCollection
-      queryTrait: salesrepsQuery
+/v1/SalesRep:
+  type: salesRep
 
-/v1/stores:
-  type:
-    collection:
-      responseType: types.StoreCollection
-      queryTrait: storesQuery
+/v1/Store:
+  type: store
 
-/v1/inventory:
-  type:
-    collection:
-      responseType: types.InventoryCollection
-      queryTrait: inventoryQuery
+/v1/Inventory:
+  type: inventory
 
-/v1/warehouses:
-  type:
-    collection:
-      responseType: types.WarehouseCollection
-      queryTrait: warehousesQuery
+/v1/Warehouse:
+  type: warehouse
