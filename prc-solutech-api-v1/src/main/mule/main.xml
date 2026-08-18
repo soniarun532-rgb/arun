@@ -695,7 +695,8 @@ output application/java
 ---
 {
 	Database: attributes.queryParams.Database,
-	Supplier: attributes.queryParams.Supplier
+	Supplier: attributes.queryParams.Supplier,
+	PageNumber: attributes.queryParams.PageNumber default "1"
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
@@ -734,8 +735,8 @@ var D = vars.productsPayload default []
 leftJoin(
 	C,
 	D,
-	(c) -> c.PRODUCT_ID as String,
-	(d) -> d.id as String
+	(c) -> (c.PRODUCT_ID default c.product_id) as String,
+	(d) -> (d.id default d.ID) as String
 ) map ((item) -> (item.l default {}) ++ (item.r default {}))]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
