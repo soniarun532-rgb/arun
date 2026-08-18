@@ -48,15 +48,8 @@ output application/java
 					<ee:variables>
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
-var idsRaw = attributes.queryParams.Product_ID default ""
-var ids =
-	if (idsRaw is Array) idsRaw
-	else if (idsRaw as String == "") []
-	else (idsRaw as String) splitBy ","
-var cleanIds = ids map (trim($ as String)) filter ($ != "")
-var productFilter = if (sizeOf(cleanIds) > 0) (" AND a.product_id IN (" ++ (cleanIds joinBy ",") ++ ")") else ""
 ---
-"SELECT a.SHOPID as STOREID, a.USERID as SalesRepID, b.routeid as RouteID, a.product_id as ProductID, '???' as DistributorID, a.Supplier_id as WarehouseID, a.SALE_ORDER_ID as OrderNumber, a.Entry_ID as InvoiceNumber, DATE_FORMAT(a.Created_AT, '%d/%m/%Y') as InvoiceDate, DATE_FORMAT(a.Created_AT, '%H:%i:%s') as InvoiceTimepart, a.Payment_Status as InvoiceStatus, a.packaging as UnitOfMeasure, 'KES' as Currency, a.quantity as QuantityInvoiced, a.value_sold as AmountInvoiced, '???' as Discount, '???' as VATAmount, a.Entry_Type as TransType FROM " ++ vars.databaseName ++ ".bi_salesmaster as a LEFT JOIN " ++ vars.databaseName ++ ".bi_customer_visits as b ON a.VisitID = b.visitid WHERE a.Created_AT BETWEEN :fromTs AND :toTs" ++ productFilter ++ " ORDER BY a.Created_AT, a.Entry_ID LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
+"SELECT a.SHOPID as STOREID, a.USERID as SalesRepID, b.routeid as RouteID, a.product_id as ProductID, '???' as DistributorID, a.Supplier_id as WarehouseID, a.SALE_ORDER_ID as OrderNumber, a.Entry_ID as InvoiceNumber, DATE_FORMAT(a.Created_AT, '%d/%m/%Y') as InvoiceDate, DATE_FORMAT(a.Created_AT, '%H:%i:%s') as InvoiceTimepart, a.Payment_Status as InvoiceStatus, a.packaging as UnitOfMeasure, 'KES' as Currency, a.quantity as QuantityInvoiced, a.value_sold as AmountInvoiced, '???' as Discount, '???' as VATAmount, a.Entry_Type as TransType FROM " ++ vars.databaseName ++ ".bi_salesmaster as a LEFT JOIN " ++ vars.databaseName ++ ".bi_customer_visits as b ON a.VisitID = b.visitid WHERE a.Created_AT BETWEEN :fromTs AND :toTs AND a.product_id IN (" ++ ((attributes.queryParams.Product_ID default "-1") as String) ++ ") ORDER BY a.Created_AT, a.Entry_ID LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
