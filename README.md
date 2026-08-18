@@ -13,7 +13,7 @@ Reusable pieces: `mysql-query-main` (SQL + optional paging) and `mysql-query-sub
 
 | Param | Notes |
 |---|---|
-| `PageNumber` | optional; omit for no LIMIT/OFFSET |
+| `PageNumber` | optional; default LIMIT 10000 OFFSET 0 |
 | `Database` | schema, e.g. `sat_nobleoutlook` |
 | `Supplier` | e.g. `BIC EAST AFRCA LIMITED` |
 
@@ -29,7 +29,7 @@ GET /api/products?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20A
 |---|---|
 | `fromDate` | `YYYY-MM-DD` → `00:00:00` |
 | `toDate` | `YYYY-MM-DD` → `00:00:00` |
-| `PageNumber` | optional; omit for no LIMIT/OFFSET |
+| `PageNumber` | optional; default LIMIT 10000 OFFSET 0 |
 | `Database` | schema |
 
 ```

@@ -15,15 +15,16 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<ee:message />
 			<ee:variables>
 				<ee:set-variable variableName="databaseName"><![CDATA[attributes.queryParams.Database default p("db.name")]]></ee:set-variable>
-				<ee:set-variable variableName="pagingClause"><![CDATA[%dw 2.0
-output text/plain
+				<ee:set-variable variableName="pageSize"><![CDATA[(p("db.page.size") default "10000") as Number]]></ee:set-variable>
+				<ee:set-variable variableName="pageOffset"><![CDATA[%dw 2.0
+output application/java
 var pageRaw = attributes.queryParams.PageNumber default ""
-var pageSize = (p("db.page.size") default "100") as Number
+var pageSize = (p("db.page.size") default "10000") as Number
 ---
 if (pageRaw as String == "")
-	""
+	0
 else
-	" LIMIT " ++ (pageSize as String) ++ " OFFSET " ++ ((((pageRaw as Number) - 1) * pageSize) as String)]]></ee:set-variable>
+	((pageRaw as Number) - 1) * pageSize]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<choice doc:name="Build SQL for endpoint">
@@ -34,7 +35,7 @@ else
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
 ---
-"SELECT id, product_name FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id" ++ vars.pagingClause]]></ee:set-variable>
+"SELECT id, product_name FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
@@ -64,27 +65,23 @@ var db = vars.databaseName
 var salesTable = p("db.table.sales")
 var visitsTable = p("db.table.visits")
 ---
-"Select  a.SHOPID as STOREID
-	,a.USERID as SalesRepID
-        ,b.routeid as RouteID
-        ,a.product_id as ProductID
-        ,'???' as DistributorID
-        ,a.Supplier_id as WarehouseID
-        ,a.SALE_ORDER_ID as OrderNumber
-        ,a.Entry_ID as InvoiceNumber
-        ,DATE_FORMAT(a.Created_AT, \"%d/%m/%Y\") as InvoiceDate
-        ,DATE_FORMAT(a.Created_AT, \"%H:%i:%s\") as InvoiceTimepart
-        ,a.Payment_Status as InvoiceStatus
-        ,a.packaging as UnitOfMeasure
-        ,'KES' as Currency
-        ,a.quantity as QuantityInvoiced
-        ,a.value_sold as AmountInvoiced
-        ,'???' as Discount
-        ,'???' as VATAmount
-        ,a.Entry_Type as TransType
+"Select  a.SHOPID
+	,a.USERID
+        ,b.routeid
+        ,a.product_id
+        ,a.Supplier_id
+        ,a.SALE_ORDER_ID
+        ,a.Entry_ID
+        ,a.Created_AT
+        ,a.Payment_Status
+        ,a.packaging
+        ,a.quantity
+        ,a.value_sold
+        ,a.Entry_Type
 from " ++ db ++ "." ++ salesTable ++ " as a
 left join " ++ db ++ "." ++ visitsTable ++ " as b on a.VisitID =b.visitid
-where a.Created_AT between :fromTs and :toTs" ++ vars.pagingClause]]></ee:set-variable>
+where a.Created_AT between :fromTs and :toTs
+LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
