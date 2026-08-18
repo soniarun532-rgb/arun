@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<flow name="mysql-query-main" doc:id="mysql-query-main-0001">
+		<logger level="INFO" doc:name="Start MySQL query" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " started. Database=" ++ (attributes.queryParams.Database default "") ++ " PageNumber=" ++ (attributes.queryParams.PageNumber default "") ++ " Supplier=" ++ (attributes.queryParams.Supplier default "") ++ " fromDate=" ++ (attributes.queryParams.fromDate default "") ++ " toDate=" ++ (attributes.queryParams.toDate default "")]' />
+		<ee:transform doc:name="Paging vars">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="databaseName"><![CDATA[attributes.queryParams.Database default p("db.name")]]></ee:set-variable>
+				<ee:set-variable variableName="pageSize"><![CDATA[(p("db.page.size") default "10000") as Number]]></ee:set-variable>
+				<ee:set-variable variableName="pageOffset"><![CDATA[%dw 2.0
+output application/java
+var pageRaw = attributes.queryParams.PageNumber default ""
+var pageSize = (p("db.page.size") default "10000") as Number
+---
+if (pageRaw as String == "")
+	0
+else
+	((pageRaw as Number) - 1) * pageSize]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Build SQL for endpoint">
+			<when expression="#[vars.endpoint == 'products']">
+				<ee:transform doc:name="Products SQL">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
+output text/plain
+---
+"SELECT id, product_name FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
+						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	supplier: attributes.queryParams.Supplier default ""
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
+				<ee:transform doc:name="JSON result">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload default []]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="End MySQL query" message='#["[Sys-Solutech] GET /products completed. records=" ++ sizeOf(payload default [])]' />
+			</when>
+			<when expression="#[vars.endpoint == 'sales']">
+				<ee:transform doc:name="Sales SQL">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
+output text/plain
+var db = vars.databaseName
+var salesTable = p("db.table.sales")
+var visitsTable = p("db.table.visits")
+---
+"Select  a.SHOPID
+	,a.USERID
+        ,b.routeid
+        ,a.product_id
+        ,a.Supplier_id
+        ,a.SALE_ORDER_ID
+        ,a.Entry_ID
+        ,a.Created_AT
+        ,a.Payment_Status
+        ,a.packaging
+        ,a.quantity
+        ,a.value_sold
+        ,a.Entry_Type
+from " ++ db ++ "." ++ salesTable ++ " as a
+left join " ++ db ++ "." ++ visitsTable ++ " as b on a.VisitID =b.visitid
+where a.Created_AT between :fromTs and :toTs
+LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
+						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	fromTs: (attributes.queryParams.fromDate default "") ++ " 00:00:00",
+	toTs: (attributes.queryParams.toDate default "") ++ " 00:00:00"
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
+				<ee:transform doc:name="JSON result">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload default []]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="End MySQL query" message='#["[Sys-Solutech] GET /sales completed. records=" ++ sizeOf(payload default [])]' />
+			</when>
+			<otherwise>
+				<logger level="INFO" doc:name="Unknown endpoint" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " has no SQL mapping. Add a when-branch for this endpoint."]' />
+			</otherwise>
+		</choice>
+	</flow>
+
+	<sub-flow name="mysql-query-subflow" doc:id="mysql-query-subflow-0001">
+		<logger level="INFO" doc:name="Run SQL" message='#["[Sys-Solutech] executing query for /" ++ (vars.endpoint default "") ++ " on Database=" ++ vars.databaseName]' />
+		<db:select doc:name="MySQL select" config-ref="MySQL_Config">
+			<db:sql><![CDATA[#[vars.sql]]]></db:sql>
+			<db:input-parameters><![CDATA[#[vars.sqlParams default {}]]]></db:input-parameters>
+		</db:select>
+	</sub-flow>
+</mule>
