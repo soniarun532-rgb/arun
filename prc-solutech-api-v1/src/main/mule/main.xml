@@ -683,11 +683,30 @@ var postingDate =
 	<flow name="get-Adapter_Invoice-main-impl" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice01">
 		<logger level="INFO" doc:name="Start Logger" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice02" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
 		<logger level="INFO" doc:name="GET Adapter_Invoice queryParams" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice03" message="[Prc-Solutech] GET /Adapter_Invoice invoked. queryParams: #[attributes.queryParams]" />
-		<ee:transform doc:name="Build Sys-Solutech Adapter_Invoice Request" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice04">
+
+		<ee:transform doc:name="Build Sys-Solutech Product Request" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice04">
 			<ee:message />
 			<ee:variables>
 				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
-				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.adapter.invoice.path")]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.product.path")]]></ee:set-variable>
+				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
+				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	Database: attributes.queryParams.Database,
+	Supplier: attributes.queryParams.Supplier
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice05" name="call-Sys-Solutech-Subflow" />
+		<set-variable value="#[payload]" doc:name="Store Product Payload D" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice06" variableName="productsPayload" />
+
+		<ee:transform doc:name="Build Sys-Solutech Sale Request" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice07">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.sale.path")]]></ee:set-variable>
 				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
 				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
 output application/java
@@ -701,7 +720,26 @@ output application/java
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<flow-ref doc:name="call-Sys-Solutech-Subflow" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice05" name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice06" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice08" name="call-Sys-Solutech-Subflow" />
+		<set-variable value="#[payload]" doc:name="Store Sale Payload C" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice09" variableName="salesPayload" />
+
+		<ee:transform doc:name="Join Sales C with Products D on PRODUCT_ID = id" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice10">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+import leftJoin from dw::core::Arrays
+var C = vars.salesPayload default []
+var D = vars.productsPayload default []
+---
+leftJoin(
+	C,
+	D,
+	(c) -> c.PRODUCT_ID as String,
+	(d) -> d.id as String
+) map ((item) -> (item.l default {}) ++ (item.r default {}))]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+
+		<logger level="INFO" doc:name="End Logger" doc:id="a1b2c3d4-e5f6-7890-ab12-adapterinvoice11" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
 	</flow>
 </mule>
