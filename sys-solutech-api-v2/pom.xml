@@ -87,15 +87,15 @@
 		</dependency>
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi-uat</artifactId>
-			<version>1.0.20</version>
+			<artifactId>solutech-sapi-prod</artifactId>
+			<version>1.0.0</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi-prod</artifactId>
-			<version>1.0.0</version>
+			<artifactId>solutech-sapi-uat</artifactId>
+			<version>1.0.21</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
