@@ -1,39 +1,40 @@
 # arun
 
-System API work lives on branch `new/system` (`sys-solutech-api-v2`).
+System API (`sys-solutech-api-v2`) GET endpoints from APIkit (`solutech-sapi-uat` 1.0.21):
 
-This change adds two MySQL GET endpoints on the system API.
+- `GET /api/products` → `mysql-query-main`
+- `GET /api/sales` → `mysql-query-main`
 
-## 1. GET `/api/Sales` (endpoint C)
+Reusable pieces: `mysql-query-main` (paging + SQL) and `mysql-query-subflow` (`db:select`). New GET endpoints set `vars.endpoint` (or `vars.sql` / `vars.sqlParams`) and flow-ref `mysql-query-main`.
 
-Reads `bi_salesmaster` (A) left joined to `bi_customer_visits` (B) on `a.VisitID = b.visitid`.
+## GET `/api/products` (D)
 
-| Query param | Required | Notes |
-|---|---|---|
-| `fromDate` | yes | `YYYY-MM-DD`, applied to `a.Created_AT` from `00:00:00` |
-| `toDate` | yes | `YYYY-MM-DD`, applied to `a.Created_AT` to `00:00:00` (same bound as the sample SQL) |
-| `PageNumber` | no | default `1`, page size `100` |
-| `Database` | yes | MySQL schema, e.g. `sat_nobleoutlook` |
-| `Product_ID` | no | list: `1,2,3` or repeated `Product_ID=` |
+`SELECT id, product_name FROM {Database}.bi_products WHERE supplier = :Supplier`
 
-Example:
-
-```
-GET /api/Sales?fromDate=2026-08-13&toDate=2026-08-14&PageNumber=1&Database=sat_nobleoutlook&Product_ID=8,73
-```
-
-## 2. GET `/api/Product` (endpoint D)
-
-Reads `bi_products` filtered by `supplier`.
-
-| Query param | Required | Notes |
-|---|---|---|
-| `PageNumber` | no | default `1`, page size `100` |
-| `Database` | yes | MySQL schema, e.g. `sat_nobleoutlook` |
-| `Supplier` | yes | exact match on `bi_products.supplier` |
-
-Example:
+| Param | Notes |
+|---|---|
+| `PageNumber` | default `1`, size `100` |
+| `Database` | schema, e.g. `sat_nobleoutlook` |
+| `Supplier` | e.g. `BIC EAST AFRCA LIMITED` |
 
 ```
-GET /api/Product?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20AFRCA%20LIMITED
+GET /api/products?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20AFRCA%20LIMITED
 ```
+
+## GET `/api/sales` (C)
+
+`bi_salesmaster` A left join `bi_customer_visits` B on `a.VisitID = b.visitid`, filtered by `Created_AT` and `product_id`.
+
+| Param | Notes |
+|---|---|
+| `fromDate` | `YYYY-MM-DD` → `00:00:00` |
+| `toDate` | `YYYY-MM-DD` → `00:00:00` |
+| `PageNumber` | default `1`, size `100` |
+| `Database` | schema |
+| `Product_ID` | list from products, e.g. `1,2,3` |
+
+```
+GET /api/sales?fromDate=2026-08-13&toDate=2026-08-14&PageNumber=1&Database=sat_nobleoutlook&Product_ID=1,2,3
+```
+
+Process API sequence: call products, take `id` list, call sales with `Product_ID`, then join `C.ProductID = D.id`.

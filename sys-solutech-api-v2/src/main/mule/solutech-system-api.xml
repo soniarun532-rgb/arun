@@ -200,57 +200,11 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="get:\products:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    PRODUCTID: "P1001",
-    PRODUCTNAME: "BIC",
-    BRAND_NAME: "LIGHTERS",
-    PRODUCTCATEGORY: "Writing Instruments",
-    SUPPLIER: "DEV_SUPPLIER",
-    DATABASE: "DEV_DATABASE",
-    STATUS: "ACTIVE"
-  }
-] as Array {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <set-variable value="products" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
     <flow name="get:\sales:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    RECORDID: 1,
-    USERID: 2,
-    USERNAME: "TEST ACCOUNT",
-    SHOPID: 185,
-    CUSTOMERNAME: "NEW CUSTOMER",
-    CUSTOMERCATEGORY: "RETAIL SHOP",
-    LOCATION_NAME: "GIKAMBURA",
-    LOCATION_ID: 4,
-    ACCOUNTNAME: null,
-    USERCATEGORY: "SOLUTECH",
-    REGION_NAME: "NAIROBI",
-    PRODUCTCATEGORY: null,
-    BRAND_NAME: "LIGHTERS",
-    CSKU: null,
-    MECHANISM: "BOGOF",
-    BEFOREVALUE: "300",
-    AFTERVALUE: "250",
-    NOTES: "test",
-    ENTRYTIME: "2026-06-08T16:28:55",
-    CREATED_AT: "2026-06-08T16:28:57",
-    UPDATED_AT: "2026-06-08T16:28:57"
-  }
-] as Array {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <set-variable value="sales" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
 </mule>
