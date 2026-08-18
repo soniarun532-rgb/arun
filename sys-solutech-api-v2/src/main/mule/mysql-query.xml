@@ -32,7 +32,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
 ---
-"SELECT id, product_name FROM " ++ vars.databaseName ++ ".bi_products WHERE supplier = :supplier ORDER BY id LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
+"SELECT id, product_name FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
@@ -42,13 +42,15 @@ output application/java
 					</ee:variables>
 				</ee:transform>
 			</when>
-			<otherwise>
+			<when expression="#[vars.endpoint == 'sales']">
 				<ee:transform doc:name="Sales SQL">
 					<ee:message />
 					<ee:variables>
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
 var db = vars.databaseName
+var salesTable = p("db.table.sales")
+var visitsTable = p("db.table.visits")
 ---
 "Select  a.SHOPID as STOREID
 	,a.USERID as SalesRepID
@@ -68,8 +70,8 @@ var db = vars.databaseName
         ,'???' as Discount
         ,'???' as VATAmount
         ,a.Entry_Type as TransType
-from " ++ db ++ ".bi_salesmaster as a
-left join " ++ db ++ ".bi_customer_visits as b on a.VisitID =b.visitid
+from " ++ db ++ "." ++ salesTable ++ " as a
+left join " ++ db ++ "." ++ visitsTable ++ " as b on a.VisitID =b.visitid
 where a.Created_AT between :fromTs and :toTs
 LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
@@ -81,18 +83,25 @@ output application/java
 }]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
+			</when>
+			<otherwise>
+				<logger level="INFO" doc:name="Unknown endpoint" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " has no SQL mapping. Add a when-branch for this endpoint."]' />
 			</otherwise>
 		</choice>
-		<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
-		<ee:transform doc:name="JSON result">
-			<ee:message>
-				<ee:set-payload><![CDATA[%dw 2.0
+		<choice doc:name="Run query when SQL is set">
+			<when expression="#[vars.sql != null]">
+				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
+				<ee:transform doc:name="JSON result">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 payload default []]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<logger level="INFO" doc:name="End MySQL query" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " completed. records=" ++ sizeOf(payload default [])]' />
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="End MySQL query" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " completed. records=" ++ sizeOf(payload default [])]' />
+			</when>
+		</choice>
 	</flow>
 
 	<sub-flow name="mysql-query-subflow" doc:id="mysql-query-subflow-0001">

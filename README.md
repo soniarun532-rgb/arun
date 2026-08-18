@@ -37,3 +37,5 @@ GET /api/sales?fromDate=2026-08-13&toDate=2026-08-14&PageNumber=1&Database=sat_n
 ```
 
 Process API sequence: call products, call sales, then join `C.ProductID = D.id`.
+
+Table names come from properties: `db.table.sales`, `db.table.visits`, `db.table.products`.
