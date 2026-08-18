@@ -5,7 +5,7 @@ System API (`sys-solutech-api-v2`) GET endpoints from APIkit (`solutech-sapi-uat
 - `GET /api/products` → `mysql-query-main`
 - `GET /api/sales` → `mysql-query-main`
 
-Reusable pieces: `mysql-query-main` (paging + SQL) and `mysql-query-subflow` (`db:select`). New GET endpoints set `vars.endpoint` (or `vars.sql` / `vars.sqlParams`) and flow-ref `mysql-query-main`.
+Reusable pieces: `mysql-query-main` (SQL + optional paging) and `mysql-query-subflow` (`db:select`). New GET endpoints set `vars.endpoint` and flow-ref `mysql-query-main`.
 
 ## GET `/api/products` (D)
 
@@ -13,7 +13,7 @@ Reusable pieces: `mysql-query-main` (paging + SQL) and `mysql-query-subflow` (`d
 
 | Param | Notes |
 |---|---|
-| `PageNumber` | default `1`, size `100` |
+| `PageNumber` | optional; omit for no LIMIT/OFFSET |
 | `Database` | schema, e.g. `sat_nobleoutlook` |
 | `Supplier` | e.g. `BIC EAST AFRCA LIMITED` |
 
@@ -29,7 +29,7 @@ GET /api/products?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20A
 |---|---|
 | `fromDate` | `YYYY-MM-DD` → `00:00:00` |
 | `toDate` | `YYYY-MM-DD` → `00:00:00` |
-| `PageNumber` | default `1`, size `100` |
+| `PageNumber` | optional; omit for no LIMIT/OFFSET |
 | `Database` | schema |
 
 ```
