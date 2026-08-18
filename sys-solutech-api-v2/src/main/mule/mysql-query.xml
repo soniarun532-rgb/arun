@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 
 	<!-- Reusable entry for APIkit GET endpoints. Set vars.endpoint (or vars.sql + vars.sqlParams) then flow-ref this. -->
 	<flow name="mysql-query-main" doc:id="mysql-query-main-0001">
-		<logger level="INFO" doc:name="Start MySQL query" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " started. Database=" ++ (attributes.queryParams.Database default "") ++ " PageNumber=" ++ (attributes.queryParams.PageNumber default "1") ++ " Supplier=" ++ (attributes.queryParams.Supplier default "") ++ " fromDate=" ++ (attributes.queryParams.fromDate default "") ++ " toDate=" ++ (attributes.queryParams.toDate default "") ++ " Product_ID=" ++ (attributes.queryParams.Product_ID default "")]' />
+		<logger level="INFO" doc:name="Start MySQL query" message='#["[Sys-Solutech] GET /" ++ (vars.endpoint default "") ++ " started. Database=" ++ (attributes.queryParams.Database default "") ++ " PageNumber=" ++ (attributes.queryParams.PageNumber default "1") ++ " Supplier=" ++ (attributes.queryParams.Supplier default "") ++ " fromDate=" ++ (attributes.queryParams.fromDate default "") ++ " toDate=" ++ (attributes.queryParams.toDate default "")]' />
 		<ee:transform doc:name="Paging vars">
 			<ee:message />
 			<ee:variables>
@@ -71,7 +71,6 @@ var db = vars.databaseName
 from " ++ db ++ ".bi_salesmaster as a
 left join " ++ db ++ ".bi_customer_visits as b on a.VisitID =b.visitid
 where a.Created_AT between :fromTs and :toTs
-AND a.product_id IN (" ++ ((attributes.queryParams.Product_ID default "-1") as String) ++ ")
 LIMIT " ++ (vars.pageSize as String) ++ " OFFSET " ++ (vars.pageOffset as String)]]></ee:set-variable>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java

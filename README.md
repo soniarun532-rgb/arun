@@ -23,7 +23,7 @@ GET /api/products?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20A
 
 ## GET `/api/sales` (C)
 
-`bi_salesmaster` A left join `bi_customer_visits` B on `a.VisitID = b.visitid`, filtered by `Created_AT` and `product_id`.
+`bi_salesmaster` A left join `bi_customer_visits` B on `a.VisitID = b.visitid`, filtered by `Created_AT` only.
 
 | Param | Notes |
 |---|---|
@@ -31,10 +31,9 @@ GET /api/products?PageNumber=1&Database=sat_nobleoutlook&Supplier=BIC%20EAST%20A
 | `toDate` | `YYYY-MM-DD` → `00:00:00` |
 | `PageNumber` | default `1`, size `100` |
 | `Database` | schema |
-| `Product_ID` | list from products, e.g. `1,2,3` |
 
 ```
-GET /api/sales?fromDate=2026-08-13&toDate=2026-08-14&PageNumber=1&Database=sat_nobleoutlook&Product_ID=1,2,3
+GET /api/sales?fromDate=2026-08-13&toDate=2026-08-14&PageNumber=1&Database=sat_nobleoutlook
 ```
 
-Process API sequence: call products, take `id` list, call sales with `Product_ID`, then join `C.ProductID = D.id`.
+Process API sequence: call products, call sales, then join `C.ProductID = D.id`.
