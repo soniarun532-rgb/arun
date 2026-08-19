@@ -755,11 +755,11 @@ leftJoin(
 	var product = item.r default {}
 	var ts = sale.CREATED_AT default ""
 	---
-	{
+	sale ++ {
 		STOREID: sale.SHOPID default "",
 		SalesRepID: sale.USERID default "",
 		RouteID: sale.routeid default sale.ROUTEID default "",
-		ProductID: sale.PRODUCT_CODE default product.productcode default "",
+		ProductID: product.productcode default "",
 		WarehouseID: sale.SUPPLIER_ID default "",
 		OrderNumber: sale.SALE_ORDER_ID default "",
 		InvoiceNumber: sale.ENTRY_ID default "",
