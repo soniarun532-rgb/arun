@@ -727,29 +727,62 @@ output application/java
 {
 	fromDate: vars.fromDate,
 	toDate: vars.toDate,
-	PageNumber: vars.PageNumber,
 	Database: vars.Database,
-	Supplier: vars.Supplier
+	Supplier: vars.Supplier,
+	limit: vars.limit,
+	offset: vars.offset
 }]]></ee:set-variable>
 		</ee:variables>
 	</ee:transform>
 	<flow-ref doc:name="call-Sys-Solutech-Subflow" doc:id="aae2fc25-18ec-407b-afac-42fef85e1fe9" name="call-Sys-Solutech-Subflow" />
 	<set-variable value="#[payload]" doc:name="Store Sale Payload C" doc:id="520c3e75-dd96-41d5-8d4a-d22510853c4c" variableName="salesPayload" />
 
-	<ee:transform doc:name="Join Sales C with Products D on PRODUCT_ID = id" doc:id="72898f14-b26e-4766-8220-70862cd1fe82">
+	<ee:transform doc:name="Join Sales C with Products D and rename fields" doc:id="72898f14-b26e-4766-8220-70862cd1fe82">
 		<ee:message>
 			<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 import leftJoin from dw::core::Arrays
 var C = vars.salesPayload default []
 var D = vars.productsPayload default []
+fun createdAt(sale) = (sale.CREATED_AT default sale.Created_AT default sale.created_at default "") as String
+fun invoiceDate(ts) =
+	if (ts contains "T") (ts splitBy "T")[0]
+	else if (ts contains " ") (ts splitBy " ")[0]
+	else ts
+fun invoiceTime(ts) =
+	if (ts contains "T") ((ts splitBy "T")[1] default "")
+	else if (ts contains " ") ((ts splitBy " ")[1] default "")
+	else ""
 ---
 leftJoin(
 	C,
 	D,
 	(c) -> (c.PRODUCT_ID default c.product_id) as String,
 	(d) -> (d.id default d.ID) as String
-) map ((item) -> (item.l default {}) ++ (item.r default {}))]]></ee:set-payload>
+) map ((item) -> do {
+	var sale = item.l default {}
+	var product = item.r default {}
+	var ts = createdAt(sale)
+	---
+	{
+		STOREID: sale.SHOPID default sale.shopid,
+		SalesRepID: sale.USERID default sale.userid,
+		RouteID: sale.ROUTEID default sale.routeid,
+		ProductID: sale.PRODUCT_ID default sale.product_id,
+		DistributorID: "???",
+		WarehouseID: sale.SUPPLIER_ID default sale.Supplier_id default sale.supplier_id,
+		OrderNumber: sale.SALE_ORDER_ID default sale.sale_order_id,
+		InvoiceNumber: sale.ENTRY_ID default sale.Entry_ID default sale.entry_id,
+		InvoiceDate: invoiceDate(ts),
+		InvoiceTimepart: invoiceTime(ts),
+		InvoiceStatus: sale.PAYMENT_STATUS default sale.Payment_Status default sale.payment_status,
+		UnitOfMeasure: sale.PACKAGING default sale.packaging,
+		Currency: "KES",
+		QuantityInvoiced: sale.QUANTITY default sale.quantity,
+		AmountInvoiced: sale.VALUE_SOLD default sale.value_sold,
+		TransType: sale.ENTRY_TYPE default sale.Entry_Type default sale.entry_type
+	} ++ product
+})]]></ee:set-payload>
 		</ee:message>
 	</ee:transform>
 

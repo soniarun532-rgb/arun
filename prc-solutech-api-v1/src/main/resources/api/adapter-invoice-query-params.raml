@@ -10,12 +10,18 @@ queryParameters:
     required: true
     description: Inclusive end date (YYYY-MM-DD)
     example: "2026-08-10"
-  PageNumber:
+  limit:
     type: string
     required: false
-    default: "1"
-    description: Page number
-    example: "1"
+    default: "10000"
+    description: Maximum number of records to return
+    example: "100"
+  offset:
+    type: string
+    required: false
+    default: "0"
+    description: Number of records to skip
+    example: "0"
   Database:
     type: string
     required: true
