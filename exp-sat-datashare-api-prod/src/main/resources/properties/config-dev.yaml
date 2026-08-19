@@ -1,0 +1,7 @@
+http:
+  port: "8081"
+
+process:
+  api:
+    database: "sat_nobleoutlook"
+    supplier: "BIC EAST AFRCA LIMITED"
