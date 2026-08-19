@@ -744,55 +744,33 @@ output application/json
 import leftJoin from dw::core::Arrays
 var C = vars.salesPayload default []
 var D = vars.productsPayload default []
-var renamedSaleKeys = [
-	"shopid", "userid", "routeid", "product_id", "supplier_id",
-	"sale_order_id", "entry_id", "created_at", "payment_status",
-	"packaging", "quantity", "value_sold", "entry_type"
-]
-fun blank(v) = v default ""
-fun createdAt(sale) = blank(sale.CREATED_AT default sale.Created_AT default sale.created_at)
-fun invoiceDate(ts) =
-	if (ts contains "T") (ts splitBy "T")[0]
-	else if (ts contains " ") (ts splitBy " ")[0]
-	else ts
-fun invoiceTime(ts) =
-	if (ts contains "T") ((ts splitBy "T")[1] default "")
-	else if (ts contains " ") ((ts splitBy " ")[1] default "")
-	else ""
-fun extraSaleFields(sale) =
-	sale filterObject ((value, key) -> !(renamedSaleKeys contains lower(key as String)))
-		mapObject ((value, key) -> { (key): blank(value) })
-fun productCode(product) =
-	blank(product.productcode default product.product_code default product.PRODUCTCODE)
 ---
 leftJoin(
 	C,
 	D,
-	(c) -> (c.PRODUCT_ID default c.product_id) as String,
-	(d) -> (d.id default d.ID) as String
+	(c) -> c.PRODUCT_ID as String,
+	(d) -> d.id as String
 ) map ((item) -> do {
 	var sale = item.l default {}
 	var product = item.r default {}
-	var ts = createdAt(sale)
+	var ts = sale.CREATED_AT default ""
 	---
-	extraSaleFields(sale)
-	++ (product mapObject ((value, key) -> { (key): blank(value) }))
-	++ {
-		STOREID: blank(sale.SHOPID),
-		SalesRepID: blank(sale.USERID),
-		RouteID: blank(sale.ROUTEID),
-		ProductID: productCode(product),
-		WarehouseID: blank(sale.SUPPLIER_ID),
-		OrderNumber: blank(sale.SALE_ORDER_ID),
-		InvoiceNumber: blank(sale.ENTRY_ID),
-		InvoiceDate: invoiceDate(ts),
-		InvoiceTimepart: invoiceTime(ts),
-		InvoiceStatus: blank(sale.PAYMENT_STATUS),
-		UnitOfMeasure: blank(sale.PACKAGING),
+	{
+		STOREID: sale.SHOPID default "",
+		SalesRepID: sale.USERID default "",
+		RouteID: sale.ROUTEID default "",
+		ProductID: product.productcode default "",
+		WarehouseID: sale.SUPPLIER_ID default "",
+		OrderNumber: sale.SALE_ORDER_ID default "",
+		InvoiceNumber: sale.ENTRY_ID default "",
+		InvoiceDate: (ts splitBy "T")[0] default "",
+		InvoiceTimepart: (ts splitBy "T")[1] default "",
+		InvoiceStatus: sale.PAYMENT_STATUS default "",
+		UnitOfMeasure: sale.PACKAGING default "",
 		Currency: "KES",
-		QuantityInvoiced: blank(sale.QUANTITY),
-		AmountInvoiced: blank(sale.VALUE_SOLD),
-		TransType: blank(sale.ENTRY_TYPE)
+		QuantityInvoiced: sale.QUANTITY default "",
+		AmountInvoiced: sale.VALUE_SOLD default "",
+		TransType: sale.ENTRY_TYPE default ""
 	}
 })]]></ee:set-payload>
 		</ee:message>
