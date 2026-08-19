@@ -1,0 +1,13 @@
+{
+  "main": "exp-sat-datashare-api-prod.raml",
+  "name": "exp-sat-datashare-api-prod",
+  "groupId": "e4352f2d-9759-4055-930e-8a13244d0f45",
+  "assetId": "exp-sat-datashare-api-prod",
+  "version": "1.0.2",
+  "classifier": "raml",
+  "tags": [],
+  "descriptorVersion": "1.0.0",
+  "organizationId": "e4352f2d-9759-4055-930e-8a13244d0f45",
+  "apiVersion": "v1",
+  "originalFormatVersion": "1.0"
+}

@@ -1,0 +1,25 @@
+[
+    {
+        "RECORDID": 1,
+        "USERID": 2,
+        "USERNAME": "TEST ACCOUNT",
+        "SHOPID": 185,
+        "CUSTOMERNAME": "NEW CUSTOMER",
+        "CUSTOMERCATEGORY": "RETAIL SHOP",
+        "LOCATION_NAME": "GIKAMBURA",
+        "LOCATION_ID": 4,
+        "ACCOUNTNAME": null,
+        "USERCATEGORY": "SOLUTECH",
+        "REGION_NAME": "NAIROBI",
+        "PRODUCTCATEGORY": null,
+        "BRAND_NAME": "LIGHTERS",
+        "CSKU": null,
+        "MECHANISM": "BOGOF",
+        "BEFOREVALUE": "300",
+        "AFTERVALUE": "250",
+        "NOTES": "test",
+        "ENTRYTIME": "2026-06-08T16:28:55",
+        "CREATED_AT": "2026-06-08T16:28:57",
+        "UPDATED_AT": "2026-06-08T16:28:57"
+    }
+]

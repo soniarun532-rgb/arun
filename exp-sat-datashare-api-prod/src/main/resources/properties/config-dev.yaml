@@ -1,0 +1,5 @@
+process:
+  api:
+    host: "prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    database: "sat_nobleoutlook"
+    supplier: "BIC EAST AFRCA LIMITED"

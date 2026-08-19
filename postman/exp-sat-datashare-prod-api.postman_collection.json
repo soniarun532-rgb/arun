@@ -1,0 +1,350 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-exp-sat-datashare",
+    "name": "exp-sat-datashare-prod-api",
+    "description": "SAT Datashare Experience API. fromDate, toDate and PageNumber are sent by the caller. database and supplier are added by the experience API from properties when it calls the process API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081/api" },
+    { "key": "processBaseUrl", "value": "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io/api" },
+    { "key": "fromDate", "value": "2026-08-01" },
+    { "key": "toDate", "value": "2026-08-10" },
+    { "key": "PageNumber", "value": "1" },
+    { "key": "database", "value": "sat_nobleoutlook" },
+    { "key": "supplier", "value": "BIC EAST AFRCA LIMITED" },
+    { "key": "correlationId", "value": "postman-test-001" }
+  ],
+  "item": [
+    {
+      "name": "Experience API",
+      "item": [
+        {
+          "name": "GET Invoice",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Invoice"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Order"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Product",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Product?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Product"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Route",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Route?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Route"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET SalesRep",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/SalesRep?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "SalesRep"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Store",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Store?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Store"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Inventory",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Inventory?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Inventory"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Warehouse",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Correlation-Id", "value": "{{correlationId}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/Warehouse?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "Warehouse"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Process API",
+      "item": [
+        {
+          "name": "GET Invoice (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Invoice"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Order (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Order"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Product (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Product?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Product"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Route (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Route?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Route"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET SalesRep (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/SalesRep?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "SalesRep"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Store (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Store?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Store"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Inventory (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Inventory?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Inventory"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET Warehouse (process)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": {
+              "raw": "{{processBaseUrl}}/v1/Warehouse?fromDate={{fromDate}}&toDate={{toDate}}&PageNumber={{PageNumber}}&database={{database}}&supplier={{supplier}}",
+              "host": ["{{processBaseUrl}}"],
+              "path": ["v1", "Warehouse"],
+              "query": [
+                { "key": "fromDate", "value": "{{fromDate}}" },
+                { "key": "toDate", "value": "{{toDate}}" },
+                { "key": "PageNumber", "value": "{{PageNumber}}" },
+                { "key": "database", "value": "{{database}}" },
+                { "key": "supplier", "value": "{{supplier}}" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

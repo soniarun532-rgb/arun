@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "BAD_REQUEST",
+    "message": "fromDate and toDate are required query parameters",
+    "correlationId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "timestamp": "2026-08-13T17:00:00.000Z",
+    "details": "Provide fromDate and toDate in YYYY-MM-DD format"
+  }
+}

@@ -1,0 +1,59 @@
+#%RAML 1.0
+title: exp-sat-datashare-api-prod
+version: v1
+protocols: [ HTTPS ]
+baseUri: https://api.example.com/exp-sat-datashare-api-prod
+
+traits:
+  invoiceQuery: !include traits/invoice-query.raml
+  orderQuery: !include traits/order-query.raml
+  productQuery: !include traits/product-query.raml
+  routeQuery: !include traits/route-query.raml
+  salesRepQuery: !include traits/salesrep-query.raml
+  storeQuery: !include traits/store-query.raml
+  inventoryQuery: !include traits/inventory-query.raml
+  warehouseQuery: !include traits/warehouse-query.raml
+  errorResponses: !include traits/error-responses.raml
+
+resourceTypes:
+  collection: !include resourceTypes/collection.raml
+
+/v1/Invoice:
+  type: collection
+  is:
+    - invoiceQuery
+
+/v1/Order:
+  type: collection
+  is:
+    - orderQuery
+
+/v1/Product:
+  type: collection
+  is:
+    - productQuery
+
+/v1/Route:
+  type: collection
+  is:
+    - routeQuery
+
+/v1/SalesRep:
+  type: collection
+  is:
+    - salesRepQuery
+
+/v1/Store:
+  type: collection
+  is:
+    - storeQuery
+
+/v1/Inventory:
+  type: collection
+  is:
+    - inventoryQuery
+
+/v1/Warehouse:
+  type: collection
+  is:
+    - warehouseQuery

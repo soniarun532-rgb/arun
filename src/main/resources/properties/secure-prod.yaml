@@ -1,0 +1,7 @@
+# Values wrapped in ![ ] are decrypted with -M-Dsecure.key=<key>
+# Encrypt with:
+# java -jar secure-properties-tool.jar string encrypt AES CBC <secure.key> "<value>"
+process:
+  api:
+    clientId: "REPLACE_PROD_CLIENT_ID"
+    clientSecret: "REPLACE_PROD_CLIENT_SECRET"

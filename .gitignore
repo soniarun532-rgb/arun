@@ -1,0 +1,12 @@
+target/
+.mule/
+.mule/
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.DS_Store
+*.log
+node_modules/
+package-lock.json

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+        http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+
+    <configuration-properties file="properties/config-common.yaml" doc:name="Configuration_Properties_common"/>
+    <configuration-properties file="properties/config-${mule.env}.yaml" doc:name="Configuration_Properties_env"/>
+
+    <http:listener-config name="HTTP_Listener_config" doc:name="HTTP_Listener_config">
+        <http:listener-connection host="${http.host}" port="${http.port}"/>
+    </http:listener-config>
+
+    <http:request-config name="HTTP_Request_config_prc-solutech-api"
+                         responseTimeout="${process.api.responseTimeout}"
+                         doc:name="HTTP_Request_config_prc-solutech-api">
+        <http:request-connection protocol="HTTPS" host="${process.api.host}" port="${process.api.port}"/>
+    </http:request-config>
+
+    <apikit:config name="exp-sat-datashare-prod-api-config"
+                   api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:exp-sat-datashare-api-prod:1.0.2:raml:zip:exp-sat-datashare-api-prod.raml"
+                   outboundHeadersMapName="outboundHeaders"
+                   httpStatusVarName="httpStatus"
+                   doc:name="APIkit_Router_config"/>
+</mule>
