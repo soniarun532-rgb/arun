@@ -15,14 +15,14 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 			doc:id="e16e3679-a9b1-43de-88cc-69853949234b">
 			<logger level="INFO" doc:name="Global Error Flow - Started"
 				doc:id="311471aa-2c00-4ffb-8928-0df7b94652e7"
-				message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	event: &quot;Global Error Flow Started&quot;,&#10;	timestamp: (now()&gt;&gt;&quot;IST&quot;) as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;} as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},&#10;	correlationId: correlationId,&#10;	payloadSize: sizeOf(write(payload default {}, &quot;application/json&quot;)),&#10;	error: error.errorType&#10;}]" />
+				message='#["Global Error Flow - Start | timestamp=" ++ now()]' />
 			<choice doc:name="Choice"
 				doc:id="e1af92ae-9c74-447c-abdd-8f0598112c35">
 				<when
 					expression='#[(error.errorMessage.payload is Object) or(error.errorMessage.payload.businessCentralResponse != null)]'>
 					<logger level="INFO" doc:name="Error Logger"
 						doc:id="1e370b09-2460-4482-b87b-e34432ac1c6b"
-						message="#[%dw 2.0&#10;output application/json&#10;---&#10;{ payloadSize: sizeOf(write(error.errorMessage.payload default {}, &quot;application/json&quot;)) }]" />
+						message='#["Global Error Flow - Error payload | timestamp=" ++ now() ++ " | payloadSize=" ++ sizeOf(error.errorMessage.payload default "")]' />
 					<ee:transform doc:name="Error Response"
 						doc:id="b03d70a8-4157-491f-96fd-240eba522666">
 						<ee:message>
@@ -51,7 +51,7 @@ error.errorMessage.payload]]></ee:set-payload>
 				<otherwise>
 					<logger level="INFO" doc:name="Generic Error Logger"
 						doc:id="a98885b1-c818-48b5-b0e5-a703c8193791"
-						message="#[%dw 2.0&#10;output application/json&#10;var identifier = error.errorType.identifier default &quot;&quot;&#10;var namespace  = error.errorType.namespace default &quot;&quot;&#10;&#10;var httpStatus =&#10;    if ( [&quot;INVALID_INPUT&quot;, &quot;BAD_REQUEST&quot;] contains identifier ) 400&#10;    else if ( [&quot;UNAUTHORIZED&quot;, &quot;MUTUAL_AUTHENTICATION&quot;, &quot;INVALID_SESSION_ID&quot;] contains identifier ) 401&#10;    else if ( [&quot;FORBIDDEN&quot;, &quot;INSUFFICIENT_PERMISSION&quot;] contains identifier ) 403&#10;    else if ( identifier == &quot;NOT_FOUND&quot; ) 404&#10;    else if ( identifier == &quot;METHOD_NOT_ALLOWED&quot; ) 405&#10;    else if ( identifier == &quot;NOT_ACCEPTABLE&quot; ) 406&#10;    else if ( identifier == &quot;UNSUPPORTED_MEDIA_TYPE&quot; ) 415&#10;    else if ( identifier == &quot;STREAM_MAXIMUM_SIZE_EXCEEDED&quot; ) 413&#10;    else if ( [&quot;TOO_MANY_REQUESTS&quot;, &quot;LIMIT_EXCEEDED&quot;] contains identifier ) 429&#10;    else if ( [&quot;CONNECTIVITY&quot;, &quot;BAD_GATEWAY&quot;, &quot;COMMUNICATION&quot;, &quot;INVALID_RESPONSE&quot;] contains identifier ) 502&#10;    else if ( [&quot;SERVICE_UNAVAILABLE&quot;, &quot;UNAVAILABLE&quot;] contains identifier ) 503&#10;    else if ( [&quot;TIMEOUT&quot;, &quot;GATEWAY_TIMEOUT&quot;, &quot;RETRY_EXHAUSTED&quot;] contains identifier ) 504&#10;    else 500&#10;&#10;var errorMessage =&#10;    if ( [&quot;EMAIL&quot;, &quot;SMTP&quot;] contains namespace ) &quot;An error occurred while sending email notification&quot;&#10;    &#10;    else if ( namespace == &quot;APIKIT&quot; ) &#10;        &quot;Request validation failed. Please check the request payload, query parameters, or URI parameters&quot;&#10;    &#10;    else if ( namespace == &quot;HTTP&quot; ) &#10;        &quot;Failed to process request due to downstream service error&quot;&#10;    &#10;    else if ( namespace == &quot;VALIDATION&quot; ) &quot;Input validation failed for the request&quot;&#10;    else if ( [&quot;JMS&quot;, &quot;AMQP&quot;] contains namespace ) &quot;An error occurred while processing messages from the queue&quot;&#10;    else if ( namespace == &quot;CONNECTIVITY&quot; ) &quot;Unable to connect to downstream system&quot;&#10;    else if ( namespace == &quot;SECURITY&quot; ) &quot;Security validation failed&quot;&#10;    else if ( namespace == &quot;PARSING&quot; ) &quot;Error while parsing request or response&quot;&#10;    else if ( namespace == &quot;EXPRESSION&quot; ) &quot;Internal processing error occurred while evaluating the request&quot;&#10;    else &quot;An unexpected error occurred while processing the request&quot;&#10;---&#10;{&#10;    status: httpStatus,&#10;    message: errorMessage,&#10;    appName: p('app.name'),&#10;    errors: [{&#10;        errorTitle: identifier,&#10;        errorMessage: error.description default &quot;&quot;,&#10;        correlationId: correlationId&#10;    }]&#10;}]" />
+						message='#["Global Error Flow - Generic error | timestamp=" ++ now()]' />
 					<ee:transform doc:name="Error Mapping"
 						doc:id="4642f60f-ed01-44ac-9353-5b2f0d0850c1">
 						<ee:message>
@@ -118,7 +118,7 @@ var errorMessage =
 			</choice>
 			<logger level="INFO" doc:name="Global Error Flow - Ended"
 				doc:id="9fb9b51f-e7de-4086-b69b-bdfe321fe6b1"
-				message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	event: &quot;Global Error Flow Ended&quot;,&#10;	timestamp: (now()&gt;&gt;&quot;IST&quot;) as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;} as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},&#10;	correlationId: correlationId&#10;}]" />
+				message='#["Global Error Flow - End | timestamp=" ++ now()]' />
 
 		</on-error-propagate>
 	</error-handler>

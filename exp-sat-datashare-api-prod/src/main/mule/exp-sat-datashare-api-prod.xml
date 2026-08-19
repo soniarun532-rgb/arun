@@ -14,71 +14,55 @@
                       value="#[attributes.headers['x-correlation-id'] default attributes.headers['X-Correlation-Id'] default uuid()]"
                       doc:name="Set_Variable_correlationId"/>
         <logger level="INFO" doc:name="Logger_APIkit_Router"
-                message="#['exp-sat-datashare-api-prod-main - APIkit Router | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | method=' ++ attributes.method ++ ' | path=' ++ attributes.requestPath ++ ' | payloadSize=' ++ (sizeOf(write(payload default {}, &quot;application/json&quot;)) as String)]"/>
+                message='#["APIkit Router | timestamp=" ++ now() ++ " | path=" ++ attributes.requestPath ++ " | payloadSize=" ++ sizeOf(payload default "")]'/>
         <apikit:router config-ref="exp-sat-datashare-prod-api-config" doc:name="APIkit_Router"/>
 		<error-handler ref="global-error-handler" />
     </flow>
      <flow name="get:\v1\Invoice:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Invoice"
-                message="#['GET /v1/Invoice - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Invoice" message='#["GET /v1/Invoice - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Invoice"
-                message="#['GET /v1/Invoice - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Invoice" message='#["GET /v1/Invoice - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Order:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Order"
-                message="#['GET /v1/Order - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Order" message='#["GET /v1/Order - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Order"
-                message="#['GET /v1/Order - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Order" message='#["GET /v1/Order - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Product:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Product"
-                message="#['GET /v1/Product - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Product" message='#["GET /v1/Product - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Product"
-                message="#['GET /v1/Product - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Product" message='#["GET /v1/Product - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Route:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Route"
-                message="#['GET /v1/Route - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Route" message='#["GET /v1/Route - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Route"
-                message="#['GET /v1/Route - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Route" message='#["GET /v1/Route - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\SalesRep:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_SalesRep"
-                message="#['GET /v1/SalesRep - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_SalesRep" message='#["GET /v1/SalesRep - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_SalesRep"
-                message="#['GET /v1/SalesRep - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_SalesRep" message='#["GET /v1/SalesRep - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Store:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Store"
-                message="#['GET /v1/Store - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Store" message='#["GET /v1/Store - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Store"
-                message="#['GET /v1/Store - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Store" message='#["GET /v1/Store - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Inventory:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Inventory"
-                message="#['GET /v1/Inventory - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Inventory" message='#["GET /v1/Inventory - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Inventory"
-                message="#['GET /v1/Inventory - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Inventory" message='#["GET /v1/Inventory - End | timestamp=" ++ now()]'/>
     </flow>
 
     <flow name="get:\v1\Warehouse:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Warehouse"
-                message="#['GET /v1/Warehouse - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId]"/>
+        <logger level="INFO" doc:name="Logger_Start_GET_v1_Warehouse" message='#["GET /v1/Warehouse - Start | timestamp=" ++ now()]'/>
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow"/>
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Warehouse"
-                message="#['GET /v1/Warehouse - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
+        <logger level="INFO" doc:name="Logger_End_GET_v1_Warehouse" message='#["GET /v1/Warehouse - End | timestamp=" ++ now()]'/>
     </flow>
 </mule>

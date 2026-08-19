@@ -11,7 +11,7 @@
 
     <sub-flow name="call-prc-solutech-api-sub-flow" doc:name="call-prc-solutech-api-sub-flow">
         <logger level="INFO" doc:name="Logger_Start_call-prc-solutech-api-sub-flow"
-                message="#['call-prc-solutech-api-sub-flow - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | path=' ++ (attributes.maskedRequestPath default attributes.requestPath) ++ ' | fromDate=' ++ (attributes.queryParams.fromDate default '') ++ ' | toDate=' ++ (attributes.queryParams.toDate default '') ++ ' | PageNumber=' ++ (attributes.queryParams.PageNumber default '1') ++ ' | database=' ++ p('process.api.database') ++ ' | supplier=' ++ p('process.api.supplier')]"/>
+                message='#["call-prc-solutech-api-sub-flow - Start | timestamp=" ++ now()]'/>
         <ee:transform doc:name="Transform_Message_process-query-params">
             <ee:variables>
                 <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl"/>
@@ -28,6 +28,6 @@
                       value="#[attributes.statusCode default 200]"
                       doc:name="Set_Variable_httpStatus"/>
         <logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
-                message="#['call-prc-solutech-api-sub-flow - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200) ++ ' | payloadSize=' ++ (sizeOf(write(payload default {}, &quot;application/json&quot;)) as String)]"/>
+                message='#["call-prc-solutech-api-sub-flow - End | timestamp=" ++ now() ++ " | payloadSize=" ++ sizeOf(payload default "")]'/>
     </sub-flow>
 </mule>
