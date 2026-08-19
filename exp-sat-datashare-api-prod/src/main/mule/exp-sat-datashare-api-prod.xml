@@ -15,7 +15,7 @@
                       doc:name="Set_Variable_correlationId"/>
         <logger level="INFO" doc:name="Logger_APIkit_Router"
                 message="#['exp-sat-datashare-api-prod-main - APIkit Router | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | method=' ++ attributes.method ++ ' | path=' ++ attributes.requestPath ++ ' | payloadSize=' ++ (sizeOf(write(payload default {}, &quot;application/json&quot;)) as String)]"/>
-        <apikit:router config-ref="exp-sat-datashare-api-prod-config" doc:name="APIkit_Router"/>
+        <apikit:router config-ref="exp-sat-datashare-prod-api-config" doc:name="APIkit_Router"/>
 		<error-handler ref="global-error-handler" />
     </flow>
      <flow name="get:\v1\Invoice:exp-sat-datashare-prod-api-config">
