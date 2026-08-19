@@ -744,7 +744,13 @@ output application/json
 import leftJoin from dw::core::Arrays
 var C = vars.salesPayload default []
 var D = vars.productsPayload default []
-fun createdAt(sale) = (sale.CREATED_AT default sale.Created_AT default sale.created_at default "") as String
+var renamedSaleKeys = [
+	"shopid", "userid", "routeid", "product_id", "supplier_id",
+	"sale_order_id", "entry_id", "created_at", "payment_status",
+	"packaging", "quantity", "value_sold", "entry_type"
+]
+fun blank(v) = v default ""
+fun createdAt(sale) = blank(sale.CREATED_AT default sale.Created_AT default sale.created_at)
 fun invoiceDate(ts) =
 	if (ts contains "T") (ts splitBy "T")[0]
 	else if (ts contains " ") (ts splitBy " ")[0]
@@ -753,6 +759,11 @@ fun invoiceTime(ts) =
 	if (ts contains "T") ((ts splitBy "T")[1] default "")
 	else if (ts contains " ") ((ts splitBy " ")[1] default "")
 	else ""
+fun extraSaleFields(sale) =
+	sale filterObject ((value, key) -> !(renamedSaleKeys contains lower(key as String)))
+		mapObject ((value, key) -> { (key): blank(value) })
+fun productCode(product) =
+	blank(product.productcode default product.product_code default product.PRODUCTCODE)
 ---
 leftJoin(
 	C,
@@ -764,24 +775,25 @@ leftJoin(
 	var product = item.r default {}
 	var ts = createdAt(sale)
 	---
-	{
-		STOREID: sale.SHOPID default sale.shopid,
-		SalesRepID: sale.USERID default sale.userid,
-		RouteID: sale.ROUTEID default sale.routeid,
-		ProductID: sale.PRODUCT_ID default sale.product_id,
-		DistributorID: "???",
-		WarehouseID: sale.SUPPLIER_ID default sale.Supplier_id default sale.supplier_id,
-		OrderNumber: sale.SALE_ORDER_ID default sale.sale_order_id,
-		InvoiceNumber: sale.ENTRY_ID default sale.Entry_ID default sale.entry_id,
+	extraSaleFields(sale)
+	++ (product mapObject ((value, key) -> { (key): blank(value) }))
+	++ {
+		STOREID: blank(sale.SHOPID),
+		SalesRepID: blank(sale.USERID),
+		RouteID: blank(sale.ROUTEID),
+		ProductID: productCode(product),
+		WarehouseID: blank(sale.SUPPLIER_ID),
+		OrderNumber: blank(sale.SALE_ORDER_ID),
+		InvoiceNumber: blank(sale.ENTRY_ID),
 		InvoiceDate: invoiceDate(ts),
 		InvoiceTimepart: invoiceTime(ts),
-		InvoiceStatus: sale.PAYMENT_STATUS default sale.Payment_Status default sale.payment_status,
-		UnitOfMeasure: sale.PACKAGING default sale.packaging,
+		InvoiceStatus: blank(sale.PAYMENT_STATUS),
+		UnitOfMeasure: blank(sale.PACKAGING),
 		Currency: "KES",
-		QuantityInvoiced: sale.QUANTITY default sale.quantity,
-		AmountInvoiced: sale.VALUE_SOLD default sale.value_sold,
-		TransType: sale.ENTRY_TYPE default sale.Entry_Type default sale.entry_type
-	} ++ product
+		QuantityInvoiced: blank(sale.QUANTITY),
+		AmountInvoiced: blank(sale.VALUE_SOLD),
+		TransType: blank(sale.ENTRY_TYPE)
+	}
 })]]></ee:set-payload>
 		</ee:message>
 	</ee:transform>
