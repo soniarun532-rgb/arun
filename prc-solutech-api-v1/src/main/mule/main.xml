@@ -708,8 +708,8 @@ output application/java
 {
 	Database: vars.Database,
 	Supplier: vars.Supplier,
-	limit: vars.limit,
-	offset: vars.offset
+	limit: "10000",
+	offset: "0"
 }]]></ee:set-variable>
 		</ee:variables>
 	</ee:transform>
@@ -753,7 +753,7 @@ leftJoin(
 ) map ((item) -> do {
 	var sale = item.l default {}
 	var product = item.r default {}
-	var ts = sale.CREATED_AT default ""
+	var ts = (sale.CREATED_AT default "") replace "T" with " "
 	---
 	sale ++ {
 		STOREID: sale.SHOPID default "",
