@@ -755,14 +755,12 @@ leftJoin(
 	var sale = item.l default {}
 	var product = item.r default {}
 	var ts = (sale.CREATED_AT default "") replace "T" with " "
-	var productCode = product.productcode default ""
 	---
-	sale ++ {
+	{
 		STOREID: sale.SHOPID default "",
 		SalesRepID: sale.USERID default "",
-		RouteID: sale.routeid default sale.ROUTEID default "",
-		PRODUCT_CODE: productCode,
-		ProductID: numericProductId(productCode),
+		RouteID: sale.ROUTEID default sale.routeid default "",
+		ProductID: numericProductId(product.productcode),
 		WarehouseID: sale.SUPPLIER_ID default "",
 		OrderNumber: sale.SALE_ORDER_ID default "",
 		InvoiceNumber: sale.ENTRY_ID default "",
@@ -773,7 +771,45 @@ leftJoin(
 		Currency: "KES",
 		QuantityInvoiced: sale.QUANTITY default "",
 		AmountInvoiced: sale.VALUE_SOLD default "",
-		TransType: sale.ENTRY_TYPE default ""
+		TransType: sale.ENTRY_TYPE default "",
+		VISITID: sale.VISITID default "",
+		SALES_REP: sale.SALES_REP default "",
+		REP_CATEGORY: sale.REP_CATEGORY default "",
+		SUPERVISOR: sale.SUPERVISOR default "",
+		CUSTOMER_ERP_CODE: sale.CUSTOMER_ERP_CODE default "",
+		CUSTOMER_NAME: sale.CUSTOMER_NAME default "",
+		CUSTOMER_ACCOUNT: sale.CUSTOMER_ACCOUNT default "",
+		USERCATEGORY: sale.USERCATEGORY default "",
+		CUSTOMER_ADDED_DATE: sale.CUSTOMER_ADDED_DATE default "",
+		CUSTOMER_VERIFICATION: sale.CUSTOMER_VERIFICATION default "",
+		CUSTOMER_CATEGORY: sale.CUSTOMER_CATEGORY default "",
+		LOCATION_ID: sale.LOCATION_ID default "",
+		LOCATION_NAME: sale.LOCATION_NAME default "",
+		TERRITORY_ID: sale.TERRITORY_ID default "",
+		TERRITORY_NAME: sale.TERRITORY_NAME default "",
+		ROUTE_NAME: sale.ROUTE_NAME default "",
+		ROUTE_TYPE: sale.ROUTE_TYPE default "",
+		REGION_NAME: sale.REGION_NAME default "",
+		PRODUCT_REF: sale.PRODUCT_REF default "",
+		PRODUCT_CATEGORY: sale.PRODUCT_CATEGORY default "",
+		PRODUCT_NAME: sale.PRODUCT_NAME default "",
+		PRODUCT_SKU: sale.PRODUCT_SKU default "",
+		PACKAGING_ID: sale.PACKAGING_ID default "",
+		ITEMSWEIGHT: sale.ITEMSWEIGHT default "",
+		SALES_VOLUME: sale.SALES_VOLUME default "",
+		BASE_PRICE: sale.BASE_PRICE default "",
+		SELLING_PRICE: sale.SELLING_PRICE default "",
+		SALES_VALUE: sale.SALES_VALUE default "",
+		ERP_REFERENCE: sale.ERP_REFERENCE default "",
+		DELIVERED: sale.DELIVERED default "",
+		ENTRY_TIME: sale.ENTRY_TIME default "",
+		TAX_INVOICE_NO: sale.TAX_INVOICE_NO default "",
+		CU_SERIAL_NO: sale.CU_SERIAL_NO default "",
+		STAGE_NAME: sale.STAGE_NAME default "",
+		CHANNEL: sale.CHANNEL default "",
+		PAYMENT_METHOD: sale.PAYMENT_METHOD default "",
+		AMOUNT_PAID: sale.AMOUNT_PAID default "",
+		UPDATED_AT: sale.UPDATED_AT default ""
 	}
 })]]></ee:set-payload>
 		</ee:message>
