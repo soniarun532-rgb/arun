@@ -15,14 +15,14 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 			doc:id="e16e3679-a9b1-43de-88cc-69853949234b">
 			<logger level="INFO" doc:name="Global Error Flow - Started"
 				doc:id="311471aa-2c00-4ffb-8928-0df7b94652e7"
-				message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	event: &quot;Global Error Flow Started&quot;,&#10;	timestamp: (now()&gt;&gt;&quot;IST&quot;) as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;} as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},&#10;	correlationId: correlationId,&#10;	payload: payload,&#10;	error: error.errorType&#10;}]" />
+				message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	event: &quot;Global Error Flow Started&quot;,&#10;	timestamp: (now()&gt;&gt;&quot;IST&quot;) as DateTime {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;} as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},&#10;	correlationId: correlationId,&#10;	payloadSize: sizeOf(write(payload default {}, &quot;application/json&quot;)),&#10;	error: error.errorType&#10;}]" />
 			<choice doc:name="Choice"
 				doc:id="e1af92ae-9c74-447c-abdd-8f0598112c35">
 				<when
 					expression='#[(error.errorMessage.payload is Object) or(error.errorMessage.payload.businessCentralResponse != null)]'>
 					<logger level="INFO" doc:name="Error Logger"
 						doc:id="1e370b09-2460-4482-b87b-e34432ac1c6b"
-						message="#[%dw 2.0&#10;output application/json&#10;---&#10;error.errorMessage.payload]" />
+						message="#[%dw 2.0&#10;output application/json&#10;---&#10;{ payloadSize: sizeOf(write(error.errorMessage.payload default {}, &quot;application/json&quot;)) }]" />
 					<ee:transform doc:name="Error Response"
 						doc:id="b03d70a8-4157-491f-96fd-240eba522666">
 						<ee:message>

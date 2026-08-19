@@ -24,9 +24,9 @@
         <http:request-connection protocol="HTTPS" host="${process.api.host}" port="${process.api.port}"/>
     </http:request-config>
 
-    <apikit:config name="exp-sat-datashare-prod-api-config"
-                   raml="api/exp-sat-datashare-prod-api.raml"
+    <apikit:config name="exp-sat-datashare-api-prod-config"
+                   api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:exp-sat-datashare-api-prod:1.0.2:raml:zip:exp-sat-datashare-api-prod.raml"
                    outboundHeadersMapName="outboundHeaders"
                    httpStatusVarName="httpStatus"
-                   doc:name="APIkit_Router_config" api="api\exp-sat-datashare-prod-api.raml"/>
+                   doc:name="APIkit_Router_config"/>
 </mule>

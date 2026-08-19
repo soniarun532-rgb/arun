@@ -1,7 +1,5 @@
-http:
-  port: "8081"
-
 process:
   api:
+    host: "prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
     database: "DEV_DATABASE"
     supplier: "DEV_SUPPLIER"

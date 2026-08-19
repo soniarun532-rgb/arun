@@ -10,9 +10,9 @@
         http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
     <sub-flow name="call-prc-solutech-api-sub-flow" doc:name="call-prc-solutech-api-sub-flow">
-<logger level="INFO" doc:name="Logger_Start_call-prc-solutech-api-sub-flow"
-        message="#['call-prc-solutech-api-sub-flow - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | path=' ++ (attributes.maskedRequestPath default attributes.requestPath) ++ ' | fromDate=' ++ (attributes.queryParams.fromDate default '') ++ ' | toDate=' ++ (attributes.queryParams.toDate default '') ++ ' | PageNumber=' ++ (attributes.queryParams.PageNumber default '1') ++ ' | Database=' ++ p('process.api.database') ++ ' | Supplier=' ++ p('process.api.supplier')]"/>
-		<ee:transform doc:name="Transform_Message_process-query-params">
+        <logger level="INFO" doc:name="Logger_Start_call-prc-solutech-api-sub-flow"
+                message="#['call-prc-solutech-api-sub-flow - Start | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | path=' ++ (attributes.maskedRequestPath default attributes.requestPath) ++ ' | fromDate=' ++ (attributes.queryParams.fromDate default '') ++ ' | toDate=' ++ (attributes.queryParams.toDate default '') ++ ' | PageNumber=' ++ (attributes.queryParams.PageNumber default '1') ++ ' | database=' ++ p('process.api.database') ++ ' | supplier=' ++ p('process.api.supplier')]"/>
+        <ee:transform doc:name="Transform_Message_process-query-params">
             <ee:variables>
                 <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl"/>
             </ee:variables>
@@ -20,11 +20,14 @@
         <http:request method="GET"
                       config-ref="HTTP_Request_config_prc-solutech-api"
                       path='#["${process.api.basePath}" ++ (attributes.maskedRequestPath default attributes.requestPath)]'
-                      doc:name="HTTP_Request_GET_prc-solutech-api" responseTimeout="30000">
+                      responseTimeout="${process.api.responseTimeout}"
+                      doc:name="HTTP_Request_GET_prc-solutech-api">
             <http:query-params><![CDATA[#[vars.processQueryParams]]]></http:query-params>
         </http:request>
-<logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
-        message="#['call-prc-solutech-api-sub-flow - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200)]"/>
-    
-</sub-flow>
+        <set-variable variableName="httpStatus"
+                      value="#[attributes.statusCode default 200]"
+                      doc:name="Set_Variable_httpStatus"/>
+        <logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
+                message="#['call-prc-solutech-api-sub-flow - End | timestamp=' ++ (now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;}) ++ ' | correlationId=' ++ vars.correlationId ++ ' | httpStatus=' ++ (vars.httpStatus default 200) ++ ' | payloadSize=' ++ (sizeOf(write(payload default {}, &quot;application/json&quot;)) as String)]"/>
+    </sub-flow>
 </mule>
