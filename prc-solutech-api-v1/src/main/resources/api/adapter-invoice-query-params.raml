@@ -11,23 +11,23 @@ queryParameters:
     description: Inclusive end date (YYYY-MM-DD)
     example: "2026-08-10"
   limit:
-    type: string
+    type: number
     required: false
-    default: "10000"
+    default: 10000
     description: Maximum number of records to return
-    example: "100"
+    example: 100
   offset:
-    type: string
+    type: number
     required: false
-    default: "0"
+    default: 0
     description: Number of records to skip
-    example: "0"
-  Database:
+    example: 0
+  database:
     type: string
     required: true
     description: Database name
     example: DEV_DATABASE
-  Supplier:
+  supplier:
     type: string
     required: true
     description: Supplier name

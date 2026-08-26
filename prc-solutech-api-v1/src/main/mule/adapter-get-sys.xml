@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<!-- Shared GET query params for all 8 Sys joined-data endpoints -->
+	<sub-flow name="store-Sys-Get-QueryParams" doc:id="sys-get-query-params-0001">
+		<ee:transform doc:name="Store inbound query params">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="fromDate"><![CDATA[attributes.queryParams.fromDate]]></ee:set-variable>
+				<ee:set-variable variableName="toDate"><![CDATA[attributes.queryParams.toDate]]></ee:set-variable>
+				<ee:set-variable variableName="database"><![CDATA[attributes.queryParams.database default attributes.queryParams.Database]]></ee:set-variable>
+				<ee:set-variable variableName="supplier"><![CDATA[attributes.queryParams.supplier default attributes.queryParams.Supplier]]></ee:set-variable>
+				<ee:set-variable variableName="limit"><![CDATA[attributes.queryParams.limit default 10000]]></ee:set-variable>
+				<ee:set-variable variableName="offset"><![CDATA[attributes.queryParams.offset default 0]]></ee:set-variable>
+				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
+				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	fromDate: attributes.queryParams.fromDate,
+	toDate: attributes.queryParams.toDate,
+	database: attributes.queryParams.database default attributes.queryParams.Database,
+	supplier: attributes.queryParams.supplier default attributes.queryParams.Supplier,
+	limit: attributes.queryParams.limit default 10000,
+	offset: attributes.queryParams.offset default 0
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+
+	<!-- 1. Adapter_Invoice (implemented) -->
+	<flow name="get-Adapter_Invoice-main-impl" doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.invoice.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Sys invoice fields">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+fun numericProductId(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
+var rows = payload.data default payload default []
+---
+{
+	data: rows map ((sale) -> do {
+		var createdAt = sale.CREATED_AT as DateTime
+		---
+		{
+			STOREID: sale.SHOPID default "",
+			Discount: sale.DISCOUNT default "",
+			SalesRepID: sale.USERID default "",
+			VATAmount: sale.TOTAL_VAT default "",
+			RouteID: sale.ROUTEID default "",
+			DistributorID: "",
+			ProductID: numericProductId(sale.PRODUCT_CODE),
+			WarehouseID: sale.SUPPLIER_ID default "",
+			OrderNumber: sale.SALE_ORDER_ID default "",
+			InvoiceNumber: sale.ENTRY_ID default "",
+			InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
+			InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
+			InvoiceStatus: sale.PAYMENT_STATUS default "",
+			UnitOfMeasure: sale.PACKAGING default "",
+			Currency: "KES",
+			QuantityInvoiced: sale.QUANTITY default "",
+			AmountInvoiced: sale.VALUE_SOLD default "",
+			TransType: sale.ENTRY_TYPE default ""
+		}
+	})
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 2. Adapter_Customer (structure only) -->
+	<flow name="get-Adapter_Customer-sys-impl" doc:id="sys-get-adapter-customer-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.customer.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 3. Adapter_Inventory_Transfer_Request (structure only) -->
+	<flow name="get-Adapter_Inventory_Transfer_Request-sys-impl" doc:id="sys-get-adapter-itr-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.inventory.transfer.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 4. Adapter_Payment_Receipt (structure only) -->
+	<flow name="get-Adapter_Payment_Receipt-sys-impl" doc:id="sys-get-adapter-payment-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.payment.receipt.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 5. Adapter_Sales_Document (structure only) -->
+	<flow name="get-Adapter_Sales_Document-sys-impl" doc:id="sys-get-adapter-sales-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.sales.document.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 6. Adapter_Product (structure only) -->
+	<flow name="get-Adapter_Product-sys-impl" doc:id="sys-get-adapter-product-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.product.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 7. Adapter_Stock_Transfer (structure only) -->
+	<flow name="get-Adapter_Stock_Transfer-sys-impl" doc:id="sys-get-adapter-stock-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.stock.transfer.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<!-- 8. Adapter_Price (structure only) -->
+	<flow name="get-Adapter_Price-sys-impl" doc:id="sys-get-adapter-price-0001">
+		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.price.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+</mule>
