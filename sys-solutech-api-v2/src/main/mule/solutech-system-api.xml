@@ -256,13 +256,37 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</flow>
-	<!-- APIkit GET /datashare. PAPI Invoice|Order|Product|Route|SalesRep|Store|Inventory|Warehouse call this one flow with ?resource= -->
-	<flow name="get:\datashare:solutech-system-api-config">
-		<logger level="INFO" doc:name="APIkit GET /datashare"
-			message='#[output text/plain --- "[Sys-Solutech] APIkit GET /datashare. resource=" ++ ((attributes.queryParams.resource default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
-		<set-variable value="#[output application/java --- lower((attributes.queryParams.resource default '') as String)]" doc:name="resource from PAPI" variableName="endpoint" />
+	<!-- APIkit GETs. Each path sets endpoint then reuses mysql-query-main. -->
+	<flow name="get:\invoice:solutech-system-api-config">
+		<set-variable value="invoice" doc:name="endpoint" variableName="endpoint" />
 		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
-		<logger level="INFO" doc:name="APIkit GET /datashare done"
-			message='#[output text/plain --- "[Sys-Solutech] APIkit GET /datashare completed. resource=" ++ ((vars.endpoint default "") as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
+	</flow>
+	<flow name="get:\order:solutech-system-api-config">
+		<set-variable value="order" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\product:solutech-system-api-config">
+		<set-variable value="product" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\route:solutech-system-api-config">
+		<set-variable value="route" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\sales-rep:solutech-system-api-config">
+		<set-variable value="sales-rep" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\store:solutech-system-api-config">
+		<set-variable value="store" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\inventory:solutech-system-api-config">
+		<set-variable value="inventory" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+	</flow>
+	<flow name="get:\warehouse:solutech-system-api-config">
+		<set-variable value="warehouse" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
 	</flow>
 </mule>

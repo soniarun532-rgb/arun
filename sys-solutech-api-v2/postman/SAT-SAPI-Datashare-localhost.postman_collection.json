@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "sat-sys-solutech-datashare-localhost",
-    "name": "SAT SAPI Datashare (localhost)",
-    "description": "Trigger APIkit GET /api/datashare on local SAPI (port 8081). PAPI resources call this one endpoint with a different resource query param. Follow payload.next until it is null.",
+    "_postman_id": "sat-sys-solutech-sapi-localhost",
+    "name": "SAT SAPI localhost",
+    "description": "APIkit GETs on local SAPI (8081). No resource query param. fromDate/toDate are YYYY-MM-DD only. Follow payload.next until it is null.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -16,150 +16,67 @@
   ],
   "item": [
     {
-      "name": "Invoice",
+      "name": "GET /invoice",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Invoice&database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Invoice" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "fromDate", "value": "{{fromDate}}" },
-            { "key": "toDate", "value": "{{toDate}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Product",
+      "name": "GET /order",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Product&database={{database}}&supplier={{supplier}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Product" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "supplier", "value": "{{supplier}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Order",
+      "name": "GET /product",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Order&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Order" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/product?database={{database}}&supplier={{supplier}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Route",
+      "name": "GET /route",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Route&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Route" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/route?database={{database}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "SalesRep",
+      "name": "GET /sales-rep",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=SalesRep&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "SalesRep" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Store",
+      "name": "GET /store",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Store&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Store" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/store?database={{database}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Inventory",
+      "name": "GET /inventory",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Inventory&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Inventory" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/inventory?database={{database}}&limit={{limit}}&offset={{offset}}"
       }
     },
     {
-      "name": "Warehouse",
+      "name": "GET /warehouse",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/datashare?resource=Warehouse&database={{database}}&limit={{limit}}&offset={{offset}}",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "datashare"],
-          "query": [
-            { "key": "resource", "value": "Warehouse" },
-            { "key": "database", "value": "{{database}}" },
-            { "key": "limit", "value": "{{limit}}" },
-            { "key": "offset", "value": "{{offset}}" }
-          ]
-        }
+        "url": "{{baseUrl}}/api/warehouse?database={{database}}&limit={{limit}}&offset={{offset}}"
       }
     }
   ]

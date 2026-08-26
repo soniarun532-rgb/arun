@@ -9,9 +9,10 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
+	<!-- Reusable GET runner. APIkit flows only set vars.endpoint then flow-ref this. -->
 	<flow name="mysql-query-main" doc:id="mysql-query-main-0001">
 		<logger level="INFO" doc:name="Start MySQL query"
-			message='#[output text/plain --- "[Sys-Solutech] datashare query start. resource=" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
+			message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " started. database=" ++ ((attributes.queryParams.database default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
 		<ee:transform doc:name="Paging vars">
 			<ee:message />
 			<ee:variables>
@@ -19,9 +20,41 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="offset"><![CDATA[(attributes.queryParams.offset default 0) as Number]]></ee:set-variable>
 				<ee:set-variable variableName="limit"><![CDATA[(attributes.queryParams.limit default p("db.limit")) as Number]]></ee:set-variable>
 				<ee:set-variable variableName="skipQuery"><![CDATA[false]]></ee:set-variable>
+				<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
+output application/java
+---
+{}]]></ee:set-variable>
+				<ee:set-variable variableName="fromDate"><![CDATA[%dw 2.0
+output application/java
+fun toText(v) = v match {
+	case is Null -> ""
+	case s is String -> s
+	case d is Date -> d as String {format: "yyyy-MM-dd"}
+	case dt is DateTime -> dt as String {format: "yyyy-MM-dd"}
+	case n is Number -> n as String
+	case a is Array -> toText(a[0] default null)
+	else -> ""
+}
+var s = toText(attributes.queryParams.fromDate)
+---
+if (s contains " ") ((s splitBy " ")[0] default "") else s]]></ee:set-variable>
+				<ee:set-variable variableName="toDate"><![CDATA[%dw 2.0
+output application/java
+fun toText(v) = v match {
+	case is Null -> ""
+	case s is String -> s
+	case d is Date -> d as String {format: "yyyy-MM-dd"}
+	case dt is DateTime -> dt as String {format: "yyyy-MM-dd"}
+	case n is Number -> n as String
+	case a is Array -> toText(a[0] default null)
+	else -> ""
+}
+var s = toText(attributes.queryParams.toDate)
+---
+if (s contains " ") ((s splitBy " ")[0] default "") else s]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<choice doc:name="Build SQL by PAPI resource">
+		<choice doc:name="Build SQL by APIkit endpoint">
 			<when expression="#[vars.endpoint == 'invoice']">
 				<ee:transform doc:name="Invoice supplier">
 					<ee:message />
@@ -32,24 +65,6 @@ output application/java
 p("db.invoice.supplier") default ""]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
-				<ee:transform doc:name="Invoice fromTs">
-					<ee:message />
-					<ee:variables>
-						<ee:set-variable variableName="fromTs"><![CDATA[%dw 2.0
-output application/java
----
-(attributes.queryParams.fromDate default "") ++ " 00:00:00"]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<ee:transform doc:name="Invoice toTs">
-					<ee:message />
-					<ee:variables>
-						<ee:set-variable variableName="toTs"><![CDATA[%dw 2.0
-output application/java
----
-(attributes.queryParams.toDate default "") ++ " 00:00:00"]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
 				<ee:transform doc:name="Invoice SQL">
 					<ee:message />
 					<ee:variables>
@@ -57,8 +72,8 @@ output application/java
 output text/plain
 var db = vars.databaseName
 var supplier = vars.supplier as String default ""
-var fromTs = vars.fromTs as String default ""
-var toTs = vars.toTs as String default ""
+var fromTs = (vars.fromDate as String default "") ++ " 00:00:00"
+var toTs = (vars.toDate as String default "") ++ " 00:00:00"
 ---
 "Select a.*, b.routeid
 from " ++ db ++ "." ++ p("db.table.sales") ++ " as a
@@ -76,55 +91,46 @@ LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offse
 					<ee:variables>
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
+var db = vars.databaseName
+var supplier = (attributes.queryParams.supplier default p("db.invoice.supplier") default "") as String
 ---
-"SELECT * FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<ee:transform doc:name="Product SQL params">
-					<ee:message />
-					<ee:variables>
-						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
-output application/java
----
-{
-	supplier: attributes.queryParams.supplier default p("db.invoice.supplier") default ""
-}]]></ee:set-variable>
+"SELECT * FROM " ++ db ++ "." ++ p("db.table.products") ++ " WHERE supplier = '" ++ supplier ++ "' ORDER BY id LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</when>
 			<when expression="#[vars.endpoint == 'order']">
 				<logger level="INFO" doc:name="Order SQL pending"
-					message="[Sys-Solutech] resource=Order has no SQL yet. Paste the Order query into this when branch only." />
+					message="[Sys-Solutech] GET /order has no SQL yet. Paste the Order query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<when expression="#[vars.endpoint == 'route']">
 				<logger level="INFO" doc:name="Route SQL pending"
-					message="[Sys-Solutech] resource=Route has no SQL yet. Paste the Route query into this when branch only." />
+					message="[Sys-Solutech] GET /route has no SQL yet. Paste the Route query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
-			<when expression="#[vars.endpoint == 'salesrep']">
+			<when expression="#[(vars.endpoint == 'sales-rep') or (vars.endpoint == 'salesrep')]">
 				<logger level="INFO" doc:name="SalesRep SQL pending"
-					message="[Sys-Solutech] resource=SalesRep has no SQL yet. Paste the SalesRep query into this when branch only." />
+					message="[Sys-Solutech] GET /sales-rep has no SQL yet. Paste the SalesRep query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<when expression="#[vars.endpoint == 'store']">
 				<logger level="INFO" doc:name="Store SQL pending"
-					message="[Sys-Solutech] resource=Store has no SQL yet. Paste the Store query into this when branch only." />
+					message="[Sys-Solutech] GET /store has no SQL yet. Paste the Store query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<when expression="#[vars.endpoint == 'inventory']">
 				<logger level="INFO" doc:name="Inventory SQL pending"
-					message="[Sys-Solutech] resource=Inventory has no SQL yet. Paste the Inventory query into this when branch only." />
+					message="[Sys-Solutech] GET /inventory has no SQL yet. Paste the Inventory query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<when expression="#[vars.endpoint == 'warehouse']">
 				<logger level="INFO" doc:name="Warehouse SQL pending"
-					message="[Sys-Solutech] resource=Warehouse has no SQL yet. Paste the Warehouse query into this when branch only." />
+					message="[Sys-Solutech] GET /warehouse has no SQL yet. Paste the Warehouse query into this when branch only." />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<otherwise>
-				<logger level="INFO" doc:name="Unknown resource"
-					message='#[output text/plain --- "[Sys-Solutech] unknown resource=" ++ ((vars.endpoint default "") as String) ++ ". Use Invoice, Order, Product, Route, SalesRep, Store, Inventory, or Warehouse."]' />
+				<logger level="INFO" doc:name="Unknown endpoint"
+					message='#[output text/plain --- "[Sys-Solutech] unknown endpoint=" ++ ((vars.endpoint default "") as String)]' />
 				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</otherwise>
 		</choice>
@@ -132,8 +138,6 @@ output application/java
 			<when expression="#[!(vars.skipQuery default false)]">
 				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
 				<flow-ref doc:name="mysql-paged-response-subflow" name="mysql-paged-response-subflow" />
-				<logger level="INFO" doc:name="End query"
-					message='#[output text/plain --- "[Sys-Solutech] datashare query done. resource=" ++ ((vars.endpoint default "") as String) ++ " records=" ++ (sizeOf(payload.data default []) as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
 			</when>
 			<otherwise>
 				<ee:transform doc:name="Empty independent response">
@@ -150,13 +154,15 @@ output application/json
 						<ee:set-variable variableName="hasMore"><![CDATA[false]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
+				<logger level="INFO" doc:name="next is null"
+					message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " next is null"]' />
 			</otherwise>
 		</choice>
 	</flow>
 
 	<sub-flow name="mysql-query-subflow" doc:id="mysql-query-subflow-0001">
 		<logger level="INFO" doc:name="Run SQL"
-			message='#[output text/plain --- "[Sys-Solutech] executing query for resource=" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((vars.databaseName default "") as String) ++ " limit=" ++ ((vars.limit default "") as String) ++ " offset=" ++ ((vars.offset default "") as String)]' />
+			message='#[output text/plain --- "[Sys-Solutech] executing query for GET /" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((vars.databaseName default "") as String) ++ " limit=" ++ ((vars.limit default "") as String) ++ " offset=" ++ ((vars.offset default "") as String)]' />
 		<db:select doc:name="MySQL select" config-ref="MySQL_Config">
 			<db:sql><![CDATA[#[vars.sql]]]></db:sql>
 			<db:input-parameters><![CDATA[#[vars.sqlParams default {}]]]></db:input-parameters>
@@ -206,28 +212,36 @@ var data = payload default []
 var limitNum = vars.limit as Number default 10000
 var offsetNum = vars.offset as Number default 0
 var host = toText(attributes.headers.host default attributes.headers.Host default "localhost:8081")
-var path = toText(attributes.requestPath default "/api/datashare")
+var path = toText(attributes.requestPath default ("/api/" ++ (vars.endpoint default "")))
 var scheme = toText(attributes.scheme default "http")
-var resource = toText(attributes.queryParams.resource default vars.endpoint)
 var database = toText(attributes.queryParams.database default vars.databaseName)
-var fromDate = datePart(attributes.queryParams.fromDate default vars.fromTs)
-var toDate = datePart(attributes.queryParams.toDate default vars.toTs)
-var supplier = toText(attributes.queryParams.supplier default vars.supplier)
+var fromDate = datePart(attributes.queryParams.fromDate default vars.fromDate)
+var toDate = datePart(attributes.queryParams.toDate default vars.toDate)
+var supplier = toText(attributes.queryParams.supplier)
 var nextOffset = offsetNum + limitNum
-var next = scheme ++ "://" ++ host ++ path
-	++ "?resource=" ++ resource
-	++ "&database=" ++ database
-	++ "&fromDate=" ++ fromDate
-	++ "&toDate=" ++ toDate
+var qs = "?database=" ++ database
+	++ (if (fromDate != "") ("&fromDate=" ++ fromDate) else "")
+	++ (if (toDate != "") ("&toDate=" ++ toDate) else "")
 	++ "&limit=" ++ (limitNum as String)
 	++ "&offset=" ++ (nextOffset as String)
 	++ (if (supplier != "") ("&supplier=" ++ supplier) else "")
+var nextUrl = scheme ++ "://" ++ host ++ path ++ qs
 ---
 {
 	data: data,
-	next: if (vars.hasMore default false) next else null
+	next: if (vars.hasMore default false) nextUrl else null
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<choice doc:name="Log next">
+			<when expression="#[vars.hasMore default false]">
+				<logger level="INFO" doc:name="Has next page"
+					message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " records=" ++ (sizeOf(payload.data default []) as String) ++ " has next page"]' />
+			</when>
+			<otherwise>
+				<logger level="INFO" doc:name="next is null"
+					message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " records=" ++ (sizeOf(payload.data default []) as String) ++ " next is null"]' />
+			</otherwise>
+		</choice>
 	</sub-flow>
 </mule>
