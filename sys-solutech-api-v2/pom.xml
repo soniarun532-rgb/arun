@@ -7,7 +7,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>sys-solutech-api-v2-1.0.58-mule-application</name>
+	<name>sys-solutech-api-v2-1.0.61-mule-application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
 			<artifactId>solutech-sapi-uat</artifactId>
-			<version>1.0.21</version>
+			<version>1.0.25</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

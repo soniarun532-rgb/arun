@@ -256,7 +256,7 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</flow>
-	<!-- APIkit GET /datashare. PAPI Invoice|Order|Product|Route|SalesRep|Store|Inventory|Warehouse all call this one flow with ?resource=... -->
+	<!-- APIkit GET /datashare. PAPI Invoice|Order|Product|Route|SalesRep|Store|Inventory|Warehouse call this one flow with ?resource= -->
 	<flow name="get:\datashare:solutech-system-api-config">
 		<logger level="INFO" doc:name="APIkit GET /datashare"
 			message='#[output text/plain --- "[Sys-Solutech] APIkit GET /datashare. resource=" ++ ((attributes.queryParams.resource default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />

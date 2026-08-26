@@ -33,8 +33,8 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 	<db:config name="MySQL_Config" doc:name="MySQL Config" doc:id="a1b2c3d4-mysql-sat-bi-config">
-		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${db.password}" database="${db.name}">
-			<db:pooling-profile maxPoolSize="5" minPoolSize="0" />
+		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${secure::db.password}" database="${db.name}">
+			<db:pooling-profile/>
 			<db:connection-properties>
 				<db:connection-property key="useSSL" value="false" />
 				<db:connection-property key="allowPublicKeyRetrieval" value="true" />

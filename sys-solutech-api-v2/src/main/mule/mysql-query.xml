@@ -9,7 +9,6 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
-	<!-- Shared MySQL runner. Each PAPI resource has its own when so queries stay independent. -->
 	<flow name="mysql-query-main" doc:id="mysql-query-main-0001">
 		<logger level="INFO" doc:name="Start MySQL query"
 			message='#[output text/plain --- "[Sys-Solutech] datashare query start. resource=" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
@@ -18,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<ee:variables>
 				<ee:set-variable variableName="databaseName"><![CDATA[attributes.queryParams.database default p("db.name")]]></ee:set-variable>
 				<ee:set-variable variableName="offset"><![CDATA[(attributes.queryParams.offset default 0) as Number]]></ee:set-variable>
-				<ee:set-variable variableName="limit"><![CDATA[(attributes.queryParams.limit default p("db.limit") default 10000) as Number]]></ee:set-variable>
+				<ee:set-variable variableName="limit"><![CDATA[(attributes.queryParams.limit default p("db.limit")) as Number]]></ee:set-variable>
 				<ee:set-variable variableName="skipQuery"><![CDATA[false]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
@@ -38,6 +37,11 @@ inner join " ++ db ++ "." ++ p("db.table.products") ++ " as c on a.PRODUCT_ID = 
 where a.Created_AT between :fromTs and :toTs
 order by a.Entry_ID desc
 LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<ee:transform doc:name="Invoice SQL params">
+					<ee:message />
+					<ee:variables>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
@@ -57,6 +61,11 @@ output application/java
 output text/plain
 ---
 "SELECT * FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<ee:transform doc:name="Product SQL params">
+					<ee:message />
+					<ee:variables>
 						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
 output application/java
 ---
@@ -138,15 +147,32 @@ output application/json
 	</sub-flow>
 
 	<sub-flow name="mysql-paged-response-subflow" doc:id="mysql-paged-response-0001">
-		<ee:transform doc:name="Page data and next URL">
+		<ee:transform doc:name="Page data">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 var rows = payload default []
 var limitNum = vars.limit as Number default 10000
-var offsetNum = vars.offset as Number default 0
 var hasMore = (sizeOf(rows) default 0) > limitNum
-var data = if (hasMore and limitNum > 0) rows[0 to (limitNum - 1)] else rows
+---
+if (hasMore and limitNum > 0) rows[0 to (limitNum - 1)] else rows]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="hasMore"><![CDATA[%dw 2.0
+output application/java
+var rows = payload default []
+var limitNum = vars.limit as Number default 10000
+---
+(sizeOf(rows) default 0) > limitNum]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Next page URL">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+var data = payload default []
+var limitNum = vars.limit as Number default 10000
+var offsetNum = vars.offset as Number default 0
 var host = (attributes.headers.host default attributes.headers.Host default "localhost:8081") as String
 var path = (attributes.requestPath default "/api/datashare") as String
 var scheme = (attributes.scheme default "http") as String
@@ -167,17 +193,9 @@ var next = scheme ++ "://" ++ host ++ path
 ---
 {
 	data: data,
-	next: if (hasMore) next else null
+	next: if (vars.hasMore default false) next else null
 }]]></ee:set-payload>
 			</ee:message>
-			<ee:variables>
-				<ee:set-variable variableName="hasMore"><![CDATA[%dw 2.0
-output application/java
-var rows = payload default []
-var limitNum = vars.limit as Number default 10000
----
-(sizeOf(rows) default 0) > limitNum]]></ee:set-variable>
-			</ee:variables>
 		</ee:transform>
 	</sub-flow>
 </mule>
