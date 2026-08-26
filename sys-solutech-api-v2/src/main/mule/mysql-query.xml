@@ -195,21 +195,17 @@ output application/json
 var data = payload default []
 var limitNum = vars.limit as Number default 10000
 var offsetNum = vars.offset as Number default 0
-var host = (attributes.headers.host default "localhost:8081") as String
+var baseUrl = "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
 var path = (attributes.requestPath default ("/api/" ++ (vars.endpoint default ""))) as String
-var scheme = (attributes.scheme default "http") as String
-var database = (vars.databaseName default "") as String
 var fromDate = vars.fromDate as String default ""
 var toDate = vars.toDate as String default ""
-var supplier = attributes.queryParams.supplier as String default ""
 var nextOffset = offsetNum + limitNum
-var qs = "?database=" ++ database
-	++ (if (fromDate != "") ("&fromDate=" ++ fromDate) else "")
-	++ (if (toDate != "") ("&toDate=" ++ toDate) else "")
-	++ "&limit=" ++ (limitNum as String)
+var qs = "?"
+	++ (if (fromDate != "") ("fromDate=" ++ fromDate ++ "&") else "")
+	++ (if (toDate != "") ("toDate=" ++ toDate ++ "&") else "")
+	++ "limit=" ++ (limitNum as String)
 	++ "&offset=" ++ (nextOffset as String)
-	++ (if (supplier != "") ("&supplier=" ++ supplier) else "")
-var nextUrl = scheme ++ "://" ++ host ++ path ++ qs
+var nextUrl = baseUrl ++ path ++ qs
 ---
 {
 	data: data
