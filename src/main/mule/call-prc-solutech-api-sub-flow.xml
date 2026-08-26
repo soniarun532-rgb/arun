@@ -41,14 +41,26 @@
         <set-variable variableName="httpStatus"
                       value="#[attributes.statusCode default 200]"
                       doc:name="Set_Variable_httpStatus"/>
+        <set-variable variableName="lastCallHasMore"
+                      value="#[attributes.headers.'x-has-more' default 'false']"
+                      doc:name="Set_Variable_lastCallHasMore"/>
+        <ee:transform doc:name="Transform_Message_paging">
+            <ee:variables>
+                <ee:set-variable variableName="paging" resource="dwl/paging.dwl"/>
+            </ee:variables>
+        </ee:transform>
         <ee:transform doc:name="Transform_Message_add-next-url">
             <ee:message>
                 <ee:set-payload resource="dwl/add-next-url.dwl"/>
             </ee:message>
         </ee:transform>
         <set-variable variableName="outboundHeaders"
-                      value='#[(vars.outboundHeaders default {}) ++ (if (payload.next != null) {"X-Next-Url": payload.next} else {})]'
-                      doc:name="Set_Variable_outboundHeaders"/>
+                      doc:name="Set_Variable_outboundHeaders"
+                      value="#[output application/java
+---
+(vars.outboundHeaders default {})
+    ++ { 'X-Has-More': (vars.paging.hasMore default false) as String }
+    ++ (if (vars.paging.nextUrl != null) { 'X-Next-Url': vars.paging.nextUrl as String } else {})]"/>
         <logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
                 message='#["call-prc-solutech-api-sub-flow - End | timestamp=" ++ now() ++ " | payloadSize=" ++ sizeOf(payload default "")]'/>
     </sub-flow>
