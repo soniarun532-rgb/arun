@@ -9,6 +9,5 @@ var records =
         payload
 ---
 {
-    data: records,
-    next: vars.paging.nextUrl default null
-}
+    data: records
+} ++ (if (vars.paging.nextUrl != null) { next: vars.paging.nextUrl } else {})
