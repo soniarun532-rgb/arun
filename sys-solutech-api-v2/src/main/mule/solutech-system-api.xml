@@ -1,210 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
-    <!-- RAML Sandbox -->
-    <!--  
-    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi:1.0.4:raml:zip:solutech-system-api.raml" 
-    outboundHeadersMapName="outboundHeaders" 
-    httpStatusVarName="httpStatus" />
-     -->
-    <!-- RAML Pre-Sandbox -->
-    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.21:raml:zip:solutech-system-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <!-- RAML Production -->
-    <!--  
-      <apikit:config name="solutech-system-api-config" 
-    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.0:raml:zip:solutech-system-api.raml" 
-    outboundHeadersMapName="outboundHeaders" 
-    httpStatusVarName="httpStatus" />
-    
-    -->
-    <!-- <http:listener-config name="solutech-system-api-httpListenerConfig" doc:name="HTTP Listener config" doc:id="91a251fe-c96f-44f5-8a26-3bdfb8768f6c" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
-	</http:listener-config>
-	-->
-    <flow name="solutech-system-api-main">
-        <http:listener path="/api/*" config-ref="solutech-system-api-httpListenerConfig">
-            <http:response statusCode="#[vars.httpStatus default 200]">
-                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
-            </http:response>
-            <http:error-response statusCode="#[vars.httpStatus default 500]">
-                <http:body><![CDATA[#[vars.ErrorResponse default payload]]]></http:body>
-                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
-            </http:error-response>
-        </http:listener>
-        <apikit:router config-ref="solutech-system-api-config" />
-        <error-handler ref="global-error-handler" />
-    </flow>
-    <flow name="post:\v1\sap\customer:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+	<!-- RAML Sandbox -->
+	<apikit:config name="solutech-system-api-config"
+		api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.25:raml:zip:solutech-system-api.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<!-- RAML Pre-Sandbox -->
+	<!-- <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.23:raml:zip:solutech-system-api.raml" 
+		outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" /> -->
+	<!-- RAML Production -->
+	<!-- <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.0:raml:zip:solutech-system-api.raml" 
+		outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" /> -->
+	<!-- <http:listener-config name="solutech-system-api-httpListenerConfig" 
+		doc:name="HTTP Listener config" doc:id="91a251fe-c96f-44f5-8a26-3bdfb8768f6c" 
+		> <http:listener-connection host="0.0.0.0" port="8081" /> </http:listener-config> -->
+	<flow name="solutech-system-api-main">
+		<http:listener path="/api/*"
+			config-ref="solutech-system-api-httpListenerConfig">
+			<http:response
+				statusCode="#[vars.httpStatus default 200]">
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response
+				statusCode="#[vars.httpStatus default 500]">
+				<http:body><![CDATA[#[vars.ErrorResponse default payload]]]></http:body>
+				<http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:router config-ref="solutech-system-api-config" />
+		<error-handler ref="global-error-handler" />
+	</flow>
+	<flow
+		name="post:\v1\sap\customer:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "SAP customer created successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <!-- 🌐 Flow: HTTP POST /v1/integrations/customers -->
-    <flow name="post:\v1\integrations\customers:application\json:solutech-system-api-config">
-        <logger level="INFO" message="[Sys-Solutech]  /customers invoked: QueryParams=#[attributes.queryParams], Body=#[payload]" doc:name="[Sys-Solutech]  /customers invoked Request" />
-        <set-variable variableName="receivedPayload" value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
-        <flow-ref doc:name="sg-sat-http-parameter-mapping" doc:id="e16ed26d-a3ba-4db0-ad3f-5b890f207735" name="sg-sat-http-parameter-mapping" />
-        <ee:transform doc:name="Transform Message" doc:id="a560d664-4163-43cf-af8d-bedd31e2a010">
-            <ee:message />
-            <ee:variables>
-                <ee:set-variable variableName="api"><![CDATA[output application/java
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<!-- 🌐 Flow: HTTP POST /v1/integrations/customers -->
+	<flow
+		name="post:\v1\integrations\customers:application\json:solutech-system-api-config">
+		<logger level="INFO"
+			message="[Sys-Solutech]  /customers invoked: QueryParams=#[attributes.queryParams], Body=#[payload]"
+			doc:name="[Sys-Solutech]  /customers invoked Request" />
+		<set-variable variableName="receivedPayload"
+			value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
+		<flow-ref doc:name="sg-sat-http-parameter-mapping"
+			doc:id="e16ed26d-a3ba-4db0-ad3f-5b890f207735"
+			name="sg-sat-http-parameter-mapping" />
+		<ee:transform doc:name="Transform Message"
+			doc:id="a560d664-4163-43cf-af8d-bedd31e2a010">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="api"><![CDATA[output application/java
 ---
 (vars.mappingData.data.targetCompany default "") ++ "." ++ p('erp.solutechlabs.domain')]]></ee:set-variable>
-                <ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
-                <ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
-                <ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <set-variable value="#[&quot;POST&quot;]" doc:name="request_method" variableName="request_method" />
-        <set-variable value="#[&quot;customers&quot;]" doc:name="request_path" doc:id="2e5ce95c-3333-4922-a8d2-0d9a5b08744c" variableName="request_path" />
-        <flow-ref doc:name="post-v1-integrations-main-impl" doc:id="b7c8aa7a-05e4-466f-a331-1707684ad417" name="post-v1-integrations-main-impl" />
-    </flow>
-    <!-- 🌐 Flow: HTTP POST /v1/integrations/products -->
-    <flow name="post:\v1\integrations\products:application\json:solutech-system-api-config">
-        <logger level="INFO" message="[Sys-Solutech]  /products invoked: QueryParams=#[attributes.queryParams], Body=#[payload]" doc:name="[Sys-Solutech]  /products invoked Request" />
-        <set-variable variableName="receivedPayload" value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
-        <flow-ref doc:name="sg-sat-http-parameter-mapping" doc:id="c37fbd83-4f7b-4ca6-8e02-d4a9904e2e67" name="sg-sat-http-parameter-mapping" />
-        <ee:transform doc:name="Transform Message" doc:id="42779af6-3e4b-46fb-9962-087b3be0664c">
-            <ee:message />
-            <ee:variables>
-                <ee:set-variable variableName="api"><![CDATA[output application/java
+				<ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
+				<ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
+				<ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value="#[&quot;POST&quot;]"
+			doc:name="request_method" variableName="request_method" />
+		<set-variable value="#[&quot;customers&quot;]"
+			doc:name="request_path" doc:id="2e5ce95c-3333-4922-a8d2-0d9a5b08744c"
+			variableName="request_path" />
+		<flow-ref doc:name="post-v1-integrations-main-impl"
+			doc:id="b7c8aa7a-05e4-466f-a331-1707684ad417"
+			name="post-v1-integrations-main-impl" />
+	</flow>
+	<!-- 🌐 Flow: HTTP POST /v1/integrations/products -->
+	<flow
+		name="post:\v1\integrations\products:application\json:solutech-system-api-config">
+		<logger level="INFO"
+			message="[Sys-Solutech]  /products invoked: QueryParams=#[attributes.queryParams], Body=#[payload]"
+			doc:name="[Sys-Solutech]  /products invoked Request" />
+		<set-variable variableName="receivedPayload"
+			value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
+		<flow-ref doc:name="sg-sat-http-parameter-mapping"
+			doc:id="c37fbd83-4f7b-4ca6-8e02-d4a9904e2e67"
+			name="sg-sat-http-parameter-mapping" />
+		<ee:transform doc:name="Transform Message"
+			doc:id="42779af6-3e4b-46fb-9962-087b3be0664c">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="api"><![CDATA[output application/java
 ---
 (vars.mappingData.data.targetCompany default "") ++ "." ++ p('erp.solutechlabs.domain')]]></ee:set-variable>
-                <ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
-                <ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
-                <ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <set-variable value="#[&quot;POST&quot;]" doc:name="request_method" variableName="request_method" />
-        <set-variable value="#[&quot;products&quot;]" doc:name="request_path" doc:id="9b4b4d8d-9898-4430-a099-df5c1ed3a170" variableName="request_path" />
-        <flow-ref doc:name="post-v1-integrations-main-impl" doc:id="0dfac349-f239-4d3d-a4b7-1e5170f863d3" name="post-v1-integrations-main-impl" />
-    </flow>
-    <!-- 🌐 Flow: HTTP POST /v1/integrations/prices -->
-    <flow name="post:\v1\integrations\prices:application\json:solutech-system-api-config">
-        <set-variable value="#[&quot;POST&quot;]" doc:name="request_method" variableName="request_method" />
-        <set-variable value="#[&quot;prices&quot;]" doc:name="request_path" doc:id="04521027-ec9e-4ff0-a1d3-6514ab92d0d7" variableName="request_path" />
-        <set-variable variableName="receivedPayload" value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
-        <flow-ref doc:name="post-v1-integrations-main-impl" doc:id="8eccc47b-44c5-48e6-bd15-355e58cdefba" name="post-v1-integrations-main-impl" />
-    </flow>
-    <flow name="post:\v1\integrations\stock-transfer:application\json:solutech-system-api-config">
-        <logger level="INFO" message="[Sys-Solutech]  /stock-transfer invoked: QueryParams=#[attributes.queryParams], Body=#[payload]" doc:name="[Sys-Solutech]  /stock-transfer invoked Request" />
-        <set-variable variableName="receivedPayload" value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
-        <flow-ref doc:name="sg-sat-http-parameter-mapping" doc:id="6035e2a4-1c8b-4aa1-82a9-91a96e502bdf" name="sg-sat-http-parameter-mapping" />
-        <ee:transform doc:name="Transform Message" doc:id="ee6dc292-15f1-46bb-a89b-fe8d027a8054">
-            <ee:message />
-            <ee:variables>
-                <ee:set-variable variableName="api"><![CDATA[output application/java
+				<ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
+				<ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
+				<ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value="#[&quot;POST&quot;]"
+			doc:name="request_method" variableName="request_method" />
+		<set-variable value="#[&quot;products&quot;]"
+			doc:name="request_path" doc:id="9b4b4d8d-9898-4430-a099-df5c1ed3a170"
+			variableName="request_path" />
+		<flow-ref doc:name="post-v1-integrations-main-impl"
+			doc:id="0dfac349-f239-4d3d-a4b7-1e5170f863d3"
+			name="post-v1-integrations-main-impl" />
+	</flow>
+	<!-- 🌐 Flow: HTTP POST /v1/integrations/prices -->
+	<flow
+		name="post:\v1\integrations\prices:application\json:solutech-system-api-config">
+		<set-variable value="#[&quot;POST&quot;]"
+			doc:name="request_method" variableName="request_method" />
+		<set-variable value="#[&quot;prices&quot;]"
+			doc:name="request_path" doc:id="04521027-ec9e-4ff0-a1d3-6514ab92d0d7"
+			variableName="request_path" />
+		<set-variable variableName="receivedPayload"
+			value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
+		<flow-ref doc:name="post-v1-integrations-main-impl"
+			doc:id="8eccc47b-44c5-48e6-bd15-355e58cdefba"
+			name="post-v1-integrations-main-impl" />
+	</flow>
+	<flow
+		name="post:\v1\integrations\stock-transfer:application\json:solutech-system-api-config">
+		<logger level="INFO"
+			message="[Sys-Solutech]  /stock-transfer invoked: QueryParams=#[attributes.queryParams], Body=#[payload]"
+			doc:name="[Sys-Solutech]  /stock-transfer invoked Request" />
+		<set-variable variableName="receivedPayload"
+			value="#[payload]" doc:name="[ERP-Solutech] POST  Invoked. Payload" />
+		<flow-ref doc:name="sg-sat-http-parameter-mapping"
+			doc:id="6035e2a4-1c8b-4aa1-82a9-91a96e502bdf"
+			name="sg-sat-http-parameter-mapping" />
+		<ee:transform doc:name="Transform Message"
+			doc:id="ee6dc292-15f1-46bb-a89b-fe8d027a8054">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="api"><![CDATA[output application/java
 ---
 (vars.mappingData.data.targetCompany default "") ++ "." ++ p('erp.solutechlabs.domain')]]></ee:set-variable>
-                <ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
-                <ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
-                <ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
-                <ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <set-variable value="#[&quot;POST&quot;]" doc:name="request_method" variableName="request_method" />
-        <set-variable value="#[&quot;stock-transfer&quot;]" doc:name="request_path" doc:id="6ee4ad80-3078-4ea2-ba22-b169bee0f305" variableName="request_path" />
-        <flow-ref doc:name="post-v1-integrations-main-impl" doc:id="9ffc0d19-d34d-4f25-bfaf-914ee27f404d" name="post-v1-integrations-main-impl" />
-    </flow>
-    <flow name="post:\v1\tally\customer\sales-document:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+				<ee:set-variable variableName="grant_type"><![CDATA[vars.mappingData.data.target.grant_type default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_id"><![CDATA[payload.data.target.client_id default ""]]></ee:set-variable>
+				<ee:set-variable variableName="client_secret"><![CDATA[vars.mappingData.data.target.client_secret default ""]]></ee:set-variable>
+				<ee:set-variable variableName="scope"><![CDATA[vars.mappingData.data.target.scope default ""]]></ee:set-variable>
+				<ee:set-variable variableName="provider"><![CDATA[vars.mappingData.data.target.provider default ""]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value="#[&quot;POST&quot;]"
+			doc:name="request_method" variableName="request_method" />
+		<set-variable value="#[&quot;stock-transfer&quot;]"
+			doc:name="request_path" doc:id="6ee4ad80-3078-4ea2-ba22-b169bee0f305"
+			variableName="request_path" />
+		<flow-ref doc:name="post-v1-integrations-main-impl"
+			doc:id="9ffc0d19-d34d-4f25-bfaf-914ee27f404d"
+			name="post-v1-integrations-main-impl" />
+	</flow>
+	<flow
+		name="post:\v1\tally\customer\sales-document:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "TALLY Sales Document processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\v1\sap\customer\sales-document:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="post:\v1\sap\customer\sales-document:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "Sales document processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\v1\sage\customer\sales-document:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="post:\v1\sage\customer\sales-document:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "SAGE Sales Document processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-api-config">
-        <flow-ref doc:name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config" doc:id="c97e2e74-fb68-4aa1-95f6-176d99dc4832" name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config" />
-    </flow>
-    <flow name="post:\v1\sage\customer\transfer-request:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-api-config">
+		<flow-ref
+			doc:name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config"
+			doc:id="c97e2e74-fb68-4aa1-95f6-176d99dc4832"
+			name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config" />
+	</flow>
+	<flow
+		name="post:\v1\sage\customer\transfer-request:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "SAGE Transfer Request processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\v1\sap\customer\transfer-request:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="post:\v1\sap\customer\transfer-request:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "Transfer Request processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="post:\v1\tally\customer\transfer-request:application\json:solutech-system-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="post:\v1\tally\customer\transfer-request:application\json:solutech-system-api-config">
+		<ee:transform doc:name="Transform Message">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "success",
   message: "TALLY Transfer Request processed successfully"
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
-    <flow name="get:\products:solutech-system-api-config">
-        <set-variable value="products" doc:name="endpoint" variableName="endpoint" />
-        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
-    </flow>
-    <flow name="get:\sales:solutech-system-api-config">
-        <set-variable value="sales" doc:name="endpoint" variableName="endpoint" />
-        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
-    </flow>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="get:\product:solutech-system-api-config">
+		<set-variable value="#[output application/java --- lower((attributes.queryParams.resource default 'product') as String)]" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+		<set-variable variableName="outboundHeaders"
+			value="#[output application/java --- (vars.outboundHeaders default {}) ++ {'X-Has-More': (vars.hasMore default false) as String}]" doc:name="outboundHeaders"/>
+	</flow>
+	<flow name="get:\sale:solutech-system-api-config">
+		<set-variable value="#[output application/java --- lower((attributes.queryParams.resource default 'sale') as String)]" doc:name="endpoint" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+		<set-variable variableName="outboundHeaders"
+			value="#[output application/java --- (vars.outboundHeaders default {}) ++ {'X-Has-More': (vars.hasMore default false) as String}]" doc:name="outboundHeaders"/>
+	</flow>
 </mule>

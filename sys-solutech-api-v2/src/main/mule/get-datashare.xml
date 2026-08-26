@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<!-- Single SAPI entry for PAPI. resource tells which SQL to build (Invoice, Product, Sale). -->
+	<flow name="get-datashare-main" doc:id="get-datashare-main-0001">
+		<http:listener doc:name="GET /api/datashare" config-ref="solutech-system-api-httpListenerConfig" path="/api/datashare" allowedMethods="GET">
+			<http:response statusCode="#[vars.httpStatus default 200]">
+				<http:headers><![CDATA[#[output application/java
+---
+(vars.outboundHeaders default {}) ++ {
+	"Content-Type": "application/json",
+	"X-Has-More": (vars.hasMore default false) as String
+}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]">
+				<http:headers><![CDATA[#[output application/java
+---
+{
+	"Content-Type": "application/json"
+}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<logger level="INFO" doc:name="Start datashare"
+			message='#[output text/plain --- "[Sys-Solutech] GET /datashare started. resource=" ++ ((attributes.queryParams.resource default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
+		<set-variable value='#[output application/java --- lower((attributes.queryParams.resource default "") as String)]' doc:name="endpoint from PAPI resource" variableName="endpoint" />
+		<flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+		<logger level="INFO" doc:name="End datashare"
+			message='#[output text/plain --- "[Sys-Solutech] GET /datashare completed. resource=" ++ ((vars.endpoint default "") as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
+	</flow>
+</mule>
