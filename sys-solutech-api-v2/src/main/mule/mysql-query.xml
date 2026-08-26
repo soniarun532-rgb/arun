@@ -146,8 +146,7 @@ var supplier = (attributes.queryParams.supplier default p("db.invoice.supplier")
 output application/json
 ---
 {
-	data: [],
-	next: null
+	data: []
 }]]></ee:set-payload>
 					</ee:message>
 					<ee:variables>
@@ -193,31 +192,16 @@ var limitNum = vars.limit as Number default 10000
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
-fun toText(v) = v match {
-	case is Null -> ""
-	case s is String -> s
-	case n is Number -> n as String
-	case b is Boolean -> b as String
-	case d is Date -> d as String {format: "yyyy-MM-dd"}
-	case dt is DateTime -> dt as String {format: "yyyy-MM-dd"}
-	case a is Array -> toText(a[0] default null)
-	else -> ""
-}
-fun datePart(v) = do {
-	var s = toText(v)
-	---
-	if (s contains " ") ((s splitBy " ")[0] default "") else s
-}
 var data = payload default []
 var limitNum = vars.limit as Number default 10000
 var offsetNum = vars.offset as Number default 0
-var host = toText(attributes.headers.host default attributes.headers.Host default "localhost:8081")
-var path = toText(attributes.requestPath default ("/api/" ++ (vars.endpoint default "")))
-var scheme = toText(attributes.scheme default "http")
-var database = toText(attributes.queryParams.database default vars.databaseName)
-var fromDate = datePart(attributes.queryParams.fromDate default vars.fromDate)
-var toDate = datePart(attributes.queryParams.toDate default vars.toDate)
-var supplier = toText(attributes.queryParams.supplier)
+var host = (attributes.headers.host default "localhost:8081") as String
+var path = (attributes.requestPath default ("/api/" ++ (vars.endpoint default ""))) as String
+var scheme = (attributes.scheme default "http") as String
+var database = (vars.databaseName default "") as String
+var fromDate = vars.fromDate as String default ""
+var toDate = vars.toDate as String default ""
+var supplier = attributes.queryParams.supplier as String default ""
 var nextOffset = offsetNum + limitNum
 var qs = "?database=" ++ database
 	++ (if (fromDate != "") ("&fromDate=" ++ fromDate) else "")
@@ -228,9 +212,8 @@ var qs = "?database=" ++ database
 var nextUrl = scheme ++ "://" ++ host ++ path ++ qs
 ---
 {
-	data: data,
-	next: if (vars.hasMore default false) nextUrl else null
-}]]></ee:set-payload>
+	data: data
+} ++ (if (vars.hasMore default false) { next: nextUrl } else {})]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<choice doc:name="Log next">
