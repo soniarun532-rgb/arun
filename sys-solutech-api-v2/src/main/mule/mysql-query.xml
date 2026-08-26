@@ -187,17 +187,34 @@ var limitNum = vars.limit as Number default 10000
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+fun toText(v) = v match {
+	case is Null -> ""
+	case s is String -> s
+	case n is Number -> n as String
+	case b is Boolean -> b as String
+	case d is Date -> d as String {format: "yyyy-MM-dd"}
+	case dt is DateTime -> dt as String {format: "yyyy-MM-dd"}
+	case a is Array -> toText(a[0] default null)
+	else -> ""
+}
+fun datePart(v) = do {
+	var s = toText(v)
+	---
+	if (s contains " ") ((s splitBy " ")[0] default "") else s
+}
 var data = payload default []
 var limitNum = vars.limit as Number default 10000
 var offsetNum = vars.offset as Number default 0
-var host = (attributes.headers.host default attributes.headers.Host default "localhost:8081") as String
-var path = (attributes.requestPath default "/api/datashare") as String
-var scheme = (attributes.scheme default "http") as String
-var resource = (attributes.queryParams.resource default vars.endpoint default "") as String
-var database = (attributes.queryParams.database default vars.databaseName default "") as String
-var fromDate = (attributes.queryParams.fromDate default "") as String
-var toDate = (attributes.queryParams.toDate default "") as String
-var supplier = (attributes.queryParams.supplier default "") as String
+var host = toText(attributes.headers.host default attributes.headers.Host default "localhost:8081")
+var path = toText(attributes.requestPath default "/api/datashare")
+var scheme = toText(attributes.scheme default "http")
+var resource = toText(attributes.queryParams.resource default vars.endpoint)
+var database = toText(attributes.queryParams.database default vars.databaseName)
+var fromQ = toText(attributes.queryParams.fromDate)
+var toQ = toText(attributes.queryParams.toDate)
+var fromDate = if (fromQ != "") fromQ else datePart(vars.fromTs)
+var toDate = if (toQ != "") toQ else datePart(vars.toTs)
+var supplier = toText(attributes.queryParams.supplier default vars.supplier)
 var nextOffset = offsetNum + limitNum
 var next = scheme ++ "://" ++ host ++ path
 	++ "?resource=" ++ resource
