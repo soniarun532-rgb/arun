@@ -51,30 +51,44 @@ output application/json
 fun numericProductId(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
 var rows = payload.data default payload default []
 ---
-rows map ((sale) -> do {
-	var createdAt = sale.CREATED_AT as DateTime
-	---
-	{
-		STOREID: sale.SHOPID default "",
-		Discount: sale.DISCOUNT default "",
-		SalesRepID: sale.USERID default "",
-		VATAmount: sale.TOTAL_VAT default "",
-		RouteID: sale.ROUTEID default "",
-		DistributorID: "",
-		ProductID: numericProductId(sale.PRODUCT_CODE),
-		WarehouseID: sale.SUPPLIER_ID default "",
-		OrderNumber: sale.SALE_ORDER_ID default "",
-		InvoiceNumber: sale.ENTRY_ID default "",
-		InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
-		InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
-		InvoiceStatus: sale.PAYMENT_STATUS default "",
-		UnitOfMeasure: sale.PACKAGING default "",
-		Currency: "KES",
-		QuantityInvoiced: sale.QUANTITY default "",
-		AmountInvoiced: sale.VALUE_SOLD default "",
-		TransType: sale.ENTRY_TYPE default ""
-	}
-})]]></ee:set-payload>
+{
+	data: rows map ((sale) -> do {
+		var createdAt = sale.CREATED_AT as DateTime
+		---
+		{
+			STOREID: sale.SHOPID default "",
+			Discount: sale.DISCOUNT default "",
+			SalesRepID: sale.USERID default "",
+			VATAmount: sale.TOTAL_VAT default "",
+			RouteID: sale.ROUTEID default "",
+			DistributorID: "",
+			ProductID: numericProductId(sale.PRODUCT_CODE),
+			WarehouseID: sale.SUPPLIER_ID default "",
+			OrderNumber: sale.SALE_ORDER_ID default "",
+			InvoiceNumber: sale.ENTRY_ID default "",
+			InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
+			InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
+			InvoiceStatus: sale.PAYMENT_STATUS default "",
+			UnitOfMeasure: sale.PACKAGING default "",
+			Currency: "KES",
+			QuantityInvoiced: sale.QUANTITY default "",
+			AmountInvoiced: sale.VALUE_SOLD default "",
+			TransType: sale.ENTRY_TYPE default ""
+		}
+	}),
+	(next: payload.next) if (payload.next != null)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+var expBase = p("exp.base.url") default ""
+---
+payload update {
+	case .next if (payload.next != null) -> expBase ++ payload.next
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
