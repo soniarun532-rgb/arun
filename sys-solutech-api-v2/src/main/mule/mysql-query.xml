@@ -23,33 +23,50 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		</ee:transform>
 		<choice doc:name="Build SQL by PAPI resource">
 			<when expression="#[vars.endpoint == 'invoice']">
+				<ee:transform doc:name="Invoice supplier">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="supplier"><![CDATA[%dw 2.0
+output application/java
+---
+p("db.invoice.supplier") default ""]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<ee:transform doc:name="Invoice fromTs">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="fromTs"><![CDATA[%dw 2.0
+output application/java
+---
+(attributes.queryParams.fromDate default "") ++ " 00:00:00"]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+				<ee:transform doc:name="Invoice toTs">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="toTs"><![CDATA[%dw 2.0
+output application/java
+---
+(attributes.queryParams.toDate default "") ++ " 00:00:00"]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
 				<ee:transform doc:name="Invoice SQL">
 					<ee:message />
 					<ee:variables>
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
 var db = vars.databaseName
+var supplier = vars.supplier as String default ""
+var fromTs = vars.fromTs as String default ""
+var toTs = vars.toTs as String default ""
 ---
 "Select a.*, b.routeid
 from " ++ db ++ "." ++ p("db.table.sales") ++ " as a
 left join " ++ db ++ "." ++ p("db.table.visits") ++ " as b on a.VisitID = b.visitid
-inner join " ++ db ++ "." ++ p("db.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = :supplier
-where a.Created_AT between :fromTs and :toTs
+inner join " ++ db ++ "." ++ p("db.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "'
+where a.Created_AT between '" ++ fromTs ++ "' and '" ++ toTs ++ "'
 order by a.Entry_ID desc
 LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<ee:transform doc:name="Invoice SQL params">
-					<ee:message />
-					<ee:variables>
-						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
-output application/java
----
-{
-	supplier: p("db.invoice.supplier") default "",
-	fromTs: (attributes.queryParams.fromDate default "") ++ " 00:00:00",
-	toTs: (attributes.queryParams.toDate default "") ++ " 00:00:00"
-}]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</when>
