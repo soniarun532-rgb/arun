@@ -9,40 +9,21 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
+	<!-- Shared MySQL runner. Each PAPI resource has its own when so queries stay independent. -->
 	<flow name="mysql-query-main" doc:id="mysql-query-main-0001">
 		<logger level="INFO" doc:name="Start MySQL query"
-			message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " started. resource=" ++ ((attributes.queryParams.resource default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
+			message='#[output text/plain --- "[Sys-Solutech] datashare query start. resource=" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((attributes.queryParams.database default "") as String) ++ " fromDate=" ++ ((attributes.queryParams.fromDate default "") as String) ++ " toDate=" ++ ((attributes.queryParams.toDate default "") as String) ++ " limit=" ++ ((attributes.queryParams.limit default "") as String) ++ " offset=" ++ ((attributes.queryParams.offset default "") as String)]' />
 		<ee:transform doc:name="Paging vars">
 			<ee:message />
 			<ee:variables>
 				<ee:set-variable variableName="databaseName"><![CDATA[attributes.queryParams.database default p("db.name")]]></ee:set-variable>
 				<ee:set-variable variableName="offset"><![CDATA[(attributes.queryParams.offset default 0) as Number]]></ee:set-variable>
 				<ee:set-variable variableName="limit"><![CDATA[(attributes.queryParams.limit default p("db.limit") default 10000) as Number]]></ee:set-variable>
+				<ee:set-variable variableName="skipQuery"><![CDATA[false]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<choice doc:name="Build SQL for endpoint">
-			<when expression="#[lower(vars.endpoint default '') == 'product']">
-				<ee:transform doc:name="Product SQL">
-					<ee:message />
-					<ee:variables>
-						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
-output text/plain
----
-"SELECT * FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
-						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
-output application/java
----
-{
-	supplier: attributes.queryParams.supplier default p("db.invoice.supplier") default ""
-}]]></ee:set-variable>
-					</ee:variables>
-				</ee:transform>
-				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
-				<flow-ref doc:name="mysql-paged-response-subflow" name="mysql-paged-response-subflow" />
-				<logger level="INFO" doc:name="End product query"
-					message='#[output text/plain --- "[Sys-Solutech] GET /product completed. records=" ++ (sizeOf(payload.data default []) as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
-			</when>
-			<when expression="#[(lower(vars.endpoint default '') == 'sale') or (lower(vars.endpoint default '') == 'invoice')]">
+		<choice doc:name="Build SQL by PAPI resource">
+			<when expression="#[vars.endpoint == 'invoice']">
 				<ee:transform doc:name="Invoice SQL">
 					<ee:message />
 					<ee:variables>
@@ -67,21 +48,89 @@ output application/java
 }]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
-				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
-				<flow-ref doc:name="mysql-paged-response-subflow" name="mysql-paged-response-subflow" />
-				<logger level="INFO" doc:name="End invoice query"
-					message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "invoice") as String) ++ " completed. records=" ++ (sizeOf(payload.data default []) as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
+			</when>
+			<when expression="#[vars.endpoint == 'product']">
+				<ee:transform doc:name="Product SQL">
+					<ee:message />
+					<ee:variables>
+						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
+output text/plain
+---
+"SELECT * FROM " ++ vars.databaseName ++ "." ++ p("db.table.products") ++ " WHERE supplier = :supplier ORDER BY id LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
+						<ee:set-variable variableName="sqlParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	supplier: attributes.queryParams.supplier default p("db.invoice.supplier") default ""
+}]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</when>
+			<when expression="#[vars.endpoint == 'order']">
+				<logger level="INFO" doc:name="Order SQL pending"
+					message="[Sys-Solutech] resource=Order has no SQL yet. Paste the Order query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</when>
+			<when expression="#[vars.endpoint == 'route']">
+				<logger level="INFO" doc:name="Route SQL pending"
+					message="[Sys-Solutech] resource=Route has no SQL yet. Paste the Route query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</when>
+			<when expression="#[vars.endpoint == 'salesrep']">
+				<logger level="INFO" doc:name="SalesRep SQL pending"
+					message="[Sys-Solutech] resource=SalesRep has no SQL yet. Paste the SalesRep query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</when>
+			<when expression="#[vars.endpoint == 'store']">
+				<logger level="INFO" doc:name="Store SQL pending"
+					message="[Sys-Solutech] resource=Store has no SQL yet. Paste the Store query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</when>
+			<when expression="#[vars.endpoint == 'inventory']">
+				<logger level="INFO" doc:name="Inventory SQL pending"
+					message="[Sys-Solutech] resource=Inventory has no SQL yet. Paste the Inventory query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</when>
+			<when expression="#[vars.endpoint == 'warehouse']">
+				<logger level="INFO" doc:name="Warehouse SQL pending"
+					message="[Sys-Solutech] resource=Warehouse has no SQL yet. Paste the Warehouse query into this when branch only." />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
 			</when>
 			<otherwise>
-				<logger level="INFO" doc:name="Unknown endpoint"
-					message='#[output text/plain --- "[Sys-Solutech] GET /" ++ ((vars.endpoint default "") as String) ++ " has no SQL mapping. Set resource to Invoice or Product."]' />
+				<logger level="INFO" doc:name="Unknown resource"
+					message='#[output text/plain --- "[Sys-Solutech] unknown resource=" ++ ((vars.endpoint default "") as String) ++ ". Use Invoice, Order, Product, Route, SalesRep, Store, Inventory, or Warehouse."]' />
+				<set-variable variableName="skipQuery" value="#[true]" doc:name="skipQuery" />
+			</otherwise>
+		</choice>
+		<choice doc:name="Run query when SQL is set">
+			<when expression="#[!(vars.skipQuery default false)]">
+				<flow-ref doc:name="mysql-query-subflow" name="mysql-query-subflow" />
+				<flow-ref doc:name="mysql-paged-response-subflow" name="mysql-paged-response-subflow" />
+				<logger level="INFO" doc:name="End query"
+					message='#[output text/plain --- "[Sys-Solutech] datashare query done. resource=" ++ ((vars.endpoint default "") as String) ++ " records=" ++ (sizeOf(payload.data default []) as String) ++ " hasMore=" ++ ((vars.hasMore default false) as String)]' />
+			</when>
+			<otherwise>
+				<ee:transform doc:name="Empty independent response">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	data: [],
+	next: null
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="hasMore"><![CDATA[false]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
 			</otherwise>
 		</choice>
 	</flow>
 
 	<sub-flow name="mysql-query-subflow" doc:id="mysql-query-subflow-0001">
 		<logger level="INFO" doc:name="Run SQL"
-			message='#[output text/plain --- "[Sys-Solutech] executing query for /" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((vars.databaseName default "") as String) ++ " limit=" ++ ((vars.limit default "") as String) ++ " offset=" ++ ((vars.offset default "") as String)]' />
+			message='#[output text/plain --- "[Sys-Solutech] executing query for resource=" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((vars.databaseName default "") as String) ++ " limit=" ++ ((vars.limit default "") as String) ++ " offset=" ++ ((vars.offset default "") as String)]' />
 		<db:select doc:name="MySQL select" config-ref="MySQL_Config">
 			<db:sql><![CDATA[#[vars.sql]]]></db:sql>
 			<db:input-parameters><![CDATA[#[vars.sqlParams default {}]]]></db:input-parameters>
