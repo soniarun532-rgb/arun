@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<http:request-connection protocol="HTTPS" host="${business.central.process.api}" port="443" />
 	</http:request-config>
 <http:request-config name="HTTP_Request_Solutech_Sys_Layer" doc:name="HTTP Request configuration" doc:id="e318fe32-cddd-407b-aa9d-a0c2558b37cd" >
-		<http:request-connection protocol="HTTPS" host="${sys.solutech.api}" />
+		<http:request-connection host="${sys.solutech.api}" port="443" protocol="HTTPS"/>
 	</http:request-config>
 <http:request-config name="HTTP_Request_microsoftonline_oauth2_config" doc:name="HTTP Request configuration" doc:id="c4974617-0555-4932-bfd8-ab027c4c704c" >
 		<http:request-connection protocol="HTTPS" host="${microsoftonline.oauth2.token}" />

@@ -8,7 +8,7 @@
                    httpStatusVarName="httpStatus" />
      -->
     <!-- RAML Sand-box -->
-    <apikit:config name="solutech-papi-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-papi:1.0.7:raml:zip:solutech-papi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="solutech-papi-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-papi:1.0.9:raml:zip:solutech-papi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <!-- RAML Prod -->
     <!--  
     <apikit:config name="solutech-papi-config" 
@@ -17,7 +17,7 @@
                    httpStatusVarName="httpStatus" />
      -->
     <http:listener-config name="solutech-system-papi-httpListenerConfig" doc:name="HTTP Listener config" doc:id="cdc0d2d3-db76-48c9-8e61-61502b376878">
-        <http:listener-connection host="0.0.0.0" port="8082" />
+        <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <flow name="solutech-papi-main">
         <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig">

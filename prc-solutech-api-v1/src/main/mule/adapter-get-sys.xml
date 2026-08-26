@@ -40,6 +40,7 @@ output application/java
 	<!-- 1. Adapter_Invoice (implemented) -->
 	<flow name="get-Adapter_Invoice-main-impl" doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
 		<logger level="INFO" doc:name="Start Logger" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="GET Adapter_Invoice queryParams" message="[Prc-Solutech] GET /Adapter_Invoice invoked. queryParams: #[attributes.queryParams]" />
 		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
 		<set-variable value='#[p("sys.solutech.invoice.path")]' doc:name="request_path" variableName="request_path" />
 		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
@@ -50,32 +51,30 @@ output application/json
 fun numericProductId(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
 var rows = payload.data default payload default []
 ---
-{
-	data: rows map ((sale) -> do {
-		var createdAt = sale.CREATED_AT as DateTime
-		---
-		{
-			STOREID: sale.SHOPID default "",
-			Discount: sale.DISCOUNT default "",
-			SalesRepID: sale.USERID default "",
-			VATAmount: sale.TOTAL_VAT default "",
-			RouteID: sale.ROUTEID default "",
-			DistributorID: "",
-			ProductID: numericProductId(sale.PRODUCT_CODE),
-			WarehouseID: sale.SUPPLIER_ID default "",
-			OrderNumber: sale.SALE_ORDER_ID default "",
-			InvoiceNumber: sale.ENTRY_ID default "",
-			InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
-			InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
-			InvoiceStatus: sale.PAYMENT_STATUS default "",
-			UnitOfMeasure: sale.PACKAGING default "",
-			Currency: "KES",
-			QuantityInvoiced: sale.QUANTITY default "",
-			AmountInvoiced: sale.VALUE_SOLD default "",
-			TransType: sale.ENTRY_TYPE default ""
-		}
-	})
-}]]></ee:set-payload>
+rows map ((sale) -> do {
+	var createdAt = sale.CREATED_AT as DateTime
+	---
+	{
+		STOREID: sale.SHOPID default "",
+		Discount: sale.DISCOUNT default "",
+		SalesRepID: sale.USERID default "",
+		VATAmount: sale.TOTAL_VAT default "",
+		RouteID: sale.ROUTEID default "",
+		DistributorID: "",
+		ProductID: numericProductId(sale.PRODUCT_CODE),
+		WarehouseID: sale.SUPPLIER_ID default "",
+		OrderNumber: sale.SALE_ORDER_ID default "",
+		InvoiceNumber: sale.ENTRY_ID default "",
+		InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
+		InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
+		InvoiceStatus: sale.PAYMENT_STATUS default "",
+		UnitOfMeasure: sale.PACKAGING default "",
+		Currency: "KES",
+		QuantityInvoiced: sale.QUANTITY default "",
+		AmountInvoiced: sale.VALUE_SOLD default "",
+		TransType: sale.ENTRY_TYPE default ""
+	}
+})]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="End Logger" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />

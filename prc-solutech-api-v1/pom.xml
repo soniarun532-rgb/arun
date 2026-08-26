@@ -7,7 +7,7 @@
 	<version>1.0.5</version>
 	<packaging>mule-application</packaging>
 
-	<name>prc-solutech-api-v1-1.0.100-mule-application</name>
+	<name>prc-solutech-api-v1-1.0.104-mule-application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -78,7 +78,7 @@
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
 			<artifactId>solutech-papi</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.9</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

@@ -35,7 +35,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 			<http:query-params><![CDATA[#[vars.sysQueryParams default {}]]]></http:query-params>
 		</http:request>
-		<logger level="INFO" doc:name="[Sys-Solutech] Response" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech05" message="[Sys-Solutech] Received Response: #[payload]" />
+		<set-variable variableName="lastCallHasMore" value="#[attributes.headers.'X-Has-More' default attributes.headers.'x-has-more' default 'false']" doc:name="lastCallHasMore"/>
+		<logger level="INFO" doc:name="[Sys-Solutech] Response" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech05" message="[Sys-Solutech] Received Response " />
 		<logger level="INFO" doc:name="End Logger" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech06" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
 	</sub-flow>
 </mule>

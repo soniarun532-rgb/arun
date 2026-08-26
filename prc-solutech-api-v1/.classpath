@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/e4352f2d-9759-4055-930e-8a13244d0f45/solutech-papi/1.0.6"/>
+	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/e4352f2d-9759-4055-930e-8a13244d0f45/solutech-papi/1.0.9"/>
 	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-sockets-connector/1.2.5"/>
 	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/e4352f2d-9759-4055-930e-8a13244d0f45/solutech-papi-uat/1.0.18"/>
 	<classpathentry kind="con" path="org.mule.tooling.API_SPEC_LIB/e4352f2d-9759-4055-930e-8a13244d0f45/solutech-papi-prod/1.0.0"/>
