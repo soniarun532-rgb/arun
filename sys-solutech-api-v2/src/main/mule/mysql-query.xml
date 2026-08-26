@@ -195,7 +195,6 @@ output application/json
 var data = payload default []
 var limitNum = vars.limit as Number default 10000
 var offsetNum = vars.offset as Number default 0
-var baseUrl = "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
 var path = (attributes.requestPath default ("/api/" ++ (vars.endpoint default ""))) as String
 var fromDate = vars.fromDate as String default ""
 var toDate = vars.toDate as String default ""
@@ -205,7 +204,7 @@ var qs = "?"
 	++ (if (toDate != "") ("toDate=" ++ toDate ++ "&") else "")
 	++ "limit=" ++ (limitNum as String)
 	++ "&offset=" ++ (nextOffset as String)
-var nextUrl = baseUrl ++ path ++ qs
+var nextUrl = path ++ qs
 ---
 {
 	data: data
