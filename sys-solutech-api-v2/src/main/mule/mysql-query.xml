@@ -210,10 +210,8 @@ var path = toText(attributes.requestPath default "/api/datashare")
 var scheme = toText(attributes.scheme default "http")
 var resource = toText(attributes.queryParams.resource default vars.endpoint)
 var database = toText(attributes.queryParams.database default vars.databaseName)
-var fromQ = toText(attributes.queryParams.fromDate)
-var toQ = toText(attributes.queryParams.toDate)
-var fromDate = if (fromQ != "") fromQ else datePart(vars.fromTs)
-var toDate = if (toQ != "") toQ else datePart(vars.toTs)
+var fromDate = datePart(attributes.queryParams.fromDate default vars.fromTs)
+var toDate = datePart(attributes.queryParams.toDate default vars.toTs)
 var supplier = toText(attributes.queryParams.supplier default vars.supplier)
 var nextOffset = offsetNum + limitNum
 var next = scheme ++ "://" ++ host ++ path
