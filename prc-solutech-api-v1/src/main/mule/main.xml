@@ -689,11 +689,11 @@ var postingDate =
 		<ee:variables>
 			<ee:set-variable variableName="fromDate"><![CDATA[attributes.queryParams.fromDate]]></ee:set-variable>
 			<ee:set-variable variableName="toDate"><![CDATA[attributes.queryParams.toDate]]></ee:set-variable>
-			<ee:set-variable variableName="Database"><![CDATA[attributes.queryParams.Database]]></ee:set-variable>
-			<ee:set-variable variableName="Supplier"><![CDATA[attributes.queryParams.Supplier]]></ee:set-variable>
+			<ee:set-variable variableName="Database"><![CDATA[attributes.queryParams.Database default attributes.queryParams.database]]></ee:set-variable>
+			<ee:set-variable variableName="Supplier"><![CDATA[attributes.queryParams.Supplier default attributes.queryParams.supplier]]></ee:set-variable>
 			<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
-				<ee:set-variable variableName="offset" ><![CDATA[attributes.queryParams.offset default "0"]]></ee:set-variable>
-				<ee:set-variable variableName="limit" ><![CDATA[attributes.queryParams.limit default "10000"]]></ee:set-variable>
+			<ee:set-variable variableName="offset"><![CDATA[attributes.queryParams.offset default "0"]]></ee:set-variable>
+			<ee:set-variable variableName="limit"><![CDATA[attributes.queryParams.limit default "10000"]]></ee:set-variable>
 		</ee:variables>
 	</ee:transform>
 
@@ -706,8 +706,8 @@ var postingDate =
 output application/java
 ---
 {
-	Database: vars.Database,
-	Supplier: vars.Supplier,
+	database: vars.Database,
+	supplier: vars.Supplier,
 	limit: "10000",
 	offset: "0"
 }]]></ee:set-variable>
@@ -727,8 +727,7 @@ output application/java
 {
 	fromDate: vars.fromDate,
 	toDate: vars.toDate,
-	Database: vars.Database,
-	Supplier: vars.Supplier,
+	database: vars.Database,
 	limit: vars.limit,
 	offset: vars.offset
 }]]></ee:set-variable>
