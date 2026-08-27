@@ -2,8 +2,6 @@
 output application/java
 var host = trim((p("eapi.host") default "") as String) replace /\/$/ with ""
 var path = vars.inboundPath default ""
-var qp = vars.inboundQueryParams default {}
-var limitNum = (qp.limit default "10000") as Number
 var records =
     if ((payload is Object) and (payload.data is Object) and (payload.data.data != null))
         payload.data.data
@@ -16,9 +14,7 @@ var downstreamNext =
         payload.next default payload.data.next default null
     else
         null
-var headerHasMore = lower((vars.lastCallHasMore default "false") as String) == "true"
-var inferredHasMore = (records is Array) and (sizeOf(records default []) >= limitNum)
-var hasMore = headerHasMore or inferredHasMore or ((downstreamNext != null) and (downstreamNext != ""))
+var hasMore = (downstreamNext != null) and (downstreamNext != "")
 fun queryFromNext(url) =
     if ((url == null) or (url == ""))
         null
@@ -27,11 +23,22 @@ fun queryFromNext(url) =
     else
         null
 var downstreamQuery = queryFromNext(downstreamNext)
+var cleanedQuery =
+    if (downstreamQuery == null)
+        null
+    else
+        (((downstreamQuery
+            replace /(&)?limit=[^&]*/ with "")
+            replace /(&)?offset=[^&]*/ with "")
+            replace /(&)?database=[^&]*/ with "")
+            replace /(&)?supplier=[^&]*/ with "")
+            replace /^&/ with ""
+            replace /&&+/ with "&")
 ---
 {
     hasMore: hasMore,
-    nextUrl: if (downstreamQuery != null)
-        host ++ path ++ "?" ++ downstreamQuery
+    nextUrl: if ((hasMore) and (cleanedQuery != null) and (cleanedQuery != ""))
+        host ++ path ++ "?" ++ cleanedQuery
     else
         null
 }
