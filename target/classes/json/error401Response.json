@@ -1,0 +1,5 @@
+{
+  "status": 401,
+  "error": "Unauthorized – Invalid or expired token",
+  "source": "Solutech API"
+}

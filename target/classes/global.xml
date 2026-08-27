@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd 
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="solutech-system-api-httpListenerConfig" doc:name="HTTP Listener config" doc:id="e89b6d04-8ecc-4318-94f4-6bf39fa82411" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<!--  
+	<http:request-config name="HTTP_Request_Solutech_Token_config" doc:name="HTTP Request configuration" doc:id="c372be5c-8354-44ae-bddc-7ebb81f1d9be" >
+		<http:request-connection protocol="HTTPS" host="erp.solutechlabs.com"/>
+	</http:request-config>
+	-->
+	<http:request-config name="HTTP_Request_Solutech_Token_config">
+  <http:request-connection host="#[vars.api]" port="443" protocol="HTTPS">
+    <tls:context>
+      <tls:trust-store path="solutech-combined-trust.p12" 
+                       password="${secure::truststore.password}" 
+                       type="pkcs12"/>
+    </tls:context>
+  </http:request-connection>
+</http:request-config>
+	<global-property doc:name="Global Property" doc:id="2e4e88e0-ae55-4336-b738-079c243cbc48" name="env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="83fb932f-ca76-4ae5-a51b-e4263b90574f" file="${env}.properties" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="6d55f251-4aa5-4905-8dc6-4836d3d681e5" file="${env}.properties" key="${secure.key}">
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<db:config name="MySQL_Config" doc:name="MySQL Config" doc:id="a1b2c3d4-mysql-sat-bi-config">
+		<db:my-sql-connection host="${db.host}" port="${db.port}" user="${db.user}" password="${secure::db.password}" database="${db.name}">
+			<db:pooling-profile/>
+			<db:connection-properties>
+				<db:connection-property key="useSSL" value="false" />
+				<db:connection-property key="allowPublicKeyRetrieval" value="true" />
+				<db:connection-property key="serverTimezone" value="UTC" />
+			</db:connection-properties>
+		</db:my-sql-connection>
+	</db:config>
+</mule>
