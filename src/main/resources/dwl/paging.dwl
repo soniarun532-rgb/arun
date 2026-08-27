@@ -2,7 +2,6 @@
 output application/java
 var host = trim((p("eapi.host") default "") as String) replace /\/$/ with ""
 var path = vars.inboundPath default ""
-var qp = vars.inboundQueryParams default {}
 var records =
     if ((payload is Object) and (payload.data is Object) and (payload.data.data != null))
         payload.data.data
@@ -23,13 +22,6 @@ fun queryFromNext(url) =
         (url splitBy "?")[1]
     else
         null
-fun appendIfMissing(q, name, value) =
-    if ((value == null) or ((value as String) == "") or (q contains (name ++ "=")))
-        q
-    else if ((q == null) or (q == ""))
-        name ++ "=" ++ (value as String)
-    else
-        q ++ "&" ++ name ++ "=" ++ (value as String)
 var downstreamQuery = queryFromNext(downstreamNext)
 var cleanedQuery =
     if (downstreamQuery == null)
@@ -38,14 +30,15 @@ var cleanedQuery =
         (((downstreamQuery
             replace /(&)?limit=[^&]*/ with "")
             replace /(&)?offset=[^&]*/ with "")
-            replace /^&/ with "")
-var withDb = appendIfMissing(cleanedQuery, "database", qp.database)
-var withSupplier = appendIfMissing(withDb, "supplier", qp.supplier)
+            replace /(&)?database=[^&]*/ with "")
+            replace /(&)?supplier=[^&]*/ with "")
+            replace /^&/ with ""
+            replace /&&+/ with "&")
 ---
 {
     hasMore: hasMore,
-    nextUrl: if ((hasMore) and (withSupplier != null) and (withSupplier != ""))
-        host ++ path ++ "?" ++ withSupplier
+    nextUrl: if ((hasMore) and (cleanedQuery != null) and (cleanedQuery != ""))
+        host ++ path ++ "?" ++ cleanedQuery
     else
         null
 }

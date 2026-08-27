@@ -4,7 +4,7 @@ output application/java
 {
   fromDate: attributes.queryParams.fromDate,
   toDate: attributes.queryParams.toDate,
-  database: attributes.queryParams.database as String,
-  supplier: (attributes.queryParams.supplier default attributes.queryParams.Supplier default "") as String,
+  database: p("process.api.database"),
+  supplier: p("process.api.supplier"),
   pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
 }
