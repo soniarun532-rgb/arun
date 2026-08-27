@@ -14,12 +14,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Store inbound query params">
 			<ee:message />
 			<ee:variables>
-				<ee:set-variable variableName="fromDate"><![CDATA[attributes.queryParams.fromDate]]></ee:set-variable>
-				<ee:set-variable variableName="toDate"><![CDATA[attributes.queryParams.toDate]]></ee:set-variable>
-				<ee:set-variable variableName="database"><![CDATA[attributes.queryParams.database default attributes.queryParams.Database]]></ee:set-variable>
-				<ee:set-variable variableName="supplier"><![CDATA[attributes.queryParams.supplier default attributes.queryParams.Supplier]]></ee:set-variable>
-				<ee:set-variable variableName="limit"><![CDATA[attributes.queryParams.limit default 10000]]></ee:set-variable>
-				<ee:set-variable variableName="offset"><![CDATA[attributes.queryParams.offset default 0]]></ee:set-variable>
 				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
 				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
 				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
