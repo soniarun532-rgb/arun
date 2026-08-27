@@ -19,7 +19,6 @@ var downstreamNext =
 var headerHasMore = lower((vars.lastCallHasMore default "false") as String) == "true"
 var inferredHasMore = (records is Array) and (sizeOf(records default []) >= limitNum)
 var hasMore = headerHasMore or inferredHasMore or ((downstreamNext != null) and (downstreamNext != ""))
-
 fun queryFromNext(url) =
     if ((url == null) or (url == ""))
         null
@@ -27,29 +26,12 @@ fun queryFromNext(url) =
         (url splitBy "?")[1]
     else
         null
-
-fun qsPair(name, value) =
-    if (value == null or value == "")
-        null
-    else
-        name ++ "=" ++ (value as String)
-
 var downstreamQuery = queryFromNext(downstreamNext)
-var builtQuery = [
-    qsPair("fromDate", qp.fromDate),
-    qsPair("toDate", qp.toDate),
-    qsPair("limit", qp.limit default "10000"),
-    qsPair("offset", ((qp.offset default "0") as Number + limitNum) as String)
-] filter ((item) -> item != null)
-var nextUrl =
-    if (downstreamQuery != null)
-        host ++ path ++ "?" ++ downstreamQuery
-    else if (hasMore)
-        host ++ path ++ "?" ++ (builtQuery joinBy "&")
-    else
-        null
 ---
 {
     hasMore: hasMore,
-    nextUrl: nextUrl
+    nextUrl: if (downstreamQuery != null)
+        host ++ path ++ "?" ++ downstreamQuery
+    else
+        null
 }
