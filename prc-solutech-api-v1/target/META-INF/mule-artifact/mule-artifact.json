@@ -1,0 +1,42 @@
+{
+  "configs": [
+    "adapter-get-sys.xml",
+    "global.xml",
+    "global-error-handler.xml",
+    "solutech-papi.xml",
+    "main.xml",
+    "request-subflow.xml"
+  ],
+  "secureProperties": [],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "e4352f2d-9759-4055-930e-8a13244d0f45:prc-solutech-api-v1:1.0.5",
+  "minMuleVersion": "4.9.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "adapter-get-sys.xml",
+        "api/adapter-invoice-query-params.raml",
+        "application-types.xml",
+        "dev.properties",
+        "global-error-handler.xml",
+        "global.xml",
+        "log4j2.xml",
+        "main.xml",
+        "prod.properties",
+        "request-subflow.xml",
+        "solutech-papi.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "javaSpecificationVersions": [
+    "17"
+  ]
+}

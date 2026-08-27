@@ -1,0 +1,5 @@
+{
+  "status": 400,
+  "error": "Bad Request – Invalid or duplicate data received from ERP",
+  "source": "Solutech API"
+}
