@@ -1,0 +1,34 @@
+#%RAML 1.0 Trait
+queryParameters:
+  fromDate:
+    type: string
+    required: true
+    description: Inclusive start date (YYYY-MM-DD)
+    example: "2026-08-01"
+  toDate:
+    type: string
+    required: true
+    description: Inclusive end date (YYYY-MM-DD)
+    example: "2026-08-10"
+  limit:
+    type: number
+    required: false
+    default: 10000
+    description: Maximum number of records to return
+    example: 100
+  offset:
+    type: number
+    required: false
+    default: 0
+    description: Number of records to skip
+    example: 0
+  database:
+    type: string
+    required: true
+    description: Database name
+    example: DEV_DATABASE
+  supplier:
+    type: string
+    required: true
+    description: Supplier name
+    example: DEV_SUPPLIER

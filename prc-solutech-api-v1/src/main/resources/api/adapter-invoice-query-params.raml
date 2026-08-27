@@ -1,0 +1,28 @@
+#%RAML 1.0 Trait
+queryParameters:
+  fromDate:
+    type: date-only
+    required: true
+    description: Inclusive start date (YYYY-MM-DD)
+    example: 2026-08-01
+  toDate:
+    type: date-only
+    required: true
+    description: Inclusive end date (YYYY-MM-DD)
+    example: 2026-08-10
+  database:
+    type: string
+    required: true
+    description: Database name passed through to SAPI
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    description: Supplier name passed through to SAPI
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: number
+    required: false
+    default: 0
+    description: Page index. SAPI maps 0→OFFSET 0, 1→10000, 2→20000. Page size is 10000 from SAPI properties.
+    example: 0
