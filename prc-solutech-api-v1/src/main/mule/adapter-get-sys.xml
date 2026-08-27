@@ -25,8 +25,7 @@ output application/java
 	toDate: attributes.queryParams.toDate,
 	database: attributes.queryParams.database,
 	supplier: attributes.queryParams.supplier default attributes.queryParams.Supplier,
-	limit: attributes.queryParams.limit default 10000,
-	offset: attributes.queryParams.offset default 0
+	pageNumber: attributes.queryParams.pageNumber default 0
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
@@ -87,9 +86,16 @@ var rows = payload.data default payload default []
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 var expBase = p("exp.base.url") default ""
+var papiPath = p("sys.solutech.adapter.invoice.path") default "/api/Adapter_Invoice"
+fun toExpNext(n) = do {
+	var s = n as String default ""
+	var q = if (s contains "?") ((s splitBy "?")[1] default "") else ""
+	---
+	expBase ++ papiPath ++ (if (q != "") ("?" ++ q) else "")
+}
 ---
 payload update {
-	case .next if (payload.next != null) -> expBase ++ payload.next
+	case .next if (payload.next != null) -> toExpNext(payload.next)
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>

@@ -13,8 +13,7 @@
 		{ "key": "toDate", "value": "2026-08-26" },
 		{ "key": "database", "value": "DEV_DATABASE" },
 		{ "key": "supplier", "value": "DEV_SUPPLIER" },
-		{ "key": "limit", "value": "10000" },
-		{ "key": "offset", "value": "0" }
+		{ "key": "pageNumber", "value": "0" }
 	],
 	"item": [
 		{
@@ -31,16 +30,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&limit={{limit}}&offset={{offset}}",
+							"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
 							"host": ["{{papi_base}}"],
 							"path": ["api", "Adapter_Invoice"],
 							"query": [
 								{ "key": "fromDate", "value": "{{fromDate}}", "description": "Required. Inclusive start date YYYY-MM-DD" },
 								{ "key": "toDate", "value": "{{toDate}}", "description": "Required. Inclusive end date YYYY-MM-DD" },
-								{ "key": "database", "value": "{{database}}", "description": "Required" },
-								{ "key": "supplier", "value": "{{supplier}}", "description": "Required" },
-								{ "key": "limit", "value": "{{limit}}", "description": "Optional. Default 10000" },
-								{ "key": "offset", "value": "{{offset}}", "description": "Optional. Default 0" }
+								{ "key": "database", "value": "{{database}}", "description": "Required. Passed to SAPI" },
+								{ "key": "supplier", "value": "{{supplier}}", "description": "Required. Passed to SAPI" },
+								{ "key": "pageNumber", "value": "{{pageNumber}}", "description": "Optional. 0→OFFSET 0, 1→10000. No limit query param." }
 							]
 						},
 						"description": "Calls Sys GET /api/invoice once, then maps fields.\nProductID strips leading letters from PRODUCT_CODE (BIC903018 → 903018).\nCurrency is always KES."
@@ -52,7 +50,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate=2026-08-01&toDate=2026-08-26&database=DEV_DATABASE&supplier=DEV_SUPPLIER&limit=10000&offset=0",
+									"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate=2026-08-01&toDate=2026-08-26&database=DEV_DATABASE&supplier=DEV_SUPPLIER&pageNumber=0",
 									"host": ["{{papi_base}}"],
 									"path": ["api", "Adapter_Invoice"],
 									"query": [
@@ -60,8 +58,7 @@
 										{ "key": "toDate", "value": "2026-08-26" },
 										{ "key": "database", "value": "DEV_DATABASE" },
 										{ "key": "supplier", "value": "DEV_SUPPLIER" },
-										{ "key": "limit", "value": "10000" },
-										{ "key": "offset", "value": "0" }
+										{ "key": "pageNumber", "value": "0" }
 									]
 								}
 							},
@@ -198,7 +195,7 @@
 							{ "key": "Accept", "value": "application/json" }
 						],
 						"url": {
-							"raw": "{{sapi_base}}/api/invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&limit={{limit}}&offset={{offset}}",
+							"raw": "{{sapi_base}}/api/invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
 							"host": ["{{sapi_base}}"],
 							"path": ["api", "invoice"],
 							"query": [
@@ -206,8 +203,7 @@
 								{ "key": "toDate", "value": "{{toDate}}" },
 								{ "key": "database", "value": "{{database}}" },
 								{ "key": "supplier", "value": "{{supplier}}" },
-								{ "key": "limit", "value": "{{limit}}" },
-								{ "key": "offset", "value": "{{offset}}" }
+								{ "key": "pageNumber", "value": "{{pageNumber}}" }
 							]
 						},
 						"description": "Joined invoice payload PAPI maps. Expect { \"data\": [ ... ] } or a raw array."
