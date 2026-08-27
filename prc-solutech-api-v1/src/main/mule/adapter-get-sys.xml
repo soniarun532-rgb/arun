@@ -24,11 +24,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
 				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
 output application/java
+var db = attributes.queryParams.database default attributes.queryParams.Database
 ---
 {
 	fromDate: attributes.queryParams.fromDate,
 	toDate: attributes.queryParams.toDate,
-	database: attributes.queryParams.database default attributes.queryParams.Database,
+	(database: db) if (!isEmpty(db)),
 	supplier: attributes.queryParams.supplier default attributes.queryParams.Supplier,
 	limit: attributes.queryParams.limit default 10000,
 	offset: attributes.queryParams.offset default 0
