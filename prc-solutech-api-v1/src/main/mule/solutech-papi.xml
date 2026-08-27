@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <!-- RAML Pre-Sandbox -->
+    <!--  
+    <apikit:config name="solutech-papi-config" 
+                   api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-papi-uat:1.0.18:raml:zip:solutech-papi.raml" 
+                   outboundHeadersMapName="outboundHeaders" 
+                   httpStatusVarName="httpStatus" />
+     -->
+    <!-- RAML Sand-box -->
+    <apikit:config name="solutech-papi-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-papi:1.0.11:raml:zip:solutech-papi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <!-- RAML Prod -->
+    <!--  
+    <apikit:config name="solutech-papi-config" 
+                   api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-papi-prod:1.0.0:raml:zip:solutech-papi.raml" 
+                   outboundHeadersMapName="outboundHeaders" 
+                   httpStatusVarName="httpStatus" />
+     -->
+    <http:listener-config name="solutech-system-papi-httpListenerConfig" doc:name="HTTP Listener config" doc:id="cdc0d2d3-db76-48c9-8e61-61502b376878">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <flow name="solutech-papi-main">
+        <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="solutech-papi-config" />
+        <error-handler ref="global-error-handler" />
+    </flow>
+    <!-- [STUDIO:"post:\v1\sap\customer:application\json:solutech-papi-config"]<flow name="post:\v1\sap\customer:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "SAP customer created successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <flow name="post:\v1\integrations\customers:application\json:solutech-papi-config">
+        <flow-ref doc:name="post-v1-integrations-customers-main-impl" doc:id="44925dba-00c2-4635-b37d-6878165cdc85" name="post-v1-integrations-customers-main-impl" />
+    </flow>
+    <flow name="post:\v1\integrations\products:application\json:solutech-papi-config">
+        <flow-ref doc:name="post-v1-integrations-products-main-impl" doc:id="66132d76-cb1b-4ac2-9799-37221c208d60" name="post-v1-integrations-products-main-impl" />
+    </flow>
+    <!-- [STUDIO:"post:\v1\sap\customer\sales-document:application\json:solutech-papi-config"]<flow name="post:\v1\sap\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "Sales document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\v1\sage\customer\sales-document:application\json:solutech-papi-config"]<flow name="post:\v1\sage\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "SAGE Sales Document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\v1\tally\customer\sales-document:application\json:solutech-papi-config"]<flow name="post:\v1\tally\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "TALLY Sales Document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <flow name="post:\v1\integrations\stock-transfer:application\json:solutech-papi-config">
+        <flow-ref doc:name="post-v1-integrations-stock-transfer-main-impl" doc:id="0aec2331-813f-4738-849d-aa132365c8fa" name="post-v1-integrations-stock-transfer-main-impl" />
+    </flow>
+    <flow name="post:\oauth\token:application\x-www-form-urlencoded:solutech-papi-config">
+        <flow-ref doc:name="post-oauth-token-main-impl" doc:id="0e107706-0f3b-4184-808f-9ade55e8f4e9" name="post-oauth-token-main-impl" />
+    </flow>
+    <!-- [STUDIO:"post:\v1\sage\customer\transfer-request:application\json:solutech-papi-config"]<flow name="post:\v1\sage\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "SAGE Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\v1\tally\customer\transfer-request:application\json:solutech-papi-config"]<flow name="post:\v1\tally\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "TALLY Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\v1\sap\customer\transfer-request:application\json:solutech-papi-config"]<flow name="post:\v1\sap\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "success",
+  message: "Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <flow name="post:\Adapter_Customer:application\json:solutech-papi-config">
+        <flow-ref doc:name="Adapter_Customer-main" doc:id="ba652827-ba24-4638-8c01-6c42315e998b" name="Adapter_Customer-main" />
+    </flow>
+    <flow name="post:\Adapter_Inventory_Transfer_Request:application\json:solutech-papi-config">
+        <flow-ref doc:name="Adapter_Inventory_Transfer_Request-main" doc:id="35c3e06a-c3c3-4de3-a19c-b4d7640bbf71" name="Adapter_Inventory_Transfer_Request-main" />
+    </flow>
+    <flow name="post:\Adapter_Payment_Receipt:application\json:solutech-papi-config">
+        <flow-ref doc:name="Adapter_Payment_Receipt-main" doc:id="305c8f48-b22a-48e2-8dc6-54d2e62992f0" name="Adapter_Payment_Receipt-main" />
+    </flow>
+    <flow name="post:\Adapter_Sales_Document:application\json:solutech-papi-config">
+        <flow-ref doc:name="Adapter_Sales_Document-main" doc:id="5997dc97-3a88-444d-bbef-74d08895ef9e" name="Adapter_Sales_Document-main" />
+    </flow>
+    <!-- [STUDIO:"post:\v1\integrations\prices:application\json:solutech-papi-config"]<flow name="post:\v1\integrations\prices:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+{
+  status: "Success",
+  message: "Price List posted successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow> [STUDIO] -->
+    <flow name="get:\Adapter_Invoice:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Invoice-main-impl" name="get-Adapter_Invoice-main-impl" />
+    </flow>
+    <flow name="post:\v1\sap\customer:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "SAP customer created successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\integrations\prices:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "Success",
+  message: "Price List posted successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\sage\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "SAGE Sales Document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\sap\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "Sales document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\tally\customer\sales-document:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "TALLY Sales Document processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\sage\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "SAGE Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\tally\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "TALLY Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="post:\v1\sap\customer\transfer-request:application\json:solutech-papi-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  message: "Transfer Request processed successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+</mule>

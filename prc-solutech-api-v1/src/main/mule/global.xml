@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+<http:request-config name="HTTP_Request_BC_Process_Layer" doc:name="HTTP Request configuration" doc:id="cca1df5f-d49b-40d0-80f6-9b1eddd39316">
+		<http:request-connection protocol="HTTPS" host="${business.central.process.api}" port="443" />
+	</http:request-config>
+<http:request-config name="HTTP_Request_Solutech_Sys_Layer" doc:name="HTTP Request configuration" doc:id="e318fe32-cddd-407b-aa9d-a0c2558b37cd" >
+		<http:request-connection host="${sys.solutech.api}" port="443" protocol="HTTPS"/>
+	</http:request-config>
+<http:request-config name="HTTP_Request_microsoftonline_oauth2_config" doc:name="HTTP Request configuration" doc:id="c4974617-0555-4932-bfd8-ab027c4c704c" >
+		<http:request-connection protocol="HTTPS" host="${microsoftonline.oauth2.token}" />
+	</http:request-config>
+	<global-property doc:name="Global Property" doc:id="b04a6d63-96e1-42bb-b093-520eb21b0cab" name="env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="97afde1c-5bbe-41e6-9bfa-fd48cac8cca3" file="${env}.properties" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="42625bbf-3f3a-4ae8-99f5-2c224a35f893" file="${env}.properties" key="${secure.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+
+</mule>
