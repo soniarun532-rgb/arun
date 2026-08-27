@@ -1,0 +1,82 @@
+{
+  "info": {
+    "_postman_id": "sat-sys-solutech-sapi-localhost",
+    "name": "SAT SAPI localhost",
+    "description": "APIkit GETs. database and supplier from query params. pageNumber 0,1,2... Limit is 10000 from properties.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081" },
+    { "key": "database", "value": "sat_nobleoutlook" },
+    { "key": "fromDate", "value": "2026-08-13" },
+    { "key": "toDate", "value": "2026-08-14" },
+    { "key": "pageNumber", "value": "0" },
+    { "key": "supplier", "value": "BIC EAST AFRCA LIMITED" }
+  ],
+  "item": [
+    {
+      "name": "GET /invoice",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&supplier={{supplier}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /order",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /product",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /route",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/route?database={{database}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /sales-rep",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /store",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/store?database={{database}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /inventory",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/inventory?database={{database}}&pageNumber={{pageNumber}}"
+      }
+    },
+    {
+      "name": "GET /warehouse",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/warehouse?database={{database}}&pageNumber={{pageNumber}}"
+      }
+    }
+  ]
+}
