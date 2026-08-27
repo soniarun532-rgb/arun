@@ -23,9 +23,9 @@ output application/java
 {
 	fromDate: attributes.queryParams.fromDate,
 	toDate: attributes.queryParams.toDate,
-	database: attributes.queryParams.database,
-	supplier: attributes.queryParams.supplier default attributes.queryParams.Supplier,
-	pageNumber: attributes.queryParams.pageNumber default 0
+	database: attributes.queryParams.database as String,
+	supplier: (attributes.queryParams.supplier default attributes.queryParams.Supplier default "") as String,
+	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
