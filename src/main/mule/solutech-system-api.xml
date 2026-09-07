@@ -211,12 +211,20 @@ output application/json
         <set-variable value="sales-rep" doc:name="endpoint" variableName="endpoint" />
         <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
+    <flow name="get:\customer:solutech-system-api-config">
+        <set-variable value="customer" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
     <flow name="get:\store:solutech-system-api-config">
-        <set-variable value="store" doc:name="endpoint" variableName="endpoint" />
+        <set-variable value="customer" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\stock:solutech-system-api-config">
+        <set-variable value="stock" doc:name="endpoint" variableName="endpoint" />
         <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
     <flow name="get:\inventory:solutech-system-api-config">
-        <set-variable value="inventory" doc:name="endpoint" variableName="endpoint" />
+        <set-variable value="stock" doc:name="endpoint" variableName="endpoint" />
         <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
     <flow name="get:\warehouse:solutech-system-api-config">
