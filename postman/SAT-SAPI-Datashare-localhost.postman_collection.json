@@ -2,15 +2,16 @@
   "info": {
     "_postman_id": "sat-sapi-localhost-datashare",
     "name": "SAT SAPI localhost",
-    "description": "Local SAPI GETs only. Same query params on every resource: database (optional), fromDate, toDate, pageNumber.",
+    "description": "Local SAPI GETs. Query params: database, fromDate, toDate, pageNumber, supplier. Use schema sat_nobleoutlook (not nobleoutlook).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     { "key": "baseUrl", "value": "http://localhost:8081" },
-    { "key": "database", "value": "nobleoutlook" },
+    { "key": "database", "value": "sat_nobleoutlook" },
     { "key": "fromDate", "value": "2026-08-13" },
     { "key": "toDate", "value": "2026-08-14" },
-    { "key": "pageNumber", "value": "0" }
+    { "key": "pageNumber", "value": "0" },
+    { "key": "supplier", "value": "BIC EAST AFRCA LIMITED" }
   ],
   "item": [
     {
@@ -18,7 +19,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -26,7 +27,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -34,7 +35,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -42,7 +43,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -50,7 +51,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -58,7 +59,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -66,7 +67,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -74,7 +75,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}"
+        "url": "{{baseUrl}}/api/warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     }
   ]
