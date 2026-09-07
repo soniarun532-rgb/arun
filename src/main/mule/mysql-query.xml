@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="limit"><![CDATA[%dw 2.0
 output application/java
 ---
-(p("sapi.mysql.sat.query.page.size") default p("db.limit") default 10000) as Number]]></ee:set-variable>
+(p("sapi.mysql.sat.query.page.size") default 10000) as Number]]></ee:set-variable>
 				<ee:set-variable variableName="pageNumber"><![CDATA[%dw 2.0
 output application/java
 ---
@@ -36,7 +36,7 @@ attributes.queryParams.pageNumber as Number default 0]]></ee:set-variable>
 				<ee:set-variable variableName="offset"><![CDATA[%dw 2.0
 output application/java
 var pageNumber = attributes.queryParams.pageNumber as Number default 0
-var pageSize = (p("sapi.mysql.sat.query.page.size") default p("db.limit") default 10000) as Number
+var pageSize = (p("sapi.mysql.sat.query.page.size") default 10000) as Number
 ---
 (if (pageNumber < 0) 0 else pageNumber) * pageSize]]></ee:set-variable>
 				<ee:set-variable variableName="skipQuery"><![CDATA[false]]></ee:set-variable>
@@ -58,9 +58,9 @@ var fromTs = (vars.fromDate as String default "") ++ " 00:00:00"
 var toTs = (vars.toDate as String default "") ++ " 00:00:00"
 ---
 "Select a.*, b.routeid
-from " ++ db ++ "." ++ p("sapi.mysql.sat.table.sales") default p("db.table.sales") ++ " as a
-left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.visits") default p("db.table.visits") ++ " as b on a.VisitID = b.visitid
-inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") default p("db.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "'
+from " ++ db ++ "." ++ p("sapi.mysql.sat.table.sales") ++ " as a
+left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.visits") ++ " as b on a.VisitID = b.visitid
+inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "'
 where a.Created_AT between '" ++ fromTs ++ "' and '" ++ toTs ++ "'
 order by a.Entry_ID desc
 LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)]]></ee:set-variable>
@@ -77,9 +77,9 @@ var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select a.*, c.uomname from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") default p("db.table.products") ++ " as a " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom.quantities") default p("db.table.uom.quantities") ++ " as b on a.id = b.product_id " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom") default p("db.table.uom") ++ " as c on b.packaging_id = c.id " ++
+"Select a.*, c.uomname from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as a " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom.quantities") ++ " as b on a.id = b.product_id " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom") ++ " as c on b.packaging_id = c.id " ++
 "where a.supplier = '" ++ supplier ++ "' order by a.id" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
@@ -94,9 +94,9 @@ var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select a.*, b.routeid, b.CHECKINTIME, b.CHECKOUTTIME from " ++ db ++ "." ++ p("sapi.mysql.sat.table.orders") default p("db.table.orders") ++ " as a " ++
-"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") default p("db.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "' " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.visits") default p("db.table.visits") ++ " as b on a.VISIT_ID = b.visitid " ++
+"Select a.*, b.routeid, b.CHECKINTIME, b.CHECKOUTTIME from " ++ db ++ "." ++ p("sapi.mysql.sat.table.orders") ++ " as a " ++
+"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "' " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.visits") ++ " as b on a.VISIT_ID = b.visitid " ++
 "order by a.ENTRY_ID desc" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
@@ -110,15 +110,15 @@ output text/plain
 var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
-var sales = p("sapi.mysql.sat.table.sales") default p("db.table.sales")
-var orders = p("sapi.mysql.sat.table.orders") default p("db.table.orders")
-var visits = p("sapi.mysql.sat.table.visits") default p("db.table.visits")
-var products = p("sapi.mysql.sat.table.products") default p("db.table.products")
+var sales = p("sapi.mysql.sat.table.sales")
+var orders = p("sapi.mysql.sat.table.orders")
+var visits = p("sapi.mysql.sat.table.visits")
+var products = p("sapi.mysql.sat.table.products")
 ---
-"Select a.*, b.userid, b.visit_frequency, b.visit_week, b.visit_day, b.status, d.saler_category from " ++ db ++ "." ++ p("sapi.mysql.sat.table.routes") default p("db.table.routes") ++ " as a " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.routes") default p("db.table.user.routes") ++ " as b on a.route_id = b.route_id " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") default p("db.table.users") ++ " as c on b.userid = c.id " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.categories") default p("db.table.user.categories") ++ " as d on c.rep_category = d.usercategory " ++
+"Select a.*, b.userid, b.visit_frequency, b.visit_week, b.visit_day, b.status, d.saler_category from " ++ db ++ "." ++ p("sapi.mysql.sat.table.routes") ++ " as a " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.routes") ++ " as b on a.route_id = b.route_id " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") ++ " as c on b.userid = c.id " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.categories") ++ " as d on c.rep_category = d.usercategory " ++
 "where exists (Select 1 from (Select distinct routeid from (" ++
 "select Distinct v.routeid, y.product_id from " ++ db ++ "." ++ sales ++ " as y inner join " ++ db ++ "." ++ visits ++ " as v on y.VisitID = v.visitid " ++
 "union all select Distinct v.routeid, y.product_id from " ++ db ++ "." ++ orders ++ " as y inner join " ++ db ++ "." ++ visits ++ " as v on y.Visit_ID = v.visitid" ++
@@ -136,12 +136,12 @@ output text/plain
 var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
-var sales = p("sapi.mysql.sat.table.sales") default p("db.table.sales")
-var orders = p("sapi.mysql.sat.table.orders") default p("db.table.orders")
-var products = p("sapi.mysql.sat.table.products") default p("db.table.products")
+var sales = p("sapi.mysql.sat.table.sales")
+var orders = p("sapi.mysql.sat.table.orders")
+var products = p("sapi.mysql.sat.table.products")
 ---
-"Select a.*, b.saler_category from " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") default p("db.table.users") ++ " as a " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.categories") default p("db.table.user.categories") ++ " as b on a.rep_category = b.usercategory " ++
+"Select a.*, b.saler_category from " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") ++ " as a " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.categories") ++ " as b on a.rep_category = b.usercategory " ++
 "where exists (Select 1 from (Select distinct userid from (" ++
 "select Distinct userid, y.product_id from " ++ db ++ "." ++ sales ++ " as y " ++
 "union all select Distinct user_id as userid, y.product_id from " ++ db ++ "." ++ orders ++ " as y" ++
@@ -159,11 +159,11 @@ output text/plain
 var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
-var sales = p("sapi.mysql.sat.table.sales") default p("db.table.sales")
-var orders = p("sapi.mysql.sat.table.orders") default p("db.table.orders")
-var products = p("sapi.mysql.sat.table.products") default p("db.table.products")
+var sales = p("sapi.mysql.sat.table.sales")
+var orders = p("sapi.mysql.sat.table.orders")
+var products = p("sapi.mysql.sat.table.products")
 ---
-"Select a.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") default p("db.table.customers") ++ " as a " ++
+"Select a.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " as a " ++
 "where a.Customer_Type = 'Customer' " ++
 "and exists (Select 1 from (Select distinct SHOPID from (" ++
 "select Distinct SHOPID, product_id from " ++ db ++ "." ++ sales ++ " as y " ++
@@ -183,10 +183,10 @@ var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select a.productcode, d.UOMName, b.stockpoint_name, MAX(b.date_created) as date_created, SUM(b.quantity) as quantity, SUM(b.total_cost) as total_cost from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") default p("db.table.products") ++ " as a " ++
-"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.stock.movement") default p("db.table.stock.movement") ++ " as b on a.id = b.product_id " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom.quantities") default p("db.table.uom.quantities") ++ " as c on b.product_id = c.product_id " ++
-"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom") default p("db.table.uom") ++ " as d on c.packaging_id = d.id " ++
+"Select a.productcode, d.UOMName, b.stockpoint_name, MAX(b.date_created) as date_created, SUM(b.quantity) as quantity, SUM(b.total_cost) as total_cost from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as a " ++
+"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.stock.movement") ++ " as b on a.id = b.product_id " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom.quantities") ++ " as c on b.product_id = c.product_id " ++
+"left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom") ++ " as d on c.packaging_id = d.id " ++
 "where a.supplier = '" ++ supplier ++ "' group by a.id, d.UOMName, b.stockpoint_name order by a.id, d.UOMName, b.stockpoint_name" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
@@ -200,7 +200,7 @@ output text/plain
 var db = vars.databaseName
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select c.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") default p("db.table.customers") ++ " as c where c.CUSTOMER_TYPE = 'Supplier' order by c.SHOPID" ++ lim]]></ee:set-variable>
+"Select c.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " as c where c.CUSTOMER_TYPE = 'Supplier' order by c.SHOPID" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</when>
