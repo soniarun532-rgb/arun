@@ -1,0 +1,1490 @@
+{
+  "info": {
+    "_postman_id": "sat-datashare-exp-papi-sapi-20260907",
+    "name": "SAT Datashare \u2014 Exp / PAPI / SAPI",
+    "description": "SAT Solutech datashare GETs.\n\nExp: send only fromDate, toDate, pageNumber. database and supplier come from Exp properties.\nPAPI/SAPI: also send database=sat_nobleoutlook and supplier. nobleoutlook will fail SELECT on bi_* tables.\nDates are YYYY-MM-DD only. pageNumber is 0-based. Follow payload.next until it is omitted.\nFor localhost, set the matching *_base collection variable to http://localhost:8081.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "exp_base",
+      "value": "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "papi_base",
+      "value": "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "sapi_base",
+      "value": "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "database",
+      "value": "sat_nobleoutlook"
+    },
+    {
+      "key": "supplier",
+      "value": "BIC EAST AFRCA LIMITED"
+    },
+    {
+      "key": "fromDate",
+      "value": "2026-08-13"
+    },
+    {
+      "key": "toDate",
+      "value": "2026-08-14"
+    },
+    {
+      "key": "pageNumber",
+      "value": "0"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Exp (clients)",
+      "item": [
+        {
+          "name": "GET /v1/Invoice",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Invoice"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public Invoice. Exp injects database and supplier from properties. Do not send them."
+          }
+        },
+        {
+          "name": "GET /v1/Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Order"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public Order. Exp injects database and supplier."
+          }
+        },
+        {
+          "name": "GET /v1/Product",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Product?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Product"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public Product. Exp injects database and supplier."
+          }
+        },
+        {
+          "name": "GET /v1/Route",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Route?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Route"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public Route. Exp injects database and supplier."
+          }
+        },
+        {
+          "name": "GET /v1/SalesRep",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/SalesRep?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "SalesRep"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public SalesRep. Exp injects database and supplier."
+          }
+        },
+        {
+          "name": "GET /v1/Customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Customer?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Customer"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Preferred Customer path. Requires Exchange RAML GET /v1/Customer. Until published, use /v1/Store."
+          }
+        },
+        {
+          "name": "GET /v1/Store (Customer until RAML)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Store?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Store"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Existing RAML path. Exp maps this to PAPI Adapter_Customer."
+          }
+        },
+        {
+          "name": "GET /v1/Stock",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Stock?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Stock"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Preferred Stock path. Requires Exchange RAML GET /v1/Stock. Until published, use /v1/Inventory."
+          }
+        },
+        {
+          "name": "GET /v1/Inventory (Stock until RAML)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Inventory?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Inventory"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Existing RAML path. Exp maps this to PAPI Adapter_Stock."
+          }
+        },
+        {
+          "name": "GET /v1/Warehouse",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{exp_base}}/api/v1/Warehouse?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+              "host": [
+                "{{exp_base}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "Warehouse"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                }
+              ]
+            },
+            "description": "Public Warehouse (CUSTOMER_TYPE = Supplier)."
+          }
+        }
+      ],
+      "description": "Experience API. Clients do not send database or supplier."
+    },
+    {
+      "name": "PAPI GET adapters",
+      "item": [
+        {
+          "name": "GET Adapter_Invoice",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Invoice"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI invoice. SHOPID\u2192STOREID, strip letters from PRODUCT_CODE, dates dd/MM/yyyy, Currency KES. pageNumber must be string."
+          }
+        },
+        {
+          "name": "GET Adapter_Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Order"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/order."
+          }
+        },
+        {
+          "name": "GET Adapter_Product",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Product"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/product."
+          }
+        },
+        {
+          "name": "GET Adapter_Route",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Route"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/route."
+          }
+        },
+        {
+          "name": "GET Adapter_SalesRep",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_SalesRep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_SalesRep"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/sales-rep."
+          }
+        },
+        {
+          "name": "GET Adapter_Customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Customer"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/store until Exchange adds /api/customer."
+          }
+        },
+        {
+          "name": "GET Adapter_Stock",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Stock"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/inventory until Exchange adds /api/stock."
+          }
+        },
+        {
+          "name": "GET Adapter_Warehouse",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Warehouse"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Maps SAPI /api/warehouse."
+          }
+        }
+      ],
+      "description": "Process API mapped GETs. Requires database and supplier."
+    },
+    {
+      "name": "PAPI POST (existing)",
+      "item": [
+        {
+          "name": "POST Adapter_Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_id\": \"1\",\n  \"customer_code\": \"CUST001\",\n  \"name\": \"Test Shop\",\n  \"contact_person\": \"Jane\",\n  \"address\": \"Nairobi\",\n  \"location\": \"CBD\",\n  \"region\": \"Nairobi\",\n  \"postal_address\": \"00100\",\n  \"country_code\": \"KE\",\n  \"phone_number\": \"0700000000\",\n  \"email\": \"shop@example.com\",\n  \"category\": \"TRADE\",\n  \"vat_number\": \"P000000000X\",\n  \"account_status\": \"1\",\n  \"credit_limit\": 100000,\n  \"payment_terms_code\": \"30D\"\n}"
+            },
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Customer?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Customer"
+              ],
+              "query": [
+                {
+                  "key": "ACTION",
+                  "value": "POST"
+                },
+                {
+                  "key": "SOURCE_System",
+                  "value": "SAT"
+                },
+                {
+                  "key": "TARGET_System",
+                  "value": "bc"
+                },
+                {
+                  "key": "TARGET_GUID",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Environment",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Company",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Adapter_Sales_Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction_type\": \"SALE\",\n  \"customer_code\": \"CUST001\",\n  \"record_id\": 1,\n  \"user_code\": \"SR01\",\n  \"user_name\": \"salesrep\",\n  \"lpo_number\": \"\",\n  \"expected_delivery_date\": \"2026-08-26 00:00:00\",\n  \"sales_order_erp_reference\": \"\",\n  \"tax_invoice_number\": \"\",\n  \"tax_verification_code\": \"\",\n  \"tax_receipt_number\": \"\",\n  \"tax_qr_code\": \"\",\n  \"tax_sync_time\": \"2026-08-26 10:00:00\",\n  \"tax_printer\": \"\",\n  \"tax_identification_number\": \"\",\n  \"item_list\": [\n    {\n      \"item_code\": \"903018\",\n      \"item_quantity\": 1,\n      \"item_price\": 250,\n      \"discount_rate\": 0,\n      \"uom_code\": \"PCS\",\n      \"store_code\": \"WH1\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Sales_Document?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Sales_Document"
+              ],
+              "query": [
+                {
+                  "key": "ACTION",
+                  "value": "POST"
+                },
+                {
+                  "key": "SOURCE_System",
+                  "value": "SAT"
+                },
+                {
+                  "key": "TARGET_System",
+                  "value": "bc"
+                },
+                {
+                  "key": "TARGET_GUID",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Environment",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Company",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Adapter_Payment_Receipt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_id\": \"RCPT1\",\n  \"customer_code\": \"CUST001\",\n  \"amount\": 500,\n  \"payment_mode\": \"CASH\",\n  \"payment_reference\": \"REF1\",\n  \"record_date\": \"2026-08-26 10:00:00\",\n  \"user_code\": \"SR01\",\n  \"invoices\": [\n    {\n      \"erp_reference\": \"INV001\",\n      \"amount\": 500\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Payment_Receipt?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Payment_Receipt"
+              ],
+              "query": [
+                {
+                  "key": "ACTION",
+                  "value": "POST"
+                },
+                {
+                  "key": "SOURCE_System",
+                  "value": "SAT"
+                },
+                {
+                  "key": "TARGET_System",
+                  "value": "bc"
+                },
+                {
+                  "key": "TARGET_GUID",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Environment",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Company",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Adapter_Inventory_Transfer_Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_id\": 1,\n  \"from_warehouse\": \"WH1\",\n  \"to_warehouse\": \"WH2\",\n  \"record_date\": \"2026-08-26 10:00:00\",\n  \"item_list\": [\n    {\n      \"item_code\": \"903018\",\n      \"item_quantity\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{papi_base}}/api/Adapter_Inventory_Transfer_Request?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+              "host": [
+                "{{papi_base}}"
+              ],
+              "path": [
+                "api",
+                "Adapter_Inventory_Transfer_Request"
+              ],
+              "query": [
+                {
+                  "key": "ACTION",
+                  "value": "POST"
+                },
+                {
+                  "key": "SOURCE_System",
+                  "value": "SAT"
+                },
+                {
+                  "key": "TARGET_System",
+                  "value": "bc"
+                },
+                {
+                  "key": "TARGET_GUID",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Environment",
+                  "value": ""
+                },
+                {
+                  "key": "TARGET_Company",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "description": "Existing BC adapter POSTs. Unchanged."
+    },
+    {
+      "name": "SAPI",
+      "item": [
+        {
+          "name": "GET /api/invoice",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "invoice"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Original DB columns. Inner join products on PRODUCT_ID + supplier. Created_AT between fromDate 00:00:00 and toDate 00:00:00."
+          }
+        },
+        {
+          "name": "GET /api/order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "order"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Original DB columns."
+          }
+        },
+        {
+          "name": "GET /api/product",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "product"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Products + UOM joins. Original DB columns."
+          }
+        },
+        {
+          "name": "GET /api/route",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "route"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Original DB columns."
+          }
+        },
+        {
+          "name": "GET /api/sales-rep",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/sales-rep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "sales-rep"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Original DB columns."
+          }
+        },
+        {
+          "name": "GET /api/store (Customer SQL)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "store"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Customer SQL on existing RAML path. Customer_Type = Customer + EXISTS sales/orders + products.supplier."
+          }
+        },
+        {
+          "name": "GET /api/inventory (Stock SQL)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "inventory"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "Grouped stock_movement SQL on existing RAML path."
+          }
+        },
+        {
+          "name": "GET /api/warehouse",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{sapi_base}}/api/warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "host": [
+                "{{sapi_base}}"
+              ],
+              "path": [
+                "api",
+                "warehouse"
+              ],
+              "query": [
+                {
+                  "key": "database",
+                  "value": "{{database}}",
+                  "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}",
+                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}",
+                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}",
+                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+                },
+                {
+                  "key": "supplier",
+                  "value": "{{supplier}}",
+                  "description": "Supplier name as stored in products.supplier."
+                }
+              ]
+            },
+            "description": "CUSTOMER_TYPE = Supplier. stockpoint_id EXISTS is commented out until Solutech adds the column."
+          }
+        }
+      ],
+      "description": "System API. Original DB columns. Use sat_nobleoutlook."
+    }
+  ]
+}
