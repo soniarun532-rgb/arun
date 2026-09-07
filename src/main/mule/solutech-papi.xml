@@ -20,7 +20,7 @@
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <flow name="solutech-papi-main">
-        <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig">
+        <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig" doc:name="HTTP_Listener_solutech-papi">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:response>
@@ -162,6 +162,33 @@ output application/json
     </flow> [STUDIO] -->
     <flow name="get:\Adapter_Invoice:solutech-papi-config">
         <flow-ref doc:name="get-Adapter_Invoice-main-impl" name="get-Adapter_Invoice-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Order:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Order-main-impl" name="get-Adapter_Order-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Product:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Product-main-impl" name="get-Adapter_Product-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Route:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Route-main-impl" name="get-Adapter_Route-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_SalesRep:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_SalesRep-main-impl" name="get-Adapter_SalesRep-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Customer:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Customer-main-impl" name="get-Adapter_Customer-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Stock:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Stock-main-impl" name="get-Adapter_Stock-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Warehouse:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Warehouse-main-impl" name="get-Adapter_Warehouse-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Store:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Customer-main-impl" name="get-Adapter_Customer-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Inventory:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Stock-main-impl" name="get-Adapter_Stock-main-impl" />
     </flow>
     <flow name="post:\v1\sap\customer:application\json:solutech-papi-config">
         <ee:transform doc:name="Transform Message">

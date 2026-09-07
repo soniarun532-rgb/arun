@@ -9,192 +9,194 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
-	<!-- Shared GET query params for all 8 Sys joined-data endpoints -->
-	<sub-flow name="store-Sys-Get-QueryParams"
-		doc:id="93f6a9c2-75be-40d1-998d-21120a4dbe7a">
-		<ee:transform doc:name="Store inbound query params">
+	<sub-flow name="store-Sys-Get-QueryParams" doc:id="93f6a9c2-75be-40d1-998d-21120a4dbe7a">
+		<ee:transform doc:name="Set Sys GET query variables">
 			<ee:message />
 			<ee:variables>
-				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
-				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
-				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
+				<ee:set-variable variableName="access_token"><![CDATA[%dw 2.0
 output application/java
 ---
+p("sys.solutech.access_token")]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA[%dw 2.0
+output application/java
+---
+"GET"]]></ee:set-variable>
+				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
+output application/java
+var fromDate = (attributes.queryParams.fromDate default "") as String
+var toDate = (attributes.queryParams.toDate default "") as String
+---
 {
-	fromDate: attributes.queryParams.fromDate,
-	toDate: attributes.queryParams.toDate,
-	database: attributes.queryParams.database as String,
+	(fromDate: fromDate) if (fromDate != ""),
+	(toDate: toDate) if (toDate != ""),
+	database: (attributes.queryParams.database as String) default "",
 	supplier: (attributes.queryParams.supplier default attributes.queryParams.Supplier default "") as String,
-	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number)
+	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
 
-	<!-- 1. Adapter_Invoice (implemented) -->
-	<flow name="get-Adapter_Invoice-main-impl"
-		doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Invoice queryParams"
-			message="[Prc-Solutech] GET /Adapter_Invoice invoked. queryParams: #[attributes.queryParams]" />
-		<flow-ref doc:name="store-Sys-Get-QueryParams"
-			name="store-Sys-Get-QueryParams" />
-		<set-variable value='#[p("sys.solutech.invoice.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref doc:name="call-Sys-Solutech-Subflow"
-			name="call-Sys-Solutech-Subflow" />
-		<ee:transform doc:name="Map Sys invoice fields">
-			<ee:message>
-				<ee:set-payload><![CDATA[%dw 2.0
-output application/json
-fun numericProductId(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
-var rows = payload.data default payload default []
----
+	<sub-flow name="get-sat-datashare-adapter-main" doc:id="get-sat-datashare-adapter-main-0001">
+		<logger level="INFO" doc:name="Logger_JSON_adapter-start" message='#[output application/json ---
 {
-	data: rows map ((sale) -> do {
-		var createdAt = sale.CREATED_AT as DateTime
-		---
-		{
-			STOREID: sale.SHOPID default "",
-			Discount: sale.DISCOUNT default "",
-			SalesRepID: sale.USERID default "",
-			VATAmount: sale.TOTAL_VAT default "",
-			RouteID: sale.ROUTEID default "",
-			DistributorID: "",
-			ProductID: numericProductId(sale.PRODUCT_CODE),
-			WarehouseID: sale.SUPPLIER_ID default "",
-			OrderNumber: sale.SALE_ORDER_ID default "",
-			InvoiceNumber: sale.ENTRY_ID default "",
-			InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
-			InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
-			InvoiceStatus: sale.PAYMENT_STATUS default "",
-			UnitOfMeasure: sale.PACKAGING default "",
-			Currency: "KES",
-			QuantityInvoiced: sale.QUANTITY default "",
-			AmountInvoiced: sale.VALUE_SOLD default "",
-			TransType: sale.ENTRY_TYPE default ""
-		}
-	}),
-	(next: payload.next) if (payload.next != null)
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<ee:transform
-			doc:name="Prefix next with Experience base URL">
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "prc-solutech-api",
+	event: "adapter-get-start",
+	adapter: (vars.adapterResource as String) default "",
+	sysPath: (vars.request_path as String) default "",
+	database: (attributes.queryParams.database as String) default "",
+	pageNumber: (attributes.queryParams.pageNumber as String) default ""
+}]' />
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Sys fields and Experience next URL">
 			<ee:message>
-				<ee:set-payload><![CDATA[%dw 2.0
-output application/json
-var expBase = p("exp.base.url") default ""
-var papiPath = p("sys.solutech.adapter.invoice.path") default "/api/Adapter_Invoice"
-fun toExpNext(n) = do {
-	var s = n as String default ""
-	var q = if (s contains "?") ((s splitBy "?")[1] default "") else ""
-	---
-	expBase ++ papiPath ++ (if (q != "") ("?" ++ q) else "")
-}
----
-payload update {
-	case .next if (payload.next != null) -> toExpNext(payload.next)
-}]]></ee:set-payload>
+				<ee:set-payload resource="dwl/map-sapi-datashare.dwl" />
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_adapter-end" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "prc-solutech-api",
+	event: "adapter-get-complete",
+	adapter: (vars.adapterResource as String) default "",
+	hasNext: ((payload.next as String) default "") != "",
+	rowCount: (sizeOf((payload.data default [])) as String) default ""
+}]' />
+	</sub-flow>
+
+	<flow name="get-Adapter_Invoice-main-impl" doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
+		<ee:transform doc:name="Set Adapter_Invoice variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["invoice"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.invoice.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.invoice.path") default "/api/Adapter_Invoice"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 2. Adapter_Customer (structure only) -->
-	<flow name="get-Adapter_Customer-sys-impl"
-		doc:id="sys-get-adapter-customer-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable value='#[p("sys.solutech.customer.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Order-main-impl" doc:id="get-adapter-order-0001">
+		<ee:transform doc:name="Set Adapter_Order variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["order"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.order.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.order.path") default "/api/Adapter_Order"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 3. Adapter_Inventory_Transfer_Request (structure only) -->
-	<flow name="get-Adapter_Inventory_Transfer_Request-sys-impl"
-		doc:id="sys-get-adapter-itr-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable
-			value='#[p("sys.solutech.inventory.transfer.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Product-main-impl" doc:id="get-adapter-product-0001">
+		<ee:transform doc:name="Set Adapter_Product variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["product"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.product.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.product.path") default "/api/Adapter_Product"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 4. Adapter_Payment_Receipt (structure only) -->
-	<flow name="get-Adapter_Payment_Receipt-sys-impl"
-		doc:id="sys-get-adapter-payment-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable
-			value='#[p("sys.solutech.payment.receipt.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Route-main-impl" doc:id="get-adapter-route-0001">
+		<ee:transform doc:name="Set Adapter_Route variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["route"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.route.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.route.path") default "/api/Adapter_Route"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 5. Adapter_Sales_Document (structure only) -->
-	<flow name="get-Adapter_Sales_Document-sys-impl"
-		doc:id="sys-get-adapter-sales-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable
-			value='#[p("sys.solutech.sales.document.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_SalesRep-main-impl" doc:id="get-adapter-salesrep-0001">
+		<ee:transform doc:name="Set Adapter_SalesRep variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["sales-rep"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.salesrep.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.salesrep.path") default "/api/Adapter_SalesRep"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 6. Adapter_Product (structure only) -->
-	<flow name="get-Adapter_Product-sys-impl"
-		doc:id="sys-get-adapter-product-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable value='#[p("sys.solutech.product.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Customer-main-impl" doc:id="get-adapter-customer-0001">
+		<ee:transform doc:name="Set Adapter_Customer variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["customer"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.customer.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.customer.path") default "/api/Adapter_Customer"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 7. Adapter_Stock_Transfer (structure only) -->
-	<flow name="get-Adapter_Stock_Transfer-sys-impl"
-		doc:id="sys-get-adapter-stock-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable
-			value='#[p("sys.solutech.stock.transfer.path")]'
-			doc:name="request_path" variableName="request_path" />
-		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Stock-main-impl" doc:id="get-adapter-stock-0001">
+		<ee:transform doc:name="Set Adapter_Stock variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["stock"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.stock.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.stock.path") default "/api/Adapter_Stock"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
 	</flow>
 
-	<!-- 8. Adapter_Price (structure only) -->
-	<flow name="get-Adapter_Price-sys-impl"
-		doc:id="sys-get-adapter-price-0001">
-		<logger level="INFO" doc:name="Start Logger"
-			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+	<flow name="get-Adapter_Warehouse-main-impl" doc:id="get-adapter-warehouse-0001">
+		<ee:transform doc:name="Set Adapter_Warehouse variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="adapterResource"><![CDATA["warehouse"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.warehouse.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.warehouse.path") default "/api/Adapter_Warehouse"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-sat-datashare-adapter-main" name="get-sat-datashare-adapter-main" />
+	</flow>
+
+	<!-- Legacy GET stubs for ERP-named adapters (not SAT datashare). -->
+	<flow name="get-Adapter_Inventory_Transfer_Request-sys-impl" doc:id="sys-get-adapter-itr-0001">
+		<logger level="INFO" doc:name="Logger_JSON_itr-not-datashare" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "prc-solutech-api",
+	event: "adapter-get-not-implemented",
+	adapter: "Adapter_Inventory_Transfer_Request"
+}]' />
 		<flow-ref name="store-Sys-Get-QueryParams" />
-		<set-variable value='#[p("sys.solutech.price.path")]'
-			doc:name="request_path" variableName="request_path" />
+		<set-variable value='#[p("sys.solutech.inventory.transfer.path")]' doc:name="request_path" variableName="request_path" />
 		<flow-ref name="call-Sys-Solutech-Subflow" />
-		<logger level="INFO" doc:name="End Logger"
-			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Payment_Receipt-sys-impl" doc:id="sys-get-adapter-payment-0001">
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.payment.receipt.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+	</flow>
+
+	<flow name="get-Adapter_Sales_Document-sys-impl" doc:id="sys-get-adapter-sales-0001">
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.sales.document.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+	</flow>
+
+	<flow name="get-Adapter_Stock_Transfer-sys-impl" doc:id="sys-get-adapter-stock-transfer-0001">
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.stock.transfer.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+	</flow>
+
+	<flow name="get-Adapter_Price-sys-impl" doc:id="sys-get-adapter-price-0001">
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.price.path")]' doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
 	</flow>
 </mule>
