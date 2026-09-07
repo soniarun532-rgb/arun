@@ -85,7 +85,7 @@ var rows = payload.data default payload default []
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
-var expBase = p("exp.base.url") default ""
+var expBase = p("papi.exp.datashare.base.url") default p("exp.base.url") default ""
 var papiPath = p("sys.solutech.adapter.invoice.path") default "/api/Adapter_Invoice"
 fun toExpNext(n) = do {
 	var s = n as String default ""

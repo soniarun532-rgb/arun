@@ -29,7 +29,7 @@ fun fmtTime(value) =
 		((value as DateTime default value as LocalDateTime default null) as String {format: "HH:mm:ss"}) default ((value as String) default "")
 
 fun toExpNext(n) = do {
-	var expBase = trim((p("exp.base.url") default "") as String) replace /\/$/ with ""
+	var expBase = trim((p("papi.exp.datashare.base.url") default p("exp.base.url") default "") as String) replace /\/$/ with ""
 	var papiPath = (vars.adapterPublicPath default "") as String
 	var raw = n as String default ""
 	var q = if (raw contains "?") ((raw splitBy "?")[1] default "") else ""
