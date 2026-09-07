@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
+  <artifactId>solutech-papi</artifactId>
+  <version>1.0.12</version>
+  <name>solutech-papi</name>
+  <properties>
+    <classifier>raml</classifier>
+    <main>solutech-papi.raml</main>
+    <status>published</status>
+    <originalFormatVersion>1.0</originalFormatVersion>
+    <apiVersion>v1</apiVersion>
+    <projectId>bdc0a499-8ae0-4c5d-97e6-85daa81405e1</projectId>
+    <branchId>master</branchId>
+    <commitId>181cc57b9293c5640ba018b6d5e1f3e420c0c4af</commitId>
+    <keywords/>
+    <type>rest-api</type>
+    <mainFile>solutech-papi.raml</mainFile>
+  </properties>
+  <repositories>
+    <repository>
+      <id>anypoint-exchange</id>
+      <url>http://maven.eu1.anypoint.mulesoft.com/api/v3/maven</url>
+    </repository>
+  </repositories>
+</project>

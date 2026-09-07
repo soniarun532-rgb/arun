@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
+  <artifactId>exp-sat-datashare-api-prod</artifactId>
+  <version>1.0.8</version>
+  <name>exp-sat-datashare-api-prod</name>
+  <properties>
+    <classifier>raml</classifier>
+    <main>exp-sat-datashare-api-prod.raml</main>
+    <status>published</status>
+    <originalFormatVersion>1.0</originalFormatVersion>
+    <apiVersion>v1</apiVersion>
+    <projectId>136bf035-13af-4427-a0cd-b3b9926cfc25</projectId>
+    <branchId>master</branchId>
+    <commitId>90cbe869c473c92ca6eae608bfc8db805ce2135f</commitId>
+    <keywords/>
+    <type>rest-api</type>
+    <mainFile>exp-sat-datashare-api-prod.raml</mainFile>
+  </properties>
+  <repositories>
+    <repository>
+      <id>anypoint-exchange</id>
+      <url>http://maven.eu1.anypoint.mulesoft.com/api/v3/maven</url>
+    </repository>
+  </repositories>
+</project>
