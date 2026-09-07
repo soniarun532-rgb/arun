@@ -20,7 +20,7 @@
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <flow name="solutech-papi-main">
-        <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig" doc:name="HTTP_Listener_solutech-papi">
+        <http:listener path="/api/*" config-ref="solutech-system-papi-httpListenerConfig">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:response>
@@ -176,19 +176,13 @@ output application/json
         <flow-ref doc:name="get-Adapter_SalesRep-main-impl" name="get-Adapter_SalesRep-main-impl" />
     </flow>
     <flow name="get:\Adapter_Customer:solutech-papi-config">
-        <flow-ref doc:name="get-Adapter_Customer-main-impl" name="get-Adapter_Customer-main-impl" />
+        <flow-ref doc:name="get-Adapter_Customer-datashare-impl" name="get-Adapter_Customer-datashare-impl" />
     </flow>
     <flow name="get:\Adapter_Stock:solutech-papi-config">
         <flow-ref doc:name="get-Adapter_Stock-main-impl" name="get-Adapter_Stock-main-impl" />
     </flow>
     <flow name="get:\Adapter_Warehouse:solutech-papi-config">
         <flow-ref doc:name="get-Adapter_Warehouse-main-impl" name="get-Adapter_Warehouse-main-impl" />
-    </flow>
-    <flow name="get:\Adapter_Store:solutech-papi-config">
-        <flow-ref doc:name="get-Adapter_Customer-main-impl" name="get-Adapter_Customer-main-impl" />
-    </flow>
-    <flow name="get:\Adapter_Inventory:solutech-papi-config">
-        <flow-ref doc:name="get-Adapter_Stock-main-impl" name="get-Adapter_Stock-main-impl" />
     </flow>
     <flow name="post:\v1\sap\customer:application\json:solutech-papi-config">
         <ee:transform doc:name="Transform Message">

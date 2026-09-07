@@ -23,24 +23,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<logger level="INFO" doc:name="End Logger" doc:id="89c5f7bc-2d64-45f1-a4f9-5ba7963a5c8f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
 	</flow>
 	<sub-flow name="call-Sys-Solutech-Subflow" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech01">
-		<logger level="INFO" doc:name="Logger_JSON_Sys-Solutech-Start" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech02" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "prc-solutech-api",
-	event: "sys-solutech-start",
-	path: (vars.request_path as String) default ""
-}]' />
-		<logger level="INFO" doc:name="Logger_JSON_Sys-Solutech-Request" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech03" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "prc-solutech-api",
-	event: "sys-solutech-request",
-	method: (vars.request_method as String) default "",
-	path: (vars.request_path as String) default "",
-	database: (vars.sysQueryParams.database as String) default "",
-	pageNumber: (vars.sysQueryParams.pageNumber as String) default ""
-}]' />
-		<http:request method="#[vars.request_method]" doc:name="HTTP_Request_GET_sys-solutech-api" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech04" config-ref="HTTP_Request_Solutech_Sys_Layer" path="#[vars.request_path]" responseTimeout="${http.request.response.timeout}" sendBodyMode="AUTO">
+		<logger level="INFO" doc:name="Start Logger" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech02" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] Request" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech03" message='#["[Sys-Solutech] " ++ vars.request_method ++ " " ++ vars.request_path ++ " queryParams: " ++ write(vars.sysQueryParams, "application/json")]' />
+		<http:request method="#[vars.request_method]" doc:name="Call Sys-Solutech" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech04" config-ref="HTTP_Request_Solutech_Sys_Layer" path="#[vars.request_path]" responseTimeout="${http.request.response.timeout}" sendBodyMode="AUTO">
 			<reconnect count="${http.request.retry.count}" frequency="${http.request.retry.interval}" />
 			<http:headers><![CDATA[#[output application/java
 ---
@@ -51,20 +36,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:query-params><![CDATA[#[vars.sysQueryParams default {}]]]></http:query-params>
 		</http:request>
 		<set-variable variableName="lastCallHasMore" value="#[attributes.headers.'X-Has-More' default attributes.headers.'x-has-more' default 'false']" doc:name="lastCallHasMore"/>
-		<logger level="INFO" doc:name="Logger_JSON_Sys-Solutech-Complete" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech05" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "prc-solutech-api",
-	event: "sys-solutech-complete",
-	path: (vars.request_path as String) default "",
-	httpStatus: (attributes.statusCode as String) default ""
-}]' />
-		<logger level="INFO" doc:name="Logger_JSON_Sys-Solutech-End" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech06" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "prc-solutech-api",
-	event: "sys-solutech-end",
-	path: (vars.request_path as String) default ""
-}]' />
+		<logger level="INFO" doc:name="[Sys-Solutech] Response" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech05" message="[Sys-Solutech] Received Response " />
+		<logger level="INFO" doc:name="End Logger" doc:id="c8e4a1b2-3d5f-4a67-9c10-syssolutech06" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
 	</sub-flow>
 </mule>
