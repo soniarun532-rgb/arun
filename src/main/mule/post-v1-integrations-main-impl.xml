@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
         <!-- 2 Get OAuth Token -->
         <flow-ref 
             doc:name="Get Token"
-            name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config" />
+            name="post-oauth-token-main-impl" />
 
     <logger level="INFO" doc:name="receivedPayload" doc:id="b7d02012-b059-42ba-8ccc-f50aec2af38a" message="receivedPayload:#[vars.receivedPayload]"/>
 		<logger level="INFO" 
