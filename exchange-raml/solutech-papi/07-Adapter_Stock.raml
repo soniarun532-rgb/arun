@@ -1,42 +1,21 @@
-#%RAML 1.0
-# 7 of 8 — add this GET. New resource name Adapter_Stock (not Adapter_Inventory).
-
-types:
-  AdapterStockRow:
-    type: object
-    properties:
-      ProductID:
-        type: string
-        description: productcode with leading letters stripped
-      UnitofMeasure:
-        description: From UOMName
-        type: any
-      WarehouseName:
-        description: From stockpoint_name
-        type: any
-      DateCreated:
-        type: string
-        description: MAX(date_created) as dd/MM/yyyy
-      Quantity:
-        description: SUM(quantity)
-        type: any
-      TotalCost:
-        description: SUM(total_cost)
-        type: any
-  AdapterStockResponse:
-    type: object
-    properties:
-      data: AdapterStockRow[]
-      next?: string
-
 /Adapter_Stock:
-  displayName: Adapter_Stock
   get:
-    displayName: GET Adapter_Stock
-    description: Grouped stock_movement. Calls SAPI /api/inventory until Exchange SAPI adds /api/stock.
-    is: [datashareQuery]
+    displayName: Adapter_Stock 
+    description: Retrieves Adapter_Stock records from mySQL.
+    is: [ bearerAuth, queryp_Stock ]
     responses:
       200:
         body:
-          application/json:
-            type: AdapterStockResponse
+          example: !include examples/Adapter_Stock-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }

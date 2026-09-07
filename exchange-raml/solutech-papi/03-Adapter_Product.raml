@@ -1,48 +1,21 @@
-#%RAML 1.0
-# 3 of 8 — add this GET. Keep any existing GET Adapter_Product stub/POST if present; this is the datashare GET.
-
-types:
-  AdapterProductRow:
-    type: object
-    properties:
-      id: any
-      ProductID:
-        type: string
-        description: productcode with leading letters stripped
-      product_category: any
-      product_name: any
-      ProductSKU:
-        description: From product_desc
-        type: any
-      product_status: any
-      short_code: any
-      tax_code: any
-      hs_code: any
-      focus_product: any
-      tonne_equivalent: any
-      apply_discount: any
-      disable_price_check: any
-      product_type: any
-      supplier: any
-      alternative_group: any
-      supplier_id: any
-      UnitofMeasure:
-        description: From uomname
-        type: any
-  AdapterProductResponse:
-    type: object
-    properties:
-      data: AdapterProductRow[]
-      next?: string
-
 /Adapter_Product:
-  displayName: Adapter_Product
   get:
-    displayName: GET Adapter_Product
-    description: Mapped SAT product rows. Calls SAPI /api/product.
-    is: [datashareQuery]
+    displayName: Adapter_Product 
+    description: Retrieves Adapter_Product records from mySQL.
+    is: [ bearerAuth, queryp_Product ]
     responses:
       200:
         body:
-          application/json:
-            type: AdapterProductResponse
+          example: !include examples/Adapter_Product-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }

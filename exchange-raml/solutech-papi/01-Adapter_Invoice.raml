@@ -1,92 +1,21 @@
-#%RAML 1.0
-# 1 of 8 — paste this resource into solutech-papi. Keep any existing GET Adapter_Invoice if it already matches.
-# Maps SAPI GET /api/invoice. Invoice mapping is already live; do not change field names.
-
-types:
-  AdapterInvoiceRow:
-    type: object
-    properties:
-      STOREID:
-        type: string
-        description: From SHOPID
-      Discount: any
-      SalesRepID:
-        type: string
-        description: From USERID
-      VATAmount: any
-      RouteID: string
-      DistributorID: string
-      ProductID:
-        type: string
-        description: PRODUCT_CODE with leading letters stripped (BIC903018 → 903018)
-      WarehouseID:
-        type: string
-        description: From SUPPLIER_ID
-      OrderNumber:
-        type: string
-        description: From SALE_ORDER_ID
-      InvoiceNumber:
-        type: string
-        description: From ENTRY_ID
-      InvoiceDate:
-        type: string
-        description: CREATED_AT as dd/MM/yyyy
-        example: 13/08/2026
-      InvoiceTime:
-        type: string
-        description: CREATED_AT as HH:mm:ss
-        example: 21:41:25
-      InvoiceStatus:
-        type: string
-        description: From PAYMENT_STATUS
-      UnitOfMeasure:
-        type: string
-        description: From PACKAGING
-      Currency:
-        type: string
-        example: KES
-      QuantityInvoiced: any
-      AmountInvoiced: any
-      TransType:
-        type: string
-        description: From ENTRY_TYPE
-  AdapterInvoiceResponse:
-    type: object
-    properties:
-      data: AdapterInvoiceRow[]
-      next?:
-        type: string
-        description: Omitted on last page. Relative SAPI next rewritten to Exp/PAPI Adapter_Invoice URL.
-
 /Adapter_Invoice:
-  displayName: Adapter_Invoice
   get:
-    displayName: GET Adapter_Invoice
-    description: Mapped SAT invoice rows. Calls SAPI /api/invoice.
-    is: [datashareQuery]
+    displayName: Adapter_Invoice 
+    description: Retrieves Adapter_Invoice records from mySQL.
+    is: [ bearerAuth, queryp_Invoice ]
     responses:
       200:
         body:
-          application/json:
-            type: AdapterInvoiceResponse
-            example:
-              data:
-                - STOREID: "123"
-                  Discount: 0
-                  SalesRepID: "45"
-                  VATAmount: 16
-                  RouteID: "7"
-                  DistributorID: ""
-                  ProductID: "903018"
-                  WarehouseID: "9"
-                  OrderNumber: "1001"
-                  InvoiceNumber: "2002"
-                  InvoiceDate: "13/08/2026"
-                  InvoiceTime: "21:41:25"
-                  InvoiceStatus: "PAID"
-                  UnitOfMeasure: "PCS"
-                  Currency: "KES"
-                  QuantityInvoiced: 2
-                  AmountInvoiced: 500
-                  TransType: "SALE"
-              next: "/api/Adapter_Invoice?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+          example: !include examples/Adapter_Invoice-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }

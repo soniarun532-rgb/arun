@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": 10,
+      "ProductID": "903018",
+      "product_category": "PENS",
+      "product_name": "BIC Cristal",
+      "ProductSKU": "Cristal Medium Blue",
+      "product_status": "1",
+      "short_code": "CRIS",
+      "tax_code": "A",
+      "hs_code": "9608",
+      "focus_product": "0",
+      "tonne_equivalent": 0,
+      "apply_discount": "1",
+      "disable_price_check": "0",
+      "product_type": "SKU",
+      "supplier": "BIC EAST AFRCA LIMITED",
+      "alternative_group": "",
+      "supplier_id": "9",
+      "UnitofMeasure": "PCS"
+    }
+  ],
+  "next": "/api/Adapter_Product?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

@@ -1,0 +1,10 @@
+{
+  "data": [
+    {
+      "SHOPID": 9,
+      "SHOP_NAME": "BIC EAST AFRCA LIMITED",
+      "CUSTOMER_TYPE": "Supplier"
+    }
+  ],
+  "next": "/api/Adapter_Warehouse?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

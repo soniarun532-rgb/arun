@@ -1,26 +1,21 @@
-#%RAML 1.0
-# 8 of 8 — add this GET.
-
-types:
-  AdapterWarehouseResponse:
-    type: object
-    properties:
-      data:
-        type: array
-        items:
-          type: object
-          additionalProperties: true
-          description: SAPI customers.* where CUSTOMER_TYPE = Supplier. PAPI currently passes SAPI columns through. stockpoint_id EXISTS is not applied yet.
-      next?: string
-
 /Adapter_Warehouse:
-  displayName: Adapter_Warehouse
   get:
-    displayName: GET Adapter_Warehouse
-    description: SAT supplier shops used as warehouses. Calls SAPI /api/warehouse.
-    is: [datashareQuery]
+    displayName: Adapter_Warehouse 
+    description: Retrieves Adapter_Warehouse records from mySQL.
+    is: [ bearerAuth, queryp_Warehouse ]
     responses:
       200:
         body:
-          application/json:
-            type: AdapterWarehouseResponse
+          example: !include examples/Adapter_Warehouse-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }

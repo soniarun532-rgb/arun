@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "STOREID": "123",
+      "Discount": 0,
+      "SalesRepID": "45",
+      "VATAmount": 16,
+      "RouteID": "7",
+      "DistributorID": "",
+      "ProductID": "903018",
+      "WarehouseID": "9",
+      "OrderNumber": "1001",
+      "InvoiceNumber": "2002",
+      "InvoiceDate": "13/08/2026",
+      "InvoiceTime": "21:41:25",
+      "InvoiceStatus": "PAID",
+      "UnitOfMeasure": "PCS",
+      "Currency": "KES",
+      "QuantityInvoiced": 2,
+      "AmountInvoiced": 500,
+      "TransType": "SALE"
+    }
+  ],
+  "next": "/api/Adapter_Invoice?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

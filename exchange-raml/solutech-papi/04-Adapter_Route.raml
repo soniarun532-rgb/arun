@@ -1,26 +1,21 @@
-#%RAML 1.0
-# 4 of 8 — add this GET.
-
-types:
-  AdapterRouteResponse:
-    type: object
-    properties:
-      data:
-        type: array
-        items:
-          type: object
-          additionalProperties: true
-          description: SAPI route columns (routes.* plus userid, visit_frequency, visit_week, visit_day, status, saler_category). PAPI currently passes SAPI columns through.
-      next?: string
-
 /Adapter_Route:
-  displayName: Adapter_Route
   get:
-    displayName: GET Adapter_Route
-    description: SAT routes that sold or ordered this supplier. Calls SAPI /api/route.
-    is: [datashareQuery]
+    displayName: Adapter_Route 
+    description: Retrieves Adapter_Route records from mySQL.
+    is: [ bearerAuth, queryp_Route ]
     responses:
       200:
         body:
-          application/json:
-            type: AdapterRouteResponse
+          example: !include examples/Adapter_Route-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }
