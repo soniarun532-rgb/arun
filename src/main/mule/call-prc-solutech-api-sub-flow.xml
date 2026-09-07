@@ -10,32 +10,22 @@
         http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 
     <sub-flow name="call-prc-solutech-api-sub-flow" doc:name="call-prc-solutech-api-sub-flow">
-        <ee:transform doc:name="Set process call variables">
-            <ee:message />
+        <logger level="INFO" doc:name="Logger_Start_call-prc-solutech-api-sub-flow"
+                message='#["call-prc-solutech-api-sub-flow - Start | timestamp=" ++ now()]'/>
+        <set-variable variableName="inboundPath"
+                      value="#[attributes.requestPath]"
+                      doc:name="Set_Variable_inboundPath"/>
+        <set-variable variableName="inboundQueryParams"
+                      value="#[attributes.queryParams default {}]"
+                      doc:name="Set_Variable_inboundQueryParams"/>
+        <set-variable variableName="endpoint"
+                      value='#[vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]'
+                      doc:name="Set_Variable_endpoint"/>
+        <ee:transform doc:name="Transform_Message_process-query-params">
             <ee:variables>
-                <ee:set-variable variableName="inboundPath"><![CDATA[%dw 2.0
-output application/java
----
-attributes.requestPath]]></ee:set-variable>
-                <ee:set-variable variableName="inboundQueryParams"><![CDATA[%dw 2.0
-output application/java
----
-attributes.queryParams default {}]]></ee:set-variable>
-                <ee:set-variable variableName="endpoint"><![CDATA[%dw 2.0
-output application/java
----
-vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]]></ee:set-variable>
-                <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl" />
+                <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl"/>
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" doc:name="Logger_JSON_call-prc-start" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "exp-sat-datashare-api",
-	event: "call-prc-start",
-	endpoint: (vars.endpoint as String) default "",
-	pageNumber: (vars.processQueryParams.pageNumber as String) default ""
-}]' />
         <http:request method="GET"
                       config-ref="HTTP_Request_config_prc-solutech-api"
                       path='#["/api/" ++ vars.endpoint]'
@@ -48,18 +38,15 @@ vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]]></ee:set-vari
 }]]]></http:headers>
             <http:query-params><![CDATA[#[vars.processQueryParams]]]></http:query-params>
         </http:request>
-        <ee:transform doc:name="Set paging and status variables">
-            <ee:message />
+        <set-variable variableName="httpStatus"
+                      value="#[attributes.statusCode default 200]"
+                      doc:name="Set_Variable_httpStatus"/>
+        <set-variable variableName="lastCallHasMore"
+                      value="#[attributes.headers.'x-has-more' default 'false']"
+                      doc:name="Set_Variable_lastCallHasMore"/>
+        <ee:transform doc:name="Transform_Message_paging">
             <ee:variables>
-                <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
----
-attributes.statusCode default 200]]></ee:set-variable>
-                <ee:set-variable variableName="lastCallHasMore"><![CDATA[%dw 2.0
-output application/java
----
-attributes.headers.'x-has-more' default "false"]]></ee:set-variable>
-                <ee:set-variable variableName="paging" resource="dwl/paging.dwl" />
+                <ee:set-variable variableName="paging" resource="dwl/paging.dwl"/>
             </ee:variables>
         </ee:transform>
         <ee:transform doc:name="Transform_Message_add-next-url">
@@ -74,15 +61,7 @@ attributes.headers.'x-has-more' default "false"]]></ee:set-variable>
 (vars.outboundHeaders default {})
     ++ { 'X-Has-More': (vars.paging.hasMore default false) as String }
     ++ (if (vars.paging.nextUrl != null) { 'X-Next-Url': vars.paging.nextUrl as String } else {})]"/>
-        <logger level="INFO" doc:name="Logger_JSON_call-prc-complete" message='#[output application/json ---
-{
-	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
-	layer: "exp-sat-datashare-api",
-	event: "call-prc-complete",
-	endpoint: (vars.endpoint as String) default "",
-	httpStatus: (vars.httpStatus as String) default "",
-	hasMore: (vars.paging.hasMore as String) default "",
-	rowCount: (sizeOf((payload.data default [])) as String) default ""
-}]' />
+        <logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
+                message='#["call-prc-solutech-api-sub-flow - End | timestamp=" ++ now() ++ " | payloadSize=" ++ sizeOf(payload default "")]'/>
     </sub-flow>
 </mule>
