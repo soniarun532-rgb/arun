@@ -1,0 +1,27 @@
+#%RAML 1.0
+# 6 of 8 — add GET only. Keep the existing POST /Adapter_Customer exactly as it is.
+
+types:
+  AdapterCustomerResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          additionalProperties: true
+          description: SAPI customers.* where Customer_Type = Customer and the shop sold/ordered this supplier. PAPI currently passes SAPI columns through.
+      next?: string
+
+/Adapter_Customer:
+  displayName: Adapter_Customer
+  get:
+    displayName: GET Adapter_Customer
+    description: Mapped SAT customers. Calls SAPI /api/store until Exchange SAPI adds /api/customer.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterCustomerResponse
+  # POST already exists in solutech-papi — do not replace it.

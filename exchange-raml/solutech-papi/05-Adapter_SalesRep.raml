@@ -1,0 +1,26 @@
+#%RAML 1.0
+# 5 of 8 — add this GET. Path is Adapter_SalesRep (no underscore between Sales and Rep).
+
+types:
+  AdapterSalesRepResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          additionalProperties: true
+          description: SAPI users.* plus saler_category. PAPI currently passes SAPI columns through.
+      next?: string
+
+/Adapter_SalesRep:
+  displayName: Adapter_SalesRep
+  get:
+    displayName: GET Adapter_SalesRep
+    description: SAT sales reps that sold or ordered this supplier. Calls SAPI /api/sales-rep.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterSalesRepResponse

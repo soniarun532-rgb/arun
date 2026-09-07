@@ -1,0 +1,65 @@
+#%RAML 1.0
+# 2 of 8 — add this resource. Do not remove existing POSTs.
+
+types:
+  AdapterOrderRow:
+    type: object
+    properties:
+      StoreID:
+        type: string
+        description: From SHOP_ID / SHOPID
+      SalesRepID:
+        type: string
+        description: From SALES_REP
+      RouteID: string
+      ProductID:
+        type: string
+        description: PRODUCT_CODE with leading letters stripped
+      DistributorID: string
+      WarehouseID:
+        type: string
+        description: From supplier_id
+      OrderNumber:
+        type: string
+        description: From ENTRY_ID
+      OrderDate:
+        type: string
+        description: CHECKINTIME as dd/MM/yyyy
+      OrderStartTime:
+        type: string
+        description: CHECKINTIME as HH:mm:ss
+      OrderEndTime:
+        type: string
+        description: CHECKOUTTIME as HH:mm:ss
+      OrderStatus:
+        description: From DELIVERED
+        type: any
+      UnitOfMeasure:
+        type: string
+        description: From PACKAGING
+      Currency:
+        type: string
+        example: KES
+      QuantityOrdered: any
+      AmountOrdered:
+        description: From TOTAL_VAT_INC
+        type: any
+      Discount: any
+      VATAmount: any
+  AdapterOrderResponse:
+    type: object
+    properties:
+      data: AdapterOrderRow[]
+      next?: string
+
+/Adapter_Order:
+  displayName: Adapter_Order
+  get:
+    displayName: GET Adapter_Order
+    description: Mapped SAT order rows. Calls SAPI /api/order.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterOrderResponse

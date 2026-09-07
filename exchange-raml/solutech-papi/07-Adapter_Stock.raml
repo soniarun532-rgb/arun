@@ -1,0 +1,42 @@
+#%RAML 1.0
+# 7 of 8 — add this GET. New resource name Adapter_Stock (not Adapter_Inventory).
+
+types:
+  AdapterStockRow:
+    type: object
+    properties:
+      ProductID:
+        type: string
+        description: productcode with leading letters stripped
+      UnitofMeasure:
+        description: From UOMName
+        type: any
+      WarehouseName:
+        description: From stockpoint_name
+        type: any
+      DateCreated:
+        type: string
+        description: MAX(date_created) as dd/MM/yyyy
+      Quantity:
+        description: SUM(quantity)
+        type: any
+      TotalCost:
+        description: SUM(total_cost)
+        type: any
+  AdapterStockResponse:
+    type: object
+    properties:
+      data: AdapterStockRow[]
+      next?: string
+
+/Adapter_Stock:
+  displayName: Adapter_Stock
+  get:
+    displayName: GET Adapter_Stock
+    description: Grouped stock_movement. Calls SAPI /api/inventory until Exchange SAPI adds /api/stock.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterStockResponse

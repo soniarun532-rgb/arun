@@ -1,0 +1,30 @@
+#%RAML 1.0 Trait
+# Paste into solutech-papi as traits/datashareQuery (or inline under traits:).
+# Use on every GET Adapter_* datashare resource. Do not change existing POST query params.
+queryParameters:
+  fromDate:
+    type: date-only
+    required: true
+    description: Inclusive start date. YYYY-MM-DD only. No time.
+    example: 2026-08-13
+  toDate:
+    type: date-only
+    required: true
+    description: Inclusive end date. YYYY-MM-DD only. No time.
+    example: 2026-08-14
+  database:
+    type: string
+    required: true
+    description: MySQL schema. Must be sat_nobleoutlook. Experience injects this; PAPI/SAPI testers send it.
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    description: products.supplier filter. Experience injects this.
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    description: 0-based page. OFFSET = pageNumber * SAPI page size (10000). APIkit may type this as number; PAPI must forward it as a string to SAPI.
+    example: 0

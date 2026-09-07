@@ -1,0 +1,26 @@
+#%RAML 1.0
+# 4 of 8 — add this GET.
+
+types:
+  AdapterRouteResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          additionalProperties: true
+          description: SAPI route columns (routes.* plus userid, visit_frequency, visit_week, visit_day, status, saler_category). PAPI currently passes SAPI columns through.
+      next?: string
+
+/Adapter_Route:
+  displayName: Adapter_Route
+  get:
+    displayName: GET Adapter_Route
+    description: SAT routes that sold or ordered this supplier. Calls SAPI /api/route.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterRouteResponse

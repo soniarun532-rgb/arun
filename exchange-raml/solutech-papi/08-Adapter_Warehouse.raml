@@ -1,0 +1,26 @@
+#%RAML 1.0
+# 8 of 8 — add this GET.
+
+types:
+  AdapterWarehouseResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          additionalProperties: true
+          description: SAPI customers.* where CUSTOMER_TYPE = Supplier. PAPI currently passes SAPI columns through. stockpoint_id EXISTS is not applied yet.
+      next?: string
+
+/Adapter_Warehouse:
+  displayName: Adapter_Warehouse
+  get:
+    displayName: GET Adapter_Warehouse
+    description: SAT supplier shops used as warehouses. Calls SAPI /api/warehouse.
+    is: [datashareQuery]
+    responses:
+      200:
+        body:
+          application/json:
+            type: AdapterWarehouseResponse
