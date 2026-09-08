@@ -340,7 +340,7 @@
                 }
               ]
             },
-            "description": "Maps SAPI /api/store until Exchange adds /api/customer."
+            "description": "Maps SAPI /api/customer."
           }
         },
         {
@@ -390,7 +390,7 @@
                 }
               ]
             },
-            "description": "Maps SAPI /api/inventory until Exchange adds /api/stock."
+            "description": "Maps SAPI /api/stock."
           }
         },
         {
@@ -912,7 +912,7 @@
           }
         },
         {
-          "name": "GET /api/store (Customer SQL)",
+          "name": "GET /api/customer",
           "request": {
             "method": "GET",
             "header": [
@@ -922,13 +922,13 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
               "path": [
                 "api",
-                "store"
+                "customer"
               ],
               "query": [
                 {
@@ -958,11 +958,11 @@
                 }
               ]
             },
-            "description": "Customer SQL on existing RAML path. Customer_Type = Customer + EXISTS sales/orders + products.supplier."
+            "description": "Customer SQL. Customer_Type = Customer + EXISTS sales/orders + products.supplier."
           }
         },
         {
-          "name": "GET /api/inventory (Stock SQL)",
+          "name": "GET /api/stock",
           "request": {
             "method": "GET",
             "header": [
@@ -972,13 +972,13 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
               "path": [
                 "api",
-                "inventory"
+                "stock"
               ],
               "query": [
                 {
@@ -1008,7 +1008,7 @@
                 }
               ]
             },
-            "description": "Grouped stock_movement SQL on existing RAML path."
+            "description": "Grouped stock_movement SQL."
           }
         },
         {

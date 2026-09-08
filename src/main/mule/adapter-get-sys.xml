@@ -179,7 +179,7 @@ output application/java
 		<ee:transform doc:name="Set Adapter_Customer variables">
 			<ee:message />
 			<ee:variables>
-				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.store.path") default "/api/store"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.customer.path") default "/api/customer"]]></ee:set-variable>
 				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.customer.path") default "/api/Adapter_Customer"]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
@@ -207,7 +207,7 @@ output application/java
 		<ee:transform doc:name="Set Adapter_Stock variables">
 			<ee:message />
 			<ee:variables>
-				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.inventory.path") default "/api/inventory"]]></ee:set-variable>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.stock.path") default "/api/stock"]]></ee:set-variable>
 				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.stock.path") default "/api/Adapter_Stock"]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>

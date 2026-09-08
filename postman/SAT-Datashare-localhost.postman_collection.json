@@ -290,48 +290,7 @@
                 }
               ]
             },
-            "description": "Preferred Customer path. Requires Exchange RAML GET /v1/Customer. Until published, use /v1/Store."
-          }
-        },
-        {
-          "name": "GET /v1/Store (Customer until RAML)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{exp_base}}/api/v1/Store?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
-              "host": [
-                "{{exp_base}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "Store"
-              ],
-              "query": [
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
-                }
-              ]
-            },
-            "description": "Existing RAML path. Exp maps this to PAPI Adapter_Customer."
+            "description": "GET /v1/Customer. Maps to PAPI Adapter_Customer then SAPI /api/customer."
           }
         },
         {
@@ -372,48 +331,7 @@
                 }
               ]
             },
-            "description": "Preferred Stock path. Requires Exchange RAML GET /v1/Stock. Until published, use /v1/Inventory."
-          }
-        },
-        {
-          "name": "GET /v1/Inventory (Stock until RAML)",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{exp_base}}/api/v1/Inventory?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
-              "host": [
-                "{{exp_base}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "Inventory"
-              ],
-              "query": [
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
-                }
-              ]
-            },
-            "description": "Existing RAML path. Exp maps this to PAPI Adapter_Stock."
+            "description": "GET /v1/Stock. Maps to PAPI Adapter_Stock then SAPI /api/stock."
           }
         },
         {
@@ -760,7 +678,7 @@
                 }
               ]
             },
-            "description": "Maps SAPI /api/store until Exchange adds /api/customer."
+            "description": "Maps SAPI /api/customer."
           }
         },
         {
@@ -810,7 +728,7 @@
                 }
               ]
             },
-            "description": "Maps SAPI /api/inventory until Exchange adds /api/stock."
+            "description": "Maps SAPI /api/stock."
           }
         },
         {
@@ -1334,7 +1252,7 @@
           }
         },
         {
-          "name": "GET /api/store (Customer SQL)",
+          "name": "GET /api/customer",
           "request": {
             "method": "GET",
             "header": [
@@ -1344,13 +1262,13 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
               "path": [
                 "api",
-                "store"
+                "customer"
               ],
               "query": [
                 {
@@ -1380,11 +1298,11 @@
                 }
               ]
             },
-            "description": "Customer SQL on existing RAML path. Customer_Type = Customer + EXISTS sales/orders + products.supplier."
+            "description": "Customer SQL. Customer_Type = Customer + EXISTS sales/orders + products.supplier."
           }
         },
         {
-          "name": "GET /api/inventory (Stock SQL)",
+          "name": "GET /api/stock",
           "request": {
             "method": "GET",
             "header": [
@@ -1394,13 +1312,13 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
               "path": [
                 "api",
-                "inventory"
+                "stock"
               ],
               "query": [
                 {
@@ -1430,7 +1348,7 @@
                 }
               ]
             },
-            "description": "Grouped stock_movement SQL on existing RAML path."
+            "description": "Grouped stock_movement SQL."
           }
         },
         {
