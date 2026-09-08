@@ -150,7 +150,7 @@ var products = p("sapi.mysql.sat.table.products")
 					</ee:variables>
 				</ee:transform>
 			</when>
-			<when expression="#[vars.endpoint == 'store']">
+			<when expression="#[vars.endpoint == 'customer']">
 				<ee:transform doc:name="Customer SQL">
 					<ee:message />
 					<ee:variables>
@@ -173,7 +173,7 @@ var products = p("sapi.mysql.sat.table.products")
 					</ee:variables>
 				</ee:transform>
 			</when>
-			<when expression="#[vars.endpoint == 'inventory']">
+			<when expression="#[vars.endpoint == 'stock']">
 				<ee:transform doc:name="Stock SQL">
 					<ee:message />
 					<ee:variables>
@@ -198,9 +198,16 @@ var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++
 						<ee:set-variable variableName="sql"><![CDATA[%dw 2.0
 output text/plain
 var db = vars.databaseName
+var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select c.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " as c where c.CUSTOMER_TYPE = 'Supplier' order by c.SHOPID" ++ lim]]></ee:set-variable>
+// EXISTS on stockpoint_id is commented until Solutech adds the column.
+"Select c.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " as c " ++
+"where c.CUSTOMER_TYPE = 'Supplier' " ++
+"/* and exists (Select 1 from (select distinct stockpoint_id from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as a " ++
+"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.stock.movement") ++ " as b on a.id = b.product_id " ++
+"where a.supplier = '" ++ supplier ++ "') as z where z.stockpoint_id = c.id) */ " ++
+"order by c.SHOPID" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
 			</when>

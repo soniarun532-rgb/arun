@@ -73,19 +73,19 @@
       }
     },
     {
-      "name": "GET store",
+      "name": "GET customer",
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/store?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
-      "name": "GET inventory",
+      "name": "GET stock",
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/inventory?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
