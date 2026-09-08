@@ -50,23 +50,11 @@
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow" />
         <logger level="INFO" doc:name="Logger_End_GET_v1_Customer" message="#[&quot;GET /v1/Customer - End | timestamp=&quot; ++ now()]" />
     </flow>
-    <flow name="get:\v1\Store:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Store" message="#[&quot;GET /v1/Store - Start | timestamp=&quot; ++ now()]" />
-        <set-variable value="Adapter_Customer" doc:name="endpoint" variableName="endpoint" />
-        <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow" />
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Store" message="#[&quot;GET /v1/Store - End | timestamp=&quot; ++ now()]" />
-    </flow>
     <flow name="get:\v1\Stock:exp-sat-datashare-prod-api-config">
         <logger level="INFO" doc:name="Logger_Start_GET_v1_Stock" message="#[&quot;GET /v1/Stock - Start | timestamp=&quot; ++ now()]" />
         <set-variable value="Adapter_Stock" doc:name="endpoint" variableName="endpoint" />
         <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow" />
         <logger level="INFO" doc:name="Logger_End_GET_v1_Stock" message="#[&quot;GET /v1/Stock - End | timestamp=&quot; ++ now()]" />
-    </flow>
-    <flow name="get:\v1\Inventory:exp-sat-datashare-prod-api-config">
-        <logger level="INFO" doc:name="Logger_Start_GET_v1_Inventory" message="#[&quot;GET /v1/Inventory - Start | timestamp=&quot; ++ now()]" />
-        <set-variable value="Adapter_Stock" doc:name="endpoint" variableName="endpoint" />
-        <flow-ref name="call-prc-solutech-api-sub-flow" doc:name="Flow_Reference_call-prc-solutech-api-sub-flow" />
-        <logger level="INFO" doc:name="Logger_End_GET_v1_Inventory" message="#[&quot;GET /v1/Inventory - End | timestamp=&quot; ++ now()]" />
     </flow>
     <flow name="get:\v1\Warehouse:exp-sat-datashare-prod-api-config">
         <logger level="INFO" doc:name="Logger_Start_GET_v1_Warehouse" message="#[&quot;GET /v1/Warehouse - Start | timestamp=&quot; ++ now()]" />

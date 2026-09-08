@@ -267,48 +267,7 @@
             }
           ]
         },
-        "description": "Preferred Customer path. Requires Exchange RAML GET /v1/Customer. Until published, use /v1/Store."
-      }
-    },
-    {
-      "name": "GET /v1/Store (Customer until RAML)",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "{{exp_base}}/api/v1/Store?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
-          "host": [
-            "{{exp_base}}"
-          ],
-          "path": [
-            "api",
-            "v1",
-            "Store"
-          ],
-          "query": [
-            {
-              "key": "fromDate",
-              "value": "{{fromDate}}",
-              "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-            },
-            {
-              "key": "toDate",
-              "value": "{{toDate}}",
-              "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-            },
-            {
-              "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
-            }
-          ]
-        },
-        "description": "Existing RAML path. Exp maps this to PAPI Adapter_Customer."
+        "description": "GET /v1/Customer. Maps to PAPI Adapter_Customer then SAPI /api/customer."
       }
     },
     {
@@ -349,48 +308,7 @@
             }
           ]
         },
-        "description": "Preferred Stock path. Requires Exchange RAML GET /v1/Stock. Until published, use /v1/Inventory."
-      }
-    },
-    {
-      "name": "GET /v1/Inventory (Stock until RAML)",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "{{exp_base}}/api/v1/Inventory?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
-          "host": [
-            "{{exp_base}}"
-          ],
-          "path": [
-            "api",
-            "v1",
-            "Inventory"
-          ],
-          "query": [
-            {
-              "key": "fromDate",
-              "value": "{{fromDate}}",
-              "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-            },
-            {
-              "key": "toDate",
-              "value": "{{toDate}}",
-              "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-            },
-            {
-              "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
-            }
-          ]
-        },
-        "description": "Existing RAML path. Exp maps this to PAPI Adapter_Stock."
+        "description": "GET /v1/Stock. Maps to PAPI Adapter_Stock then SAPI /api/stock."
       }
     },
     {
