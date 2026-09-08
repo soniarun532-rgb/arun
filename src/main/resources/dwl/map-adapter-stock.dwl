@@ -1,16 +1,16 @@
 %dw 2.0
-import * from dwl::datashareHelpers
 output application/json
+fun fromFirstNumeric(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
 var rows = payload.data default payload default []
 ---
 {
 	data: rows map ((row) -> {
-		ProductID: numericProductId(v(row, ["productcode", "PRODUCTCODE"])),
-		UnitofMeasure: v(row, ["UOMName", "uomname", "UOMNAME"]) default "",
-		WarehouseName: v(row, ["stockpoint_name", "STOCKPOINT_NAME"]) default "",
-		DateCreated: fmtDate(v(row, ["date_created", "DATE_CREATED"])),
-		Quantity: v(row, ["quantity", "QUANTITY"]) default "",
-		TotalCost: v(row, ["total_cost", "TOTAL_COST"]) default ""
+		ProductSKU: fromFirstNumeric(row.productcode),
+		UnitofMeasure: row.uomname default "",
+		DistributorWarehouseCode: row.stockpoint_name default "",
+		Date: if (row.date_created == null) "" else ((row.date_created as DateTime as String {format: "dd/MM/yyyy"}) default ""),
+		InventoryQuantity: row.quantity default "",
+		InventoryPrice: row.total_cost default ""
 	}),
 	(next: payload.next) if (payload.next != null)
 }
