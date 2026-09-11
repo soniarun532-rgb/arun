@@ -163,6 +163,31 @@ output application/x-www-form-urlencoded
 		
 		<logger level="INFO" doc:name="access_token" doc:id="875ad2cb-397c-415b-a119-3c0b66271ed0" message="access_token:#[vars.access_token]"/>
 	</sub-flow>
+	<sub-flow name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config"
+		doc:id="7ac53c00-1505-448c-986f-4ce53c3780b4">
+		<set-variable variableName="maskedClientSecret"
+			value="#[output text/plain --- if (p('env') == 'dev') (vars.client_secret as String) else '********']"
+			doc:name="Set Masked Client Secret"/>
+		<logger level="INFO" message="Client Secret: #[vars.maskedClientSecret]" doc:name="Client Secret"/>
+		<http:request method="POST" path="/oauth/token" config-ref="HTTP_Request_Solutech_Token_config" doc:name="GET Solutech_Token">
+			<reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+    grant_type: vars.grant_type,
+    client_id: vars.client_id,
+    client_secret: vars.client_secret,
+    scope: vars.scope,
+    provider: vars.provider
+}]]]></http:body>
+			<http:headers><![CDATA[#[{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }]]]></http:headers>
+		</http:request>
+		<set-variable variableName="access_token" value="#[payload.access_token]" doc:name="Token"/>
+		<logger level="INFO" doc:name="access_token" message="[Token] Successfully retrieved access_token "/>
+	</sub-flow>
 <flow name="Adapter_Customer-main" doc:id="104134f9-72b3-49fe-84ef-b929e4b1f0b1">
 		 <!-- 🟢 Log start -->
     <logger level="INFO" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' doc:name="Start Logger" />

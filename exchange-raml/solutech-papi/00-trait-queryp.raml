@@ -1,0 +1,31 @@
+#%RAML 1.0 Trait
+# Copy this into queryp_Invoice (already exists — align it), then duplicate as
+# queryp_Order, queryp_Product, queryp_Route, queryp_SalesRep, queryp_Customer, queryp_Stock, queryp_Warehouse
+# if you keep one trait per resource. Query params are the same on every GET.
+queryParameters:
+  fromDate:
+    type: date-only
+    required: true
+    description: Inclusive start date (YYYY-MM-DD).
+    example: 2026-08-13
+  toDate:
+    type: date-only
+    required: true
+    description: Inclusive end date (YYYY-MM-DD).
+    example: 2026-08-14
+  database:
+    type: string
+    required: true
+    description: MySQL schema. Use sat_nobleoutlook.
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    description: products.supplier filter.
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    description: 0-based page index.
+    example: 0

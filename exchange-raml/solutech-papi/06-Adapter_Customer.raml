@@ -1,0 +1,21 @@
+/Adapter_Customer:
+  get:
+    displayName: Adapter_Customer 
+    description: Retrieves Adapter_Customer records from mySQL.
+    is: [ bearerAuth, queryp_Customer ]
+    responses:
+      200:
+        body:
+          example: !include examples/Adapter_Customer-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }

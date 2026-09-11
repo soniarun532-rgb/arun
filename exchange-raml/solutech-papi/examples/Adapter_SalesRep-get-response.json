@@ -1,0 +1,11 @@
+{
+  "data": [
+    {
+      "id": 45,
+      "name": "Jane Rep",
+      "email": "jane@example.com",
+      "saler_category": "VAN"
+    }
+  ],
+  "next": "/api/Adapter_SalesRep?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

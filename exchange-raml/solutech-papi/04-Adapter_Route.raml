@@ -1,0 +1,21 @@
+/Adapter_Route:
+  get:
+    displayName: Adapter_Route 
+    description: Retrieves Adapter_Route records from mySQL.
+    is: [ bearerAuth, queryp_Route ]
+    responses:
+      200:
+        body:
+          example: !include examples/Adapter_Route-get-response.json
+      400:
+        body:
+          example: |
+            {
+              "message": "The given data was invalid.",
+              "errors": { "fromDate": [ "The fromDate field is required." ] },
+              "status_code": 400
+            }
+      401:
+        body: { type: 401_error }
+      500:
+        body: { type: 500_error }
