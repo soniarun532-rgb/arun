@@ -1,0 +1,18 @@
+#%RAML 1.0 Trait
+# SAPI GET /product /route /sales-rep /warehouse
+# Do not use the datashare date trait on these resources.
+# database and supplier stay required (PAPI/Exp send them). fromDate and toDate are not used.
+queryParameters:
+  database:
+    type: string
+    required: true
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    example: 0
