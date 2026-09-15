@@ -1,126 +1,59 @@
 #%RAML 1.0
 title: exp-sat-datashare-api-prod
 version: v1
-baseUri: /api
-mediaType: application/json
-description: SAT Datashare Experience API. Clients never send database or supplier. Experience injects them from exp.sat.solutech.mysql.database and exp.sat.solutech.mysql.supplier.
+protocols: [ HTTPS ]
+baseUri: https://api.example.com/exp-sat-datashare-api-prod
 
 traits:
-  dateQuery:
-    queryParameters:
-      fromDate:
-        type: date-only
-        required: true
-        description: Inclusive start date. YYYY-MM-DD only. No time.
-        example: 2026-08-13
-      toDate:
-        type: date-only
-        required: true
-        description: Inclusive end date. YYYY-MM-DD only. No time.
-        example: 2026-08-14
-      pageNumber:
-        type: integer
-        required: false
-        default: 0
-        description: 0-based page. First call can omit it. Follow payload.next if present.
-        example: 0
-  pageNumberQuery:
-    queryParameters:
-      pageNumber:
-        type: integer
-        required: false
-        default: 0
-        description: 0-based page. First call can omit it. Follow payload.next if present.
-        example: 0
+  invoiceQuery: !include traits/invoice-query.raml
+  orderQuery: !include traits/order-query.raml
+  productQuery: !include traits/product-query.raml
+  routeQuery: !include traits/route-query.raml
+  salesRepQuery: !include traits/salesrep-query.raml
+  stockQuery: !include traits/stock-query.raml
+  customerQuery: !include traits/customer-query.raml
+  warehouseQuery: !include traits/warehouse-query.raml
+  errorResponses: !include traits/error-responses.raml
+
+resourceTypes:
+  collection: !include resourceTypes/collection.raml
 
 /v1/Invoice:
-  get:
-    displayName: Invoice
-    description: fromDate and toDate required. pageNumber optional. Do not send database or supplier.
-    is: [ dateQuery ]
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - invoiceQuery
 
 /v1/Order:
-  get:
-    displayName: Order
-    description: fromDate and toDate required. pageNumber optional. Do not send database or supplier.
-    is: [ dateQuery ]
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - orderQuery
 
 /v1/Product:
-  get:
-    displayName: Product
-    description: No query parameters. Experience injects database and supplier. Follow payload.next if present.
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - productQuery
 
 /v1/Route:
-  get:
-    displayName: Route
-    description: No query parameters. Experience injects database and supplier. Follow payload.next if present.
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - routeQuery
 
 /v1/SalesRep:
-  get:
-    displayName: SalesRep
-    description: No query parameters. Experience injects database and supplier. Follow payload.next if present.
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
-
-/v1/Customer:
-  get:
-    displayName: Customer
-    description: fromDate and toDate required. pageNumber optional. Do not send database or supplier.
-    is: [ dateQuery ]
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - salesRepQuery
 
 /v1/Stock:
-  get:
-    displayName: Stock
-    description: Only pageNumber. Do not send fromDate, toDate, database, or supplier.
-    is: [ pageNumberQuery ]
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - stockQuery
+
+/v1/Customer:
+  type: collection
+  is:
+    - customerQuery
 
 /v1/Warehouse:
-  get:
-    displayName: Warehouse
-    description: No query parameters. Experience injects database and supplier. Follow payload.next if present.
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              { "data": [] }
+  type: collection
+  is:
+    - warehouseQuery
