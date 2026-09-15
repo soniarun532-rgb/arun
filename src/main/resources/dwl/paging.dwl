@@ -1,6 +1,6 @@
 %dw 2.0
 output application/java
-var host = trim((p("eapi.host") default "") as String) replace /\/$/ with ""
+var host = trim((p("exp.sat.datashare.public.host") default p("eapi.host") default "") as String) replace /\/$/ with ""
 var path = vars.inboundPath default ""
 var qp = vars.inboundQueryParams default {}
 var records =

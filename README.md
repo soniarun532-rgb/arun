@@ -15,8 +15,8 @@ Process API: `https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io
 - `GET /api/v1/Product`
 - `GET /api/v1/Route`
 - `GET /api/v1/SalesRep`
-- `GET /api/v1/Store`
-- `GET /api/v1/Inventory`
+- `GET /api/v1/Customer`
+- `GET /api/v1/Stock`
 - `GET /api/v1/Warehouse`
 
 Example next URL:

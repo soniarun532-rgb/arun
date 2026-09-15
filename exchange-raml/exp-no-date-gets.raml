@@ -1,0 +1,65 @@
+#%RAML 1.0
+# Paste into exp-sat-datashare-api-prod for GET /v1/Product /v1/Route /v1/SalesRep /v1/Warehouse.
+# No query parameters. Experience injects database and supplier. Follow payload.next if present.
+/v1/Product:
+  get:
+    displayName: Product
+    description: No query parameters required. If another page exists, payload.next includes pageNumber.
+    # do not apply the Invoice/Order date query trait
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              { "data": [] }
+
+/v1/Route:
+  get:
+    displayName: Route
+    description: No query parameters required.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              { "data": [] }
+
+/v1/SalesRep:
+  get:
+    displayName: SalesRep
+    description: No query parameters required.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              { "data": [] }
+
+/v1/Warehouse:
+  get:
+    displayName: Warehouse
+    description: No query parameters required.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              { "data": [] }
+
+/v1/Stock:
+  get:
+    displayName: Stock
+    description: Only pageNumber. fromDate and toDate are not used.
+    queryParameters:
+      pageNumber:
+        type: integer
+        required: false
+        default: 0
+        description: 0-based page. First call can omit it.
+        example: 0
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              { "data": [] }
