@@ -18,14 +18,18 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
 				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
 output application/java
+var qp = attributes.queryParams default {}
+var fromDate = qp.fromDate
+var toDate = qp.toDate
+var base = {
+	database: qp.database as String,
+	supplier: (qp.supplier default qp.Supplier default "") as String,
+	pageNumber: ((qp.pageNumber default 0) as Number) as String
+}
 ---
-{
-	fromDate: attributes.queryParams.fromDate,
-	toDate: attributes.queryParams.toDate,
-	database: attributes.queryParams.database as String,
-	supplier: (attributes.queryParams.supplier default attributes.queryParams.Supplier default "") as String,
-	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
-}]]></ee:set-variable>
+base
+	++ (if ((fromDate != null) and ((fromDate as String default "") != "")) { fromDate: fromDate as String } else {})
+	++ (if ((toDate != null) and ((toDate as String default "") != "")) { toDate: toDate as String } else {})]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>

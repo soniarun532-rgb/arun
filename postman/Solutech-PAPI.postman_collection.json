@@ -154,7 +154,7 @@
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Product?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -167,16 +167,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -204,7 +194,7 @@
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Route?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -217,16 +207,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -254,7 +234,7 @@
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_SalesRep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_SalesRep?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -267,16 +247,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -354,7 +324,7 @@
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Stock?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -369,16 +339,6 @@
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
                 },
                 {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-                },
-                {
                   "key": "pageNumber",
                   "value": "{{pageNumber}}",
                   "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
@@ -390,7 +350,7 @@
                 }
               ]
             },
-            "description": "Maps SAPI /api/stock."
+            "description": "pageNumber plus database/supplier. No fromDate/toDate."
           }
         },
         {
@@ -404,7 +364,7 @@
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Warehouse?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -417,16 +377,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -772,7 +722,7 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/product?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -785,16 +735,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -822,7 +762,7 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/route?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -835,16 +775,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -872,7 +802,7 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/sales-rep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/sales-rep?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -885,16 +815,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",
@@ -972,7 +892,7 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/stock?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -987,16 +907,6 @@
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
                 },
                 {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
-                },
-                {
                   "key": "pageNumber",
                   "value": "{{pageNumber}}",
                   "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
@@ -1008,7 +918,7 @@
                 }
               ]
             },
-            "description": "Grouped stock_movement SQL."
+            "description": "pageNumber plus database/supplier. No fromDate/toDate."
           }
         },
         {
@@ -1022,7 +932,7 @@
               }
             ],
             "url": {
-              "raw": "{{sapi_base}}/api/warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/warehouse?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -1035,16 +945,6 @@
                   "key": "database",
                   "value": "{{database}}",
                   "description": "MySQL schema. Must be sat_nobleoutlook (not nobleoutlook)."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
                 },
                 {
                   "key": "pageNumber",

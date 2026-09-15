@@ -1,6 +1,7 @@
 #%RAML 1.0 Trait
 # Paste into solutech-papi as traits/datashareQuery (or inline under traits:).
-# Use on every GET Adapter_* datashare resource. Do not change existing POST query params.
+# Use only on GET Adapter_Invoice, Adapter_Order, Adapter_Customer.
+# Do not use on Product, Route, SalesRep, Stock, Warehouse (those have no fromDate/toDate).
 queryParameters:
   fromDate:
     type: date-only
