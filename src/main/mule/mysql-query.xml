@@ -40,8 +40,20 @@ var pageSize = (p("sapi.mysql.sat.query.page.size") default 10000) as Number
 ---
 (if (pageNumber < 0) 0 else pageNumber) * pageSize]]></ee:set-variable>
 				<ee:set-variable variableName="skipQuery"><![CDATA[false]]></ee:set-variable>
-				<ee:set-variable variableName="fromDate"><![CDATA[attributes.queryParams.fromDate]]></ee:set-variable>
-				<ee:set-variable variableName="toDate"><![CDATA[attributes.queryParams.toDate]]></ee:set-variable>
+				<ee:set-variable variableName="fromDate"><![CDATA[%dw 2.0
+output application/java
+---
+if (attributes.queryParams.fromDate != null)
+	(attributes.queryParams.fromDate as Date {format: "yyyy-MM-dd"} as String {format: "yyyy-MM-dd"})
+else
+	null]]></ee:set-variable>
+				<ee:set-variable variableName="toDate"><![CDATA[%dw 2.0
+output application/java
+---
+if (attributes.queryParams.toDate != null)
+	(attributes.queryParams.toDate as Date {format: "yyyy-MM-dd"} as String {format: "yyyy-MM-dd"})
+else
+	null]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<choice doc:name="Build SQL by APIkit endpoint">
