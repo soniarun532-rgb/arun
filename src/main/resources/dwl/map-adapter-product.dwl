@@ -11,7 +11,7 @@ var rows = payload.data default payload default []
 		product_name: row.product_name default "",
 		ProductSKU: row.product_desc default "",
 		product_status: row.product_status default "",
-		short_code: row.short_code default "",
+		short_code: productIdFromCode(row.short_code),
 		tax_code: row.tax_code default "",
 		hs_code: row.hs_code default "",
 		focus_product: row.focus_product default "",

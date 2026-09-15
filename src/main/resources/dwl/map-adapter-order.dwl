@@ -1,5 +1,6 @@
 %dw 2.0
 output application/json
+fun numericProductId(code) = ((code default "") as String) replace /^[A-Za-z]+/ with ""
 var rows = payload.data default payload default []
 ---
 {
@@ -7,7 +8,7 @@ var rows = payload.data default payload default []
 		StoreID: row.SHOP_ID default "",
 		SalesRepID: row.SALES_REP default "",
 		RouteID: row.ROUTEID default "",
-		ProductID: row.PRODUCT_CODE default "",
+		ProductID: numericProductId(row.PRODUCT_CODE),
 		DistributorID: "???",
 		WarehouseID: row.SUPPLIER_ID default "",
 		OrderNumber: row.ENTRY_ID default "",
