@@ -53,7 +53,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/product?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/product?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -61,7 +61,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/route?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/route?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -69,7 +69,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/sales-rep?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     },
     {
@@ -85,7 +85,8 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/stock?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/stock?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+        "description": "pageNumber plus database/supplier. No fromDate/toDate."
       }
     },
     {
@@ -93,7 +94,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "{{baseUrl}}/api/warehouse?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
+        "url": "{{baseUrl}}/api/warehouse?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}"
       }
     }
   ]
