@@ -163,6 +163,27 @@ output application/json
     <flow name="get:\Adapter_Invoice:solutech-papi-config">
         <flow-ref doc:name="get-Adapter_Invoice-main-impl" name="get-Adapter_Invoice-main-impl" />
     </flow>
+    <flow name="get:\Adapter_Order:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Order-main-impl" name="get-Adapter_Order-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Product:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Product-main-impl" name="get-Adapter_Product-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Route:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Route-main-impl" name="get-Adapter_Route-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_SalesRep:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_SalesRep-main-impl" name="get-Adapter_SalesRep-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Customer:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Customer-datashare-impl" name="get-Adapter_Customer-datashare-impl" />
+    </flow>
+    <flow name="get:\Adapter_Stock:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Stock-main-impl" name="get-Adapter_Stock-main-impl" />
+    </flow>
+    <flow name="get:\Adapter_Warehouse:solutech-papi-config">
+        <flow-ref doc:name="get-Adapter_Warehouse-main-impl" name="get-Adapter_Warehouse-main-impl" />
+    </flow>
     <flow name="post:\v1\sap\customer:application\json:solutech-papi-config">
         <ee:transform doc:name="Transform Message">
             <ee:message>

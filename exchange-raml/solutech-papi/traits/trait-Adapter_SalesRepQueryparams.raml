@@ -1,0 +1,19 @@
+#%RAML 1.0 Trait
+# GET Adapter_SalesRep: no fromDate / toDate.
+queryParameters:
+  database:
+    type: string
+    required: true
+    description: MySQL schema. Experience injects this.
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    description: products.supplier filter. Experience injects this.
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    description: Optional 0-based page. First call can omit it. Used when following payload.next.
+    example: 0

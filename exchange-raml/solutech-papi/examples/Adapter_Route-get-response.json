@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "route_id": 7,
+      "route_name": "Nairobi CBD",
+      "userid": 45,
+      "visit_frequency": "WEEKLY",
+      "visit_week": 1,
+      "visit_day": "MON",
+      "status": 1,
+      "saler_category": "VAN"
+    }
+  ],
+  "next": "/api/Adapter_Route?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}
