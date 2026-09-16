@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <http:listener-config name="business-central-system-api-httpListenerConfig">
+    <http:listener-connection host="0.0.0.0" port="8081"/>
+</http:listener-config>
+
+<!-- Pre-sandbox RAML -->
+
+<!-- <apikit:config name="business-central-system-api-config" 
+api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:business-central-system-sapi-uat:1.0.47:raml:zip:business-central-system-api.raml" 
+outboundHeadersMapName="outboundHeaders" 
+httpStatusVarName="httpStatus" /> -->
+
+<!-- Sandbox RAML -->
+
+<apikit:config name="business-central-system-api-config" 
+api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:business-central-system-sapi-prod:1.0.9:raml:zip:business-central-system-api.raml" 
+outboundHeadersMapName="outboundHeaders" 
+httpStatusVarName="httpStatus" />
+
+<!-- PROD RAML -->
+<!--  
+<apikit:config name="business-central-system-api-config" 
+api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:business-central-system-sapi-prod:1.0.3:raml:zip:business-central-system-api.raml" 
+outboundHeadersMapName="outboundHeaders" 
+httpStatusVarName="httpStatus" />
+-->
+    <flow name="business-central-system-api-main">
+        <http:listener config-ref="business-central-system-api-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="business-central-system-api-config" />
+		<error-handler ref="global-error-handler" />
+    </flow>
+    <flow name="get-sys-config">
+    <http:listener config-ref="business-central-system-api-httpListenerConfig" path="/config" doc:name="SYS Config"/>
+    
+    <ee:transform doc:name="Set SYS Config Payload">
+        <ee:message>
+            <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    schemaversion: p('schemaversion'),
+    odataMaxpageSize: p('odataMaxpageSize'),
+    httpRequestHost: p('http.request.host'),
+    retryCount: p('http.request.retry.count'),
+    retryInterval: p('http.request.retry.interval')
+}]]></ee:set-payload>
+        </ee:message>
+    </ee:transform>
+</flow>
+   
+    <flow name="patch:\salesDocumentLines:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b11114cd-1963-4448-b7ee-31485130a654" name="patch-salesDocumentLines-main"/>
+    </flow>
+    <flow name="patch:\salesDocuments:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="75ea5668-38eb-40bd-825d-b6756c38677f" name="patch-salesDocuments-main"/>
+    </flow>
+    <flow name="get:\Customers:business-central-system-api-config">
+		<set-variable value='#["Customer_Card_Excel"]' doc:name="Path" doc:id="94428b6c-6c68-48ec-98a9-665ce69a754f" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="050bd794-0c81-47a7-b1aa-f7f854e4629c"/>
+    </flow>
+    <flow name="get:\Customers\$count:business-central-system-api-config">
+		<set-variable value='#["Customer_Card_Excel/\$count"]' doc:name="Path" doc:id="94d03021-c07a-4111-ba1a-f4a0ad216022" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="a4b12231-7abb-499a-841d-006b25f94666"/>
+    </flow>
+         <flow name="post:\Customers:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1021e69b-b6ba-4dd2-bfa0-2658a6042867" name="post-Customers-main"/>
+    </flow>
+       <flow name="patch:\Customers:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="95f3cd7f-0e5d-423d-a78f-4a16914614e5" name="patch-Customers-main"/>
+    </flow>
+     <flow name="get:\Sales_Cr_Memo_Excel:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2b3126b4-946c-496d-84d0-e33293c71d56" name="get-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+    <flow name="get:\Sales_Cr_Memo_Excel\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8d67513e-f0c9-4f0c-bbf2-65cd80f5312b" name="get-Sales_Cr_Memo_Excel-count-main"/>
+    </flow>
+    	<flow name="post:\Sales_Cr_Memo_Excel:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8a1f5f44-a736-48db-ab87-329975d1c42b" name="post-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+       <flow name="patch:\Sales_Cr_Memo_Excel:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b67ac8ae-d3a2-4058-ab11-f2b3289e52f8" name="patch-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+     <flow name="get:\Sales_Cr_Memo_Line_Excel:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="321a24c8-ecf5-4565-bcd7-0c536d8825f6" name="get-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+    <flow name="get:\Sales_Cr_Memo_Line_Excel\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8d9536b9-0d5d-45c9-ad01-850d52a38e03" name="get-Sales_Cr_Memo_Line_Excel-count-main"/>
+    </flow>
+    	<flow name="post:\Sales_Cr_Memo_Line_Excel:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="75aeb572-dda3-4c27-b202-3cf3441dc75e" name="post-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+       <flow name="patch:\Sales_Cr_Memo_Line_Excel:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="58d188d6-4e5a-41b6-9db8-a8a60d732c98" name="patch-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+     <flow name="get:\Sales_Discounts_Excel:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ad447a4c-3303-4ab9-8cbf-017085930a28" name="get-Sales_Discounts_Excel-main"/>
+    </flow>
+    <flow name="get:\Sales_Discounts_Excel\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="bf461773-d446-461b-b979-284e8c812659" name="get-Sales_Discounts_Excel-count-main"/>
+    </flow>
+     <flow name="get:\Item_Units_of_Measure:business-central-system-api-config">
+		<set-variable value='#["Item_Units_of_Measure"]' doc:name="Path" doc:id="92bb9199-4ac9-48f8-898b-d83c272e85d0" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="1dffcafd-c3fa-4990-94dc-8b70536f990e"/>
+    </flow>
+    <flow name="get:\Item_Units_of_Measure\$count:business-central-system-api-config">
+		<set-variable value='#["Item_Units_of_Measure/\$count"]' doc:name="Path" doc:id="80119b39-fbde-48fd-8a6b-9bdd240c7521" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="cbee3571-ba1b-4bbe-bf55-09a859db917b"/>
+    </flow>
+     <flow name="get:\Transfer_Order:business-central-system-api-config">
+		<set-variable value='#["Transfer_Order"]' doc:name="Path" doc:id="c9ac38ae-2bea-4a6d-890e-ae06dcceddc6" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="f1c4095f-ee9a-471d-aaa6-01e499206e14"/>
+    </flow>
+    <flow name="get:\Transfer_Order\$count:business-central-system-api-config">
+		<set-variable value='#["Transfer_Order/\$count"]' doc:name="Path" doc:id="1435be1e-5b1e-4d1a-8d8d-fe509e308c77" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="5ae323c0-33c2-423a-91be-756b0db8de5a"/>
+		
+    </flow>
+    <flow name="get:\Transfer_Order_Line:business-central-system-api-config">
+		<set-variable value='#["Transfer_Order_Line"]' doc:name="Path" doc:id="1b02ee74-c28c-4369-ba10-f426319a8832" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="98ef170a-2d44-4642-ba59-67e9ecf4765a"/>
+    </flow>
+    <flow name="get:\Transfer_Order_Line\$count:business-central-system-api-config">
+		<set-variable value='#["Transfer_Order_Line/\$count"]' doc:name="Path" doc:id="061039cd-51a2-408d-9890-b59e7dc31bf7" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="94f392f9-9c60-4365-af67-cccffe43459e"/>
+    </flow>
+    <flow name="post:\Transfer_Order:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5efdeeb1-9ebd-4120-9768-e62f15687ca7" name="post-Transfer_Order-main"/>
+    </flow>
+    	<flow name="post:\Transfer_Order_Line:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="65bacaf3-d224-4091-a9a7-27df8234b836" name="post-Transfer_Order_Line-main"/>
+    </flow>
+     <flow name="patch:\Transfer_Order_Line:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="79d38041-7cc7-441d-b69c-f77db1ffc3db" name="patch-Transfer_Order_Line-main"/>
+    </flow>
+     <flow name="get:\Item_Avail_by_Location:business-central-system-api-config">
+		<set-variable value='#["Item_Avail_By_Location"]' doc:name="Path" doc:id="bda1bfb7-d915-4d10-80de-f6fce12423bf" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="cdef951e-6ed8-4f7e-8c04-c0233fbd4701"/>
+    </flow>
+    <flow name="get:\Item_Avail_by_Location\$count:business-central-system-api-config">
+		<set-variable value='#["Item_Avail_By_Location/\$count"]' doc:name="Path" doc:id="3a8797e2-6f09-4c67-8be3-c6778d4a3f8c" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="c71f4aa0-cc80-4a49-ac78-d9c86f5d3452"/>
+    </flow>
+    <!-- GET: Fetch Payment_Terms data -->
+<flow name="get:\Payment_Terms:business-central-system-api-config" doc:id="6b2d0fff-596a-4f40-8830-1f723288a6b4">
+    <set-variable value='#["Payment_Terms"]' doc:name="Path" doc:id="55188307-c2c6-4404-af49-149dc128ab7d" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="8ab5598b-d9e5-453c-875a-c4496e0bb412"/>
+</flow>
+
+<!-- GET $count: Fetch total number of Payment_Terms records -->
+<flow name="get:\Payment_Terms\$count:business-central-system-api-config" doc:id="700965c1-24a1-4bcf-a5fc-c5469983680b">
+    <set-variable value='#["Payment_Terms/\$count"]' doc:name="Path" doc:id="6c5dc631-bc6d-4180-bbfd-cc6937cad945" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="79bb1213-394f-4fdf-99d1-59896554c509"/>
+</flow>
+<flow name="get:\Customer_Ledger_Entries:business-central-system-api-config" doc:id="bb9c7585-87dd-4556-84ff-f108e9048258">
+   <set-variable value='#["Customer_Ledger_Entries"]' doc:name="Path" doc:id="f49167f7-0184-4394-9d7b-4a21324f690d" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="f102aadc-d082-4262-a412-042cd0f30e1a"/>
+</flow>
+
+<!-- GET $count: Fetch total number of Customer_Ledger_Entries records -->
+<flow name="get:\Customer_Ledger_Entries\$count:business-central-system-api-config" doc:id="282831b5-a3e9-4bec-9b90-fdec13eafccf">
+   <set-variable value='#["Customer_Ledger_Entries/\$count"]' doc:name="Path" doc:id="e722066d-aa1a-4279-b7a7-9b9e69ec25b8" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="a54f2f14-211c-4a9a-a575-923e3ed8f782"/>
+</flow>
+
+<!-- POST: Create or insert Item_Card_Excel record -->
+<flow name="post:\Item:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e718b151-585e-4e6e-856e-48a87ea66c02" name="post-Item-main"/>
+    </flow>
+
+<!-- PATCH: Update an Item_Card_Excel record -->
+<flow name="patch:\Item:application\json:business-central-system-api-config" doc:id="7bf45d60-4263-4087-babe-9e442297faf9">
+    <flow-ref 
+        doc:name="Flow Reference" 
+        doc:id="27d1bccb-dbb4-40ac-a622-1e019d4d683e" 
+        name="patch-Item-main"/>
+</flow>
+    <flow name="get:\Item:business-central-system-api-config">
+		<set-variable value='#["Item_Card_Excel"]' doc:name="Path" doc:id="f7bf7dc6-2eed-4107-8b14-76a51e0bee81" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="e9962c21-34e2-4d29-b607-c90f37787a24"/>
+    </flow>
+    <flow name="get:\Item\$count:business-central-system-api-config">
+		<set-variable value='#["Item_Card_Excel/\$count"]' doc:name="Path" doc:id="7b82642c-29dd-4e19-9aff-9444bfd72d94" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="db2e5592-cf5b-4cec-935b-b0756d761101"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="459e6ce9-7dfe-4858-8e1f-a1cd6aacef4c" name="get-Purchase_Order_Lines-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="eac53156-e844-4c97-b875-8560c7efbc27" name="get-Purchase_Order_Lines-count-main"/>
+    </flow>
+    <flow name="get:\Sales_Price:business-central-system-api-config">
+		<set-variable value='#["Sales_Prices_Excel"]' doc:name="Path" doc:id="bbd842bc-1a7d-47e2-b670-91c8f539f7b3" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="94eef43b-eba6-42fb-8ef7-573417d54697"/>
+    </flow>
+    <flow name="get:\Sales_Price\$count:business-central-system-api-config">
+		<set-variable value='#["Sales_Prices_Excel/\$count"]' doc:name="Path" doc:id="778b3c39-7fbd-4147-9295-60fb5ae26d59" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="ed382ecf-d6b3-4dd7-a0d2-a65e43277ce8"/>
+    </flow>
+    <flow name="get:\salesDocumentLines:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="df827c3b-0dcf-4625-a8cd-8e085c5c3cd9" name="get-salesDocumentLines-main"/>
+    </flow>
+    <flow name="get:\salesDocumentLines\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5e0c3f00-d7f1-4371-8d90-46bc26ce81c8" name="get-salesDocumentLines-count-main"/>
+    </flow>
+    <flow name="get:\salesDocuments:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9216dad0-7872-4688-b1ee-e73339bc4128" name="get-salesDocuments-main"/>
+    </flow>
+    <flow name="get:\salesDocuments\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="4cf38e8c-371f-432a-b547-25d4f07868af" name="get-salesDocuments-count-main"/>
+    </flow>
+     <flow name="get:\Reservation_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3f84c05b-545a-4246-adfe-e2e64a81b4d5" name="get-Reservation_Entries-main"/>
+    </flow>
+    <flow name="get:\Reservation_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="cdb49b38-2750-4bd2-a890-f6907c1aa818" name="get-Reservation_Entries-count-main"/>
+    </flow>
+    <flow name="post:\Reservation_Entries:application\json:business-central-system-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  result: "Data posted successfully"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+     <flow name="patch:\Reservation_Entries:application\json:business-central-system-api-config" doc:id="69ef765f-2723-408d-8f73-10e3b6b411da">
+		<flow-ref doc:name="Flow Reference" doc:id="820b5de5-c025-4aa6-b314-049fe5c4b8c4" name="patch:\Reservation_Entries:application\json:business-central-system-api-config"/>
+    </flow>
+    <flow name="post:\salesDocumentLines:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="58f93f1a-8309-40ba-93ba-70f8fb446cca" name="post-salesDocumentLines-main"/>
+    </flow>
+    <flow name="post:\salesDocuments:application\json:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3ec3bf4e-6de5-4e6d-8d90-3b92171c1782" name="post-salesDocuments-main"/>
+    </flow>
+    <flow name="get:\Retail_Item:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="444d77eb-bc2a-40da-9056-40c52fc08b73" name="get-Retail_Item-main"/>
+    </flow>
+    <flow name="get:\Retail_Item\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="6dc0bf35-c1d7-44bf-95b6-b30df6bbc67e" name="get-Retail_Item-count-main"/>
+    </flow>
+    <flow name="get:\Item_Ledger_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="df1f9ca4-076c-4d9b-8195-ca0eb66f149e" name="get-Item_Ledger_Entries-main"/>
+    </flow>
+    <flow name="get:\Item_Ledger_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="184587de-bbb3-4d00-8168-66681d5a5aff" name="get-Item_Ledger_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Item_Families:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1a0a2dd5-84b2-4162-bb2a-48241d753219" name="get-Item_Families-main"/>
+    </flow>
+    <flow name="get:\Item_Families\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c65452d7-5214-4a25-8dcc-a56950cf7796" name="get-Item_Families-count-main"/>
+    </flow>
+    <flow name="get:\DimensionValues:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="41e5e933-0fb3-4623-b5bd-5283200a6fae" name="get-DimensionValues-main"/>
+    </flow>
+    <flow name="get:\DimensionValues\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0a28bfc9-00bb-4d17-890b-f8a4a0915c10" name="get-DimensionValues-count-main"/>
+    </flow>
+    <flow name="get:\Vendors:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="226b534d-8525-412d-8630-e392d0c85fd5" name="get-Vendors-main"/>
+    </flow>
+    <flow name="get:\Vendors\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="306a3dcb-caed-46f8-ae32-c717c8957251" name="get-Vendors-count-main"/>
+    </flow>
+    <flow name="get:\Units_of_Measure:business-central-system-api-config">
+		<set-variable value='#["Units_of_Measure"]' doc:name="Path" doc:id="167ea070-3d57-444f-a225-70942a3c8a71" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="2765e477-1fa6-4e4d-a75b-ddd8d654978a"/>
+    </flow>
+    <flow name="get:\Units_of_Measure\$count:business-central-system-api-config">
+		<set-variable value='#["Units_of_Measure/\$count"]' doc:name="Path" doc:id="f3482d97-b339-4105-b880-18649545811e" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="2e8351be-2536-4c7e-8e78-43c892064f9a"/>
+		
+    </flow>
+    <flow name="get:\Locations:business-central-system-api-config">
+		<set-variable value='#["Locations"]' doc:name="Path" doc:id="daab567e-dd2c-4a12-b537-f0a5e31ef1c8" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="66c89fce-2b2f-4716-b40a-5f6b3a502dbf"/>
+    </flow>
+    <flow name="get:\Locations\$count:business-central-system-api-config">
+		<set-variable value='#["Locations/\$count"]' doc:name="Path" doc:id="aeb0d6f7-03bf-4d81-9fb1-7148398290a0" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="e0b0833c-228c-46f1-a45a-f48da18aaa33"/>
+    </flow>
+    <flow name="get:\Retail_Item_Category:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d524eaf3-a5e5-433d-92ae-8c4f70854a91" name="get-Retail_Item_Category-main"/>
+    </flow>
+    <flow name="get:\Retail_Item_Category\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="6db23841-e12e-40b7-8afb-b182a7f2b7af" name="get-Retail_Item_Category-count-main"/>
+    </flow>
+    <flow name="get:\General_Ledger_Setup:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e0b0f5c0-59d5-4387-a580-7483b8713b84" name="get-General_Ledger_Setup-main"/>
+    </flow>
+    <flow name="get:\General_Ledger_Setup\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="339cdd81-7f76-4282-be52-c0bc222fe08a" name="get-General_Ledger_Setup-count-main"/>
+    </flow>
+     <flow name="get:\Users:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2b934e7a-b519-43fc-8097-b231dbf79fdb" name="get-Users-main"/>
+    </flow>
+    <flow name="get:\Users\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e727867f-fe53-4302-aa00-95453507a357" name="get-Users-count-main"/>
+    </flow>
+    <flow name="get:\Companies:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f1e09e81-e046-4484-9b56-d5e54d131a35" name="get-Companies-main"/>
+    </flow>
+    <flow name="get:\Companies\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="52fccaf2-8af1-4a59-9fcd-adfa0d1cacca" name="get-Companies-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Orders_Open_Lines:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b3d604a8-f800-4982-968f-688022a824e8" name="get-Purchase_Orders_Open_Lines-main"/>
+    </flow>
+    <flow name="get:\Purchase_Orders_Open_Lines\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="cb6706aa-e91d-4053-899f-1b76322531ee" name="get-Purchase_Orders_Open_Lines-count-main"/>
+    </flow>
+    <flow name="get:\Bin_Content:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d5428185-63e0-45ae-9beb-fcd0f870e28c" name="get-Bin_Content-main"/>
+    </flow>
+    <flow name="get:\Bin_Content\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d485ca62-0ac2-4223-bf92-036239346283" name="get-Bin_Content-count-main"/>
+    </flow>
+    <flow name="get:\Retail_Sales_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8804a32d-d886-4cf0-9fb5-5ab70030f36a" name="get-Retail_Sales_Entries-main"/>
+    </flow>
+    <flow name="get:\Retail_Sales_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5f132471-65d6-401b-9eaf-090ee529f096" name="get-Retail_Sales_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Discount_Offers:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="dee89973-b80f-4e52-89e3-f74f70061c7a" name="get-Discount_Offers-main"/>
+    </flow>
+    <flow name="get:\Discount_Offers\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="839dd344-529a-4392-87ec-d0a1352af26e" name="get-Discount_Offers-count-main"/>
+    </flow>
+    <flow name="get:\Discount_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="993a6fda-06cd-40b4-a6bc-c49884639947" name="get-Discount_Entries-main"/>
+    </flow>
+    <flow name="get:\Discount_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ac56966f-0fa2-447f-aff8-f1155db775b5" name="get-Discount_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Value_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="05ac0b15-d71f-4136-9ee4-f0ff08455683" name="get-Value_Entries-main"/>
+    </flow>
+    <flow name="get:\Value_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0b823bb3-b4d2-434c-8369-dd2db2e2d9fb" name="get-Value_Entries-count-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_Invoice:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="52602402-c0a9-4694-9e34-775c85c6ec67" name="get-Posted_Sales_Invoice-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Invoice\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1e0a46cf-7345-4586-bbb9-f922c0962e3b" name="get-Posted_Sales_Invoice-count-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_Credit_Notes:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0ffce2db-6bf9-48b1-b9f3-b15a313e3906" name="get-Posted_Sales_Credit_Notes-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Credit_Notes\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="47c121da-c564-4473-ba6e-a858625fafd2" name="get-Posted_Sales_Credit_Notes-count-main"/>
+    </flow>
+    <flow name="get:\Staff:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Staff-main" doc:id="122349be-5d22-44eb-b23b-786105714d60"/>
+    </flow>
+    <flow name="get:\Staff\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Staff-count-main" doc:id="a39aaaed-30a5-4c8d-849b-dca34450b35b"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d0cfa3d9-f9ec-42c7-a17e-6c234d7e5956" name="get-Posted_Purchase_Invoices-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="378ad4ea-c6fe-4aa9-b83a-f5a955ea7b6a" name="get-Posted_Purchase_Invoices-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Archives:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b74801d2-5af9-421c-9e88-ee5b4e49a783" name="get-Purchase_Order_Archives-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Archives\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c7944d14-5e3d-4f78-83d3-9f6a22b251df" name="get-Purchase_Order_Archives-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="02ba2af7-8e43-4a85-9be7-674f8588add0" name="get-Purchase_Order-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="34b9e561-aa1e-4d35-9f96-e210a66fdfc0" name="get-Purchase_Order-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines_Archives:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0f931d93-f410-4a5a-88b7-19a683220c23" name="get-Purchase_Order_Lines_Archives-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines_Archives\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a7eec9b2-83f1-4604-902b-5ae5ff9706e3" name="get-Purchase_Order_Lines_Archives-count-main"/>
+    </flow>
+      <flow name="get:\Posted_Approval_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c04abb6d-afe7-466b-8828-4b8ed489f235" name="get-Posted_Approval_Entries-main"/>
+    </flow>
+    <flow name="get:\Posted_Approval_Entries\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="cf6ebc5f-2e3c-4deb-9233-a347f192c984" name="get-Posted_Approval_Entries-count-main"/>
+    </flow>
+      <flow name="get:\Posted_Purchase_Receipt:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="7fa7decb-aaed-47d5-aa96-595698fa25f6" name="get-Posted_Purchase_Receipt-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Receipt\$count:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="54481e27-01ce-488c-90e7-22f285711229" name="get-Posted_Purchase_Receipt-count-main"/>
+    </flow>
+    <flow name="get:\Approval_Request_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Approval_Request_Entries-main" doc:id="5e1d0928-3131-426e-a00b-98c69043f6a1"/>
+    </flow>
+    <flow name="get:\Approval_Request_Entries\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Approval_Request_Entries-count-main" doc:id="4d5b792f-64d1-4edb-9945-0a75b1c291a5"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices_Lines:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Posted_Purchase_Invoices_Lines-main" doc:id="b857822c-f260-4853-a39a-86fcca074d83"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices_Lines\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Posted_Purchase_Invoices_Lines-count-main" doc:id="44c84bca-7abf-4bfa-9b6e-d548db20cdb9"/>
+    </flow>
+     <flow name="get:\Posted_Sales_invoice_lINE:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Posted_Sales_invoice_lINE-main" doc:id="4ca37ae1-626c-4107-9d1c-dc91fde4c5ee"/>
+    </flow>
+    <flow name="get:\Posted_Sales_invoice_lINE\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Posted_Sales_invoice_lINE-count-main" doc:id="01791dc1-7dde-40b2-a621-fedc0f9351db"/>
+    </flow>
+     <flow name="get:\Posted_Sales_Credit_Notes_Line:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Posted_Sales_Credit_Notes_Line-main" doc:id="79680a73-5be2-4481-8650-8758ae21b948"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Credit_Notes_Line\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Posted_Sales_Credit_Notes_Line-count-main" doc:id="57ca57d3-dda4-40fb-abd6-40e4d527322d"/>
+    </flow>
+     <flow name="get:\Sales_Quotes:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Sales_Quotes-main" doc:id="573e43d5-e10a-456a-aa97-9b8883714665"/>
+    </flow>
+    <flow name="get:\Sales_Quotes\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Sales_Quotes-count-main" doc:id="51e138e5-47f2-457e-88cf-1928ce59132d"/>
+    </flow>
+    <flow name="get:\Retail_Terminal_List:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Retail_Terminal_List-main" doc:id="0e1fa6f4-7484-4a72-b218-d81395718330"/>
+    </flow>
+    <flow name="get:\Retail_Terminal_List\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Retail_Terminal_List-count-main" doc:id="b419e9ab-95ea-490f-a198-4e550379802c"/>
+    </flow>
+    <flow name="get:\LS_Transaction_Register:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-LS_Transaction_Register-main" doc:id="18c01de1-5a00-482c-9288-02ff7fe32d3d"/>
+    </flow>
+    <flow name="get:\LS_Transaction_Register\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-LS_Transaction_Register-count-main" doc:id="802c0fbd-27ec-4c8c-b003-704d33e8474d"/>
+    </flow>
+    <flow name="get:\LS_Flight_List:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-LS_Flight_List-main" doc:id="80296b03-01f5-43a8-ab2c-58a70a1ddeb4"/>
+    </flow>
+    <flow name="get:\LS_Flight_List\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-LS_Flight_List-count-main" doc:id="b5d2d0b3-715b-4fa4-944a-b7ba16b648b1"/>
+    </flow>
+    <flow name="get:\Boarding_Pass_details:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Boarding_Pass_details-main" doc:id="b2a9e74b-57a0-4add-aeef-7bbe5f4ed19e"/>
+    </flow>
+    <flow name="get:\Boarding_Pass_details\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Boarding_Pass_details-count-main" doc:id="794fd9a2-54ed-4ab0-a475-354d3d239161"/>
+    </flow>
+    <flow name="get:\LS_Airport_Terminal:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-LS_Airport_Terminal-main" doc:id="12b39153-26f5-495b-adee-e2680f5445b1"/>
+    </flow>
+    <flow name="get:\LS_Airport_Terminal\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-LS_Airport_Terminal-count-main" doc:id="73777247-8b24-4d5f-b4e4-0e62d9465f02"/>
+    </flow>
+    <flow name="get:\Item_Reference_Entries:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Item_Reference_Entries-main" doc:id="5f60968c-51a1-489f-a048-1d95c2154eef"/>
+    </flow>
+    <flow name="get:\Item_Reference_Entries\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Item_Reference_Entries-count-main" doc:id="6665c893-ec2d-482e-8b6d-142ed0f79d4c"/>
+    </flow>    
+    <flow name="get:\Item_Variants:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Item_Variants-main" doc:id="815e383b-bee5-47cb-98b3-1587483b6d1c"/>
+    </flow>
+    <flow name="get:\Item_Variants\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Item_Variants-count-main" doc:id="557e5e43-d8c7-4374-b73f-a5fda044dcf9"/>
+    </flow> 
+    
+    <flow name="get:\Warehouse_Receipt_Lines:business-central-system-api-config">
+		<flow-ref doc:name="Flow Reference" name="get-Warehouse_Receipt_Lines-main" doc:id="a5819640-3522-4839-82a5-bd36353cf25f"/>
+    </flow>
+    <flow name="get:\Warehouse_Receipt_Lines\$count:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="get-Warehouse_Receipt_Lines-count-main" doc:id="02f92e32-9b05-4eff-9512-6dbca5544f5c"/>
+    </flow> 
+    
+    <flow name="post:\salesDocuments\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="post-salesDocuments-multi-main" doc:id="cc69b7f8-6166-45bc-a8bd-f4bd3bd1ad88"/>
+    </flow> 
+    <flow name="patch:\salesDocuments\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="patch-salesDocuments-multi-main" doc:id="40ad3143-a52f-46a0-bb01-f0c4aeb82276"/>
+    </flow> 
+     <flow name="post:\Customers\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="post-Customers-multi-main" doc:id="726d13cb-bf91-4a30-8e0d-9e516f73ef79"/>
+    </flow> 
+    <flow name="patch:\Customers\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="patch-Customers-multi-main" doc:id="a467d65f-f65d-4af9-a526-86eb6f5d339a"/>
+    </flow> 
+    <flow name="post:\Item\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="post-Item-multi-main" doc:id="e16167b0-7b23-450a-8209-36c1aaeaea76"/>
+    </flow> 
+    <flow name="patch:\Item\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="patch-Item-multi-main" doc:id="049f982d-bde5-4599-829c-27096a69223c"/>
+    </flow> 
+    <flow name="post:\Sales_Cr_Memo_Line_Excel\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="post-Sales_Cr_Memo_Line_Excel-multi-main" doc:id="f696e6bf-331a-41c7-a883-c306f08d6231"/>
+    </flow> 
+    <flow name="patch:\Sales_Cr_Memo_Line_Excel\multi:application\json:business-central-system-api-config">
+    	<flow-ref doc:name="Flow Reference" name="patch-Sales_Cr_Memo_Line_Excel-multi-main" doc:id="e85ed7b8-6228-44eb-ad31-56d24c51dd65"/>
+    </flow> 
+     <flow name="post:\Integration_Customer:application\json:business-central-system-api-config">
+    	<set-variable value='#["Integration_CreateCustomer"]' doc:name="Path" doc:id="00d49e36-53b8-400e-a3a5-e528c8673815" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" name="post-request-subflow" doc:id="edc0111b-9858-4109-b434-2d023bc53259"/>
+    </flow>
+	<flow name="post:\Integration_Item:application\json:business-central-system-api-config" doc:id="05f6dd31-0ced-4f66-bce3-502273ecfb61" >
+		<set-variable value='#["Integration_CreateItem"]' doc:name="Path" doc:id="88a7630a-55b3-4b46-a412-3b73673e37bb" variableName="Path"/>
+		<flow-ref doc:name="post-request-subflow" doc:id="42e51b29-47b4-48c2-b4b8-2642198d4a39" name="post-request-subflow" />
+	</flow>
+	<flow name="post:\Integration_SalesDocument:application\json:business-central-system-api-config" doc:id="3d3d772a-7a0d-4189-9de9-83abde8afdad" >
+		<set-variable value='#["Integration_CreateSalesDocument"]' doc:name="Path" doc:id="9db7d883-e6e1-446e-ae55-b9f804480096" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="ce78b232-63a4-4de1-816b-99a6303feaa9" name="post-request-subflow" />
+	</flow>
+	<flow name="post:\Integration_PostSalesDocument:application\json:business-central-system-api-config" doc:id="d303d412-b3e1-48ad-90e3-2fbc1b9eda7c" >
+		<set-variable value='#["Integration_PostSalesDocument"]' doc:name="Path" doc:id="b42a1d6b-8602-4c53-af42-249ba158539c" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="f2c62c0e-6b77-4687-9009-f20aa3fbdf21" name="post-request-subflow" />
+	</flow>
+	<flow name="post:\Integration_Payment:application\json:business-central-system-api-config" doc:id="9adfa42a-a014-487f-aa25-b7607fec3ced" >
+		<set-variable value='#["Integration_CreatePayment"]' doc:name="Path" doc:id="8f51f28a-d6e3-4f21-92d2-990792046786" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="bc54b16b-995f-4fff-8aaa-5dc4c7c5691e" name="post-request-subflow" />
+	</flow>
+	<flow name="post:\Integration_TransferOrder:application\json:business-central-system-api-config" doc:id="90ff6519-c75f-4625-b2cf-d2ad539b8a21" >
+		<set-variable value='#["Integration_CreateTransferOrder"]' doc:name="Path" doc:id="7e82de47-943b-42e9-adcf-4b12380cc53c" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="e8e47dc8-2f9d-4875-a947-d5ca9aa245c4" name="post-request-subflow" />
+	</flow>
+	<flow name="post:\Integration_StockAdjustment:application\json:business-central-system-api-config" doc:id="50bf5c5f-b83a-41a7-92c2-7ba31405d36e" >
+		<set-variable value='#["Integration_StockAdjustment"]' doc:name="Path" doc:id="d133e225-f59d-448f-9f6e-9ed5d339bb45" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="d2a987b2-3bb9-4e77-84da-09689ad8bd84" name="post-request-subflow" />
+	</flow> 
+	<flow name="post:\Integration_CreateAndPostSalesDocument:application\json:business-central-system-api-config" doc:id="7a328a08-c902-4549-9436-9f72c9318b5b" >
+		<set-variable value='#["Integration_CreateAndPostSalesDocument"]' doc:name="Path" doc:id="08354867-f913-41aa-a16e-9a37dcc85e24" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="b1d150b6-d7e8-45d8-bd5c-b7a5d792eb24" name="post-request-subflow" />
+	</flow> 
+	<flow name="post:\Integration_PostReceipt:application\json:business-central-system-api-config" doc:id="8118411f-6808-4b31-b0e4-4ef6f2c9a163" >
+		<set-variable value='#["Integration_PostReceipt"]' doc:name="Path" doc:id="a93aed0a-50b4-496f-b4b6-a322fc46be1a" variableName="Path" />
+		<flow-ref doc:name="post-request-subflow" doc:id="6687d8f1-701a-426c-baef-2af67934aaf3" name="post-request-subflow" />
+	</flow> 
+	 <flow name="get:\Sales_Prices_Line:business-central-system-api-config">
+    	<set-variable value='#["Sales_Prices_Line_Excel"]' doc:name="Path" doc:id="e030070a-24ef-4f11-abe8-bacef314dd3e" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="7159aef6-50c7-4747-8b99-784ae1e7439e"/>
+    </flow>
+     <flow name="get:\Sales_Prices_Line\$count:business-central-system-api-config">
+		<set-variable value='#["Sales_Prices_Line_Excel/\$count"]' doc:name="Path" doc:id="1410c7bc-fbb2-4d23-9c1e-67b9e7b1830f" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="73f6d674-8a95-4fb2-939d-a85a9be39a46"/>
+    </flow>
+    <flow name="get:\Transfer_Receipt:business-central-system-api-config">
+    	<set-variable value='#["Posted_Transfer_Receipt"]' doc:name="Path" doc:id="6f90e1d2-c4b2-4ff8-bc39-38a5e6b6503d" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="f4ce5c8e-370d-4bd8-9603-26f10d623272"/>
+    </flow>
+     <flow name="get:\Transfer_Receipt_Lines:business-central-system-api-config">
+    	<set-variable value='#["Posted_Transfer_Receipt_Lines"]' doc:name="Path" doc:id="06857ddb-7bfb-4d61-8dcd-78eb307c5208" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="a0e6567e-e148-498a-a9e3-3f1ef58506b8"/>
+    </flow>
+    
+    <flow name="get:\DimensionSetEntries:business-central-system-api-config">
+		<set-variable value='#["DimensionSetEntries"]' doc:name="Path" doc:id="86c16ff4-bf53-4a8d-847d-e813d624b363" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="6e381720-cd0d-4c02-a07b-66c3a1a6f066"/>
+    </flow>
+    <flow name="get:\DimensionSetEntries\$count:business-central-system-api-config">
+		<set-variable value='#["DimensionSetEntries/\$count"]' doc:name="Path" doc:id="5afe2b13-c639-4b13-97c5-a4f770582333" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" name="get-request-subflow" doc:id="e2c4d5f6-7c49-4032-abb9-1c38edf37990"/>
+    </flow>
+	<flow name="get:\Temp_Items_API:business-central-system-api-config" doc:id="af9437a6-e36f-49ed-bc41-efbd4e8e4d21" >
+		<set-variable value='#["Items_API"]' doc:name="Path" doc:id="d8caa7a9-54be-4033-a2cb-857a6ad54f38" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" doc:id="692ca7a8-3307-44c3-94da-dfae5ae960c1" name="get-request-subflow" />
+	</flow>
+	<flow name="get:\Temp_Items_API\$count:business-central-system-api-config" doc:id="ab93e6bf-5ad5-49ba-87a9-900578de4c32" >
+		<set-variable value='#["Items_API/\$count"]' doc:name="Path" doc:id="02793f2d-a0c3-491d-8f89-5e18b1451c6f" variableName="Path" />
+		<flow-ref doc:name="get-request-subflow" doc:id="22d6e200-889b-4140-9050-fc59dc6a1ddd" name="get-request-subflow" />
+	</flow>
+	<flow name="get:\Item_Variants_Excel:business-central-system-api-config" doc:id="6cb6b8c6-b1ce-48d5-abe2-0f0a3357bf00" >
+		<flow-ref doc:name="Flow Reference" doc:id="8867866d-1dad-4d39-be2e-19b9ad171bb9" name="get-Item_Variants_Excel-main" />
+	</flow>
+	<flow name="get:\Variant_Base_Values:business-central-system-api-config" doc:id="bca09dd6-fa6d-47f6-917a-7131a62ce4e5" >
+		<flow-ref doc:name="Flow Reference" doc:id="06a77b9a-fc6e-4a7a-a232-a5bc8bb008f8" name="get-Variant_Base_Values-main" />
+	</flow>
+    
+</mule>
