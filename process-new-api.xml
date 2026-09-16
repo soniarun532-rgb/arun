@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <http:listener-config name="process-new-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+   </http:listener-config>
+   <!-- Sandbox RAML-->
+   <!--  
+    <apikit:config name="process-new-api-config" 
+	    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:process-new-api:1.0.28:raml:zip:process-new-api.raml" 
+     outboundHeadersMapName="outboundHeaders" 
+	httpStatusVarName="httpStatus" /> 
+	-->
+	 <!-- Pre-sandbox RAML-->
+	  <!--  
+    <apikit:config name="process-new-api-config" 
+	    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:process-new-api-uat:1.0.34:raml:zip:process-new-api.raml"
+     outboundHeadersMapName="outboundHeaders" 
+	httpStatusVarName="httpStatus" />
+    -->
+	 <!-- Production RAML -->
+	  
+    <apikit:config name="process-new-api-config" 
+	    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:process-new-api-prod:1.0.5:raml:zip:process-new-api.raml"
+     outboundHeadersMapName="outboundHeaders" 
+	httpStatusVarName="httpStatus" />
+	 
+    
+    <flow name="process-new-api-main">
+        <http:listener config-ref="process-new-api-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="process-new-api-config" />
+		<error-handler ref="global-error-handler" />
+    </flow>
+    <flow name="patch:\salesDocumentLines:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f5734977-f77d-4cb2-94ac-59c6d2a4979d" name="salesDocumentLines-main"/>
+    </flow>
+    <flow name="patch:\salesDocuments:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8421dc41-3891-4e0d-baea-92e0c88e2214" name="patch-salesDocuments-main"/>
+    </flow>
+     
+    <flow name="post:\Customers:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3f3eeb99-4649-40db-b938-fd670cefa2d1" name="post-Customers-main"/>
+    </flow>
+     <flow name="patch:\Customers:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="739fa0de-fa07-4b79-baa7-c8583f2296ba" name="patch-Customers-main"/>
+    </flow>
+     
+    <flow name="post:\Item:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="44c90eb3-0803-4ca3-90e9-b960d1d6ed12" name="post-Item-main"/>
+    </flow>
+     <flow name="patch:\Item:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c2db6b6e-361a-4894-894a-940b0975dd16" name="patch-Item-main"/>
+    </flow>
+     <flow name="get:\Sales_Cr_Memo_Excel:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="12bb61fe-4317-4839-b3ac-d9c00cd92463" name="get-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+    <flow name="get:\Sales_Cr_Memo_Excel\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9b3332e2-775c-46b5-aca9-9e1ff4c65e07" name="get-Sales_Cr_Memo_Excel-count-main"/>
+    </flow>
+    <flow name="post:\Sales_Cr_Memo_Excel:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="4944fe56-dfd7-42fe-81af-878aaa75161a" name="post-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+     <flow name="patch:\Sales_Cr_Memo_Excel:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="6c67b91b-b633-49ce-a246-78c63b920b86" name="patch-Sales_Cr_Memo_Excel-main"/>
+    </flow>
+      <flow name="get:\Sales_Cr_Memo_Line_Excel:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="18d058af-96be-48d1-a70f-d2f127f5efdb" name="get-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+    <flow name="get:\Sales_Cr_Memo_Line_Excel\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3e220ad7-e307-491a-aac3-99600b3516d3" name="get-Sales_Cr_Memo_Line_Excel-count-main"/>
+    </flow>
+    <flow name="post:\Sales_Cr_Memo_Line_Excel:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="bdc654df-7c22-459e-bd61-1cc19bdce750" name="post-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+     <flow name="patch:\Sales_Cr_Memo_Line_Excel:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a37d8342-adf9-45f0-9869-9ec214546c27" name="patch-Sales_Cr_Memo_Line_Excel-main"/>
+    </flow>
+    <flow name="get:\Transfer_Order:process-new-api-config">
+		<set-variable value='#["Transfer_Order"]' doc:name="request_endpoint" doc:id="bd6bdc8f-c251-40b8-a55c-d88794455584" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="0ad12d10-571f-4b2c-b49c-d09538a989bc" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="726c7465-1a11-4d64-8992-0a1b14661841" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Transfer_Order\$count:process-new-api-config">
+		<set-variable value='#["Transfer_Order/\$count"]' doc:name="request_endpoint" doc:id="016e28b7-e18b-4cf8-a1db-026d0d6c9b4e" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="7ce03124-aa9f-47e3-b1c6-918ebfcae53e" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="40436e27-27f6-42c7-9d07-2b8cb9091ae7" name="request-subflow"/>
+    </flow>
+    <flow name="post:\Transfer_Order:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a1b1d2dd-5849-4a44-8ce9-460bfdd19125" name="post-Transfer_Order-main"/>
+    </flow>
+   <flow name="get:\Transfer_Order_Line:process-new-api-config">
+		<set-variable value='#["Transfer_Order_Line"]' doc:name="request_endpoint" doc:id="dfe2f326-111b-415a-a3b5-a094920f8819" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="239eb972-2530-449d-9e5f-c5ab2682d82e" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="05509b2c-9b6f-470e-8f1d-9679c911b2e8" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Transfer_Order_Line\$count:process-new-api-config">
+		<set-variable value='#["Transfer_Order_Line/\$count"]' doc:name="request_endpoint" doc:id="a1fdbb90-78a3-406e-a103-2ad679fb1f17" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="1843ffd2-5b04-4c18-beb8-2c0e21e7c006" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="79c5119a-3932-48ff-a487-9a941c8693e4" name="request-subflow"/>
+    </flow>
+    <flow name="post:\Transfer_Order_Line:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="098d05bd-3260-48b1-97f7-45c4250621e5" name="post-Transfer_Order_Line-main"/>
+    </flow>
+     <flow name="patch:\Transfer_Order_Line:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a036bd59-e99e-4056-824f-3ea8c4c8288e" name="patch-Transfer_Order_Line-main"/>
+    </flow>
+    <flow name="get:\Customer_Ledger_Entries:process-new-api-config">
+		<set-variable value='#["Customer_Ledger_Entries"]' doc:name="request_endpoint" doc:id="c2118452-12e2-4421-8920-3f3acd97c784" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="a4c98bd4-81fb-4c5d-a986-cd35ca357223" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="463fd77b-cca2-44d2-b3a9-64df9bfcfaee" name="request-subflow"/>
+    </flow>
+<flow name="get:\Customer_Ledger_Entries\$count:process-new-api-config">
+		<set-variable value='#["Customer_Ledger_Entries/\$count"]' doc:name="request_endpoint" doc:id="87d78436-1286-4f6e-8ba3-73488a10e5c4" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="61544b93-b1eb-4115-a6ba-60a7a6756b8c" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="cd400acf-3593-4bef-815d-75b674a1a9aa" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Payment_Terms:process-new-api-config">
+		<set-variable value='#["Payment_Terms"]' doc:name="request_endpoint" doc:id="55fd7018-ea3c-4893-aa19-cf40b6a163a2" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="d76c8f69-0755-4a01-908b-27d6b7953a9a" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="6372453a-4df3-4256-99d4-04a5e4966d9d" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Payment_Terms\$count:process-new-api-config">
+		<set-variable value='#["Payment_Terms/\$count"]' doc:name="request_endpoint" doc:id="27ef6493-d484-4cc5-a774-8f236155edc5" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="d527fbb6-d2fb-467b-9a21-b03425d92cb0" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="cbfed112-51f9-437e-958e-73e7e07be103" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Sales_Discounts_Excel:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="68c39112-fa0a-4e46-af9f-8c1f85522a73" name="get-Sales_Discounts_Excel-main"/>
+    </flow>
+	<flow name="get:\Sales_Discounts_Excel\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e45901d7-0bd4-4b3a-9d48-a3a3efc762ea" name="get-Sales_Discounts_Excel-count-main"/>
+    </flow>
+	<flow name="get:\Item_Units_of_Measure:process-new-api-config">
+		<set-variable value='#["Item_Units_of_Measure"]' doc:name="request_endpoint" doc:id="3b1535d5-212f-490c-88af-6d41b9acdf84" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="51b95ef2-d240-47d2-aee7-3057d58ce02d" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="1833a5ff-b681-4e9e-9a83-8329fed3d03b" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Item_Units_of_Measure\$count:process-new-api-config">
+		<set-variable value='#["Item_Units_of_Measure/\$count"]' doc:name="request_endpoint" doc:id="59abc9e3-4810-46e0-abdb-956955757bfc" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="3a4f401d-2fb8-44f7-8a76-e570f2f753be" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="121226d8-a1c8-4f15-ac8a-df0848fe079f" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Item_Avail_by_Location:process-new-api-config">
+		<set-variable value='#["Item_Avail_by_Location"]' doc:name="request_endpoint" doc:id="618148ec-3a74-4e38-bbe6-fad98f9b0bf0" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="697e3572-2876-4296-bdcd-b6ccdf8354d5" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="62397e15-5642-4fd6-8d21-def396e79299" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Item_Avail_by_Location\$count:process-new-api-config">
+		<set-variable value='#["Item_Avail_by_Location/\$count"]' doc:name="request_endpoint" doc:id="b42a639d-5418-4daf-93ba-c4cf7c193221" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="d3bbe2ee-1fba-46ac-911e-60e4da37cb25" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ba371ca7-cbf5-4c0a-8574-2df732e96e60" name="request-subflow"/>
+    </flow>
+   <flow name="get:\Customers:process-new-api-config">
+		<set-variable value='#["Customers"]' doc:name="request_endpoint" doc:id="da2f5399-d88b-4db6-8d0b-05d7eb7cb084" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="2488a298-234a-43a3-9384-c81a732f732d" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="b9a2d1ca-f72f-44be-a964-a0709d9facf8" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Customers\$count:process-new-api-config">
+		<set-variable value='#["Customers/\$count"]' doc:name="request_endpoint" doc:id="2b03c792-779d-4db8-8d9b-85523b356799" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="ef72198d-4a5d-408e-90ce-c3bc5595b75a" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="e5351bca-7ad8-4a4a-8f15-796c46980c6b" name="request-subflow"/>
+ 
+    </flow>
+    <flow name="get:\Item:process-new-api-config">
+		<set-variable value='#["Item"]' doc:name="request_endpoint" doc:id="8a64c757-a24f-4792-8b35-22561c8ec2c1" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="df8031d7-871d-404e-a976-7938aec459b3" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ae19a70d-9ee7-4aa1-a817-a398dadbab71" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Item\$count:process-new-api-config">
+		<set-variable value='#["Item/\$count"]' doc:name="request_endpoint" doc:id="49f8bc46-f4b7-4646-a6f2-c3f411ef9b75" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="aaa89dd5-6054-40f8-8a25-edfa137ccfae" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="3dde31de-6c12-4ebe-8fdc-a75d19284283" name="request-subflow"/>
+ 
+    </flow>
+    <flow name="get:\Purchase_Order_Lines:process-new-api-config" doc:id="c24db23e-55bf-47ff-b897-68785b4663a9">
+		<flow-ref doc:name="Flow Reference" doc:id="6d50d57a-e2bb-4c81-b126-ac72152c5645" name="get-Purchase_Order_Lines-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ad05d7d2-3c86-4f3e-90bd-6705fa45769a" name="get-Purchase_Order_Lines-count-main"/>
+    </flow>
+    <flow name="get:\Reservation_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a55f5ccb-e099-4be3-aa03-436fea7669ed" name="get-Reservation_Entries-main"/>
+    </flow>
+    <flow name="get:\Reservation_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b231e5f3-ebab-490f-8daa-6858b95b5f4d" name="get-Reservation_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Item_Families:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3507f959-9a29-40ab-8bf0-24499c6eb3c0" name="get-Item_Families-main"/>
+    </flow>
+    <flow name="get:\Item_Families\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a67ca35c-4088-410b-8531-4fe82c9f7c1e" name="get-Item_Families-count-main"/>
+    </flow>
+    <flow name="get:\DimensionValues:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9f2aa1f1-6e2d-48fd-b31a-c84f2c148dc5" name="get-DimensionValues-main"/>
+    </flow>
+    <flow name="get:\DimensionValues\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="21bbbead-f4ae-4365-9e6f-a159b5035be4" name="get-DimensionValues-count-main"/>
+    </flow>
+    <flow name="get:\Vendors:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1d8c815d-21f4-44fe-85f1-8429280a94a2" name="get-Vendors-main"/>
+    </flow>
+    <flow name="get:\Vendors\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f6931d8e-a1a9-4cd2-828e-143bf021d69d" name="get-Vendors-count-main"/>
+    </flow>
+    <flow name="get:\Units_of_Measure:process-new-api-config">
+		<set-variable value='#["Units_of_Measure"]' doc:name="request_endpoint" doc:id="408eb523-9cc1-4d42-8f1e-b23588be1006" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="f5754948-4868-49c6-b0c2-763ad926d1a0" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="9dc1c232-63bd-45cc-8b7e-13470d704ecc" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Units_of_Measure\$count:process-new-api-config">
+		<set-variable value='#["Units_of_Measure/\$count"]' doc:name="request_endpoint" doc:id="fcca73ea-33dc-418a-84c9-348cd42bc375" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="c2709aee-04ba-4da8-81d0-17c5eae62e20" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="f43147ce-0ad1-45f4-8d68-43f19150cd8e" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Locations:process-new-api-config">
+		<set-variable value='#["Locations"]' doc:name="request_endpoint" doc:id="a5f7b978-6b47-4550-9975-4409f53302e3" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="6738db92-b343-464a-877b-7a03053e5396" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="86fab341-72eb-45ea-a2f7-d30b2b193998" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Locations\$count:process-new-api-config">
+		<set-variable value='#["Locations/\$count"]' doc:name="request_endpoint" doc:id="1507d167-fe27-4b68-92e0-f1de42a3f5c1" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="5ac9dd47-7656-4ca3-acf4-d448b53fe677" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ec0c68d7-b1ff-4347-9c58-a272af30d114" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Retail_Item:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2b70c3e0-61ea-4471-a80f-9e599d239cbd" name="get-Retail_Item-main"/>
+    </flow>
+    <flow name="get:\Retail_Item\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3c5760a9-c737-4734-9182-a824927590a0" name="get-Retail_Item-count-main"/>
+    </flow>
+    <flow name="get:\Item_Ledger_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ebe8870e-2f47-46e5-8a9f-663b18b0492c" name="get-Item_Ledger_Entries-main"/>
+    </flow>
+   <flow name="get:\Item_Ledger_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9716b229-08d6-423e-8dc7-bcf676e8b1ac" name="get-Item_Ledger_Entries-count-main"/>
+    </flow>
+     <flow name="get:\Retail_Item_Category:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1fc234d2-3fb9-4519-bdc1-cdecccdc9d67" name="get-Retail_Item_Category-main"/>
+    </flow>
+    <flow name="get:\Retail_Item_Category\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a12adecc-e45d-470f-a32c-7d43bc97894b" name="get-Retail_Item_Category-count-main"/>
+    </flow>
+    <flow name="get:\General_Ledger_Setup:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="51878fda-6a58-423c-9257-412938d2be31" name="get-General_Ledger_Setup-main"/>
+    </flow>
+    <flow name="get:\General_Ledger_Setup\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a9e317e6-e891-47e2-b3ec-6e2d89de3bb4" name="get-General_Ledger_Setup-count-main"/>
+    </flow>
+    <flow name="get:\Users:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="42e9e2d4-d51a-4d39-8a8d-ae033e4959e8" name="get-Users-main"/>
+    </flow>
+    <flow name="get:\Users\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d17ef1d5-0aab-4b82-9c5f-993bee06d91a" name="get-Users-count-main"/>
+    </flow>
+    <flow name="get:\Companies:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="3f5acf22-84b7-456f-a4f3-c431973079db" name="get-Companies-main"/>
+    </flow>
+    <flow name="get:\Companies\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1caf8379-fedf-44d3-912d-ea4d6151a2e8" name="get-Companies-count-main"/>
+    </flow>
+      <flow name="get:\Purchase_Orders_Open_Lines:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5db112b4-8539-4c9f-b337-4ab2a5083207" name="get-Purchase_Orders_Open_Lines-main"/>
+    </flow>
+    <flow name="get:\Purchase_Orders_Open_Lines\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="68e33e65-48a4-478d-800b-1df3e2b5f38f" name="get-Purchase_Orders_Open_Lines-count-main"/>
+    </flow>
+      <flow name="get:\Bin_Content:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="968a8213-112c-4c5d-b0a2-950dbc0f82f7" name="get-Bin_Content-main"/>
+    </flow>
+    <flow name="get:\Bin_Content\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="11add78c-1500-45b0-a777-3c5fb1420a8a" name="get-Bin_Content-count-main"/>
+    </flow>
+      <flow name="get:\Discount_Offers:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d6419bdc-17d6-4637-9748-0731bec4a114" name="get-Discount_Offers-main"/>
+    </flow>
+    <flow name="get:\Discount_Offers\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="fb38e803-32e2-4f45-a537-d6ac35c3aeeb" name="get-Discount_Offers-count-main"/>
+    </flow>
+      <flow name="get:\Discount_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c125c771-75e4-44f0-bd4a-4743ee6d1a6b" name="get-Discount_Entries-main"/>
+    </flow>
+    <flow name="get:\Discount_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="6db136da-1eda-4f25-b1b4-4c5372cc9517" name="get-Discount_Entries-count-main"/>
+    </flow>
+      <flow name="get:\Value_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e8c8776e-8e3d-48ec-bb20-0dfd35dc2061" name="get-Value_Entries-main"/>
+    </flow>
+    <flow name="get:\Value_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8f3a4e03-8342-400b-9fdf-bc8b2cbd54dd" name="get-Value_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Invoice:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9b735746-146f-42c1-b26f-6019974a9f6b" name="get-Posted_Sales_Invoice-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Invoice\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d06a761f-3d60-4fed-a88b-bfd878caa81a" name="get-Posted_Sales_Invoice-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Credit_Notes:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2736ffb4-27f9-482b-935f-730b286e973b" name="get-Posted_Sales_Credit_Notes-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Credit_Notes\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="846b3d1c-b145-4127-a0a9-94b8626dc261" name="get-Posted_Sales_Credit_Notes-count-main"/>
+    </flow>
+      <flow name="get:\Retail_Sales_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="1c9bb363-e8f1-4ac5-beb5-70fdbec204fc" name="get-Retail_Sales_Entries-main"/>
+    </flow>
+    <flow name="get:\Retail_Sales_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="eaf2a1bd-1d32-42df-8f54-f2ce8ad8b473" name="get-Retail_Sales_Entries-count-main"/>
+    </flow>
+    <flow name="get:\salesDocumentLines:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c905294c-fb7e-45b1-853f-3f22e301fe3d" name="get-salesDocumentLines-main"/>
+    </flow>
+    <flow name="get:\salesDocumentLines\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d248008e-48bc-424c-be21-bdc9bc6f7dcc" name="get-salesDocumentLines-count-main"/>
+    </flow>
+    
+	<flow name="get:\salesDocuments:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="4b9793f0-e955-49c8-9657-2e16eb2fa8f3" name="get-salesDocuments-main"/>
+    </flow>
+    <flow name="get:\salesDocuments\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="d86ed213-5515-4840-a2df-67fed22e9815" name="get-salesDocuments-count-main"/>
+    </flow>
+    <flow name="get:\Staff:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="28ba01b5-8ee2-4328-bc40-3ef4c6a1f189" name="get-Staff-main"/>
+    </flow>
+    <flow name="get:\Staff\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="4640a12a-b3e5-4ace-9827-7d163568ff45" name="get-Staff-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="db27818e-89fb-4e7e-8eae-f8cbb2099088" name="get-Posted_Purchase_Invoices-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="70561078-9545-4cbd-993f-5a5a04474fac" name="get-Posted_Purchase_Invoices-count-main"/>
+    </flow>    
+    <flow name="get:\Purchase_Order_Archives:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8d68c19d-5218-4c07-bc1a-89578d1e61d4" name="get-Purchase_Order_Archives-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Archives\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="90acd356-cd2a-432e-a7d4-b356a9654ab9" name="get-Purchase_Order_Archives-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c1cafb90-a1da-4455-94f3-03c0b435b0e7" name="get-Purchase_Order-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="31259e31-5aa6-4b68-94dd-58cb2315a892" name="get-Purchase_Order-count-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines_Archives:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c473a7ab-2e8b-42e9-b627-1ad0687edb46" name="get-Purchase_Order_Lines_Archives-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines_Archives\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="fc1e0b59-edb6-4384-963e-e8cdbb0a2826" name="get-Purchase_Order_Lines_Archives-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Approval_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="937b344d-6cd3-4ed3-845e-273f0beb2606" name="get-Posted_Approval_Entries-main"/>
+    </flow>
+    <flow name="get:\Posted_Approval_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2ab69ae8-9f2e-45c8-97ca-80e634d8c1c3" name="get-Posted_Approval_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Receipt:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8a69179c-0b42-4a34-b358-e08e9b1dca1b" name="get-Posted_Purchase_Receipt-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Receipt\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="c354a1d1-f586-4e07-bce0-bf59539514ca" name="get-Posted_Purchase_Receipt-count-main"/>
+    </flow>
+    <flow name="get:\Approval_Request_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ac8413a6-7dca-4e00-87df-4e504f492378" name="get-Approval_Request_Entries-main"/>
+    </flow>
+    <flow name="get:\Approval_Request_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="e3b89b60-8e8a-4db6-a6e5-c4b05391e964" name="get-Approval_Request_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices_Lines:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="2e1c240f-3042-423f-9562-1334dadbd0c6" name="get-Posted_Purchase_Invoices_Lines-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices_Lines\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5217d1d4-cf0f-449a-8941-14ebfcde943b" name="get-Posted_Purchase_Invoices_Lines-count-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_invoice_lINE:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="32e71da7-a1ab-471a-9075-a68a8fb77f13" name="get-Posted_Sales_invoice_lINE-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_invoice_lINE\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a0d63eb2-e2be-4595-8bcc-3c76210e9f42" name="get-Posted_Sales_invoice_lINE-count-main"/>
+    </flow>
+     <flow name="get:\Posted_Sales_Credit_Notes_Line:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ddf55ba7-ae89-4aad-977d-03b85dd04f57" name="get-Posted_Sales_Credit_Notes_Line-main"/>
+    </flow>
+    <flow name="get:\Posted_Sales_Credit_Notes_Line\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5902505e-fd6b-42d1-a2e2-a2cd7981d4a2" name="get-Posted_Sales_Credit_Notes_Line-count-main"/>
+    </flow>
+     <flow name="get:\Sales_Quotes:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f052bc3d-1709-4cfd-9742-b36afc01aa23" name="get-Sales_Quotes-main"/>
+    </flow>
+    <flow name="get:\Sales_Quotes\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="04710c10-6961-4ebc-83be-36544e313c91" name="get-Sales_Quotes-count-main"/>
+    </flow>
+    <flow name="get:\Retail_Terminal_List:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f7462163-84a3-4f54-a6a7-d0617311940d" name="get-Retail_Terminal_List-main"/>
+    </flow>
+    <flow name="get:\Retail_Terminal_List\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="bcab18f7-3739-4d1a-b10c-a7132f0ba33d" name="get-Retail_Terminal_List-count-main"/>
+    </flow>
+    <flow name="get:\LS_Transaction_Register:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="fe5ce897-f67a-4aa0-be61-c9243cf67ba8" name="get-LS_Transaction_Register-main"/>
+    </flow>
+    <flow name="get:\LS_Transaction_Register\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="784d748a-6d3c-4be2-b2ad-9b543c3f2c7b" name="get-LS_Transaction_Register-count-main"/>
+    </flow>
+    <flow name="get:\LS_Flight_List:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0486cfe8-dbcb-427b-920f-a35609cb0844" name="get-LS_Flight_List-main"/>
+    </flow>
+    <flow name="get:\LS_Flight_List\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="81b492be-b1c2-4018-8f14-903668b1bdaf" name="get-LS_Flight_List-count-main"/>
+    </flow>
+    <flow name="get:\Boarding_Pass_details:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="9f6a84a2-ac6f-4622-951e-fcad39a0011a" name="get-Boarding_Pass_details-main"/>
+    </flow>
+    <flow name="get:\Boarding_Pass_details\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="0d6c92f8-918a-4bcc-a4ce-31c04a8f6f93" name="get-Boarding_Pass_details-count-main"/>
+    </flow>
+    <flow name="get:\LS_Airport_Terminal:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="bc22c1db-7161-460a-a2a9-6314d42ec2e9" name="get-LS_Airport_Terminal-main"/>
+    </flow>
+    <flow name="get:\LS_Airport_Terminal\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8b460f78-2878-4a91-ab2d-e7a9a5cfc055" name="get-LS_Airport_Terminal-count-main"/>
+    </flow>
+     <flow name="get:\Item_Reference_Entries:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="5c0133af-b1c1-48fe-9f76-6e0320c92764" name="get-Item_Reference_Entries-main"/>
+    </flow>
+    <flow name="get:\Item_Reference_Entries\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="26babdeb-309a-4444-82c5-4bf102a27515" name="get-Item_Reference_Entries-count-main"/>
+    </flow>
+    <flow name="get:\Item_Variants:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f8d43ca4-ae3c-484c-8b3e-9583b5d6337a" name="get-Item_Variants-main"/>
+    </flow>
+    <flow name="get:\Item_Variants\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b7224f64-f76e-4a1a-a98e-be17e6c19f73" name="get-Item_Variants-count-main"/>
+    </flow>
+    <flow name="get:\Warehouse_Receipt_Lines:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="02b5ae92-654c-4aca-b62e-89e49736d3b0" name="get-Warehouse_Receipt_Lines-main"/>
+    </flow>
+    <flow name="get:\Warehouse_Receipt_Lines\$count:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="8f551a0d-97cd-41c0-aaa7-1aa058feb6ce" name="get-Warehouse_Receipt_Lines-count-main"/>
+    </flow>
+    <flow name="post:\salesDocumentLines:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f66f9d49-ee77-4cd7-88f4-34d62ce6e445" name="post-salesDocumentLines-main"/>
+    </flow>
+    <flow name="post:\salesDocuments:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="ef704300-6a31-4b10-a045-f4c92f01ff99" name="post-salesDocuments-main"/>
+    </flow>
+    <flow name="post:\Customers\multi:application\json:process-new-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="cc193477-2328-4daf-aac2-6f98d9eed130" name="post-Customers-multi-main"/>
+    </flow>
+    <flow name="post:\Integration_Customer:application\json:process-new-api-config">
+		<set-variable value='#["Integration_Customer"]' doc:name="request_endpoint" doc:id="cbe8e368-6932-4a8e-8bc4-492687738ce3" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="cd55fa93-fc51-4de0-8d22-d6573d861bf9" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="71827b02-3ddb-4784-b364-a36e2ee6631c" name="request-subflow"/>
+    </flow>
+       <flow name="post:\Integration_TransferOrder:application\json:process-new-api-config">
+		<set-variable value='#["Integration_TransferOrder"]' doc:name="request_endpoint" doc:id="2fae1b1d-5d07-45c4-9628-67a29fdb18ba" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="75dd9505-27ff-4416-84d6-88b7c7d67640" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="20c4995a-29fa-4fbe-8247-17c153136ad8" name="request-subflow"/>
+    </flow>
+       <flow name="post:\Integration_SalesDocument:application\json:process-new-api-config">
+		<set-variable value='#["Integration_SalesDocument"]' doc:name="request_endpoint" doc:id="319761f8-873a-4ca2-bd90-29c279aaa9a0" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="2e86d30f-71f9-485f-9485-351477fe409e" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="5495cf8b-43ac-443d-b041-27f9ebd56848" name="request-subflow"/>
+    </flow>
+       <flow name="post:\Integration_Payment:application\json:process-new-api-config">
+		<set-variable value='#["Integration_Payment"]' doc:name="request_endpoint" doc:id="32369fd6-b618-4f2d-98a8-704f6a7666d2" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="d63edf1c-c26b-45b8-8870-1c79c6e42c73" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="3cd7e143-c484-43bf-b3e5-adde2b9f6bfc" name="request-subflow"/>
+    </flow>
+       <flow name="post:\Integration_PostSalesDocument:application\json:process-new-api-config">
+		<set-variable value='#["Integration_PostSalesDocument"]' doc:name="request_endpoint" doc:id="c1c177bd-74ff-47ed-a0b2-47ed50017517" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="f085e879-3b90-49d5-8ecc-6b003afa12b6" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="c82a93a7-f483-4525-ab09-ff33d6f46e29" name="request-subflow"/>
+    </flow>
+       <flow name="post:\Integration_CreateAndPostSalesDocument:application\json:process-new-api-config">
+		<set-variable value='#["Integration_CreateAndPostSalesDocument"]' doc:name="request_endpoint" doc:id="52e00756-a9d3-4c34-aa27-4171c86d0a3c" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="0de25963-2e54-44db-b698-6dfdc9a82cf0" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="f6cd30ed-7b91-4a90-93d8-1c7a8b2552da" name="request-subflow"/>
+    </flow>
+      <flow name="post:\Integration_PostReceipt:application\json:process-new-api-config">
+		<set-variable value='#["Integration_PostReceipt"]' doc:name="request_endpoint" doc:id="0208c7fd-95a3-4ced-a9ba-d7430edf03b3" variableName="request_endpoint"/>
+		<set-variable value='#["POST"]' doc:name=" POST Method" doc:id="4cef28c7-0e07-40df-803a-25a8c3b330ad" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="35c79960-4d9a-4f86-867c-346c06a81d21" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Adapter_Customer:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="e5d3c5f4-f61d-4558-a098-f6c57d38e14a" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="7cc3f13b-b5f3-4d76-a540-7e372f006dad" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="4990776f-fae7-4506-a061-5e9867da949e" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Customer-bc-to-sat-impl" doc:id="92445ff0-8c75-4aa1-a927-9a05e8cb5252" name="get_Adapter_Customer-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+       <flow name="get:\Adapter_Price-List-Master:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="e028756d-4f4c-49cd-b0a6-02c4013326f2" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="45bacb7b-9fbd-4197-905a-565d00576046" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="7a95fac9-78b4-465f-a7af-8f4b302be589" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Price-List-Master-bc-to-sat-impl" doc:id="582d44fa-5005-446e-8b55-bf4cf2b887e2" name="get_Adapter_Price-List-Master-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+       <flow name="get:\Adapter_Stock-Balance:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="75326232-6bd1-4aec-b42e-ef38febfe345" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="afe65f73-efcc-449e-a0af-419aed724b7b" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="8d136912-56bf-42f8-95ba-1997bd3937f2" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Stock-Balance-bc-to-sat-impl" doc:id="d4bbf0f7-e6b7-4e5b-a101-3821d9e2f6dc" name="get_Adapter_Stock-Balance-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+      <flow name="get:\Adapter_Item:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="972991d0-2d93-4f87-ae4a-2b676540d4a7" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="1e179e72-487e-461d-8dfe-f6f1c4b66d47" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="6fb6085e-7a92-4a60-a6d5-bcbc1be0e655" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Item-bc-to-sat-impl" doc:id="35570a84-501c-42bb-a393-ed503692b657" name="get_Adapter_Item-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+        <flow name="get:\Adapter_Customer_Account_Status:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="149116e1-5639-4ff5-a594-8b655be99757" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="a9de7a74-7b9a-4d08-9b0a-4146be72ec5e" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="843f784d-8cf1-4e2c-bf0e-7da778cb2dda" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Customer_Account_Status-bc-to-sat-impl" doc:id="4ddad06f-cf05-4d9b-9590-319c30ae4e82" name="get_Adapter_Customer_Account_Status-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+      <flow name="get:\Adapter_Stock-Transfer:process-new-api-config">
+		<set-variable value='#[(attributes.queryParams.bctargetSystem default "")]' doc:name="bctargetSystem" doc:id="e3aafc23-c53a-4a6b-833b-0a7cf4cb398c" variableName="bctargetSystem"/>
+		<set-variable value='#[(attributes.queryParams.bcaction default "")]' doc:name="action" doc:id="882c4a49-227d-47cf-9f7c-3461bff00fb9" variableName="action"/>
+		<choice doc:name="Check bctargetSystem" doc:id="4a3febb2-24aa-4f13-a0a0-9678c85a654e" >
+			<when expression='#[upper(vars.bctargetSystem) == "SAT"]'>
+				<flow-ref doc:name="get_Adapter_Stock-Transfer-bc-to-sat-impl" doc:id="7fa3d1f4-994b-4de2-a893-0193f860078d" name="get_Adapter_Stock-Transfer-bc-to-sat-impl" />
+			</when>
+		</choice>
+    </flow>
+      <flow name="get:\Sales_Price:process-new-api-config">
+		<set-variable value='#["Sales_Price"]' doc:name="request_endpoint" doc:id="6dfa548d-9aa6-4f77-99af-613aa9bc82c4" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="36b95f20-1499-4176-b714-1f17e5cbe677" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="14f1f323-5fe1-4a7c-8aa1-e505cad0f6a0" name="request-subflow"/>
+    </flow>
+      <flow name="get:\Sales_Price\$count:process-new-api-config">
+		<set-variable value='#["Sales_Price/\$count"]' doc:name="request_endpoint" doc:id="4bbf51ce-c120-4422-80cd-fa84c2a8d5b1" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="cc568a7b-f458-429b-a065-ecd2af5b1331" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="f12a9da8-22e6-46cd-98bb-f13ffcf85333" name="request-subflow"/>
+    </flow>
+    <flow name="get:\Sales_Prices_Line:process-new-api-config">
+		<set-variable value='#["Sales_Prices_Line"]' doc:name="request_endpoint" doc:id="a2c2b7ad-a77f-4840-83ce-eee8743fcf0f" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="162ce9de-80c6-484f-a909-2298babfc0eb" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="a5416c2e-efed-4d18-9c31-0a8be5b0f24e" name="request-subflow"/>
+    </flow>
+      <flow name="get:\Sales_Prices_Line\$count:process-new-api-config">
+		<set-variable value='#["Sales_Prices_Line/\$count"]' doc:name="request_endpoint" doc:id="5cc6ab3c-a32d-400f-adcb-6eb0f82ab66c" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="cb3dbc23-553e-4327-9fec-b93657f2bcd1" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="d3aa2589-ac4a-4ee8-a365-9773ff1aad9b" name="request-subflow"/>
+    </flow>
+       <flow name="get:\Transfer_Receipt:process-new-api-config">
+		<set-variable value='#["Transfer_Receipt"]' doc:name="request_endpoint" doc:id="e54989ff-7a8a-48c5-b003-58e7ceb0cfb0" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="de60a2d7-bd05-44ec-b69c-d2d9719c07ba" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="4dc6315e-d961-4147-a6f1-46393367ddfd" name="request-subflow"/>
+    </flow>
+       <flow name="get:\Transfer_Receipt_Lines:process-new-api-config">
+		<set-variable value='#["Transfer_Receipt_Lines"]' doc:name="request_endpoint" doc:id="cacb1ef9-92be-4031-8bbb-90c70556b988" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="7e895da9-4671-4e31-97ba-158b375c9c76" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ada00429-d17e-4db8-9127-0a79bd8feaae" name="request-subflow"/>
+    </flow>
+    <flow name="get:\DimensionSetEntries:process-new-api-config">
+		<set-variable value='#["DimensionSetEntries"]' doc:name="request_endpoint" doc:id="9b377879-af2b-4535-a22c-6910a636382f" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="804b8fcc-dae0-4dfd-9bc4-051ce4a42fc0" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="b26bde02-b144-4612-91ed-05b97fd4914e" name="request-subflow"/>
+    </flow>
+     <flow name="get:\DimensionSetEntries\$count:process-new-api-config">
+		<set-variable value='#["DimensionSetEntries/\$count"]' doc:name="request_endpoint" doc:id="74a93c32-48e7-4fb8-8a99-08f21c81babc" variableName="request_endpoint"/>
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="b9403f60-4934-4e1e-a23b-bf6c6af79d35" variableName="request_method"/>
+		<flow-ref doc:name="Flow Reference" doc:id="bc35ed1c-aa03-4aaa-b928-7b76997ecf7c" name="request-subflow"/>
+    </flow>
+	<flow name="get:\Temp_Items_API:process-new-api-config" doc:id="dd1554c3-13cb-4f33-90bd-48c38b30766f" >
+		<set-variable value='#["Temp_Items_API"]' doc:name="request_endpoint" doc:id="34d7d91b-55c5-4fbd-88d2-ea4bf016b146" variableName="request_endpoint" />
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="ba4eace1-c4fc-4403-b397-91d5f3e69b17" variableName="request_method" />
+		<flow-ref doc:name="Flow Reference" doc:id="4df89336-e50d-4e54-9229-1728e77b52f1" name="request-subflow" />
+	</flow>
+	<flow name="get:\Temp_Items_API\$count:process-new-api-config" doc:id="966042b4-da43-4ea4-96df-ecdc395cc8ba" >
+		<set-variable value='#["Temp_Items_API/\$count"]' doc:name="request_endpoint" doc:id="059b0de7-1638-4e68-9892-aa7fae0a436c" variableName="request_endpoint" />
+		<set-variable value='#["GET"]' doc:name=" GET Method" doc:id="698f2fbd-ef90-4f42-bcf4-c2d8745031b1" variableName="request_method" />
+		<flow-ref doc:name="Flow Reference" doc:id="857bddbc-98cf-40ed-b852-75fbd90263a6" name="request-subflow" />
+	</flow>
+	<flow name="get:\Item_Variants_Excel:process-new-api-config" doc:id="49b0bba9-caf9-415a-9b54-d74a90a5beee" >
+		<flow-ref doc:name="Flow Reference" doc:id="1b42af3c-3d99-4c81-98a8-c516bb611d2e" name="get-Item_Variants_Excel-main" />
+	</flow>
+	<flow name="get:\Variant_Base_Values:process-new-api-config" doc:id="5062ec00-c125-46e7-bc39-fc363a8a0cc0" >
+		<flow-ref doc:name="Flow Reference" doc:id="ec0435d2-b2e6-49eb-b6e9-26ddc944fad0" name="get-Variant_Base_Values-main" />
+	</flow>
+</mule>

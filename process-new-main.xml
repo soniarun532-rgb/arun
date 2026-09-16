@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+  
+	<flow name="salesDocumentLines-main" doc:id="fa68786d-c11a-473a-99f0-4f414c69def3">
+        <set-variable value="#[&quot;salesDocumentLines&quot;]" doc:name="Set Endpoint to salesDocumentLines" doc:id="f884fae1-999b-4285-9311-7afc88318d61" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="50c98937-e637-4ebc-ab2d-7976c2822689" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b4d976cc-8cd5-42dd-99c1-f97d6da42b37" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="patch-salesDocuments-main" doc:id="6c2c1af5-f6ca-48a8-8c2c-6c588c9b73aa">
+        <set-variable value="#[&quot;salesDocuments&quot;]" doc:name="Set Endpoint to salesDocuments" doc:id="bb75c27d-ce12-47af-9523-3ad859e17d40" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="29339a70-b172-432e-9cb4-31cf18df48d2" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="ac4bd72c-90ee-4baf-bd1d-45867b9fce39" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Customers-main" doc:id="f04c18fe-4134-4b56-b59c-341d7b751285">
+        <set-variable value="#[&quot;Customers&quot;]" doc:name="Set Endpoint to Customers" doc:id="791be2b3-9845-48dd-93d3-b6213c3ac375" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="16861c0f-b804-4069-8fa5-a3b55283bff4" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="36e7d096-b4ff-4205-b7b3-6ca028880374" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="patch-Customers-main" doc:id="cebd5fd5-cc5d-4524-bcb8-f377a93f18d4">
+        <set-variable value="#[&quot;Customers&quot;]" doc:name="Set Endpoint to Customers" doc:id="eb1c9ea0-3266-4276-963b-12f4f49e88c6" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="238b8bec-dc38-4754-8a2d-5abda925e8ec" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="69d36d69-3099-4154-a86c-e0b157d691f4" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Item-main" doc:id="8218067e-c7cc-41d7-87fa-df700e1ed158">
+        <set-variable value="#[&quot;Item&quot;]" doc:name="Set Endpoint to Item" doc:id="6a3bc85e-3989-410c-ad79-07a6c4587819" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="560aa23d-b2b9-4659-ab9f-53aa2b13e11c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="a981cd54-aff5-4d6e-acda-35adfa4a5b2b" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="patch-Item-main" doc:id="6757df9f-741f-4d36-b9e6-a5a740230009">
+        <set-variable value="#[&quot;Item&quot;]" doc:name="Set Endpoint to Item" doc:id="11603a18-f1f8-41c5-8fbb-25abf3a721b3" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="ecae6a6a-5525-4392-ba83-ce74cc1552e8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="23ba48ec-868f-4f5e-bbd0-5413e40ed1d5" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Sales_Cr_Memo_Excel-main" doc:id="3749a0b8-bdd5-4959-be3f-0968a96e3b4d">
+        <logger level="INFO" doc:name="StartLogger" doc:id="28e57836-7519-4cb7-a357-6cd46882d828" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Sales_Cr_Memo_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Excel" doc:id="60b2c357-8820-4742-b713-3056bb62259e" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="88c4631c-a160-408b-93c2-442e262cd2ca" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e4a861e8-53e9-4977-b402-b7d0c6fac5c5" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="564ba340-47a9-46f2-9b23-c39aec433808" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Sales_Cr_Memo_Excel-count-main" doc:id="d8d226d3-fd5c-4b09-b840-662633d29525">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Excel/\$count&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Excel/$count" doc:id="fec12d74-55ac-4f6b-ba9a-8d44b8148ded" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="a1ad4914-b59f-4202-98ef-3b582383ee6e" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="ed1ac800-8853-4ecc-bfab-a38d42591476" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Sales_Cr_Memo_Excel-main" doc:id="cb086032-81b2-456d-bbd5-e9bd9e4a7c72">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Excel" doc:id="09db7506-9bcb-4fb2-9d14-2f1d33f739d9" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="6f6e58b1-fbc8-46ab-bd47-eac0b554504b" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="60064a15-0c7e-4999-a32e-0e8572ea2a70" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="patch-Sales_Cr_Memo_Excel-main" doc:id="5ebb333f-939f-49d7-af95-f4a525de4175">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Excel" doc:id="3ea5c555-473a-47f0-a60b-7032cc3991fd" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="ce567a71-2b36-493c-ad44-43a100334fa5" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="542c81da-62f6-4e2d-83fa-41f3daf648c6" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Sales_Cr_Memo_Line_Excel-main" doc:id="8102c610-4d8e-4c5a-a449-2e7b5b408f9b">
+        <logger level="INFO" doc:name="StartLogger" doc:id="13387b75-9e4b-4fcc-9986-4baf36942ac2" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Sales_Cr_Memo_Line_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Line_Excel" doc:id="fcc67230-f07c-4d08-b33f-123f30baa186" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="5060194d-94a1-4048-98c9-7ae439e4780b" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="fd6a1a44-ff13-48e4-bbcd-bb5426f84b88" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="eb644a0b-7df0-4741-b513-ac33c83eb34e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Sales_Cr_Memo_Line_Excel-count-main" doc:id="c38f7c2a-dec3-4694-9d55-1d2296820ae6">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Line_Excel/\$count&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Line_Excel/$count" doc:id="40ff9117-c605-4339-87b7-2f919e3ff774" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="445a53e7-1257-42d6-9534-b3cd8e314575" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="135c6f3d-ed2a-4f17-9b52-f4eaeed9869b" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Sales_Cr_Memo_Line_Excel-main" doc:id="d1b04362-e5ad-4ae6-9427-9311e20bf1f9">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Line_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Line_Excel" doc:id="b508d6b7-0f6a-4f05-94ac-486470c36450" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="ccde2f65-2db2-4ed2-a2c5-5752f4dcf97a" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="fd33eb26-e474-4dca-959d-680962af8ca8" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="patch-Sales_Cr_Memo_Line_Excel-main" doc:id="1b9ef2f3-2d7f-4e1a-8427-341acdd004f3">
+        <set-variable value="#[&quot;Sales_Cr_Memo_Line_Excel&quot;]" doc:name="Set Endpoint to Sales_Cr_Memo_Line_Excel" doc:id="1897198c-4770-4751-bbb4-8c2a095ff7ea" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="4a5d697c-62f1-4401-917c-213e7c55f0c1" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e154c1aa-1f58-4bcf-87bc-097bbdd42d8e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Transfer_Order-main" doc:id="790b0fd5-ac0c-4ec6-881f-df81817e798b">
+        <set-variable value="#[&quot;Transfer_Order&quot;]" doc:name="Set Endpoint to Transfer_Order" doc:id="8069d89f-1358-4af0-b1d4-d5988182dc3f" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="017ec669-697c-4ba8-9497-590b2d1fc952" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b2dec0a2-ff9d-4ee1-8aed-7d278f3c332e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="post-Transfer_Order_Line-main" doc:id="988fd6af-a0d1-4d36-bbce-eed79b600275">
+        <set-variable value="#[&quot;Transfer_Order_Line&quot;]" doc:name="Set Endpoint to Transfer_Order_Line" doc:id="ebeaf852-a449-4cfb-b125-2bf719aa3518" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="d6dfc7ae-7cff-4313-abd0-b1345428ccf3" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b0739f67-f96b-4b7b-92ac-e6b7e6ebd497" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="patch-Transfer_Order_Line-main" doc:id="f0954290-c154-4239-9837-203b61074bfc">
+        <set-variable value="#[&quot;Transfer_Order_Line&quot;]" doc:name="Set Endpoint to Transfer_Order_Line" doc:id="f308e745-45a9-4070-9633-d59c78b77516" variableName="request_endpoint" />
+        <set-variable value="#[&quot;PATCH&quot;]" doc:name="Set PATCH Method" doc:id="f7d8887a-a87e-49c4-b0d4-8edf142e5392" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e8769c44-b681-4721-8ff6-cebe8022f9f5" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Sales_Discounts_Excel-main" doc:id="e9fe0bf4-62d4-456b-9cf1-13b201f40db3">
+        <set-variable value="#[&quot;Sales_Discounts_Excel&quot;]" doc:name="Set Endpoint to Sales_Discounts_Excel" doc:id="7f430145-0714-4c01-ab76-e7cfcd5c3afe" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="fec7d78f-e9d3-4f6d-8e23-5ac047edfd58" variableName="request_method" />
+    <flow-ref doc:name="Flow Reference" doc:id="a33521c7-1968-4ce1-a738-57afaeb9e779" name="process-new-main_GET_Flow" />
+    
+    </flow>
+    <flow name="get-Sales_Discounts_Excel-count-main" doc:id="7eb87a7d-283f-46b4-ac1b-261a3590aeb4">
+        <set-variable value="#[&quot;Sales_Discounts_Excel/\$count&quot;]" doc:name="Set Endpoint to Sales_Discounts_Excel" doc:id="7b933886-8fd7-4638-9341-0f0ea7194fee" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="dad4517e-49ff-4dd0-b91e-949f6d655185" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e9b74067-8cb1-4e98-adcd-6a5b8dd23bd1" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Reservation_Entries-main" doc:id="38b56ad2-835a-4d0a-a871-d176feec628c">
+        <set-variable value='#["Reservation_Entries"]' doc:name="Set Endpoint to Customers" doc:id="0cd62534-75c0-425c-b6f0-e029c86eccfe" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="99c21ad0-6715-45d4-80bb-29e6488c9a61" variableName="request_method" />
+    <flow-ref doc:name="Flow Reference" doc:id="fa210119-1afb-45a6-b320-5bb32458ca35" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Reservation_Entries-count-main" doc:id="3c15e457-8f5a-47c4-a922-588140c7f313">
+        <set-variable value="#[&quot;Reservation_Entries/\$count&quot;]" doc:name="Set Endpoint to Reservation_Entries/$count" doc:id="cc00fd6a-addc-4162-b479-6c3c29171b00" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="2a0832b1-3761-4299-a13a-76172622ce49" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="df7f980a-7685-48b1-bc08-3e67f403d8eb" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Purchase_Order_Lines-main" doc:id="354c68c1-dfc0-4621-81d7-535d531c9133">
+        <set-variable value='#["Purchase_Order_Lines"]' doc:name="Set Endpoint to Customers" doc:id="5a7d5248-325f-47f2-af22-74f63055192d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="010316c7-66ef-4645-85de-3d28db176604" variableName="request_method" />
+    <flow-ref doc:name="Flow Reference" doc:id="0be9ee16-6ca6-4f2e-832e-c6cf5dc7b682" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Purchase_Order_Lines-count-main" doc:id="7145181a-1af0-42d2-9921-409ee17d6e07">
+        <set-variable value="#[&quot;Purchase_Order_Lines/\$count&quot;]" doc:name="Set Endpoint to Purchase_Order_Lines/$count" doc:id="feca688e-90a1-4318-a422-c46f913ce1cb" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="bb704c25-af54-4efa-a5fb-eab61f5da498" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="0ee45fab-fe11-4940-bb37-23fa5d19fea4" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Item_Families-main" doc:id="007032ca-fc98-45d4-8b12-486ba0c31422">
+        <set-variable value="#[&quot;Item_Families&quot;]" doc:name="Set Endpoint to Item_Families" doc:id="0ca5faa5-a75c-4bca-953b-edeb46adf52c" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="72ef382f-b636-4c74-9f3d-afc50b117fb7" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="06ee2d36-0b69-4cdd-9696-8dedb61f9b03" name="process-new-main_GET_Flow" />
+    </flow>
+	<flow name="get-Item_Families-count-main" doc:id="ddc0d074-b06d-4e7c-a02f-6ef2355a6081">
+        <set-variable value="#[&quot;Item_Families/\$count&quot;]" doc:name="Set Endpoint to Item_Families/$count" doc:id="87ca37c5-c266-43fa-a69e-4a826b334f8c" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="aa20bf88-2480-4f84-a6f0-ed22a3ceef6d" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="23978a7d-14d1-4c49-b381-1ae004a308f5" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-DimensionValues-main" doc:id="22d2b55a-83b1-4dd1-85b9-11eba874604c">
+        <set-variable value="#[&quot;DimensionValues&quot;]" doc:name="Set Endpoint to DimensionValues" doc:id="ad756f48-2dad-43d8-bca6-dc481abecd43" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="473b37ec-d2df-4a31-bd6c-e7baf229b2fe" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="20d73bde-7035-42d9-8df1-3bc96b69b8f3" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-DimensionValues-count-main" doc:id="f8e3111c-d89e-487d-ab3f-4bac23ef11bf">
+        <set-variable value="#[&quot;DimensionValues/\$count&quot;]" doc:name="Set Endpoint to DimensionValues/$count" doc:id="dfbf34a4-3d51-4f81-9687-d043b2597b45" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="a762e7db-f41c-44bf-9607-cdc5b8706260" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="fe11450f-908a-4fc9-bf57-ab9f93358292" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Vendors-main" doc:id="7e96050e-8a42-4ea5-ac52-d708aba9adb3">
+        <set-variable value="#[&quot;Vendors&quot;]" doc:name="Set Endpoint to Vendors" doc:id="e4cec33c-d08b-4700-b64a-f27adf33437f" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="b14e4eed-7d0c-4980-a8c9-78e33b39ce2f" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="4fe8b29d-04c5-46e4-8cb3-fe0131ed02e7" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Vendors-count-main" doc:id="d0381c01-8a28-45a2-a730-0aa7b675976d">
+        <set-variable value="#[&quot;Vendors/\$count&quot;]" doc:name="Set Endpoint to Vendors/$count" doc:id="38db0894-a211-44f2-9f08-ce41fca45536" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="2ef4a66e-5e11-4492-b487-eca22fee1223" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="8cbb1efa-96f0-43c0-bad5-892f9db83866" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Retail_Item-main" doc:id="25b80c99-748b-4d31-809a-ce03b6496689">
+        <set-variable value="#[&quot;Retail_Item&quot;]" doc:name="Set Endpoint to Retail_Item" doc:id="f50cc4b9-0a10-46c9-b83b-c42152dade18" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="ea58cb6f-53a2-48b0-8b96-23a252c82d21" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="7b6f9683-00ab-41e2-bd3a-c3987447f021" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Retail_Item-count-main" doc:id="60707209-5ee1-41e9-b86e-6d0754bf6538">
+        <set-variable value="#[&quot;Retail_Item/\$count&quot;]" doc:name="Set Endpoint to Retail_Item/$count" doc:id="92a54020-7136-4664-9242-1ac884aa4bd2" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="3aca2723-6589-40ca-972b-3cebc5224276" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e1830041-e8c2-4ca9-b2b0-8f7767bbf0dc" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Item_Ledger_Entries-main" doc:id="891049c0-55da-4405-8655-f9397550f133">
+        <set-variable value="#[&quot;Item_Ledger_Entries&quot;]" doc:name="Set Endpoint to Item_Ledger_Entries" doc:id="6f59fe34-b01b-4f25-b4f5-c8f0f415635e" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="970e6588-c824-427f-b387-cab22870d6b8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="48ef26f7-8856-4003-a39d-1aa2c82c9600" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Item_Ledger_Entries-count-main" doc:id="23234b23-0678-472d-b792-a51606c8f726">
+        <set-variable value="#[&quot;Item_Ledger_Entries/\$count&quot;]" doc:name="Set Endpoint to Item_Ledger_Entries/$count" doc:id="8e51819b-170c-4ad7-82ea-780f91c15d7d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="2f2fc2a1-f37d-4994-9890-89493e5dcdda" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="4adb722d-282a-43e8-83e7-998694900293" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Purchase_Orders_Open_Lines-main" doc:id="ae379908-104a-40c9-bb3d-d4ddec2e4600">
+        <logger level="INFO" doc:name="StartLogger" doc:id="558db60e-6d78-4a17-94da-defd39213ee0" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Purchase_Orders_Open_Lines"]' doc:name="Set Endpoint to Purchase_Orders_Open_Lines" doc:id="0e1837c2-087c-4741-9d7b-4635aeb58f58" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="e6f6eb55-6cc9-44a7-a173-a25a81581dee" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="635585c5-7b30-456e-b3cc-f39a126cd9c1" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="c6fc5060-a1b8-4681-9ec9-07b6684b660d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Purchase_Orders_Open_Lines-count-main" doc:id="79d623c6-b161-4a24-9151-beaaefc0d87c">
+        <set-variable value='#["Purchase_Orders_Open_Lines/\$count"]' doc:name="Set Endpoint to Purchase_Orders_Open_Lines/$count" doc:id="31e21c16-421d-4f3d-91ee-4f2774f88714" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="b61225fc-a40b-4284-ab37-a45dee4882bf" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e15d45e2-cd16-4fa1-9375-e6cfa6e27070" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Bin_Content-main" doc:id="18803cd9-5200-4c5b-a47c-4398554b6085">
+        <logger level="INFO" doc:name="StartLogger" doc:id="682d0d63-c9ef-400e-b974-b93a023d2f3c" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Bin_Content&quot;]" doc:name="Set Endpoint to Bin_Content" doc:id="b1dbde51-5aee-4e9a-8b89-53609168f56b" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="75a8b81c-6170-4b64-a4ad-d94b82061358" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="429bb1d4-fa11-45e9-ad55-08281f56b695" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="f5d94529-a08a-4134-b487-635ee2d7b2b0" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Bin_Content-count-main" doc:id="f556d6b9-97b7-4e24-a8b2-2b9dea10a104">
+        <set-variable value="#[&quot;Bin_Content/\$count&quot;]" doc:name="Set Endpoint to Bin_Content/$count" doc:id="e4e0dbf3-4ce9-4ca3-8fda-4fcc77e7d7db" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="d8bb2515-672e-4f7f-bbd5-b745b51a0d73" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="8e737ab8-3d3a-4a0a-a159-15c0212b4258" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Discount_Offers-main" doc:id="36db6c98-37d2-491f-88db-2bd2367a6bb9">
+        <logger level="INFO" doc:name="StartLogger" doc:id="1bec6ec4-64c6-4705-938f-96701521bc17" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Discount_Offers&quot;]" doc:name="Set Endpoint to Discount_Offers" doc:id="52ebf7ea-71a7-44f3-8a8b-8ba6edd72f91" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="329cb672-7540-4277-8048-cf573d9f321e" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="2c527ccd-134f-4c5a-ba25-70e344a285ba" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="fdfed69e-ee18-4e9d-ba3c-4d4bc3c524fd" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Discount_Offers-count-main" doc:id="72b1ddba-8403-4a66-a6e6-1d1d942810df">
+        <set-variable value="#[&quot;Discount_Offers/\$count&quot;]" doc:name="Set Endpoint to Discount_Offers/$count" doc:id="683117a7-f66c-43dd-963a-afea5722f0d5" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="64846fcc-e3e3-47b0-92bb-7d3fefa72ff8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="22fa23ef-b771-419e-ba34-abaf241cf1d9" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Discount_Entries-main" doc:id="8d89898a-c11e-4262-a70f-0616f92fd743">
+        <logger level="INFO" doc:name="StartLogger" doc:id="a1d9e508-48d3-4055-9294-5422e5a3cb16" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Discount_Entries&quot;]" doc:name="Set Endpoint to Discount_Entries" doc:id="01965df1-ad36-4436-ac8d-81ed674f7e09" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="8fdb99ff-7564-49e8-a3fa-8779c92ed523" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="3d210021-2e8a-4b2c-a438-98074d13dc5e" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="1942b886-fd05-4140-ba59-2ce1bc112194" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Discount_Entries-count-main" doc:id="74a4acc7-2c38-4e08-830e-17aa974e2b0d">
+        <set-variable value="#[&quot;Discount_Entries/\$count&quot;]" doc:name="Set Endpoint to Discount_Entries/$count" doc:id="36774a96-2d90-4fa7-8b52-ab19fa0f8908" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="2594c4c7-eff6-427d-bd77-ce1fe8ba6100" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="df4fdcc4-816f-44ba-a183-aba19b997e3e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Value_Entries-main" doc:id="d403ddb3-29dd-46bb-b514-f482bca7b732">
+        <logger level="INFO" doc:name="StartLogger" doc:id="4a0e7437-aed6-4977-8967-178872aeca31" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Value_Entries&quot;]" doc:name="Set Endpoint to Value_Entries" doc:id="6f34de88-3b91-40fe-aedb-3a7eb77d51cf" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="bfcaf5d2-348f-4cb2-8b72-86962dde0db2" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b92b2591-d964-479c-9b9c-63a7c4c97a8f" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="6676acd0-ae89-4583-ab35-65547f0b7e69" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Value_Entries-count-main" doc:id="82c7320c-1e97-46a8-8ac9-cbc828ea679f">
+        <set-variable value="#[&quot;Value_Entries/\$count&quot;]" doc:name="Set Endpoint to Value_Entries/$count" doc:id="b6dc1511-1d9e-436b-8c35-a6f30484a077" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="52dfb676-caec-4be3-83ea-c858cb2dbd85" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="ff50a539-7dcf-4a11-98be-794223e77757" name="process-new-main_GET_Flow" />
+    </flow>
+        <flow name="get-Posted_Sales_Invoice-main" doc:id="d86bc5da-6c61-4510-975f-2ba99eef5aba">
+        <logger level="INFO" doc:name="StartLogger" doc:id="0425835e-f2a2-4aca-9539-246625b2e40a" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Posted_Sales_Invoice&quot;]" doc:name="Set Endpoint to Posted_Sales_Invoice" doc:id="6a34b0c4-dc7a-4530-8b2e-50ee90a1cdd5" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="f0c29ea3-3b05-489e-bb8b-8e7cc90cbd1c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b27d45e6-638a-4928-a618-52bf57d51d9c" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="185fb1fb-b52a-43f4-bf1c-7ac4364a8113" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Sales_Invoice-count-main" doc:id="c174cbbe-a053-4f5f-bdaf-3cc3c5a3988b">
+        <set-variable value="#[&quot;Posted_Sales_Invoice/\$count&quot;]" doc:name="Set Endpoint to Posted_Sales_Invoice/$count" doc:id="5e6b239e-290a-45fa-8693-a34e8af1d371" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="1d68e59f-d796-4806-b2ae-80d6a67817f5" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="6f590f48-d189-4950-b579-41792f24d9bd" name="process-new-main_GET_Flow" />
+    </flow>
+        <flow name="get-Posted_Sales_Credit_Notes-main" doc:id="9f3f8912-7f3e-4a79-b5eb-37e39c853a1d">
+        <logger level="INFO" doc:name="StartLogger" doc:id="ecd2d84a-9fb4-47e5-883b-297dc7b17ad3" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Posted_Sales_Credit_Notes&quot;]" doc:name="Set Endpoint to Posted_Sales_Credit_Notes" doc:id="4effe2b0-e6e2-4e0e-a290-1dcba68a9b1e" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="9d58cfa0-3dfc-4226-a89e-575f02f17ed6" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="44e59f98-34ed-4cee-99c6-cd7ca3f0d892" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="5db6c9fd-7ddc-4edd-9df4-c0f1053705da" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Sales_Credit_Notes-count-main" doc:id="e21da1ae-d0fd-4261-bef4-128571777eff">
+        <set-variable value="#[&quot;Posted_Sales_Credit_Notes/\$count&quot;]" doc:name="Set Endpoint to Posted_Sales_Credit_Notes/$count" doc:id="6d18199d-0691-4aab-a5d7-66d888084ab8" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="1812ad3a-3653-46e2-87a7-f7b771ce42e1" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="72704e2c-17ed-479f-a50a-c4888164e3e5" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Retail_Sales_Entries-main" doc:id="6326682b-5c88-42b2-b682-82dc25b77efa">
+        <logger level="INFO" doc:name="StartLogger" doc:id="61486097-9f8f-4e42-aa07-3a679ac1c36d" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value="#[&quot;Retail_Sales_Entries&quot;]" doc:name="Set Endpoint to Retail_Sales_Entries" doc:id="923a5106-bbd8-4520-9397-c82fb18fdb78" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="9d18acc0-73f4-42c6-b04c-3291c000e16d" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="33b3697c-210b-465b-866a-605335a468fc" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="9dbc64b5-d935-4090-a3d6-57f473e46b3b" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Retail_Sales_Entries-count-main" doc:id="2307cb16-64a3-45d5-8f96-7803ad1f7a38">
+        <set-variable value="#[&quot;Retail_Sales_Entries/\$count&quot;]" doc:name="Set Endpoint to Retail_Sales_Entries/$count" doc:id="be81997e-9120-4dec-85e9-76d087c2d6e3" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="8381f323-74ba-4607-bb6e-bc64948ff6a8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="92b0a977-1d26-4038-af6e-827a9110cdfb" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-Retail_Item_Category-main" doc:id="29790970-1390-41d2-bd94-98db48dede74">
+        <set-variable value="#[&quot;Retail_Item_Category&quot;]" doc:name="Set Endpoint to Retail_Item_Category" doc:id="7ba6ba82-1062-45fb-8d35-339e5f68cdc5" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="ec7dd969-8c99-418f-9b02-667694f9178b" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="377c1759-e2d2-450f-8785-08fde2caa280" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Retail_Item_Category-count-main" doc:id="6ec2b5c4-6385-4f6c-8a04-825735ba3414">
+        <set-variable value="#[&quot;Retail_Item_Category/\$count&quot;]" doc:name="Set Endpoint to Retail_Item_Category/$count" doc:id="489b9317-9ca3-47ba-82f8-a90581fcfcf1" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="14bf2fee-bdf7-4594-95d0-17426a190864" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="65f3a3d3-892e-46f9-b299-3d24cda7240e" name="process-new-main_GET_Flow" />
+    </flow>
+     <flow name="get-General_Ledger_Setup-main" doc:id="ce84564c-cac2-4092-9476-1be9c7f2da79">
+        <set-variable value="#[&quot;General_Ledger_Setup&quot;]" doc:name="Set Endpoint to General_Ledger_Setup" doc:id="0d13bff1-50b5-4ad5-857b-aba74e0c84db" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="38e4ccc5-5509-4fa6-bfcc-2ee5151cb7f8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="08a1b671-fd82-4fc0-b20a-093c85b2815e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-General_Ledger_Setup-count-main" doc:id="d3338a0b-0b1d-4168-98c5-fc49eae4643b">
+        <set-variable value="#[&quot;General_Ledger_Setup/\$count&quot;]" doc:name="Set Endpoint to General_Ledger_Setup/$count" doc:id="aac397f5-36b2-4d2f-a23d-b60d3b33a132" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="77ba5a42-4aca-41a8-9f4e-e842a181c2e2" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d0e8066b-c136-4e76-8cea-597b2cfc1889" name="process-new-main_GET_Flow" />
+    </flow>
+       <flow name="get-Companies-main" doc:id="e744f731-4f28-4c23-8de5-8dedd96a1635">
+        <set-variable value="#[&quot;Companies&quot;]" doc:name="Set Endpoint to Companies" doc:id="14f77fab-8f3c-4f0b-a129-6516222bf47c" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="5589af4a-cf19-4b27-93e9-02d03c142efc" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="76fead8f-37a1-4020-b01e-eaa0d2117044" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Companies-count-main" doc:id="2411855c-251b-4556-bd49-c758ddaf16bd">
+        <set-variable value="#[&quot;Companies/\$count&quot;]" doc:name="Set Endpoint to Companies/$count" doc:id="f459e07a-cf9e-40f4-a2d2-854de135b65e" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="85a38122-cf1a-455f-8f49-1e7b81dcfafc" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="64246e65-2e47-4005-a028-33a7e298182e" name="process-new-main_GET_Flow" />
+    </flow>
+       <flow name="get-Users-main" doc:id="5561fdc6-7f10-4546-80a8-837dca65f384">
+        <set-variable value="#[&quot;Users&quot;]" doc:name="Set Endpoint to Users" doc:id="6a403eb8-61ae-44ca-b0c7-fa4de86128ab" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="105d3544-38ba-4ab0-9573-7283429427de" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="67e3313e-c484-4135-b695-33d53f7b609a" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Users-count-main" doc:id="80d8be19-ab64-4086-9505-f11f8dd77ed6">
+        <set-variable value="#[&quot;Users/\$count&quot;]" doc:name="Set Endpoint to Users/$count" doc:id="bb47bbd7-17bf-4d07-a723-8efcfe1523ba" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="4f740234-24f9-4539-9a50-7852f1dad698" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e992e8e9-271a-41b8-8166-d4a8f75277ff" name="process-new-main_GET_Flow" />
+    </flow>
+	
+    <flow name="get-salesDocumentLines-main" doc:id="cee075c6-9270-4a17-a176-9f69e8664fae">
+        <set-variable value="#[&quot;salesDocumentLines&quot;]" doc:name="Set Endpoint to salesDocumentLines" doc:id="514c850d-5c1c-43df-a34e-fe7630a61e34" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="d539063b-73fb-495a-a984-c348458fe507" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="0148a009-c20c-4615-8d41-2542532a6a2f" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-salesDocumentLines-count-main" doc:id="2657f9b8-887a-4638-8a59-e29a9e9b9f9e">
+        <set-variable value="#[&quot;salesDocumentLines/\$count&quot;]" doc:name="Set Endpoint to salesDocumentLines/$count" doc:id="2932f561-04b0-4b1e-98af-185887871c8e" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="fbd7bf1a-5d6b-4bd0-8086-98e8c8b3ba5e" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="2edd2f28-4af0-4e93-810a-75ed90e26f20" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-salesDocuments-main" doc:id="5ebf0220-bca2-43f3-beb7-944a6b12ea73">
+        <set-variable value="#[&quot;salesDocuments&quot;]" doc:name="Set Endpoint to salesDocuments" doc:id="0118b248-8c2f-4029-acae-2a4a3a20bf21" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="b3f31701-e24c-41c3-8ff9-e2e1213b0f9e" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="c53c9d66-558f-4a7f-ae67-f3ae230dba20" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-salesDocuments-count-main">
+        <set-variable value="#[&quot;salesDocuments/\$count&quot;]" doc:name="Set Endpoint to salesDocuments/$count" doc:id="070b3429-2f0c-4100-ae2a-b0d17dcb41c4" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="a1c4acdb-680d-445e-bef8-f335a500209f" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="ee9d26e1-c483-4b05-b833-c5b62948968c" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Staff-main" doc:id="e6e032bb-1914-42e7-9ebf-f90ce02cfc66">
+        <logger level="INFO" doc:name="StartLogger" doc:id="116b8546-3390-46f5-a88f-5f3f492ae574" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Staff"]' doc:name="Set Endpoint to Staff" doc:id="2ed7244c-3601-41be-afb0-0e0d5315a07b" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="567d62e3-dbef-40ab-8696-7dd24a661b9c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d4f087bf-9bc7-44b3-aa5c-d2c8977cceb6" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="60a95c3d-b6cb-4a50-9cdf-d2476349021d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Staff-count-main" doc:id="09d09b8c-1aef-4c3c-92ef-ad3f83b7f439">
+        <set-variable value="#[&quot;Staff/\$count&quot;]" doc:name="Set Endpoint to Staff/$count" doc:id="5bf85429-4a93-4a78-be38-e03e66764ffc" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="f0101bda-906b-4adb-bd1a-32c6978dd842" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="9305ef02-54db-4b15-b4c5-6202596d6a9d" name="process-new-main_GET_Flow" />
+    </flow>
+   <flow name="get-Posted_Purchase_Invoices-main" doc:id="307929a1-e36a-4cbb-a2bf-4a4ccdcd21a5">
+        <logger level="INFO" doc:name="StartLogger" doc:id="9273c8f3-67e6-428d-bee0-7191b0fb2fb5" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Purchase_Invoices"]' doc:name="Set Endpoint to Posted_Purchase_Invoices" doc:id="97c77e9d-4c37-4a18-bc8f-df4ab091de41" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="458af24b-67da-44fc-954e-cddb0ba92561" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="ada81181-dad1-4d85-a96b-c44fa6ab8dd8" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="6d5ea273-7c1d-4a47-a4ee-ae3c069906a0" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Purchase_Invoices-count-main" doc:id="fccd83f7-15b2-4f8e-862d-493046e5430c">
+        <set-variable value="#[&quot;Posted_Purchase_Invoices/\$count&quot;]" doc:name="Set Endpoint to Posted_Purchase_Invoices/$count" doc:id="28a31797-5dfc-4328-acec-520bcb2174e8" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="a6dfea73-8a07-49bf-b4f4-00dc1d11a58c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="9ecbdbb5-446f-4a12-a1c0-8e1e90fc80c6" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Purchase_Order_Archives-main" doc:id="cc7793f6-e2fa-4fad-9b4c-a1b43f2be2c8">
+        <logger level="INFO" doc:name="StartLogger" doc:id="4fe377eb-5ebb-4b57-9d46-4393ab6c527c" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Purchase_Order_Archives"]' doc:name="Set Endpoint to Purchase_Order_Archives" doc:id="b2420e37-a8f0-43b9-ad7c-8e76407c9e5b" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="1c5a1543-ba40-4cc2-ba22-55bb2c8ed7a5" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e2aa2f05-7b03-4748-bca7-f4f99ec47f68" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="a75fce0b-58b8-4930-baa2-4b98c6df5b1f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Purchase_Order_Archives-count-main" doc:id="c270b1d5-f196-4487-aaaa-b4c6bfffe8fd">
+        <set-variable value="#[&quot;Purchase_Order_Archives/\$count&quot;]" doc:name="Set Endpoint to Purchase_Order_Archives/$count" doc:id="1e02bc0c-e59e-4b03-a0aa-a6feab6a7438" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="fec10ff4-1959-435e-b648-c683d1e2cf27" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="e8fdb173-9c1c-41a1-b8a5-820e2da07633" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Purchase_Order-main" doc:id="59de8adf-a4f9-4fef-bb60-83264606634f">
+        <logger level="INFO" doc:name="StartLogger" doc:id="7a5a8028-2ef6-479f-888f-ca880a5a7116" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Purchase_Order"]' doc:name="Set Endpoint to Purchase_Order" doc:id="0821c19c-b6bc-4d26-aa12-aa34d855a6c5" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="65aea21b-685f-4286-8500-e714eb6d76d1" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="c30c7988-2657-4604-8e9e-fe9afef8d99c" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="c0196039-b884-433c-ac61-822d6ed7090e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Purchase_Order-count-main" doc:id="88c1d99e-3055-49cd-80ad-07acdcbd541a">
+        <set-variable value="#[&quot;Purchase_Order/\$count&quot;]" doc:name="Set Endpoint to Purchase_Order/$count" doc:id="4301d006-4192-4d21-a977-fe523d709c45" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="c668f9e7-51aa-42c3-958f-2fac25490a6a" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="0b470e51-c83d-40c6-82b9-9aeb66d1dd7b" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Purchase_Order_Lines_Archives-main" doc:id="e59d3c5c-acbd-45eb-a30c-fb78bd794648">
+        <logger level="INFO" doc:name="StartLogger" doc:id="5d458f3f-082a-4517-b8f9-4b2bb5d909da" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Purchase_Order_Lines_Archives"]' doc:name="Set Endpoint to Purchase_Order_Lines_Archives" doc:id="5122c804-98a5-4eb5-bb63-417fbcbdefa3" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="da91095a-e137-49cd-9a64-817b4d8096dd" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="cb714853-fe68-49e6-b950-c6e4af60ae3f" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="fa9872ff-0147-4e26-b81d-e91903a0af68" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Purchase_Order_Lines_Archives-count-main" doc:id="9f90ced1-7952-41cb-9bfb-d498c9834c53">
+        <set-variable value="#[&quot;Purchase_Order_Lines_Archives/\$count&quot;]" doc:name="Set Endpoint to Purchase_Order_Lines_Archives/$count" doc:id="ff5a2e55-09b6-4f7e-a81a-086f83fde044" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="4199fa9a-b601-4b9a-bdc0-a8a63253a6f8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="1fe03360-f385-40aa-9c47-c77dcb97163e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Posted_Approval_Entries-main" doc:id="1af0b870-6910-441e-9fa6-a99cd12ced5d">
+        <logger level="INFO" doc:name="StartLogger" doc:id="0c91f369-a2ab-4965-9760-d0144a2a89c4" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Approval_Entries"]' doc:name="Set Endpoint to Posted_Approval_Entries" doc:id="cb8e565f-218c-4d50-8096-bcbd0ad4d7d1" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="a03c6210-e461-4df7-8cf7-c98d0af412f8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="37923c1c-fe65-4d9c-9eaf-7f7c8b3dbb77" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="bdae8738-307a-4758-b6be-2537c4a059f0" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Approval_Entries-count-main" doc:id="38b65ef9-9868-4866-bd56-887b896dd386">
+        <set-variable value="#[&quot;Posted_Approval_Entries/\$count&quot;]" doc:name="Set Endpoint to Posted_Approval_Entries/$count" doc:id="095972a3-ef62-4037-b477-870c3d93229d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="391c2a43-8d00-4310-b2de-3f4597f02131" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="bb5f3ddb-5ad2-4f07-90a6-a2e9acde5d1d" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Posted_Purchase_Receipt-main" doc:id="34b0ab15-845d-469a-8e16-5bec124d0d15">
+        <logger level="INFO" doc:name="StartLogger" doc:id="58949c49-29fe-43d8-8dac-230aeddda019" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Purchase_Receipt"]' doc:name="Set Endpoint to Posted_Purchase_Receipt" doc:id="c58c446e-b8aa-4aff-88c9-784f4b2e1a7d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="65d92f83-d7fa-4f7e-ac24-d58f5c7160ce" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="fb829878-df29-4b24-8aef-3cfc46498a00" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="8e9b5997-54e1-4c2c-8e23-f17b412e47a3" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Purchase_Receipt-count-main" doc:id="eac38cdb-0046-410e-86d4-18ac4fb145f5">
+        <set-variable value="#[&quot;Posted_Purchase_Receipt/\$count&quot;]" doc:name="Set Endpoint to Posted_Purchase_Receipt/$count" doc:id="ff40bbe8-1c4f-4f28-bdbd-e2c7ffcaa9e4" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="fb493111-7156-43a6-a34c-e23135516967" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="1b1b66d4-8816-4f0d-a677-8f19614bb534" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Approval_Request_Entries-main" doc:id="6cae4de0-acaa-4b0f-ab0f-eb5ed3822789">
+        <logger level="INFO" doc:name="StartLogger" doc:id="8ebd654f-21d8-4750-b3a3-1ed06e0a1f84" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Approval_Request_Entries"]' doc:name="Set Endpoint to Approval_Request_Entries" doc:id="4602e9c6-cf06-4c0e-ba86-5bb6e04dde3f" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="25b0c39e-fccf-4e87-806f-57547f73d154" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="1efcded9-04f8-4f1f-a583-baa757eddfbc" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="7c40519e-1c59-433e-a1e7-6b2fe4c19c0d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Approval_Request_Entries-count-main" doc:id="e5a2e864-b36d-4bbe-9874-47d92e6f7db1">
+        <set-variable value="#[&quot;Approval_Request_Entries/\$count&quot;]" doc:name="Set Endpoint to Approval_Request_Entries/$count" doc:id="8188a957-1988-4307-9eb3-08e979cf0b40" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="c7e43125-fdef-4c81-aec4-0a64e2d33036" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="5826f971-134b-4272-ad8e-99cd489fb05e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Posted_Purchase_Invoices_Lines-main" doc:id="9cb414df-b1c8-42ba-a786-f5d29fa655ce">
+        <logger level="INFO" doc:name="StartLogger" doc:id="9f176db8-3b34-45cf-bdb7-7d2734def4a9" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Purchase_Invoices_Lines"]' doc:name="Set Endpoint to Posted_Purchase_Invoices_Lines" doc:id="b7bb4ad9-5bf0-416f-ab6c-3d5ae814f81a" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="424dc306-8518-4bcb-84a4-f04074b8cc0c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="22afae88-8052-4aea-831e-65cc8f29f50a" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="c53d24e3-193e-449f-ba36-2d26078ff573" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Purchase_Invoices_Lines-count-main" doc:id="ef50b0ce-9d86-4d51-a058-e892d8ec518e">
+        <set-variable value="#[&quot;Posted_Purchase_Invoices_Lines/\$count&quot;]" doc:name="Set Endpoint to Posted_Purchase_Invoices_Lines/$count" doc:id="07b7ecdc-4015-45ae-b3db-da5cec93c476" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="c95557f3-0a59-4e83-9530-966b4634e617" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="2d8ede0a-9713-49b1-97a3-a06d062cc121" name="process-new-main_GET_Flow" />
+    </flow>
+      <flow name="get-Posted_Sales_invoice_lINE-main" doc:id="615e154c-3fd7-4693-98ab-c4df7b254e56">
+        <logger level="INFO" doc:name="StartLogger" doc:id="3716570a-ce44-4784-ba74-f1b814ae664d" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Sales_invoice_lINE"]' doc:name="Set Endpoint to Posted_Sales_invoice_lINE" doc:id="27e7aeec-18ea-4c90-955b-ebc5fe3f55bb" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="1674053c-0ddb-44da-9844-95f0a3af1a31" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="6d178f73-3b04-486d-8474-3b96ef90fd3e" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="e7087fe2-afcd-40b8-9751-661e4566a50a" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Sales_invoice_lINE-count-main" doc:id="609f22f1-10f8-4217-8f60-5e4d5397abbb">
+        <set-variable value="#[&quot;Posted_Sales_invoice_lINE/\$count&quot;]" doc:name="Set Endpoint to Posted_Sales_invoice_lINE/$count" doc:id="1350b805-b721-4fa7-a402-f82c0d3994dc" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="37c995e4-beab-47d5-948e-66ec696a80da" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="c56897f6-80ab-4f45-826e-c1ef220be0dd" name="process-new-main_GET_Flow" />
+    </flow>
+      <flow name="get-Posted_Sales_Credit_Notes_Line-main" doc:id="f00a8bbf-7675-413a-a975-c816d0580922">
+        <logger level="INFO" doc:name="StartLogger" doc:id="bd9e143a-3fa9-4ecb-9a5a-54f05a0e3c3f" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Posted_Sales_Credit_Notes_Line"]' doc:name="Set Endpoint to Posted_Sales_Credit_Notes_Line" doc:id="0db8f94b-8cf3-4669-87e4-8bcc18b65f14" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="0033aeb8-343b-41a0-b760-59a24f90ca36" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="740d6e57-f3f1-4882-bdb3-9bdf41057773" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="d1c9f9d9-9a95-4589-9dd5-5dda9cf752e4" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Posted_Sales_Credit_Notes_Line-count-main" doc:id="2045e388-e29b-4004-99f5-2afbdca811b1">
+        <set-variable value="#[&quot;Posted_Sales_Credit_Notes_Line/\$count&quot;]" doc:name="Set Endpoint to Posted_Sales_Credit_Notes_Line/$count" doc:id="fbaefe5f-eb63-4db7-91ad-5363dd73dc4d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="fa9827c9-0e43-4822-b177-57bc1a7471f7" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="194e357e-7950-48dd-b37e-50d9d0c60ef2" name="process-new-main_GET_Flow" />
+    </flow>
+      <flow name="get-Sales_Quotes-main" doc:id="a7b17c7b-927b-4663-af96-01ad59c1f230">
+        <logger level="INFO" doc:name="StartLogger" doc:id="0bdfda43-72c5-42ae-a36b-fdb865a493a4" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Sales_Quotes"]' doc:name="Set Endpoint to Sales_Quotes" doc:id="b329e7f0-d66c-4ec3-a422-945475f0d52d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="5eecbd89-7642-4040-9d69-478b230de784" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="af77e614-d336-4e2f-b4ae-3753ae286f3d" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="fd72597c-eea0-4c67-9bce-73ecc5e2f50c" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Sales_Quotes-count-main" doc:id="ce0795b0-0ba3-4af7-a796-df8997d10c06">
+        <set-variable value="#[&quot;Sales_Quotes/\$count&quot;]" doc:name="Set Endpoint to Sales_Quotes/$count" doc:id="0ca718ed-113a-493c-99cc-0394c381ad2a" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="849c473b-b09b-40f7-a592-a64e425ed7a0" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="73df1761-448a-418a-ba51-6b35eee4d558" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Retail_Terminal_List-main" doc:id="7fb4fd1a-3e9a-47fc-bc02-77bca89324cc">
+        <logger level="INFO" doc:name="StartLogger" doc:id="5a9b2645-eabd-4066-ae3d-2c74b99f02bb" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Retail_Terminal_List"]' doc:name="Set Endpoint to Retail_Terminal_List" doc:id="c4af42c1-9af8-45f7-a9fb-2a3850f7687b" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="ac8ee8bc-b681-4216-aa37-2743a8b5aad4" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d11c307e-c053-43a1-9a52-d18f269cb3b3" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="ff2c1deb-8c84-4d18-bc0f-7d0a1e19b450" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Retail_Terminal_List-count-main" doc:id="876ae751-dca5-48c7-b1e5-74a76fd1fd12">
+        <set-variable value="#[&quot;Retail_Terminal_List/\$count&quot;]" doc:name="Set Endpoint to Retail_Terminal_List/$count" doc:id="06dfea88-7dca-40dc-b4ef-82f7d5530651" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="8da42d3f-0617-44a7-a8ab-4b5aaf0c4592" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="98e59780-bac4-473b-9fae-0cfe754ef90c" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-LS_Transaction_Register-main" doc:id="2f1b93d9-bf92-48f4-94bd-716f274b5f23">
+        <logger level="INFO" doc:name="StartLogger" doc:id="f5cc8b5e-4713-434d-b146-f64e2d8bdabf" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["LS_Transaction_Register"]' doc:name="Set Endpoint to LS_Transaction_Register" doc:id="dc05911c-d1e2-439b-8c6c-8754441c5de9" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="7e1cca75-af81-46cb-9548-162ab3d61227" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="c6d15a63-274e-4330-919f-444b916628d3" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="4580d054-42ed-4573-bab8-61a2118b34e4" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-LS_Transaction_Register-count-main" doc:id="ea5c9d5c-d593-4c53-b533-31fc2d7eec50">
+        <set-variable value="#[&quot;LS_Transaction_Register/\$count&quot;]" doc:name="Set Endpoint to LS_Transaction_Register/$count" doc:id="0b8d1249-b7ac-41e1-ae32-0c35af3fab30" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="37a108ac-df8c-4f41-ac71-951cc4bee0de" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="8352dcea-71cf-4ef9-9fa9-33961f297e9e" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-LS_Flight_List-main" doc:id="2253c7f5-d8db-4101-811b-d3dd428703b3">
+        <logger level="INFO" doc:name="StartLogger" doc:id="8136078c-7081-44c9-9d2c-8f7295b2e03c" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["LS_Flight_List"]' doc:name="Set Endpoint to LS_Flight_List" doc:id="be166a72-655f-4ca2-9fca-96274ff0f6d1" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="ed72af23-a19d-4a7e-a6ff-07aacc5ae544" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="73f573ff-b0a0-4277-ba29-79d1805d7aae" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="07f36d5e-77e0-45e9-a04d-b32dd5a519d4" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-LS_Flight_List-count-main" doc:id="4d5e2a72-cfe7-4a38-9a3d-0c053cf281eb">
+        <set-variable value="#[&quot;LS_Flight_List/\$count&quot;]" doc:name="Set Endpoint to LS_Flight_List/$count" doc:id="cf0fef80-c6ee-42af-b70b-45c955d08862" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="e55b3101-bbe0-4941-afd9-70e6fc715552" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d4ce243c-0e83-4b33-9cae-f3ebbeffa3de" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Boarding_Pass_details-main" doc:id="9381b06c-90d8-4552-a1c9-c7834917c7f7">
+        <logger level="INFO" doc:name="StartLogger" doc:id="7614f30a-1068-4339-bca2-32e1edc1c97f" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Boarding_Pass_details"]' doc:name="Set Endpoint to Boarding_Pass_details" doc:id="1b47cc21-7394-47b3-93ae-bc6e1f27cf7a" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="b7ba79b1-bba1-475a-bb6b-5764ef8919b8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d1a72946-fcf8-41cc-8711-01a985e63481" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="fae2846f-ed1c-4a6f-a5aa-ab1585214979" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Boarding_Pass_details-count-main" doc:id="70159658-eeeb-44d2-827f-fab7008a8561">
+        <set-variable value="#[&quot;Boarding_Pass_details/\$count&quot;]" doc:name="Set Endpoint to Boarding_Pass_details/$count" doc:id="2f7ff1d1-4fcf-46b1-b2be-4a67363d9313" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="5fb4dd7d-a36e-4478-a24b-74134c561fc8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="24b0015d-bb95-4bbe-9ce6-6bcb436db8c5" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-LS_Airport_Terminal-main" doc:id="201b7f0b-b45d-4383-b5e0-a389b38fa0dd">
+        <logger level="INFO" doc:name="StartLogger" doc:id="097a18d4-a06a-400b-a30b-bfe583bb140d" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["LS_Airport_Terminal"]' doc:name="Set Endpoint to LS_Airport_Terminal" doc:id="2aa51ae1-61b2-4a5e-b60c-1c26593ee004" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="33075297-ad9b-43f1-97a8-f7b972e35a91" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="4dac20ef-013f-4b3c-88e7-8571d6f17e6b" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="949ced87-d874-4d8b-a1f5-0024b639261d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-LS_Airport_Terminal-count-main" doc:id="5f4d34bb-391d-445e-aea2-da0642885bf8">
+        <set-variable value="#[&quot;LS_Airport_Terminal/\$count&quot;]" doc:name="Set Endpoint to LS_Airport_Terminal/$count" doc:id="0191927a-513b-4f2b-930a-1a43cfcc136a" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="76bb3a35-10a5-4031-bb1a-ffeb393e7091" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="fa994cff-6edc-407d-8857-d127b1984a0f" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Item_Reference_Entries-main" doc:id="4f37ddf5-9ce0-4f63-8c35-6c17f12871f4">
+        <logger level="INFO" doc:name="StartLogger" doc:id="c36c4086-6dee-4cff-be50-8bc4c15b6dcf" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Item_Reference_Entries"]' doc:name="Set Endpoint to Item_Reference_Entries" doc:id="b51f7eb4-3311-497a-b0af-b12719cf43b7" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="e7537cd8-2a2f-41e4-b5f2-3a51d2484f8c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="b7312244-9621-4f19-8ab0-d47d5495618c" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="b8e87346-0ffe-4d9e-975f-1c83770ceec3" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Item_Reference_Entries-count-main" doc:id="bf871bb9-cecc-4e91-8073-de027ce5de2c">
+        <set-variable value="#[&quot;Item_Reference_Entries/\$count&quot;]" doc:name="Set Endpoint to Item_Reference_Entries/$count" doc:id="0287f0ac-4ccc-4f5b-bf7a-b93abdc5373c" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="8af942fb-7a87-4ad1-95af-111ec42dfcd8" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="9dd3e874-5463-46ac-b0f0-bc2c2f33bfb7" name="process-new-main_GET_Flow" />
+    </flow>
+    <flow name="get-Item_Variants-main" doc:id="bd32e2eb-52ab-46f6-8463-0b575420efba">
+        <logger level="INFO" doc:name="StartLogger" doc:id="27d09b9f-506a-4a21-8abd-0d4b4c4bac8a" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Item_Variants"]' doc:name="Set Endpoint to Item_Variants" doc:id="e9b52377-e243-4490-bb24-43616704d9a7" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="d0ed6f34-51e5-4806-978f-e8d0ab3ed958" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="a4e959f9-7ef2-4b30-b19a-51825be53fb3" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="d4aa1364-c7b8-40f0-a4bf-b5fc36a09575" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Item_Variants-count-main" doc:id="3fd6bc41-f7c1-4edc-9782-ea8e3ebdd566">
+        <logger level="INFO" doc:name="StartLogger" doc:id="4e8e172b-bc26-4659-96f2-34399a95c386" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[&quot;Item_Variants/\$count&quot;]" doc:name="Set Endpoint to Item_Variants/$count" doc:id="ff651db1-5d9e-4a46-8f8b-687cf7f22d08" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="d00fe639-d495-42b5-91ea-4b166d25a62c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="4c6e8b1f-5b13-4454-93dc-b951211c8a2a" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="0c6e147d-e588-41ae-9f56-94e7792bb21e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>    
+    <flow name="get-Warehouse_Receipt_Lines-main" doc:id="e55606f3-dc8b-4bb2-bc59-8f58af28b029">
+        <logger level="INFO" doc:name="StartLogger" doc:id="958274d4-58db-4123-a0c0-97e2b32e17a3" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+        <set-variable value='#["Warehouse_Receipt_Lines"]' doc:name="Set Endpoint to Item_Variants" doc:id="722625e8-954e-4a39-b876-edb698b201b2" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="57a978b3-aaae-43a0-a431-ffaea2428b54" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="d325a39a-f01c-4cf8-80fe-60eb30a736e1" name="process-new-main_GET_Flow" />
+        <logger level="INFO" doc:name="EndLogger" doc:id="9dd324c7-9519-41b2-ac0b-e3e4ca078476" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="get-Warehouse_Receipt_Lines-count-main" doc:id="5cf29ad3-b7ba-4a4c-a3f6-29e5470c3e10">
+        <logger level="INFO" doc:name="StartLogger" doc:id="a9d1cad1-24da-42f6-84de-bf06e29e93f2" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[&quot;Warehouse_Receipt_Lines/\$count&quot;]" doc:name="Set Endpoint to Item_Variants/$count" doc:id="f45864a8-8c2f-4280-9169-cf3c889c2394" variableName="request_endpoint" />
+        <set-variable value="#[&quot;GET&quot;]" doc:name="Set GET Method" doc:id="63b2c1a1-a97e-4b87-b683-af96122caa7e" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="48bfa8d0-8ea0-481b-b2f1-3f3008b7d3b8" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="73496e1c-9666-458e-a685-ded5aba8a24d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="post-salesDocumentLines-main" doc:id="fbb7942e-3f49-4351-a0fb-c4a8fc797e3b">
+        <logger level="INFO" doc:name="StartLogger" doc:id="8ebf8778-0e08-4ead-a445-f7633cb99d4e" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[&quot;salesDocumentLines&quot;]" doc:name="Set Endpoint to salesDocumentLines" doc:id="2ba3e1fd-6ed7-41ce-b5fe-fb4c01bd8d36" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="569b06ce-35b9-4b14-8d14-998dcd3a0b44" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="13bc0753-27e1-4fc9-b76f-6b632d079bae" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="15acd8f2-f81a-401e-9fe9-896bc2575c88" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="post-salesDocuments-main" doc:id="e8d62b0e-7eed-4016-87df-6a243bbb8f3c">
+        <logger level="INFO" doc:name="StartLogger" doc:id="e8d964a6-d803-451c-b523-cf99bfc85e82" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[&quot;salesDocuments&quot;]" doc:name="Set Endpoint to salesDocuments" doc:id="48fa70a3-948a-4904-ba7f-2a9805732b5d" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="6d9fd44a-34dc-445c-9905-521fae96d1dd" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="7f32a811-d92a-4403-9135-d6be7d09465f" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="5cbde9e6-6f5a-4217-8a22-9f56714fb6ca" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+    <flow name="post-Customers-multi-main" doc:id="9cec4b54-9d00-433f-9ce2-d6c97beb554a">
+        <logger level="INFO" doc:name="StartLogger" doc:id="ce3fe9b0-d917-4448-94e3-c0184bcc215c" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[&quot;Customers/\multi&quot;]" doc:name="Set Endpoint to Customers" doc:id="cdc60698-4674-4d1d-ae83-2b3ba1b52231" variableName="request_endpoint" />
+        <set-variable value="#[&quot;POST&quot;]" doc:name="Set POST Method" doc:id="fe8951c6-be07-4691-b9bc-f2e975dbed2c" variableName="request_method" />
+        <flow-ref doc:name="Flow Reference" doc:id="dbf65e57-0782-4e42-b0d1-692eb2ca6388" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="f51b4e10-f1e0-4bd0-8b58-1b66436587f3" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+      <flow name="get_Adapter_Customer-bc-to-sat-impl" doc:id="7aa202b6-9971-4a45-af53-7c76a0e08156">
+        <logger level="INFO" doc:name="StartLogger" doc:id="e0d21282-fa02-4897-8289-24d640f22e17" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<ee:transform doc:name="Target Queryparams" doc:id="d3355201-2144-43b8-994b-bf70328db9f8">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company"><![CDATA[(attributes.queryParams.bctargetCompany default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment"><![CDATA[(attributes.queryParams.bctargetEnvironment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID"><![CDATA[(attributes.queryParams.bctargetGuid default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System"><![CDATA[(attributes.queryParams.bctargetSystem default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable doc:name="Set GET Method" doc:id="e0fe7854-3754-4a82-87c9-cf5bd29fc507" variableName="request_method" value='#["GET"]'/>
+		<set-variable value='#["Customers"]' doc:name="Set Endpoint to Customers" doc:id="2f26775e-876e-47f1-9676-357d2c1de5a8" variableName="request_endpoint" />
+		<flow-ref doc:name="Flow Reference" doc:id="eba52260-fa3a-4c71-8587-32f6316df565" name="process-new-main_GET_Flow" />
+		<choice doc:name="Check businessCentralResponse.value" doc:id="d7679ffe-badc-4f4a-9b9e-d55f73ec290e">
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<ee:transform doc:name="BC to SAT Mappings" doc:id="1f9ac0fa-1f0e-49a9-9023-bdc5ca28367e">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+var customer = payload.businessCentralResponse.value[0]
+var Address = (customer.Address default "") 
+var Address_2 = (customer.Address_2 default "") 
+var address = Address as String ++ " " ++ Address_2 as String 
+
+---
+ {
+    // --- Mappings based on BC 'No' field ---
+    "organization_code": customer.No, // BC No (Customer Code)
+    "client_code": "DEMO", // Set to temporary value
+    "customer_code": customer.No, // BC No (Customer Code)
+    "record_id": 0, // Source not specified, set to 0
+    
+    // --- Direct Mappings ---
+    "name": customer.Name,
+    "alternative_name": customer.Name_2,
+    "region": customer.City,
+    "location": customer.Address_2,
+    "category": customer.Customer_Posting_Group,
+    "phone_number": customer.Phone_No,
+    "email": customer.E_Mail,
+    "vat_number": customer.VAT_Registration_No,
+    "contact_person": customer.ContactName,
+    "currency_code": customer.Currency_Code,
+    "country_code": customer.Country_Region_Code,
+    "payment_terms_code": customer.Payment_Terms_Code,
+    "sales_rep_code": customer.Salesperson_Code,
+    "credit_limit": customer.Credit_Limit_LCY default 0,
+    "address":address , 
+    "account_status":
+    (trim(customer.Blocked default "")) match {
+        case "" -> "1"
+        case "Ship" -> "0"
+        case "Invoice" -> "0"
+        case "All" -> "0"
+        else -> "0"
+    }, // If Blocked = “” then “1”, Else 0
+    
+    // --- Unmapped/Fixed/Not Applicable Fields ---
+    "accounts": null,
+    "customer_warehouse": null, // Source ???
+    "pricelist_code": "", // Source ???
+    "latitude": 0.0, // Not Applicable
+    "longitude": 0.0, // Not Applicable
+    "postal_address": "", // Source Bill to / Ship to address?
+    "transaction_status": null,
+    "image": null, // Not Applicable
+    "territory": "", // Source ???
+    "payment_mode": null, // Source ???
+    "discount_rate": "", // Source ???
+    "payment_terms_name": null, // Source not specified
+    "route_code": null, // Source not specified
+    "vat_except": null, // Source not specified
+    "vat_hs_code": null, // Source not specified
+    "customer_group": "" // Source not specified
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+				<set-variable value='#["customers"]' doc:name="request_endpoint to customers" doc:id="8ad0f0e4-498e-4f02-8569-bccd1dc88169" variableName="request_endpoint"/>
+				<flow-ref doc:name="post-prc-solutech-api" doc:id="6e1f1d9b-8f08-4632-809a-7e060af9dabb" name="post-prc-solutech-api" />
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="c4a7deab-50d3-4382-b381-6b15950b13ec" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="298cb42e-215b-496e-b2fa-251466e7bb53" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+          <flow name="get_Adapter_Item-bc-to-sat-impl" doc:id="50cf2705-d4c8-4284-ade1-0069f0678eab">
+        <logger level="INFO" doc:name="StartLogger" doc:id="43fdff9e-58ff-4198-b3d2-f04f7901f72d" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<ee:transform doc:name="Target Queryparams" doc:id="3472eef4-8352-425e-b0b1-b9e531071c17">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company"><![CDATA[(attributes.queryParams.bctargetCompany default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment"><![CDATA[(attributes.queryParams.bctargetEnvironment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID"><![CDATA[(attributes.queryParams.bctargetGuid default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System"><![CDATA[(attributes.queryParams.bctargetSystem default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value='#["GET"]' doc:name="Set GET Method" doc:id="f350a0ee-317c-404b-b5f3-3f605ae5b134" variableName="request_method" />
+		<set-variable value='#["Item"]' doc:name="Set Endpoint to Item" doc:id="277e0298-b58e-4876-b36a-dfe86772b135" variableName="request_endpoint"/>
+		<flow-ref doc:name="Flow Reference" doc:id="84f5ed92-4a37-4cc0-a2d3-ad9a866ebe89" name="process-new-main_GET_Flow"/>
+		<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralItemResponsevalue" doc:id="c61bcc66-00b1-46ac-b2d8-e377f557ed58" variableName="businessCentralItemResponsevalue"/>
+		<choice doc:name="Check businessCentralResponsevalue" doc:id="25b225b3-719a-4e72-8d7f-de7ef391e5ff" >
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<set-variable value="#[%dw 2.0&#10;output application/json&#10;import * from dw::core::Strings&#10;var queryParams = vars.QueryParams default &quot;&quot;&#10;---&#10;trim((queryParams splitBy &quot;'&quot;)[1] default &quot;&quot;)]" doc:name="No" doc:id="902209cf-8478-488f-acd7-92d72b4d9a75" variableName="No" />
+				<http:request method="#[vars.request_method]" doc:name="get-Item_Units_of_Measure" doc:id="5cfaf4b4-d3cf-4eab-9888-96334cad4310" path="/api/Item_Units_of_Measure" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company,
+	"bcfilter" : "Item_No eq '" ++ vars.No ++ "'"
+}]]]></http:query-params>
+				</http:request>
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralResponsevalue" doc:id="0257ffd7-47c0-4fe7-a6d0-b6afa33c167b" variableName="businessCentralItem_Units_of_MeasureResponsevalue"/>
+				<logger level="INFO" doc:name="Item_Units_of_Measure Response" doc:id="c8dc5537-ab17-4c55-b6bb-335fefcd5e07" message="Item_Units_of_Measure Response: #[vars.businessCentralItem_Units_of_MeasureResponsevalue]"/>
+				<http:request method="#[vars.request_method]" doc:name="get-Units_of_Measure" doc:id="77713005-8a60-47af-bb66-e1e9392e8e8d" path="/api/Units_of_Measure" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralResponsevalue" doc:id="e617a4e3-039b-4d84-ba80-50ac7cbbaac8" variableName="businessCentralUnits_of_MeasureResponsevalue"/>
+				<logger level="INFO" doc:name="Units_of_Measure Response" doc:id="17e33024-6f96-4618-9696-801e6637f3ef" message="Units_of_Measure Response: #[vars.businessCentralUnits_of_MeasureResponsevalue]"/>
+				<ee:transform doc:name="TransformedPayload" doc:id="774e5293-9b38-4cc9-8d33-ca703701b83f" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var item     = ((vars.businessCentralItemResponsevalue default [])[0]) default {}
+var itemUoms = vars.businessCentralItem_Units_of_MeasureResponsevalue default []
+var uoms     = vars.businessCentralUnits_of_MeasureResponsevalue default []
+
+// Build UOM array for this item
+var joinedUoms =
+    (itemUoms filter ((iu) -> iu.Item_No == item.No))
+        map ((iu) -> {
+        	// Add the new field here
+            use_in_sale: item.Sales_Unit_Of_Measure == iu.Code,
+            // find matching row in Units_of_Measure
+            Item_UOM_Code: iu.Code,
+            Qty_per_Unit_of_Measure: iu.Qty_per_Unit_of_Measure,
+            Length: iu.Length,
+            Width: iu.Width,
+            Height: iu.Height,
+            Weight: iu.Weight,
+            Cubage: iu.Cubage,
+            Efris_UOM : ((((uoms filter ((u) -> u.Code == iu.Code))[0]) default {}).Efris_UOM)
+                    default null,
+            UOM_Description:
+                ((((uoms filter ((u) -> u.Code == iu.Code))[0]) default {}).Description)
+                    default null,
+            UOM_International_Standard_Code:
+                ((((uoms filter ((u) -> u.Code == iu.Code))[0]) default {}).International_Standard_Code)
+                    default null
+        })
+
+---
+{
+  No: item.No default null,
+  Vendor_Item_No: item.Vendor_Item_No default null,
+  Description: item.Description default null,
+  Item_Category_Code: item.Item_Category_Code default null,
+  Search_Description: item.Search_Description default null,
+  Tariff_No : item.Tariff_No default null,
+  VAT_Prod_Posting_Group: item.VAT_Prod_Posting_Group default null,
+  Tariff_No: item.Tariff_No default null,
+  Blocked: item.Blocked default false,
+  Commodity_Category : item.Commodity_Category,
+  Base_Unit_of_Measure: item.Base_Unit_of_Measure,
+
+  uoms: joinedUoms
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="#[payload]" doc:name="TransformedPayload" doc:id="39a776b2-f7d1-4f06-b4f0-2c51513b48d9" variableName="TransformedPayload" />
+				<logger level="INFO" doc:name="TransformedPayload" doc:id="bdbedfc8-4f16-4e1e-87f8-43f926e2a73b" message="TransformedPayload:#[vars.TransformedPayload]"/>
+				<ee:transform doc:name="BC to SAT Mappings" doc:id="28ca24f5-0f1a-4865-b5b6-63ece126ba47" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var item = payload
+
+---
+{
+  //commented some to match from documentation
+  organization_code: "SGUG",
+  //principal_code: "PRIN004",
+  //principal_name: "Principal Name",
+
+  product_code: item.No,
+  //manufacturer_code: item.Vendor_Item_No,
+  product_name: item.Search_Description,
+  category: item.Item_Category_Code,
+  description: item.Description,
+  tax_code: item.VAT_Prod_Posting_Group,
+  hs_code : item.Tariff_No default null,
+  commodity_category_id : item.Commodity_Category default null,
+  status: (if (item.Blocked) 0 else 1) as String,
+  //"type"  : "Item",
+  //apply_discount: 1,
+
+  uom_list: (item.uoms default []) map (u) -> {
+      uom_code: u.Item_UOM_Code,
+      uom_name: u.UOM_Description,
+      uom_quantity: (u.Qty_per_Unit_of_Measure as String),
+      length: (u.Length as String),
+      width: (u.Width as String),
+      height: (u.Height as String),
+      weight: u.Weight,
+      //volume: u.Cubage,
+      //use_in_sale: u.use_in_sale,
+      //weight_uom: "KG"    // SAT requires a fixed weight UOM string
+	  //added below  from documentation
+	  BaseQty: (u.Qty_per_Unit_of_Measure as String), 
+      AltQty: "1.000000", 
+	  is_default: if (u.Item_UOM_Code == item.Base_Unit_of_Measure) "1"
+        else "0", 
+      "tax_authority_uom": u.Efris_UOM
+ 
+  }
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="MappedPayload" doc:id="34e42fb2-3d12-4639-ac78-7557ad2ac387" message="MappedPayload:#[payload]"/>
+				<set-variable value='#["products"]' doc:name="request_endpoint to products" doc:id="5a5247a4-7b50-4edb-a40a-b4797390421a" variableName="request_endpoint"/>
+				<flow-ref doc:name="post-prc-solutech-api" doc:id="dae890af-8c2c-4181-b6fd-5db6390d72c8" name="post-prc-solutech-api"/>
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="fa81a33f-c9b7-4d75-b320-8cdd7919856c" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="25a6891e-7983-4ed2-a776-4b3f6dc9ce16" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+	<flow name="get_Adapter_Stock-Transfer-bc-to-sat-impl" doc:id="e24f1208-ab14-49ca-9df5-8703be5b52ca">
+        <logger level="INFO" doc:name="StartLogger" doc:id="b99b5248-af02-4fc4-9b00-a8bed7a9af42" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<ee:transform doc:name="Target Queryparams" doc:id="079a4fc8-a062-4ed3-869a-71865100814e">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="Target_Company" ><![CDATA[(attributes.queryParams.bctargetCompany default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_Environment" ><![CDATA[(attributes.queryParams.bctargetEnvironment default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_GUID" ><![CDATA[(attributes.queryParams.bctargetGuid default null)]]></ee:set-variable>
+				<ee:set-variable variableName="Target_System" ><![CDATA[(attributes.queryParams.bctargetSystem default null)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<set-variable value='#["GET"]' doc:name="Set GET Method" doc:id="e25e05cd-c694-4482-9922-1bbce79db9e7" variableName="request_method" />
+		<logger level="INFO" message="#[attributes.queryParams.bcfilter]" doc:name="incoming bcfilter"/>
+		<set-variable value='#[%dw 2.0&#10;output application/java&#10;&#10;---&#10;attributes.queryParams."bcfilter" replace "No eq" with "Document_No eq"]' doc:name="Transfer_Receipt_Lines_bcfilter" doc:id="8af7a29d-e6a3-4056-b4a4-480723dceed2" variableName="Transfer_Receipt_Lines_bcfilter"/>
+		<set-variable value='#[(attributes.queryParams."bctargetCompany" default "")]' doc:name="bctargetCompany" doc:id="b2aa7789-6647-4d0e-bb59-49394447c163" variableName="bctargetCompany"/>
+		<set-variable value='#["Transfer_Receipt"]' doc:name="Set Endpoint to Transfer_Receipt" doc:id="e0276e4e-b8e6-472b-b42a-2a9c20d47964" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="Flow Reference" doc:id="082933f3-be27-4ec0-8cdf-bc0c0df76179" name="process-new-main_GET_Flow"/>
+		<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralTransfer_ReceiptResponsevalue" doc:id="f35ff0e9-4ed7-4422-92c9-c3667c745d4d" variableName="businessCentralTransfer_ReceiptResponsevalue"/>
+		<choice doc:name="Check businessCentralResponsevalue" doc:id="a98975bf-159c-4bea-ba44-de8cf0ea8523" >
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<http:request method="#[vars.request_method]" doc:name="get-Transfer_Receipt_Lines" doc:id="d041fa4e-6f12-44ca-9175-3b8c5c5b5dc7" path="/api/Transfer_Receipt_Lines" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:headers ><![CDATA[#[output application/java
+---
+{
+   "Content-Type": "application/json",
+   "Accept": "application/json"
+}]]]></http:headers>
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"bcfilter" : vars.Transfer_Receipt_Lines_bcfilter,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralResponsevalue" doc:id="861d7e94-5e59-45be-9f6b-44447ff85f90" variableName="businessCentralTransfer_Receipt_LinesResponsevalue"/>
+				<logger level="INFO" doc:name="Transfer_Receipt_Lines Response" doc:id="35dfc3b2-ebbe-4281-948a-8b49acc25813" message="Transfer_Receipt_Lines Response: #[vars.businessCentralTransfer_Receipt_LinesResponsevalue]"/>
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralResponsevalue" doc:id="19a80a59-74a8-4e01-9968-9ac19731cf2e" variableName="businessCentralTransfer_Receipt_LinesResponsevalue"/>
+				<ee:transform doc:name="BC to SAT Mapping" doc:id="6b6a79af-1cf5-47a1-8877-67274ba35dde" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+// Define the two inputs from your Business Central responses
+var receipts = vars.businessCentralTransfer_ReceiptResponsevalue default []
+var lines = vars.businessCentralTransfer_Receipt_LinesResponsevalue default []
+var orgCode = vars.bctargetCompany default "SGUG"
+
+---
+receipts map (receipt) -> {
+    "doc_type": "stock_transfer",
+    //"organization_code": orgCode,
+    "organization_code": "SGUG",
+    "erp_reference": receipt.Transfer_Order_No,
+    "user_code": receipt.Transfer_to_Code default "-1",
+    //"user_code": -1,
+    "from_warehouse": receipt.Transfer_from_Code,
+    "to_warehouse": receipt.Transfer_to_Code,
+    "record_date": receipt.Posting_Date ,
+    "record_id": receipt.EXT_Doc_Ref_No, 
+ 
+    
+    // Parentheses added around the filter operation to ensure it returns an Array for map
+    "item_list": (lines filter (line) -> (line.Document_No == receipt.No)) map (item) -> {
+        "item_code": item.Item_No,
+        "item_quantity": item.Quantity,
+        "uom_code": item.Unit_of_Measure_Code
+    }
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<ee:transform doc:name="Transform Message" doc:id="3602b258-bf25-41ba-a524-7bf259f51e1b">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload[0]]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="TransformedPayload" doc:id="c91a837d-9b23-414d-a46a-41c2ce329e43" message="TransformedPayload:#[payload]"/>
+				<set-variable value='#["stock-transfer"]' doc:name="request_endpoint to stock-transfer" doc:id="974f07a5-67bf-4316-b9ca-b8aa513737a4" variableName="request_endpoint"/>
+				<flow-ref doc:name="post-prc-solutech-api" doc:id="bf742a79-7d28-47ad-8db9-317e47ea1b1d" name="post-prc-solutech-api"/>
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="5ca53abc-badb-4834-adea-2fc2f9eb8b5e" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="235e39da-1b54-4df3-b7dc-51f95c3383b4" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+              <flow name="get_Adapter_Price-List-Master-bc-to-sat-impl" doc:id="e9cf3328-95a4-4b14-8d29-ff187508dd19">
+        <logger level="INFO" doc:name="StartLogger" doc:id="89699e68-4b71-46f4-84a9-50713f5e8a2b" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[attributes.queryParams.bcpage default 1]" doc:name="page" doc:id="a6059eed-4cc0-4109-a469-d4ec555b1bc9" variableName="page"/>
+		<set-variable value="#[attributes.queryParams.bcper_page default 1]" doc:name="per_page" doc:id="0f471cf1-3a47-4c96-8d00-16614564b339" variableName="per_page"/>
+		 <!-- Set BC system variables -->
+	<set-variable value='#[(attributes.queryParams."\$system" default "")]' doc:name="Set system" doc:id="43300889-a755-4909-8cf6-e328e9edf040" variableName="system"/>
+		<set-variable
+		value='#[(attributes.queryParams."\$companyBusinessCentral" default "" replace "&amp;" with "%26")]'
+		doc:name="Set BC Company"
+		doc:id="885426b9-87a5-4456-aa53-a9de835e51c5"
+		variableName="BC_company" />
+	<set-variable
+		value="#[(attributes.queryParams.&quot;\$environmentBusinessCentral&quot; default &quot;&quot;)]"
+		doc:name="Set BC Env" doc:id="d54d1dda-f180-4401-bf51-e2201bc44b5b"
+		variableName="BC_env" />
+	<set-variable
+		value='#[(attributes.queryParams."\$tenantGuidBusinessCentral" default "")]'
+		doc:name="Set BC tenantGuid"
+		doc:id="a17b2f69-356e-4940-8d74-449ff5ba17d9"
+		variableName="BC_tenantGuid" /> <!-- Optional: log query params -->
+		<set-variable value='#[(attributes.queryParams."bcfilter" default "")]' doc:name="bcfilter" doc:id="54a751de-2cbf-4f38-9955-a4f9d8912fe2" variableName="bcfilter"/>
+		<logger level="INFO"
+		message="#['Incoming query params: ' ++ write(attributes.queryParams, 'application/json')]"
+		doc:name="Incoming query params" /> <!-- Build BC query string dynamically -->
+		<set-variable value="#[((vars.page as Number) - 1) * (vars.per_page as Number)]" doc:name="calcSkip" doc:id="2b425793-83f6-4eee-8439-9579555e3631" variableName="calcSkip"/>
+		<choice doc:name="Check bcfilter" doc:id="fac675e5-59bf-4645-a71f-2db5bd7d3cc2" >
+			<when expression="#[!isEmpty(vars.bcfilter)]">
+				<http:request method="#[vars.action]" doc:name="get-Item" doc:id="48f80768-8089-4c56-afe2-611dd6c84042" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Item">
+			<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company,
+	"bcfilter" : vars.bcfilter,
+	"bccount" : "true"
+}]]]></http:query-params>
+		</http:request>
+			</when>
+			<otherwise >
+							<http:request method="#[vars.action]" doc:name="get-Item" doc:id="f1b0bfb5-d346-46c4-8c18-f458d4543172" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Item">
+			<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company,
+	"bcfilter" : vars.bcfilter,
+	"bctop" : vars.per_page, 
+    "bcskip" : vars.calcSkip,
+    "bccount" : "true"
+}]]]></http:query-params>
+		</http:request>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Item Response" doc:id="154714ef-f6ed-4221-a182-c6812dca008a" message="Item Response: #[payload]"/>
+		<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralItemResponsevalue" doc:id="b18b318c-aeac-4758-ba36-c8cb79d1b2a2" variableName="businessCentralItemResponsevalue"/>
+		<set-variable value='#[(payload.businessCentralResponse."@odata.count" default 0) as Number]' doc:name="totalRecords" doc:id="dc419a43-ef1b-45b9-9d67-0461b4865617" variableName="totalRecords"/>
+		<choice doc:name="Check businessCentralResponsevalue" doc:id="4a14552a-3db7-4146-b3d6-b5877afdcc3e" >
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<http:request method="#[vars.action]" doc:name="get-Sales_Price" doc:id="aa92bf28-dde7-4b12-ab45-10036690da1f" path="/api/Sales_Price" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:headers ><![CDATA[#[{
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+}]]]></http:headers>
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+				<logger level="INFO" doc:name="Sales_Price Response" doc:id="c330982d-5cc1-4706-87f6-00d6cfdb214c" message="Sales_Price Response: #[payload]" />
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralSales_PriceResponsevalue" doc:id="e5cb97f8-feae-420c-8720-8918dcd6574f" variableName="businessCentralSales_PriceResponsevalue"/>
+				<choice doc:name="Choice" doc:id="b5d3e444-1d6c-4c49-a289-abf5c2468481" >
+					<when expression="#[!isEmpty(vars.businessCentralSales_PriceResponsevalue)]">
+								<http:request method="#[vars.action]" doc:name="get-Sales_Prices_Line" doc:id="8d56ecaf-c56e-480d-8343-f21fd2ad0d25" path="/api/Sales_Prices_Line" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:headers ><![CDATA[#[{
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+}]]]></http:headers>
+							<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+						<logger level="INFO" doc:name="Sales Prices Line" doc:id="d81e4bb7-96e3-44b4-adff-0874a6f1cffa" message="Sales Prices Line Response: #[payload]"/>
+						<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralSales_Prices_LineResponsevalue" doc:id="16dd5bf2-f971-4e4c-94cb-2ee93e049a9d" variableName="businessCentralSales_Prices_LineResponsevalue"/>
+						<ee:transform doc:name="Transform Message" doc:id="3d3b00c2-a0d3-4ee1-85b5-d2737c3eedc7">
+									<ee:message>
+										<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Arrays
+//all price lists regardless of whether they are Active, Draft, or within the current date
+// Variables from Business Central
+var Item_Card_Excel = vars.businessCentralItemResponsevalue default []
+var Sales_Prices_Excel_Line = vars.businessCentralSales_Prices_LineResponsevalue default []
+var Sales_Prices_Excel = vars.businessCentralSales_PriceResponsevalue default []
+
+// 1. Get ALL Headers (No longer filtering for Active or Date)
+var allHeaders = Sales_Prices_Excel 
+
+// 2. Map all lines and headers for performance
+var headerMap = allHeaders groupBy $.Code
+var allLinesMap = Sales_Prices_Excel_Line groupBy $.Product_No
+
+---
+(Item_Card_Excel flatMap ((item) -> do {
+    var masterPrice = item.Unit_Price default 0
+    
+    // A. Generate the MASTER record (Baseline defaults)
+    var masterRecord = {
+        "Sales_Type": "MASTER",
+        "Sales_Code": "MASTER",
+        "Status": "Active",
+        "StartingDate": "0001-01-01",
+        "EndingDate": "0001-01-01",
+        "Description": item.Description,
+        "No": item."No",
+        //"Unit_of_Measure_Code": item.Base_Unit_of_Measure,
+        "Sales_Unit_of_Measure": item.Sales_Unit_of_Measure default item.Base_Unit_of_Measure,
+        "Unit_Cost": item.Unit_Cost,
+        "Unit_Price": masterPrice
+    }
+    
+    // B. Get all price list lines for this item (Unfiltered)
+    var matchedLines = allLinesMap[item."No"] default []
+    
+    var specificPriceRecords = matchedLines map ((line) -> do {
+        // Look up the header for THIS specific line to get real Dates and Status
+        var header = headerMap[line.Price_List_Code][0] default {}
+        ---
+        {
+            "Sales_Type": header.SourceType default "",
+            "Sales_Code": header.Code default "",
+            "Status": header.Status default "UNKNOWN",
+            "StartingDate": header.StartingDate default "0001-01-01",
+            "EndingDate": header.EndingDate default "0001-01-01",
+            "Description": item.Description,
+            "No": item."No",
+            //"Unit_of_Measure_Code": line.Unit_of_Measure_Code default item.Base_Unit_of_Measure,
+            //"Sales_Unit_of_Measure": item.Sales_Unit_of_Measure,
+            "Sales_Unit_of_Measure": line.Unit_of_Measure_Code default item.Base_Unit_of_Measure,
+            "Unit_Cost": item.Unit_Cost,
+            "Unit_Price": line.Unit_Price default 0
+        }
+    })
+    ---
+    // Combine Master + all specific records (Drafts, Expired, and Active) without filter out zero prices
+    [masterRecord] ++ specificPriceRecords 
+})) as Array<Object> 
+orderBy ((item) -> item.No ++ item.Sales_Code)]]></ee:set-payload>
+									</ee:message>
+								</ee:transform>
+						<logger level="INFO" doc:name="TransformedPayload" doc:id="754593a3-7a9d-417b-aa88-f909f3516086" message="TransformedPayload:#[payload]" />
+						<ee:transform doc:name="BC to SATMapping" doc:id="3a2091ce-9f11-4eaf-9427-e415db8a44b8">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Numbers
+var totalRecords = vars.totalRecords
+var lastPage = ceil(totalRecords / vars.per_page)
+//var apiBaseUrl = "http://localhost:8081/api/v1/price-lists"
+var apiBaseUrl = "https://"++ p('erp.solutech.exp.api')++"/api/Price-List-Master"
+var target="2"
+var action = vars.action default "GET"
+var data = payload
+
+// Here we wrap the entire result
+---
+{
+  "data": data map (item) -> {
+        "pricelist_name": item.Sales_Code,
+        "pricelist_code": item.Sales_Type,
+        "item_code": item.No, 
+        "uom_code": item.Sales_Unit_of_Measure,
+        "price": item.Unit_Price as Number,
+        "cost": item.Unit_Cost as Number
+  }
+  ,
+    "pagination": {
+        "current_page": vars.page as Number, 
+        "per_page": vars.per_page as Number, 
+        "total": totalRecords as String, 
+        "last_page": lastPage, 
+        "next_page_url": if (vars.page < lastPage) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++"&ACTION=" ++ action ++ "&page=" ++ (vars.page + 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "prev_page_url": if (vars.page > 1) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++"&ACTION=" ++ action ++ "&page=" ++ (vars.page - 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "first_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++"&ACTION=" ++ action ++ "&page=1&per_page=" ++ vars.per_page,
+        "last_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++"&ACTION=" ++ action ++ "&page=" ++ lastPage ++ "&per_page=" ++ vars.per_page
+    }
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="BC to SAT Mappings" doc:id="c6f32082-c032-4ae8-bc36-6298670e00dc" message="BC to SAT Mappings:#[payload]" />
+					</when>
+					<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="5fccca4c-5801-4257-a77f-d09d39c32c59" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+				</choice>
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="bea86b91-7410-41ee-b314-e01271293170" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="bc04ad28-e304-46a9-8739-3fa2893cdadd" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+                 <flow name="get_Adapter_Stock-Balance-bc-to-sat-impl" doc:id="2c1f1324-e804-456b-94e8-eec7a03b6b95">
+        <logger level="INFO" doc:name="StartLogger" doc:id="76d64cc3-e8a1-4b3d-ae4d-dd5ac99d96f2" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[attributes.queryParams.bcpage default 1]" doc:name="page" doc:id="9501e2a3-6f6a-4ac2-b918-e118d47612f8" variableName="page"/>
+		<set-variable value="#[attributes.queryParams.bcper_page default 1]" doc:name="per_page" doc:id="96a60fef-0c94-4d5a-bfba-03c23cea4c34" variableName="per_page"/>
+		 <!-- Set BC system variables -->
+	<set-variable value='#[(attributes.queryParams."\$system" default "")]' doc:name="Set system" doc:id="89c9ef17-eab9-4787-8ec1-978cc3237a67" variableName="system"/>
+		<set-variable
+		value='#[(attributes.queryParams."\$companyBusinessCentral" default "" replace "&amp;" with "%26")]'
+		doc:name="Set BC Company"
+		doc:id="6f1f2323-13ec-45e9-b143-f3250412fab5"
+		variableName="BC_company" />
+	<set-variable
+		value="#[(attributes.queryParams.&quot;\$environmentBusinessCentral&quot; default &quot;&quot;)]"
+		doc:name="Set BC Env" doc:id="1b87059d-6d90-479a-a22b-12dcd7e9189b"
+		variableName="BC_env" />
+	<set-variable
+		value='#[(attributes.queryParams."\$tenantGuidBusinessCentral" default "")]'
+		doc:name="Set BC tenantGuid"
+		doc:id="32a38183-7736-493f-8c55-8cf0752c1bcc"
+		variableName="BC_tenantGuid" /> <!-- Optional: log query params -->
+		<set-variable value='#[(attributes.queryParams."bcfilter" default "")]' doc:name="bcfilter" doc:id="f043b595-36cb-42d3-aa7a-82a0887907d9" variableName="bcfilter"/>
+		<logger level="INFO"
+		message="#['Incoming query params: ' ++ write(attributes.queryParams, 'application/json')]"
+		doc:name="Incoming query params" /> <!-- Build BC query string dynamically -->
+		<set-variable value="#[((vars.page as Number) - 1) * (vars.per_page as Number)]" doc:name="calcSkip" doc:id="0ae34afc-7ab3-464a-aa72-8a0a97e09cc1" variableName="calcSkip"/>
+		<http:request method="#[vars.action]" doc:name="get-Item_Avail_by_Location" doc:id="87e250d2-dac5-4638-aa61-1df5fc9d71e1" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Item_Avail_by_Location">
+			<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company,
+	"bcfilter" : vars.bcfilter,
+	"bctop" : vars.per_page, 
+    "bcskip" : vars.calcSkip,
+    "bccount" : "true"
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Item_Avail_by_Location Response" doc:id="0f53e86b-6d78-492d-b0b8-e2414b6e74ae" message="Item_Avail_by_Location Response: #[payload]"/>
+		<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralItem_Avail_by_LocationResponsevalue" doc:id="09866536-40e6-4d65-96d9-0379273c6dcc" variableName="businessCentralItem_Avail_by_LocationResponsevalue"/>
+		<set-variable value='#[(payload.businessCentralResponse."@odata.count" default 0) as Number]' doc:name="totalRecords" doc:id="b33959bf-348c-4461-8d8e-a098ee4c928e" variableName="totalRecords"/>
+		<choice doc:name="Check businessCentralResponsevalue" doc:id="1812bdf7-d196-40c0-9423-5bc14e0dec06" >
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<http:request method="#[vars.action]" doc:name="get-Item" doc:id="25f77d68-5866-4209-90d0-077b05ab1bef" path="/api/Item" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+				<logger level="INFO" doc:name="Item Response" doc:id="8a415b31-ae40-4de3-9e69-d11155e9dc26" message="Item Response: #[payload]" />
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralItemResponsevalue" doc:id="41bb14eb-5d10-4e97-8d76-56b08679ac6e" variableName="businessCentralItemResponsevalue"/>
+				<choice doc:name="Choice" doc:id="f309dc55-5fbb-4992-8f01-b95ca37f8b70" >
+					<when expression="#[!isEmpty(vars.businessCentralItemResponsevalue)]">
+						<http:request method="#[vars.action]" doc:name="get-Locations" doc:id="0ae54bb4-2b37-4611-9779-80e617bf1cb1" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Locations">
+							<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+						</http:request>
+						<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralLocationsResponsevalue" doc:id="6ca25e38-e61a-441c-9186-0869601972f9" variableName="businessCentralLocationsResponsevalue"/>
+						<logger level="INFO" doc:name="Locations Response" doc:id="0d4bff04-bf28-45db-96dc-8b89900c1b21" message="Locations Response: #[payload]"/>
+						<choice doc:name="Choice" doc:id="9bc32cfe-2452-4db8-944d-8ac9e7936bea">
+							<when expression="#[!isEmpty(vars.businessCentralLocationsResponsevalue)]">
+								<ee:transform doc:name="Transform Message" doc:id="45ce8624-d649-41b8-baba-3a7557dbb7c9">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Arrays
+
+// Extracting values from variables
+var itemAvail = vars.businessCentralItem_Avail_by_LocationResponsevalue default []
+var itemCard = vars.businessCentralItemResponsevalue default []
+var locations = vars.businessCentralLocationsResponsevalue default []
+
+---
+/* 1. First, we join Availability with Item Master using 'No'.
+2. Second, we join that result with Locations using 'Location_Code'.
+*/
+leftJoin(
+    leftJoin(itemAvail, itemCard, (avail) -> avail.No, (card) -> card.No),
+    locations,
+    (combined) -> combined.l.Location_Code,
+    (loc) -> loc.Code
+) map (result) -> {
+    "Location_Code": result.l.l.Location_Code,
+    // result.r is the Location master match
+    "Location_Name": result.r.Name default "",
+    "Registered_Location_Code": result.r.Code default "",
+    // result.l.r is the Item Card match
+    "Item_Description": result.l.r.Description default "",
+    "Item_No": result.l.l.No,
+    "Unit_of_Measure": result.l.r.Base_Unit_of_Measure default "",
+    "Remaining_Quantity": result.l.l.Remaining_Quantity
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+								<logger level="INFO" doc:name="TransformedPayload" doc:id="c3aa1461-f65e-416b-9e23-67fb95b641d1" message="TransformedPayload:#[payload]" />
+								<ee:transform doc:name="BC to SAT Mapping" doc:id="e62538a6-53a7-4891-bb7f-128802aaf1de" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Numbers
+
+var totalRecords = vars.totalRecords
+var lastPage = ceil(totalRecords / vars.per_page)
+var apiBaseUrl = "https://" ++ p('erp.solutech.exp.api') ++ "/api/Stock_Balance"
+var target = "2"
+var action = vars.action default "GET"
+var data = payload
+
+---
+{
+    "data": {
+        // Defines the primary warehouse context for this response
+        "warehouse_code": (data[0].Location_Code default ""), 
+        "warehouse_balances": data map (item) -> {
+        "warehouse_code": item.Location_Code default "",
+        "warehouse_name": item.Location_Name default "",
+         //"location_id": item.Location_Code default "",
+            "product_name": item.Item_Description default "", 
+            "product_code": item.Item_No default "",
+            "quantity": item.Remaining_Quantity as Number,
+            "uom_code": item.Unit_of_Measure default ""
+            //"expected_date": "2024-11-30 11:20:54", //Hardcoded
+            //"expected_quantity": 0, //Hardcoded
+            //"update_time": now() as String {format: "yyyy-MM-dd HH:mm:ss"} 
+        }
+    },
+    "pagination": {
+        "current_page": vars.page as String, 
+        "per_page": vars.per_page as String, 
+        "total": totalRecords as String, 
+        "last_page": lastPage, 
+        "next_page_url": if (vars.page < lastPage) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ (vars.page + 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "prev_page_url": if (vars.page > 1) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ (vars.page - 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "first_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=1&per_page=" ++ vars.per_page,
+        "last_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ lastPage ++ "&per_page=" ++ vars.per_page
+    }
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+								<logger level="INFO" doc:name="BC to SAT Mapping" doc:id="3220a266-8e16-40c5-ae18-e12b9134ef40" message="BC to SATMappings:#[payload]"/>
+							</when>
+							<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="01a0315c-9c4e-470c-b442-dde84459779a" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+						</choice>
+					</when>
+					<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="59a75729-d8ff-44f5-96df-ff423b07469a" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+				</choice>
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="a1380480-ba9b-4c65-b727-438986658c22" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="078ddd93-e55d-4a31-ab71-037a520be089" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+                     <flow name="get_Adapter_Customer_Account_Status-bc-to-sat-impl" doc:id="98233e08-10af-4df5-bdd3-371f7bb906d3">
+        <logger level="INFO" doc:name="StartLogger" doc:id="5329b34e-01b0-47a1-8684-acf05408ebbc" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<set-variable value="#[attributes.queryParams.bcpage default 1]" doc:name="page" doc:id="159c5eda-0ba2-4797-8fd8-2582ee0a1775" variableName="page"/>
+		<set-variable value="#[attributes.queryParams.bcper_page default 1]" doc:name="per_page" doc:id="5c728582-b70c-458d-af3a-d3f3f0df5e20" variableName="per_page"/>
+		 <!-- Set BC system variables -->
+	<set-variable value='#[(attributes.queryParams."\$system" default "")]' doc:name="Set system" doc:id="df58bd9e-db44-4245-a7e7-e52401d283c6" variableName="system"/>
+		<set-variable
+		value='#[(attributes.queryParams."\$companyBusinessCentral" default "" replace "&amp;" with "%26")]'
+		doc:name="Set BC Company"
+		doc:id="108d5073-5627-4d01-a3c5-d6758e6c3897"
+		variableName="BC_company" />
+	<set-variable value='#[(attributes.queryParams."bctargetCompany" default "" replace "&amp;" with "%26")]' doc:name="bctargetCompany" doc:id="4ae793c4-05eb-4e27-8743-249734ba6d05" variableName="bctargetCompany"/>
+		<set-variable
+		value="#[(attributes.queryParams.&quot;\$environmentBusinessCentral&quot; default &quot;&quot;)]"
+		doc:name="Set BC Env" doc:id="00753266-8323-4fbf-8fc0-9681f68d628a"
+		variableName="BC_env" />
+	<set-variable
+		value='#[(attributes.queryParams."\$tenantGuidBusinessCentral" default "")]'
+		doc:name="Set BC tenantGuid"
+		doc:id="8e6dd1dc-7f12-4f47-9f89-418c6e4b28f2"
+		variableName="BC_tenantGuid" /> <!-- Optional: log query params -->
+		<set-variable value='#[(attributes.queryParams."bcfilter" default "")]' doc:name="bcfilter" doc:id="c8187582-706e-469a-b5a0-5d0bb4133217" variableName="bcfilter"/>
+		<set-variable value='#[%dw 2.0&#10;output application/java&#10;&#10;---&#10;attributes.queryParams."bcfilter" replace "No eq" with "Customer_No eq"]' doc:name="Customer_Ledger_Entries_bcfilter" doc:id="a36e672c-2553-42f2-800b-8f392eb8f39e" variableName="Customer_Ledger_Entries_bcfilter"/>
+		<logger level="INFO"
+		message="#['Incoming query params: ' ++ write(attributes.queryParams, 'application/json')]"
+		doc:name="Incoming query params" /> <!-- Build BC query string dynamically -->
+		<set-variable value="#[((vars.page as Number) - 1) * (vars.per_page as Number)]" doc:name="calcSkip" doc:id="fef8c258-cedb-4efd-a035-2681310c8a19" variableName="calcSkip"/>
+		<http:request method="#[vars.action]" doc:name="get-Customers" doc:id="50ed703f-6df6-462c-b371-8a876ba91183" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Customers">
+			<http:query-params><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company,
+	"bcfilter" : vars.bcfilter,
+	"bctop" : vars.per_page, 
+    "bcskip" : vars.calcSkip,
+    "bccount" : "true"
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Item_Customers Response" doc:id="38332645-a273-4467-832a-41de170260cc" message="Item_Customers Response: #[payload]"/>
+		<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralCustomersResponsevalue" doc:id="36dd5504-8068-4f9c-bcfa-f776aa7655ec" variableName="businessCentralCustomersResponsevalue"/>
+		<set-variable value='#[(payload.businessCentralResponse."@odata.count" default 0) as Number]' doc:name="totalRecords" doc:id="c9468559-cb21-42a6-9955-17f595b39706" variableName="totalRecords"/>
+		<choice doc:name="Check businessCentralResponsevalue" doc:id="a38c072e-37b9-4dbf-bab6-5367564a1875" >
+			<when expression="#[!isEmpty(payload.businessCentralResponse.value[0])]">
+				<http:request method="#[vars.action]" doc:name="get-Customer_Ledger_Entries" doc:id="24f164ff-edbe-482a-8bb3-ef9cb9965f08" path="/api/Customer_Ledger_Entries" config-ref="HTTP_Request_prc_erp_api_conf">
+					<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"bcfilter" : vars.Customer_Ledger_Entries_bcfilter,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+				</http:request>
+				<logger level="INFO" doc:name="Customer_Ledger_Entries Response" doc:id="ad3715d1-9cf7-49aa-ad18-520cf8d43b2b" message="Customer_Ledger_Entries Response: #[payload]" />
+				<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralCustomer_Ledger_EntriesResponsevalue" doc:id="4adfa69c-0571-4512-b0e0-0327b00fa7da" variableName="businessCentralCustomer_Ledger_EntriesResponsevalue"/>
+				<choice doc:name="Choice" doc:id="269a5a6a-3971-456d-8a63-114bc6e7f63c" >
+					<when expression="#[!isEmpty(vars.businessCentralCustomer_Ledger_EntriesResponsevalue)]">
+						<http:request method="#[vars.action]" doc:name="get-Payment_Terms" doc:id="b5f3bcbd-ce8f-4a3a-a604-97c4fa53206c" config-ref="HTTP_Request_prc_erp_api_conf" path="/api/Payment_Terms">
+							<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"\$environmentBusinessCentral" : vars.BC_env,
+	"\$system" : vars.system ,
+	"\$tenantGuidBusinessCentral" : vars.BC_tenantGuid,
+	"\$companyBusinessCentral" : vars.BC_company
+}]]]></http:query-params>
+						</http:request>
+						<set-variable value="#[payload.businessCentralResponse.value]" doc:name="businessCentralPayment_TermsResponsevalue" doc:id="9f994881-3632-4b09-b35a-f2f295761f44" variableName="businessCentralPayment_TermsResponsevalue"/>
+						<logger level="INFO" doc:name="Payment_Terms Response" doc:id="8cfb694a-f5b9-43ac-83ed-a42043fcaf9a" message="Payment_Terms Response: #[payload]"/>
+						<choice doc:name="Choice" doc:id="44e9d7a5-b73e-4c0e-8a73-8076e64748b6">
+							<when expression="#[!isEmpty(vars.businessCentralPayment_TermsResponsevalue)]">
+								<ee:transform doc:name="BC to SAT Mappings" doc:id="041ac1c2-999c-4dd1-a79d-a4b16d1c53c4">
+									<ee:message>
+										<ee:set-payload><![CDATA[
+//output includes every customer in the dataset, even those with zero balances and no open invoices
+
+%dw 2.0
+output application/json
+import * from dw::core::Numbers
+
+// 1. Setup data sources from your flow variables
+var customers = vars.businessCentralCustomersResponsevalue default []
+var ledgerEntries = vars.businessCentralCustomer_Ledger_EntriesResponsevalue default []
+var paymentTerms = vars.businessCentralPayment_TermsResponsevalue default []
+
+// Flow control and environment variables
+var orgCode = vars.bctargetCompany default "SGUGANDA"
+var totalRecords = vars.totalRecords default 0
+var lastPage = ceil(totalRecords / (vars.per_page default 1))
+var apiBaseUrl = "https://" ++ p('erp.solutech.exp.api') ++ "/api/Customer_Account_Status"
+var target = "2"
+var action = vars.action default "GET"
+
+// 2. Pre-process Ledger Entries for efficient lookup
+// Group ALL entries by Customer for the SUM(Amount) calculation
+var balanceGrouped = ledgerEntries groupBy $.Customer_No
+
+// Filter for Open Invoices only and group them
+var openInvoicesGrouped = (ledgerEntries filter ($.Document_Type == "Invoice" and ($.Open as String == "true"))) 
+                            groupBy $.Customer_No
+
+---
+{
+    "data": customers map (customer) -> {
+        "customer_code": customer.No,
+        // Formatting numbers to 6 decimal places as strings
+        "credit_limit": (customer.Credit_Limit_LCY default 0) as String {format: "0.000000"},
+        "payment_terms": customer.Payment_Terms_Code default "",
+        
+        // Summing Amount field from grouped ledger entries for the specific customer
+        "customer_balance": (sum(balanceGrouped[customer.No].Amount default [0])) as String {format: "0.000000"},
+        
+        //"organization_code": upper(orgCode),
+         "organization_code": "",
+        "open_invoices": openInvoicesGrouped[customer.No] default [] map (invoice) -> {
+            "erp_reference": invoice.Document_No,
+            // Appending required timestamp suffix for SAT date parsing
+            "doc_date": (invoice.Document_Date as String default "") ++ " 00:00:00.00000000",
+            "doc_total": invoice.Amount default 0,
+            "balance": invoice.Remaining_Amount default 0,
+            //
+            //"Document_Type": invoice.Document_Type,
+            //"Open": invoice.Open,
+        }
+    },
+
+    "pagination": {
+        "current_page": vars.page as String, 
+        "per_page": vars.per_page as String, 
+        "total": totalRecords as String, 
+        "last_page": lastPage, 
+        "next_page_url": if (vars.page < lastPage) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ (vars.page + 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "prev_page_url": if (vars.page > 1) 
+                            apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ (vars.page - 1) ++ "&per_page=" ++ vars.per_page 
+                         else null, 
+        "first_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=1&per_page=" ++ vars.per_page,
+        "last_page_url": apiBaseUrl ++ "?TARGET=" ++ target ++ "&ACTION=" ++ action ++ "&page=" ++ lastPage ++ "&per_page=" ++ vars.per_page
+    }
+}]]></ee:set-payload>
+									</ee:message>
+								</ee:transform>
+								<logger level="INFO" doc:name="BC to SAT Mapping" doc:id="8d182b0f-87b2-4cb9-824b-c7de8115c15d" message="BC to SAT Mappings:#[payload]"/>
+							</when>
+							<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="9f6c967f-f41d-466a-94fc-7c570ed00382" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+						</choice>
+					</when>
+					<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="ed9feeb3-5cfd-4d37-8866-7bb211154bfd" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+				</choice>
+			</when>
+			<otherwise >
+				<set-variable variableName="httpStatus" value="#[400]" doc:name="Set HTTP Status 400" />
+						<set-variable variableName="ErrorResponse" value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' doc:name="Set HTTP Error Response" />
+        <set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  message: "The given data was invalid.",&#10;  errors: {&#10;    name: ["The Reference in ERP was not found"]&#10;  },&#10;  status_code: 400&#10;}]' />
+				<logger level="INFO" doc:name="Application Response" doc:id="85260c3c-d3fe-4e46-a0da-55bc50909449" message="Application Response:#[vars.ErrorResponse]"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="EndLogger" doc:id="87ab0df5-4447-459c-a6fa-02e4fd9fafac" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+    </flow>
+	<sub-flow name="process-new-main_GET_Flow"
+	doc:id="a1ca12cf-b1de-48ec-a8aa-83ceacde8087">
+	<choice doc:name="Check request_method" doc:id="bd564edc-d0c2-405d-9e13-554dd9573c24" >
+			<when expression='#[vars.request_method =="POST"]'>
+				<set-variable variableName="rawPayload" value="#[payload]" doc:name="Capture incoming payload" />
+				<logger level="INFO" message="#['Incoming payload: ' ++ write(vars.rawPayload,'application/json')]" doc:name="Log payload" />
+			</when>
+		</choice>
+	 <!-- Set BC system variables -->
+	<set-variable value='#[(attributes.queryParams."\$system" default "")]' doc:name="Set system" doc:id="ca478b36-047c-4cc1-a14f-298cb7081bff" variableName="system"/>
+		<set-variable
+		value='#[(attributes.queryParams."\$companyBusinessCentral" default "" replace "&amp;" with "%26")]'
+		doc:name="Set BC Company"
+		doc:id="4f0450ea-56d2-4c9b-99d7-bbeb41025fac"
+		variableName="BC_company" />
+	<set-variable
+		value="#[(attributes.queryParams.&quot;\$environmentBusinessCentral&quot; default &quot;&quot;)]"
+		doc:name="Set BC Env" doc:id="b60957b6-3038-48e9-bffe-719c6b53a6bb"
+		variableName="BC_env" />
+	<set-variable
+		value='#[(attributes.queryParams."\$tenantGuidBusinessCentral" default "")]'
+		doc:name="Set BC tenantGuid"
+		doc:id="86a072b9-9d91-4adc-aaf6-5c6f8ddb214c"
+		variableName="BC_tenantGuid" /> <!-- Optional: log query params -->
+	<logger level="INFO"
+		message="#['Incoming query params: ' ++ write(attributes.queryParams, 'application/json')]"
+		doc:name="Incoming query params" /> <!-- Build BC query string dynamically -->
+	<ee:transform doc:name="Build BC Query Params">
+		<ee:message>
+			<ee:set-payload resource="dwl/buildBCQueryParams.dwl" />
+		</ee:message>
+	</ee:transform> <!-- Business Central HTTP request -->
+	<set-variable value="#[payload]" doc:name="QueryParams"
+		doc:id="5c934288-1c95-40a9-a01d-425adad81835"
+		variableName="QueryParams" />
+	<logger level="INFO" doc:name="Build BC Query Params"
+		doc:id="f3eb20c6-5392-4778-9ef5-51d912e8a09e"
+		message="Build BC Query Params:#[vars.QueryParams]" />
+	<choice doc:name="check QueryParams"
+		doc:id="8badbe3c-85bd-4ac5-b65f-df8a2c5339bf">
+		<when expression="#[!isEmpty(vars.QueryParams)]">
+			<set-variable variableName="requestPath"
+				value='#[%dw 2.0&#10;output text/plain&#10;---&#10;"/api/" ++ (vars.request_endpoint default "") ++&#10; "?\$environment=" ++ (vars.BC_env default "") ++&#10; "&amp;\$company=" ++ (vars.BC_company default "") ++&#10; "&amp;\$tenantGuid=" ++ (vars.BC_tenantGuid default "") ++ "&amp;" ++&#10; (vars.QueryParams default "")]'
+				doc:name="requestPath" />
+		</when>
+		<otherwise>
+			<set-variable variableName="requestPath"
+				value='#[%dw 2.0&#10;output text/plain&#10;---&#10;"/api/" ++ (vars.request_endpoint default "") ++&#10; "?\$environment=" ++ (vars.BC_env default "") ++&#10; "&amp;\$company=" ++ (vars.BC_company default "") ++&#10; "&amp;\$tenantGuid=" ++ (vars.BC_tenantGuid default "")]'
+				doc:name="requestPath" />
+		</otherwise>
+	</choice>
+	<logger level="INFO"
+		message="Final Request Path: #[vars.requestPath]"
+		doc:name="Final Request Path" />
+	<logger level="INFO" doc:name="Start BC Request"
+		message="#['Starting the HTTP request to Business Central at ' ++ now()]" />
+		<logger level="INFO" doc:name="DEBUG ORIGINAL PAYLOAD"
+        message="#['Original incoming request payload: ' ++ write(payload, 'application/json')]"/>
+		
+	<set-variable variableName="isBodyRequired" value="#[['POST','PUT','PATCH'] contains upper(vars.request_method default '')]" />
+		<choice doc:name="Set Payload and SendBodyMode">
+    <when expression="#[vars.isBodyRequired and vars.rawPayload != null]">
+        <set-payload value="#[vars.rawPayload]" doc:name="Use Actual Payload" />
+        <set-variable value="ALWAYS" doc:name="SendBodyMode" variableName="sendBodyMode" />
+    </when>
+    <when expression="#[vars.isBodyRequired and vars.rawPayload == null]">
+        <set-payload value="{}" doc:name="Empty Payload" />
+        <set-variable value="ALWAYS" doc:name="SendBodyMode" variableName="sendBodyMode" />
+    </when>
+    <otherwise>
+        <set-payload value="#[null]" doc:name="No Payload" />
+        <set-variable value="NEVER" doc:name="SendBodyMode" variableName="sendBodyMode" />
+    </otherwise>
+</choice>
+		<logger level="INFO" message="Sending method: #[vars.request_method], sendBodyMode: #[vars.sendBodyMode], payload: #[payload]" doc:name="Debug Payload" />
+		<http:request method="#[vars.request_method]" config-ref="BusinessCentral" path="#[vars.requestPath]" responseTimeout="${http.request.response.timeout}" sendBodyMode="#[vars.sendBodyMode]" doc:name="BusinessCentral System">
+			<reconnect blocking="false" frequency="${http.request.retry.interval}" count="${http.request.retry.count}"/>
+				<http:headers><![CDATA[#[{ "Content-Type": "application/json", "Accept": "application/json" }]]]></http:headers>
+		</http:request>
+	<logger level="INFO" doc:name="businessCentralResponse" doc:id="c775c1f3-3d8a-4548-9bc5-374c7ab840d0" message="businessCentralResponse:#[payload]"/>
+		<logger level="INFO" doc:name="End BC Request"
+		message="#['Ending the HTTP request to Business Central at ' ++ now()]" /> <!-- Transform response -->
+	<choice doc:name="Check if endpoint contains count">
+		<when
+			expression="#[endsWith(trim(vars.request_endpoint), '/\$count')]">
+			<ee:transform doc:name="Transform Count Response">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0 output application/json var response = payload --- { businessCentralResponse: (response as String replace /\ufeff/ with "") as Number }]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</when>
+		<otherwise>
+			<ee:transform doc:name="Transform BC Response">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0 output application/json --- { businessCentralResponse: payload }]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</otherwise>
+	</choice>
+	<logger level="INFO" doc:name="FinalbusinessCentralResponse"
+		doc:id="b8f671cc-9c26-45ba-9e14-a1c89e6719c0"
+		message="FinalbusinessCentralResponse:#[payload]" />
+</sub-flow>
+	<flow name="get-Item_Variants_Excel-main" doc:id="48a926fc-0275-4bae-90cb-0c9799e48e40" >
+		<logger level="INFO" doc:name="StartLogger" doc:id="21068aca-9f9e-4bc1-9bf7-81e37b067e22" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<set-variable value='#["Item_Variants_Excel"]' doc:name="Set Endpoint to Item_Variants_Excel" doc:id="3da4faaa-70a9-4312-adf3-4a2af4a79edc" variableName="request_endpoint" />
+		<set-variable value='#["GET"]' doc:name="Set GET Method" doc:id="51547c2b-0730-4080-ba71-4866742c09d2" variableName="request_method" />
+		<flow-ref doc:name="Flow Reference" doc:id="12be33b1-fe35-474a-81b9-1f2f99be9586" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="8342c1bd-4099-4f4c-a641-d41fd093362d" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+	<flow name="get-Variant_Base_Values-main" doc:id="281fae2e-9b10-4a86-8f0b-7d40d3911c49" >
+		<logger level="INFO" doc:name="StartLogger" doc:id="41bd0b59-1aab-4722-a3a5-652740858a48" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<set-variable value='#["Variant_Base_Values"]' doc:name="Set Endpoint to Variant_Base_Values" doc:id="c6281524-7231-446d-b569-a62ff2413b73" variableName="request_endpoint" />
+		<set-variable value='#["GET"]' doc:name="Set GET Method" doc:id="97d32902-a806-4e3f-8747-04725b504a2d" variableName="request_method" />
+		<flow-ref doc:name="Flow Reference" doc:id="d9917a01-8a24-4f90-9d84-9f66b0dc41ca" name="process-new-main_GET_Flow" />
+		<logger level="INFO" doc:name="EndLogger" doc:id="e764bd63-4b80-42df-a9b9-72f96d9ae9a5" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+</mule>
