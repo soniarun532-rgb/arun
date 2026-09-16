@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+		<flow name="get-Item-main" doc:id="ed9be488-5fc0-4ba4-99cd-2323ba26660a" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="a531fc0e-a97f-45ef-af94-ab926e198b6a" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="a3988115-801f-4e60-954a-a6ae8aabfcf8" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Item"]' doc:name="Set Endpoint to Item" doc:id="d701acba-fcf0-4953-843c-815ba3d35b21" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="b7dd50ea-db9c-497b-bb55-491d76b7c92b" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="33377c12-9914-4edf-b19a-f2121d18cbee" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="1351355d-a1f3-4190-a84f-fa590a2b1d12" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Retail_Item-main" doc:id="38504b8c-8878-4d15-b61c-58236efc8d39" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="53f026a8-6e01-40b2-a0c3-8e37e497d67d" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="1829f3d7-f534-4ade-96ba-1dfee09e9d5f" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Retail_Item"]' doc:name="Set Endpoint to Retail_Item" doc:id="b6f47f04-b0aa-4035-b692-69f16c5c60ce" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="3c958ab2-9813-47d5-afae-85a08d299d70" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="784b6a24-dfd9-4e1e-b519-a69783c71d32" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="f4b7c6e2-bb40-42ec-a4c1-687ac2405b46" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Item_Ledger_Entries-main" doc:id="1f10e084-1adb-412d-8c79-631416e3cd58" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="8e44c7d3-e3e4-434c-b1ab-6b731ed0f0c8" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="65b27a4c-9eb0-47aa-8e43-4db935c98213" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Item_Ledger_Entries"]' doc:name="Set Endpoint to Item_Ledger_Entries" doc:id="ea1af684-7398-42c1-849d-d5030de75532" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="17adb3a7-803c-44d6-a70d-f5d286f519b8" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="b297b5ef-daf3-4330-bb50-bdbcca2c9c45" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="19f391ac-63a6-40b9-aa7c-29d285e4b331" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Item_Families-main" doc:id="9ffa7cb2-4ed0-462d-93f5-7bb097f18844" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="eabc3171-d4a4-43e9-abef-d1328c02a8b1" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="6d2ed40a-7413-466e-ad1a-06a365db748f" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Item_Families"]' doc:name="Set Endpoint to Item_Families" doc:id="f16163fb-e8db-470f-9587-94a8fcf9b8c0" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="711d8fde-a167-4188-9550-d772f4c7b2f4" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="1cf21f63-48b4-4533-a9a5-d4a6a1321b1a" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="90da544f-1645-400c-abb8-62eba79b541f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Customers-main" doc:id="d44bd73a-7b76-4170-b02a-eced7e90e5e0" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="dddf803f-d9e5-4622-b1da-03f5dacf9e9c" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="cde25822-cb10-4dda-a030-29d14948cc0e" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Customers"]' doc:name="Set Endpoint to Customers" doc:id="3c4f5712-5780-4b1b-98da-d30bb0e46475" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="dba5cb2d-58ad-4771-85af-655bb3d1bd79" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="fe8d8433-8776-4349-bc96-534aa36795fe" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="36772642-ecef-4af1-b33c-fbe08281a198" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-DimensionValues-main" doc:id="b201429c-9d14-4312-8a7e-776a73838745" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="3cad8b1a-9d59-45d9-9637-0b46a35c5f55" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="54d20eec-4667-40a3-bc3e-165ba0999516" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["DimensionValues"]' doc:name="Set Endpoint to DimensionValues" doc:id="249fc254-8546-475a-a0c4-9211fe8c0218" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="a29b8c70-7a9c-4db0-a0eb-673e62a966ff" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="4b054cda-ebef-4338-b2dd-084fe52d7044" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="bae11b37-97a1-4423-bcb7-a0326c66f6d8" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Units_of_Measure-main" doc:id="099f4bef-59d2-487a-b337-209fe386ba08" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="18887307-cd05-4b17-b994-b2428b24894b" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="c15c5897-ad0c-49df-8adb-a544245e41a0" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Units_of_Measure"]' doc:name="Set Endpoint to Units_of_Measure" doc:id="31bae05d-efac-4c65-9194-ca51bfa8e4d5" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="04fc136c-a98a-4229-a459-aaec153a38d4" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="b8392464-3832-460a-9663-586e4689e468" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="6af984fc-a992-42fb-b625-60c433a2c712" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Retail_Item_Category-main" doc:id="d03b2910-8bfa-4861-b48d-7853a4760e75" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="afc946ec-e83c-4890-89db-893b9cdefec3" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="dd27621f-91c8-4889-994f-585a13382b2f" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Retail_Item_Category"]' doc:name="Set Endpoint to Retail_Item_Category" doc:id="9fa421ec-6a4e-4132-842b-25437201c731" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="8df81b45-0cf0-4adc-95f1-a1d659722eab" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="cfc2f938-7f48-4d6c-b8b0-c166cc848ae4" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="490ee579-f8dc-406d-907f-0726368233cc" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+		<flow name="get-Vendors-main" doc:id="f84016b5-b4ad-404a-9b4e-a4fa3260a38d" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="c8194627-30e3-4878-bd14-da290c1fc183" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="38d5bf59-1bb8-4ad3-9d86-85f29ed37b36" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Vendors"]' doc:name="Set Endpoint to Vendors" doc:id="f4e338eb-35bb-4cc0-ad24-2442b28f32c7" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="34834054-f7b1-4678-915e-f6cc01f317e2" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="a0d114ca-a4b8-43b2-a59d-0f607ce727e8" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="733018b1-0374-4b3a-8cff-8ba60116640f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+		<flow name="get-Locations-main" doc:id="15b928fc-3a8c-4370-92fb-699c7ac02a06" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="b2d3fc4c-98ed-42c0-b66a-49b815da756d" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="3f55d1e7-6c19-4f2f-8b17-0b61078165f1" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Locations"]' doc:name="Set Endpoint toLocations" doc:id="6b3a2dfc-d093-4561-9690-316efc0123e2" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="035eb18d-f568-47fc-a9f3-9c8630418cbe" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="4945b1a9-74ab-45be-bcad-ca7f917654a7" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="5cf702ae-cc98-47ec-bc33-0a3f8bf29c5e" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+		<flow name="get-Companies-main" doc:id="efd68d52-fb33-4dc7-8cfd-8fd722b0fe0b" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="418d783e-dde2-49ee-bb27-80a946d898ed" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="60cefcec-4960-4728-ac59-a171c8a10d19" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Companies"]' doc:name="Set Endpoint to Companies" doc:id="97feec1c-23d6-4e7c-925e-c7d6c8c7018a" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="2133c9de-b418-434c-a51e-2a3d59754d9f" name="prc-erp-api-v7-flow"/>
+		<ee:transform doc:name="Rename Company" doc:id="c7a0d2ec-66f6-452d-90c9-58f711a1a97b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  businessCentralResponse: {
+    "@odata.context": payload.businessCentralResponse."@odata.context",
+    value: payload.businessCentralResponse.value map (item) -> {
+      "@odata.etag": item."@odata.etag",
+       // Transform the 'value' array by renaming 'Name' to 'Company Name'
+      "Company Name": item.Name,
+      City: item.City,
+      Country_Region_Code: item.Country_Region_Code,
+      E_Mail: item.E_Mail,
+      Home_Page: item.Home_Page
+    }
+  }
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="EndLogger" doc:id="77291f17-8751-449e-9abb-2ee12fceba08" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="45948825-9d11-4073-be4b-24429fdb9bfe" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+		<flow name="get-Users-main" doc:id="972e5679-f699-4de3-9fd1-d7cab3c909f7" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="db0f864a-6a3b-4be8-b21f-8425bc9e51b8" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="982ea413-62a8-4c39-9fac-446da072d757" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Users"]' doc:name="Set Endpoint to Users" doc:id="3d281bdf-14fb-44ad-b6fd-0a4297d7ecc1" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="be03c0c8-2875-41f3-a221-385b3c156fd2" name="prc-erp-api-v7-flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="5f5ddd52-b09c-4a49-a82e-72b24c15a2c2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+
+var inputData = payload.businessCentralResponse
+
+---
+{
+    businessCentralResponse: {
+        "@odata.context": inputData."@odata.context",
+		"@odata.count": inputData."@odata.count",
+        value: (inputData.value default []) map (user) -> {
+            "@odata.etag": user["@odata.etag"],
+            User_Security_ID: user.User_Security_ID,
+            User_Name: user.User_Name,
+            Full_Name: user.Full_Name,
+            State: user.State,
+            Expiry_Date: user.Expiry_Date,
+            Contact_Email: user.Contact_Email,
+            Authentication_Email: user.Authentication_Email,
+            AuthenticationStatus: user.AuthenticationStatus,
+            Microsoft365State: user.Microsoft365State,
+            UsersPermissions:
+                if (!isEmpty(user.UsersPermissions default []))
+                [
+                    {
+                        Company: (user.UsersPermissions map $.Company) distinctBy $
+                    }
+                ]
+                else null
+        }
+    }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="EndLogger" doc:id="3363f3c1-c6a5-4ad7-a444-d918cd805c06" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="e6b88fa8-044f-49e4-965c-e1ac856098fe" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Purchase_Orders_Open_Lines-main" doc:id="e06d1c45-288f-437d-8dc4-eae4d7bbc401" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="4b7f4d70-1ab1-4c2a-9505-6bbcec0ba0a1" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="f8e9d22a-d01f-4637-a250-74442f6ed611" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Purchase_Orders_Open_Lines"]' doc:name="Set Endpoint to Purchase_Orders_Open_Lines" doc:id="c9943f67-44fd-40a6-9509-ef7c51fb2127" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="b2e0c954-18e6-4d52-ae05-7bf9bd494b11" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="c1f9f46d-9d5a-49cc-897a-121dfa9a82ee" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="b90a0d38-66dd-4615-968e-a8b5c942c096" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Bin_Content-main" doc:id="4bc13eae-632d-424c-93af-f321c68b1437" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="bd613835-c137-4383-9361-cb55f3338dc9" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="a8346028-cd30-436d-bd6e-daae2655d488" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Bin_Content"]' doc:name="Set Endpoint to Bin_Content" doc:id="c1f62749-56e9-482d-b29a-e53331968b54" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="a7d2e72e-96bb-449e-bda7-684b31a51eee" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="2efb1954-910d-46e7-aeb9-8af9db6e95d5" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="7e0c53a0-1401-4c78-a350-8e4db17a6d3e" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Retail_Sales_Entries-main" doc:id="1dc56526-9001-46e3-bba8-c256d0d3d5ce" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="4a4075ef-9f03-4002-b443-e6166b4b0d51" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="550d15d6-51f7-4bab-a391-d29110595f4e" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Retail_Sales_Entries"]' doc:name="Set Endpoint to Retail_Sales_Entries" doc:id="bd9700c9-5afa-48af-92b4-34bdce2df62f" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="9535cfd1-30da-4ccd-b474-c87bc9b4b7dc" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="4ec6743d-5c33-4883-a1a1-2dab077d08da" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="f93d3a93-6b8c-4c30-a2e4-9a2f7a763927" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Discount_Offers-main" doc:id="97ca67ac-7788-46a4-8d90-ef93800dcb67" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="0a8eaf54-01ca-4ae3-85c0-fef0bfdf162f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="8173dac1-bcfe-4d4d-bdda-b6d6e4f88a20" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Discount_Offers"]' doc:name="Set Endpoint to Discount_Offers" doc:id="0f1c1746-5648-4fa2-9f90-f7678d38fc29" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="a723bd1a-b336-4090-a00c-77da3bcb82b8" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="f575bf33-971b-4343-a120-b60e01b44160" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="c8319e0e-6b5a-4ce4-a529-b7d2f41e2954" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Discount_Entries-main" doc:id="95c07d90-dda0-4292-844c-9d57c601aa58" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="5310b8f3-3fd2-44c7-a732-64c39f2db2a1" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="c38a6b37-689c-44be-bd82-338dc877b833" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Discount_Entries"]' doc:name="Set Endpoint to Discount_Entries" doc:id="2c32020d-ee8f-4f35-b3ad-d594d9cfc2ad" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="9cfc947d-0f35-4899-8875-cc8c31859eea" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="b6ffa121-6edd-4d9c-8529-f7f746ba446e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="b17f547e-984a-403e-b14e-60168998f393" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Value_Entries-main" doc:id="fd520fcb-7669-4baf-a6fb-e0c811184ee3" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="3e581b91-87d2-43c6-8f73-8a3db73c04a9" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="f08eff03-d697-4cfd-902b-336db32aa278" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Value_Entries"]' doc:name="Set Endpoint to Value_Entries" doc:id="4e731c82-4134-4076-b60f-5d585446095d" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="1fd4dd6d-f0e0-42a3-91f9-b2eeddf4d895" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="77498bc6-387c-47c0-860d-17d9ee583069" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="a856e52e-cfa8-43af-a8fa-5a301c0f18e2" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Staff-main" doc:id="3829f3eb-b1be-452b-b301-0ccf736f6e41" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="522499b3-a5ec-4b88-bd28-e5c2efc448bc" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="25931222-4d6a-45a4-8ad9-b66d764ce36b" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Staff"]' doc:name="Set Endpoint to Staff" doc:id="dc83774c-3c8b-4475-a2d8-687b0d6c66d0" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="e8b80305-4a38-4937-8305-170bb31e021d" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="d3308d1d-4b7b-4491-bd1c-efb9e9fcabbb" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="c0f1300e-ffc3-4e44-948f-629fd627d45d" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+			<flow name="get-Purchase_Order_Lines-main" doc:id="327352b0-623b-4062-ae79-e6788983170d" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="40da01f9-9e64-42f5-a1ba-649b57fc9d1a" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="b96dc912-adae-4ec8-b928-a48cb1181aea" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Purchase_Order_Lines"]' doc:name="Set Endpoint to Purchase_Order_Lines" doc:id="6c1725d8-f50a-4da6-be0d-92e6cf1fc2ef" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="2f698f5f-c75e-4f41-bb41-5825eedc877d" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="aa88429f-daa6-4f0a-946f-f3275f50df11" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="2f2c56ab-b4df-4489-83fd-42a21c78aea5" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Purchase_Invoices-main" doc:id="461f7595-fff3-4621-a00a-723901356bc5" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="716743fd-c198-435a-8fcf-d94351a2879f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="cb14313f-4f33-4b1e-8fef-9b7e091dc307" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Purchase_Invoices"]' doc:name="Set Endpoint to Posted_Purchase_Invoices" doc:id="96910bdc-6eca-4810-b836-94c8f75d5a15" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="e0d7230f-63b4-4676-ab8c-f3a7e1a6866c" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="26d37ea3-bf08-4def-ad75-b508e00aa3e8" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="a4ed1d62-5dfd-41da-b4cf-8ee204653305" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Purchase_Order_Archives-main" doc:id="bc55f3bd-50f6-4031-9571-53932a04e1f0" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="6dffe0a7-4ede-45e6-9f31-7a56fa5a05e4" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="8fc3310b-512a-438f-acf2-870fb045e930" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Purchase_Order_Archives"]' doc:name="Set Endpoint to Purchase_Order_Archives" doc:id="6ee7de18-125e-4c43-b737-aef29f85afe2" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="877515b1-75e9-4745-a672-26d776dd87dd" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="dd47a4f6-a7d1-4492-8fb0-c578f4f1a462" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="e15151e6-9d37-4911-af5b-175482556b22" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Purchase_Order-main" doc:id="c02da38d-fa28-4f74-81af-22aeb8e99737" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="120f1f5c-bb3b-43aa-afea-64dbfda5c7b4" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="cf6b12eb-fe78-40c1-bc18-211e8a28c1e0" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Purchase_Order"]' doc:name="Set Endpoint to Purchase_Order" doc:id="a28157a8-2cec-47f1-8e1b-d408381d98b8" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="caf8482a-1858-4567-9fa4-8d8e98086dbe" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="23039cbd-4a80-4201-a2e3-a7cfb68e14d3" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="112af8a9-22f5-424f-b9df-c333f00c27c4" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Purchase_Order_Lines_Archives-main" doc:id="0c8e0671-a862-419b-b5f4-98c3456693cf" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="17b2c8c9-2c58-41c4-aa6f-3ba3a6ff831b" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="caf33ddb-8a41-413c-a8ed-95b36fbb28da" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Purchase_Order_Lines_Archives"]' doc:name="Set Endpoint to Purchase_Order_Lines_Archives" doc:id="8b3d25c5-c2fe-4d7e-8717-73d8b7505fdc" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="1e21b563-4630-4dc8-9bc9-e82362aed0ed" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="856ed154-a13d-4678-90c2-75f1be079824" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="c33c3377-b01a-49f1-98ab-b8853e26a46c" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Approval_Entries-main" doc:id="42182d2e-237a-44a1-aa52-08c9cb4d9f26" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="b09294ad-2204-4425-8412-100c87d696a6" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="d70c07cd-3139-4121-9362-a95c36e696f1" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Approval_Entries"]' doc:name="Set Endpoint to Posted_Approval_Entries" doc:id="55317c04-a6ac-48c1-ae32-2fcfe3a99074" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="4a1bd60f-4957-4527-b852-54c24017bbb1" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="d8dde34b-d24e-45fa-b75e-aa11ebc58385" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="2ac4d09b-63c6-429f-9bdd-202b395b7be0" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Purchase_Receipt-main" doc:id="79ed7660-0c1d-403f-ad34-06d23fb1f859" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="93a6bd3b-fff2-40c4-ae3a-77cbe1bd783b" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="1ff2ea04-3fe8-43e2-876e-66cb7ea1154c" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Purchase_Receipt"]' doc:name="Set Endpoint to Posted_Purchase_Receipt" doc:id="d67844e4-ad77-4ae4-bfb1-14a98a01ed8f" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="eb74da55-3303-4a09-bf4b-ea7e8a9cce5b" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="b27800c2-0a37-44a0-81ca-99cacdce4d60" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="ff4d8dfc-fc3a-4c2f-869e-954f9124a5df" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Approval_Request_Entries-main" doc:id="7104c3ce-d347-428a-bea6-58ad3caeeffa" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="96112971-1f83-4f4c-976f-078c1b56c52b" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="b52cf9e6-8b6e-4f00-8d1c-07f8ef60be41" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Approval_Request_Entries"]' doc:name="Set Endpoint to Approval_Request_Entries" doc:id="3df07329-726d-4fd0-bb63-5b354d254367" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="690c570a-80ae-4d20-9dd9-c0b91bf323f5" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="fb8bdb06-e1a1-4720-8912-6b2cc104c9de" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="1438d105-1866-487e-ad2e-90b20aea9d12" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Purchase_Invoices_Lines-main" doc:id="18755d88-2827-46fb-809a-8aee93e44a77" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="b09539fa-aceb-4750-9f3d-56815bca65f7" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="4fd02013-e97a-408a-af4d-7e56d4644d42" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Purchase_Invoices_Lines"]' doc:name="Set Endpoint to Posted_Purchase_Invoices_Lines" doc:id="e9a408d0-1e07-4abc-9dd3-7024a777faef" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="26a79ef6-08bf-4402-a415-30835dd63995" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="e3329b15-ab8e-404c-add7-a6c90c74923e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="4a517eb1-b6d2-4826-b779-9cfb4cc260ac" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Sales_Invoice-main" doc:id="9252a44e-a778-4512-b479-e1c5f6f075ee" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="f6a3c8a5-69ad-4102-8da4-c86f484a8e6f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="f7a9cee7-1717-4c65-b17a-62aadc9497a6" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Sales_Invoice"]' doc:name="Set Endpoint to Posted_Sales_Invoice" doc:id="03cd0981-001b-4df6-94db-3d730cd40de5" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="09444851-8514-4f3c-816d-1f8f0fe77799" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="9816752b-7c80-401b-9475-0d7249951349" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="533526b9-06cc-43e8-929a-da3cfe3f0aa7" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Sales_invoice_lINE-main" doc:id="18755d88-2827-46fb-809a-8aee93e44a77" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="b09539fa-aceb-4750-9f3d-56815bca65f7" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="4fd02013-e97a-408a-af4d-7e56d4644d42" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Sales_invoice_lINE"]' doc:name="Set Endpoint to Posted_Sales_invoice_lINE" doc:id="e9a408d0-1e07-4abc-9dd3-7024a777faef" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="26a79ef6-08bf-4402-a415-30835dd63995" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="e3329b15-ab8e-404c-add7-a6c90c74923e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="4a517eb1-b6d2-4826-b779-9cfb4cc260ac" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Sales_Credit_Notes_Line-main" doc:id="989440b8-3197-40d7-86e5-aae45c282499" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="6da6b3fb-be6c-4081-9c37-400cc84421dd" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="0071bf8a-b408-4b19-a40b-477aba1a6791" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Sales_Credit_Notes_Line"]' doc:name="Set Endpoint to Posted_Sales_Credit_Notes_Line" doc:id="d0a9a9b3-8090-476a-806b-69d64625a5bc" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="33eeee19-2638-4df3-9ad0-6339673949ce" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="0a3df07e-18f4-4aec-af4a-a9dbaa4a1900" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="23793f5f-4b81-41d6-a2e9-86a968594063" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Posted_Sales_Credit_Notes-main" doc:id="11f21031-2a38-4d79-8054-ce96a44a4ab3" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="597e5693-6ff3-4f83-bf33-abf30331ba25" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="b6df163c-0f7a-4c3f-8c35-ad5bd5ec35e4" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Posted_Sales_Credit_Notes"]' doc:name="Set Endpoint to Posted_Sales_Credit_Notes" doc:id="d254f279-edb8-4891-aba4-b74672ca22ec" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="c627c4df-72b5-4225-8e82-f1470af5d252" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="92e0a3e2-bc8d-456d-8f98-18786dc7e88e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="a6989039-f51a-4f01-822d-1581705a2ce0" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-salesDocuments-main" doc:id="248dfafd-255f-4ccb-8d60-10399df3dfe2" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="edfc71dd-8875-49d5-aff9-ddfc9bb65cef" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="ea796855-0811-4e54-ab1e-7f4f7eb4ba93" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["salesDocuments"]' doc:name="Set Endpoint to salesDocuments" doc:id="395d9f67-1ae4-4d5b-9e0e-473fae3efad4" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="5472d621-78c1-487a-9d74-8de50a2d62d5" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="a657c229-0572-4483-b509-596011c3829b" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="59403acc-79ae-4a4e-820f-5b5d11efabff" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Sales_Quotes-main" doc:id="528e2579-9847-47a0-84d7-8418e0227353" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="ab6b5cb0-dfda-43ab-b9bc-db9a9b624fdc" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="c84e30ee-f3bd-4324-9e1b-bcc625dca2c2" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Sales_Quotes"]' doc:name="Set Endpoint to Sales_Quotes" doc:id="97c90e87-b68c-4ee8-a939-dd7785e9577f" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="75d9f963-61f1-4653-bb11-71f35435bee2" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="8e343201-8a85-4b56-a337-48cba7f9501f" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="e8156f39-8e67-419b-8f9b-ba5c9f67c2ab" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Retail_Terminal_List-main" doc:id="bec479b7-a1b8-457d-a003-9bfcc63e30ee" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="891d4f3d-7c59-41f7-b715-8d579985cbda" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="2d43414b-ee2d-419e-bbda-a7096d1a1038" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Retail_Terminal_List"]' doc:name="Set Endpoint to Retail_Terminal_List" doc:id="acbdfced-6bf7-47bc-b1e6-84c2794de3f5" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="5e3e1b48-0e75-4605-ae92-f71002cc5c80" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="b5d827a8-e567-4e7e-b954-4d504ef5b391" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="0a7ea117-547d-4ef7-a233-84512895c8aa" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-LS_Flight_List-main" doc:id="ea366e59-8f5e-4684-9604-5a2bf128212a" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="fb38c69c-168f-4699-879a-a1f8be943304" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="fcac2a15-64fc-4350-9fa3-ca9902cca1eb" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["LS_Flight_List"]' doc:name="Set Endpoint to LS_Flight_List" doc:id="bba26b20-4868-42e9-9b7c-8c15f2195f64" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="153f00b7-e808-46b2-b5eb-5006d4668348" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="08479cac-4710-4892-ad79-015898f8f69e" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="fa0df809-072f-47d0-839a-6d9b464ae664" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-LS_Transaction_Register-main" doc:id="9ddd4ac9-a550-44f9-ade6-6fd6c03e9940" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="fefec969-afd5-483f-852a-abca0a16795f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="a68aa72f-6478-40a4-98b7-2efbc8af8428" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["LS_Transaction_Register"]' doc:name="Set Endpoint to LS_Transaction_Register" doc:id="483d6a9f-811d-461f-a876-ab959ee1f0ce" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="a21512fd-171d-4bcf-9c33-2e0d66ab18fc" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="742feb48-cf4a-44b5-a632-ddc9f868495a" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="ee0ababe-b72e-4cf1-9aa5-a9ba297c289f" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Boarding_Pass_details-main" doc:id="a3a2bcf2-6984-4bb9-9a63-ffa8b9e0996d" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="85aa3afb-bc2d-49f2-81de-b0e7b8197345" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="0747bb17-b166-4961-964c-168604523557" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Boarding_Pass_details"]' doc:name="Set Endpoint to Boarding_Pass_details" doc:id="e392d16b-fa00-4d0f-bf06-984eb7eb406a" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="c49f4777-913c-4543-83b1-c1797969a1b3" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="6c845b75-24ed-4737-9758-bc811c470503" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="3321be05-f198-4c18-8186-ea5b2a793861" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-LS_Airport_Terminal-main" doc:id="1b6efa87-f706-4a85-93be-623f3fe53d7f" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="e3fa3b9c-997f-482c-af7d-f94d7bde68e2" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="9c94d0e7-29ee-4c63-9353-d14a2e105be4" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["LS_Airport_Terminal"]' doc:name="Set Endpoint to LS_Airport_Terminal" doc:id="86215039-0674-4299-88d7-7f300343689d" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="854e4dd3-c143-4503-bef0-31576c5e56d6" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="1189158e-d977-45d7-8906-d538c68818a1" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="041cfb27-e075-4f69-a75b-e3801ae92a15" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	
+	<flow name="get-DimensionSetEntries-main" doc:id="56fbebcd-b04d-4ade-820e-02ea11356a66" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="ea00dc18-4473-4c71-b974-907357030e21" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="54ec060f-3c2c-4360-a4f0-7a2ca58d39cb" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["DimensionSetEntries"]' doc:name="Set Endpoint to DimensionSetEntries" doc:id="e212e0e9-eafa-4062-a9f2-28905d9bee27" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="e94ee86d-af87-4c89-b3d7-48517323db5d" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="bcae98b0-e355-4cb3-a3b4-53f627248fa2" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="20003109-910c-4cb0-8e12-2e5aa70b82d4" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Item_Variants-main" doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsmain" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm01" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm02" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Item_Variants"]' doc:name="Set Endpoint to Item_Variants" doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm03" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm04" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm05" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="d4e5f6a7-b8c9-4012-d345-itemvariantsm06" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Item_Reference_Entries-main" doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain000" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain001" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain002" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Item_Reference_Entries"]' doc:name="Set Endpoint to Item_Reference_Entries" doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain003" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain004" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain005" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="e5f6a7b8-c9d0-4123-e456-itemrefmain006" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	<flow name="get-Variant_Base_Values-main" doc:id="f6a7b8c9-d0e1-4234-f567-variantbasemain" >
+			<logger 
+    level="INFO" 
+    doc:name=" START OF PROCESS " 
+    doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema1" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          START OF PROCESS          ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+		<logger level="INFO" doc:name="StartLogger" doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema2" message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'/>
+		<!-- Set Variables for API Configuration -->
+		<set-variable value='#["Variant_Base_Values"]' doc:name="Set Endpoint to Variant_Base_Values" doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema3" variableName="request_endpoint"/>
+		
+		<flow-ref doc:name="prc-erp-api-v7-flow" doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema4" name="prc-erp-api-v7-flow"/>
+		<logger level="INFO" doc:name="EndLogger" doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema5" message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]'/>
+			<logger 
+    level="INFO" 
+    doc:name=" END OF PROCESS " 
+    doc:id="f6a7b8c9-d0e1-4234-f567-variantbasema6" 
+    message="#['\n\n' ++'/*****************************************/' ++ '\n' ++&#10;        '/***          END OF PROCESS            ***/' ++ '\n' ++&#10;        '/*****************************************/']"/>
+	</flow>
+	
+	<sub-flow name="prc-erp-api-v7-flow" doc:id="66ea4291-dcc7-4090-a01c-a6cd4e8f52a8" >
+			<set-variable value='#["GET"]' doc:name="Set GET Method" doc:id="2ba659b6-7284-41a0-aa2e-416fb5182152" variableName="request_method"/>
+		<set-variable doc:name="Set System" variableName="BC_system" value='#[(attributes.queryParams."\$system" default "")]'/>
+        <set-variable value='#[(attributes.queryParams."\$environmentBusinessCentral" default "")]' doc:name="Set Environment" variableName="BC_env" />
+        <set-variable value='#[%dw 2.0&#10;output application/json&#10;var companyBusinessCentral = attributes.queryParams."\$companyBusinessCentral" default ""&#10;---&#10;companyBusinessCentral replace "&amp;" with "%26"]' doc:name="Set Company" variableName="BC_company"/>
+        <set-variable value='#[(attributes.queryParams."\$tenantGuidBusinessCentral" default "")]' doc:name="Set Tenant Guid" variableName="BC_tenantGuid"/>
+		<!-- [STUDIO:"Set BC_ItemNo"]<set-variable value='#[(attributes.queryParams."\$itemNoBusinessCentral" default "")&#93;' doc:name="Set BC_ItemNo" doc:id="8df91480-34b5-4cc9-884b-f9c865a93004" variableName="ItemNo" /> [STUDIO] -->
+		<choice doc:name="Choice1" doc:id="cfba324e-22b4-4ebd-9d8c-4515862c3e22">
+			<when expression='#[(attributes.queryParams."bcskip") != null]'>
+				<set-variable value='#["&amp;bcskip=" ++ (attributes.queryParams."bcskip" default "")]' doc:name="BC SKip" doc:id="f1b8be56-06db-4956-85e7-5e5ebf689cf7" variableName="BC_SKip" />
+			</when>
+			<otherwise>
+				<set-variable value='#[""]' doc:name="BC SKip" doc:id="f4c39ca1-868d-4a9d-a7da-d94da3c40b49" variableName="BC_SKip" />
+			
+</otherwise>
+		</choice>
+			<choice doc:name="Choice2" doc:id="86b6fcc1-347a-4ec3-bf65-ba820f429c8c">
+			<when expression='#[(attributes.queryParams."bcskiptoken") != null]'>
+				<set-variable value='#["&amp;bcskiptoken=" ++ (attributes.queryParams."bcskiptoken" default "" replace "&amp;" with "%2526")]' doc:name="Skip Token for Pagination" doc:id="6386d229-96a9-44c3-8f12-7a2226e5366b" variableName="BC_Skiptoken" />
+			</when>
+			<otherwise>
+				<set-variable value='#[""]' doc:name="Skip Token for Pagination" doc:id="53bf0d74-fd79-41f6-8443-718b23f51444" variableName="BC_Skiptoken" />
+			</otherwise>
+		</choice>
+		<choice doc:name="Choice3" doc:id="2be2fd23-d1e7-48c4-84fc-744b5dc1adfc">
+            <when expression='#[(attributes.queryParams.&quot;bcfilter&quot;) != null]'>
+                <set-variable value='#["&amp;bcfilter=" ++ (attributes.queryParams."bcfilter" default "")]' doc:name="BC Filter" doc:id="3f254192-6f4e-41e1-9c00-bdd72914903c" variableName="BC_Filter" />
+            </when>
+            <otherwise>
+                <set-variable value="#[&quot;&quot;]" doc:name="BC Filter" doc:id="332273c2-4ffe-4569-a2d8-c1e479ad24c9" variableName="BC_Filter" />
+            </otherwise>
+        </choice>
+		<choice doc:name="Choice4" doc:id="887ac779-8c99-417e-a6c9-21e1bd26b422" >
+			<when expression='#[(attributes.queryParams."bcselect") != null]'>
+				<set-variable value='#["&amp;bcselect=" ++ (attributes.queryParams."bcselect" default "")]' doc:name="BC Select" doc:id="05386d30-5eee-46e1-8a43-4593a18ba72e" variableName="BC_Select"/>
+			</when>
+			<otherwise >
+				<choice doc:name="Choice" doc:id="cdc81abe-fe6d-41f9-a24b-3b9f485dfe1c" >
+					<when expression="#[!isEmpty(vars.bcselect)]">
+						<set-variable value='#["&amp;bcselect=" ++ (vars.bcselect default "")]' doc:name="BC Select" doc:id="f65647ab-9803-4f6c-b361-40ef13289ff0" variableName="BC_Select" />
+					</when>
+					<otherwise >
+						<set-variable value='#[""]' doc:name="BC Select" doc:id="8e9049d8-f2eb-4e83-b2db-8e0354ccb757" variableName="BC_Select"/>
+					</otherwise>
+				</choice>
+			
+</otherwise>
+		</choice>
+			<choice doc:name="Choice4" doc:id="b0d9fb91-1efd-40c8-9a30-472e9c523d58" >
+			<when expression='#[(attributes.queryParams."bcexpand") != null]'>
+				<set-variable value='#["&amp;expand=" ++ (attributes.queryParams."bcexpand" default "")]' doc:name="BC Expand" doc:id="5abb1c8b-d854-4a51-bcdc-f449c1f91493" variableName="BC_Expand"/>
+			</when>
+			<otherwise >
+				<choice doc:name="Choice" doc:id="2a54c4ad-31cf-4a2a-89a0-b81db0d4b1ae" >
+					<when expression="#[!isEmpty(vars.bcexpand)]">
+						<set-variable value='#["&amp;bcexpand=" ++ (vars.bcexpand default "")]' doc:name="BC Expand" doc:id="2ab67883-d58a-4504-9e2f-02294dae3d77" variableName="BC_Expand" />
+					</when>
+					<otherwise >
+						<set-variable value='#[""]' doc:name="BC Expand" doc:id="70b0bc10-4793-40dd-a741-50e3cf111611" variableName="BC_Expand"/>
+					</otherwise>
+				</choice>
+			
+</otherwise>
+		</choice>
+		<choice doc:name="Choice5" doc:id="3903a8c8-31a8-4803-b254-fc9008651155">
+            <when expression='#[(attributes.queryParams."bccount") != null]'>
+                <set-variable value='#["&amp;bccount=" ++ (attributes.queryParams."bccount" default "")]' doc:name="BC Count" doc:id="202c5a92-0f5a-4f0a-9242-6db1039e2f5f" variableName="BC_Count" />
+            </when>
+            <otherwise>
+                <set-variable value="#[&quot;&quot;]" doc:name="BC Count" doc:id="dc7cc0ad-a2ab-40f5-8979-70a992bb9ce8" variableName="BC_Count" />
+            </otherwise>
+        </choice>
+		<choice doc:name="Choice6" doc:id="c4d8606b-deaf-4062-839b-dafeadd2528c">
+            <when expression='#[(attributes.queryParams.&quot;bcorderby&quot;) != null]'>
+                <set-variable value='#["&amp;bcorderby=" ++ (attributes.queryParams."bcorderby" default "")]' doc:name="BC OrderBy" doc:id="de19f2de-3b32-4f48-aebe-75fa8d42cc6a" variableName="BC_OrderBy" />
+            </when>
+            <otherwise>
+                <set-variable value="#[&quot;&quot;]" doc:name="BC OrderBy" doc:id="5efaa429-e0cb-4b68-8b58-d5e053a07e8a" variableName="BC_OrderBy" />
+            </otherwise>
+        </choice>
+        	<choice doc:name="Choice7" doc:id="80e6f831-be44-418e-a94b-c2038d88c423">
+            <when expression='#[(attributes.queryParams."bctop") != null]'>
+                <set-variable value='#["&amp;bctop=" ++ (attributes.queryParams."bctop" default "")]' doc:name="BC Top" doc:id="1166f287-8165-4447-998d-c8335c56965c" variableName="BC_Top" />
+            </when>
+            <otherwise>
+                <set-variable value="#[&quot;&quot;]" doc:name="BC Top" doc:id="c822136e-6457-4229-8d91-5c92246e3a4e" variableName="BC_Top" />
+            </otherwise>
+        </choice>
+        <choice doc:name="Choice7" doc:id="25bc9ddb-a98f-4f48-ab29-74143ff4a7e5">
+            <when expression='#[(attributes.queryParams."bcaid") != null]'>
+                <set-variable value='#["&amp;aid=" ++ (attributes.queryParams."bcaid" default "")]' doc:name="BC Aid" doc:id="4b4b7c5e-5bd9-4378-9477-e40e7206a4dc" variableName="BC_Aid" />
+            </when>
+            <otherwise>
+                <set-variable value="#[&quot;&quot;]" doc:name="BC Aid" doc:id="32f9ed74-83f5-4d13-8c5c-2c14c9528e93" variableName="BC_Aid" />
+            </otherwise>
+        </choice>
+        
+        <!-- HTTP Request to the External API -->
+       <logger level="INFO" doc:name="StartLogger" doc:id="c6127c65-a561-4ec2-8ff5-f1209c179fc6" message='#["Starting the HTTP Business Central at " ++ now() as String]'/>
+		<set-variable value='#[%dw 2.0&#10;output application/java&#10;---&#10;"/api/" ++ (vars.request_endpoint as String) ++ "?\$environmentBusinessCentral=" ++ (vars.BC_env as String) ++ "&amp;\$companyBusinessCentral=" ++ (vars.BC_company as String) ++ "&amp;\$tenantGuidBusinessCentral=" ++ (vars.BC_tenantGuid as String) ++ "&amp;\$system=" ++ (vars.BC_system as String) ++ (vars.BC_Filter default "") ++ (vars.BC_OrderBy default "") ++ (vars.BC_Count default "") ++ (vars.BC_Select default "") ++ (vars.BC_Top default "") ++ (vars.BC_SKip default "") ++ (vars.BC_Skiptoken default "") ++ (vars.BC_Expand default "")]' doc:name="url" doc:id="d7529672-e7e2-4957-90f6-20af06dc3578" variableName="url"/>
+		<logger level="TRACE" doc:name="url" doc:id="61be1a71-fc8f-4a0e-aeb9-996713e02f7f" message="url:#[vars.url]"/>
+		<http:request method="#[vars.request_method]" doc:name="prc-erp-api-v7" doc:id="8a6435bc-77ea-41c7-aef6-3e276ba2ee73" path='#[//"/api/" ++ vars.request_endpoint ++ "?\$environmentBusinessCentral=" ++ vars.BC_env ++ "&amp;" ++ "\$companyBusinessCentral=" ++ (vars.BC_company) ++ "&amp;" ++ "\$tenantGuidBusinessCentral=" ++ vars.BC_tenantGuid ++ "&amp;" ++ "\$system=" ++ vars.BC_system ++ vars.BC_Filter ++ vars.BC_OrderBy ++ vars.BC_Count ++ vars.BC_Select ++ vars.BC_Top ++ vars.BC_SKip ++ vars.BC_Skiptoken ++ vars.BC_Aid ++ vars.BC_Expand&#10;&#10;"/api/" ++ vars.request_endpoint ++ "?\$environmentBusinessCentral=" ++ vars.BC_env ++ "&amp;" ++ "\$companyBusinessCentral=" ++ (vars.BC_company) ++ "&amp;" ++ "\$tenantGuidBusinessCentral=" ++ vars.BC_tenantGuid ++ "&amp;" ++ "\$system=" ++ vars.BC_system ++ vars.BC_Filter ++ vars.BC_OrderBy ++ vars.BC_Count ++ vars.BC_Select ++ vars.BC_Top ++ vars.BC_SKip ++ vars.BC_Skiptoken ++ vars.BC_Expand]' config-ref="HTTP_Request_configuration_prc_erp_api_v7" responseTimeout="${http.request.response.timeout}" sendBodyMode="ALWAYS">
+				<ee:repeatable-file-store-stream inMemorySize="10" bufferUnit="MB" />
+			<reconnect count="3" blocking="false" />
+				
+</http:request>	
+		<logger level="INFO" doc:name="EndLogger" doc:id="e5998f69-2b53-42c6-a80d-8894d47defd8" message='#["Ending the HTTP Business Central at " ++ now() as String]'/>
+		<logger level="TRACE" doc:name="Incoming Payload" doc:id="86272e12-c886-4ef4-9f8b-2338dcf81383" message="Business Central Response :#[payload]" />
+		<logger level="TRACE" doc:name="@odata.nextLink" doc:id="3a3a836d-a8c2-4a24-93ba-f008ac105e7f" message='@odata.nextLink:#[payload.businessCentralResponse."@odata.nextLink"]'/>
+		<set-variable value='#[payload.businessCentralResponse."@odata.nextLink"]' doc:name="nextLink" doc:id="e1fad510-e212-4867-809e-1dd4477261fb" variableName="nextLink" />
+<set-variable value='#[%dw 2.0&#10;output application/java&#10;&#10;&#10;var nextLink = ((vars.nextLink splitBy "?")[1]) default ""&#10;&#10;---&#10;nextLink&#10;    replace /\$schemaversion=[^&amp;]*&amp;/ with ""&#10;    replace /\$environment=[^&amp;]*&amp;/ with ""&#10;    replace /\$company=.*?\$tenantguid=[^&amp;]*&amp;/ with ""]' doc:name="updatedNextLink" doc:id="b109e1e7-7843-4f0f-8de9-e48d1a81a1ef" variableName="updatedNextLink"/>
+		<logger level="TRACE" doc:name="updatedNextLink" doc:id="38b712c4-a6bd-49dc-9517-1ab00b82e264" message="updatedNextLink:#[vars.updatedNextLink]"/>
+		<set-variable value="#[payload]" doc:name="Set BusinessCentralResponse" doc:id="e813f4d3-629a-4e02-9348-cbf1b5520ee6" variableName="BusinessCentralResponse"/>
+		<choice doc:name="Choice" doc:id="f47402b5-4cd2-430b-8160-064fd973a85c" >
+					 <when expression='#[vars.nextLink != null]'>
+					 						<logger level="INFO" doc:name="StartLogger" doc:id="7c9d7b1c-e3d9-4fa4-8258-9351dbaa0403" message='#["Starting the Business Central Response Tansform2 at " ++ now() as String]'/>
+						<ee:transform doc:name="Transform Message" doc:id="abce8230-81d8-4fab-83bc-a4befb381323">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+import * from dw::core::Strings
+import substringAfter from dw::core::Strings
+import substringBefore from dw::core::Strings
+var system = vars.BC_system
+var environment = vars.BC_env
+var tenantGuid = vars.BC_tenantGuid
+var BusinessCentralResponse = vars.BusinessCentralResponse
+// Pre-encode the company name to handle '&'
+//var company = vars.BC_company replace "&" with "%26"
+var odataContext = BusinessCentralResponse.businessCentralResponse."@odata.context"
+var odataCount = BusinessCentralResponse.businessCentralResponse."@odata.count"
+var company =
+   odataContext
+        substringAfter "Company('"
+        substringBefore "')"
+var request_endpoint = vars.request_endpoint
+var baseUrl = "https://" ++ p('http.get.exp-erp.host') ++ '/api/' ++ request_endpoint
+var nextLink = vars.nextLink default ""
+
+
+// Logic to clean and transform the query parameters
+
+var updatedLink = do {
+    var modifiedParams =  ((nextLink splitBy "?")[1] default "")
+    ---
+    modifiedParams
+   
+        //1. Transform other keys
+        replace /\$schemaversion=[^&]*&/ with ""
+        replace /\$environment=[^&]*&/ with ""
+        replace /\$company=.*?\$tenantguid=[^&]*&/ with ""
+        replace /\&aid/ with "&bcaid"
+        
+        // 2. Final OData cleanup
+        replace /\$/ with "bc"
+}
+
+  var newBaseUrl = baseUrl ++ '?' ++ "%24system=" ++ system ++ '&' ++ "%24companyBusinessCentral=" ++ company ++ '&' ++ "%24environmentBusinessCentral=" ++ environment ++ '&'++ "%24tenantGuidBusinessCentral=" ++ tenantGuid ++ '&' ++ updatedLink
+
+
+--- 
+{
+	
+  "@odata.context": odataContext,
+  "@odata.count": odataCount,
+  "value": BusinessCentralResponse.businessCentralResponse.value,
+  "@odata.nextLink": trim(newBaseUrl)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		
+				<logger level="INFO" doc:name="EndLogger" doc:id="3988ade8-5238-4e03-b3bc-666bea5a5351" message='#["Ending the Business Central Response Tansform2 at " ++ now() as String]'/>
+						<logger level="INFO" doc:name="StartLogger" doc:id="c5fcda2a-6ad0-42eb-bb51-c26496afb06d" message='#["Starting the Business Central Response Tansform3 at " ++ now() as String]'/>
+						<ee:transform doc:name="Transform Message" doc:id="1444649d-7e1a-4197-97ec-2c753131ac42">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  businessCentralResponse: payload
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="EndLogger" doc:id="281932eb-0c1f-485b-96ef-12fbdc7f9462" message='#["Ending the Business Central Response Tansform3 at " ++ now() as String]'/>
+						<logger level="TRACE" doc:name="Item businessCentralResponse" doc:id="ff98d5ad-5390-478c-9f49-a1a69019c347" message="TransformBusinessCentralResponse:#[payload]" />
+			
+
+</when>
+			<otherwise >
+				<logger level="INFO" doc:name="StartLogger" doc:id="0e007a70-8a93-4772-801f-d524daa780f8" message='#["Starting the Business Central Response Tansform2 at " ++ now() as String]'/>
+				<ee:transform doc:name="Transform Message" doc:id="a94193c8-603c-428c-b9ac-5dba8ecf9df2" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var BusinessCentralResponse = vars.BusinessCentralResponse
+---
+BusinessCentralResponse]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="EndLogger" doc:id="8244f66c-c5cb-48be-955b-9b6da503689a" message='#["Ending the Business Central Response Tansform2 at " ++ now() as String]'/>
+				<logger level="TRACE" doc:name="Item businessCentralResponse" doc:id="b6173623-ffee-438b-baf9-126dd4e5948d" message="TransformBusinessCentralResponse:#[payload]"/>
+			
+</otherwise>
+		</choice>
+	</sub-flow>
+</mule>

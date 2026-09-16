@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    <http:listener-config name="exp-erp-dbricks-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+      
+      <!-- Sandbox -->
+    <!--  
+     <apikit:config name="exp-erp-dbricks-api-config" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:data-bricks-exp-erp-api:1.0.14:raml:zip:Data-Bricks-ERP-Eapi.raml" 
+    outboundHeadersMapName="outboundHeaders" 
+    httpStatusVarName="httpStatus" /> 
+    -->
+      <!-- Pre-Sandbox -->
+      <!--  
+     <apikit:config name="exp-erp-dbricks-api-config" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:data-bricks-erp-eapi-uat:1.0.2:raml:zip:Data-Bricks-ERP-Eapi.raml" 
+    outboundHeadersMapName="outboundHeaders" 
+    httpStatusVarName="httpStatus" /> 
+    -->
+    <!-- Prod -->
+    
+    <apikit:config name="exp-erp-dbricks-api-config" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:data-bricks-erp-eapi-prod:1.0.1:raml:zip:Data-Bricks-ERP-Eapi.raml" 
+    outboundHeadersMapName="outboundHeaders" 
+    httpStatusVarName="httpStatus" />
+    
+    <flow name="exp-erp-dbricks-api-main">
+        <http:listener config-ref="exp-erp-dbricks-api-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="exp-erp-dbricks-api-config" />
+		<error-handler ref="global-error-handler" />
+    </flow>
+    <flow name="exp-erp-dbricks-api-console">
+        <http:listener config-ref="exp-erp-dbricks-api-httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="exp-erp-dbricks-api-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform doc:name="Transform Message">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="get:\Item:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="82c11ef7-3fa5-4d7a-acdc-2b55cb3937af" >
+			<when expression='#[p("Select_Item") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output text/plain&#10;&#10;var selectItemKeys = p("Select_Item") splitBy ","&#10;var expandedItemFields = flatten(selectItemKeys map (itemKey) -&gt; p(itemKey) splitBy ",")&#10;---&#10;expandedItemFields  joinBy ","]' doc:name="bcselect" doc:id="b781f023-4717-4a15-a869-4f584aac5b8b" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="e6b71e27-903d-4a84-beac-7cb37822cf81" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="a09a396c-6211-4f4f-a215-2f0875c3440d" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Item-main" doc:id="cceb8840-f4bc-4ca6-bc96-aae6fee116aa" name="get-Item-main"/>
+    </flow>
+     <flow name="get:\Retail_Item:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="f3e81045-385f-47c4-84ae-d6301e2d38b8" >
+			<when expression='#[p("Select_Retail_Item") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output text/plain&#10;&#10;var retailItemKeys = p("Select_Retail_Item") splitBy ","&#10;var expandedRetailFields = flatten(retailItemKeys map (key) -&gt; p(key) splitBy ",")&#10;---&#10;expandedRetailFields joinBy ","]' doc:name="bcselect" doc:id="48e86ab0-ca6c-4547-9a0d-eab3b9ad550f" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="681b6475-82ca-4b74-ab2b-10d185ee0021" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="4fa5edde-a933-4520-86bb-6e8320c2e67b" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Retail_Item-main" doc:id="bd633e27-f11b-4abe-8324-8666011125ba" name="get-Retail_Item-main"/>
+    </flow>
+    <flow name="get:\Item_Ledger_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="df8c15d7-95c7-4f3a-a5af-8b52f63ebe3f" >
+			<when expression='#[p("Select_Item_Ledger_Entries") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectItemLedgerEntriesRaw =&#10;  (p("Select_Item_Ledger_Entries"))&#10;---&#10;SelectItemLedgerEntriesRaw]' doc:name="bcselect" doc:id="15ed17f3-ad3f-46e4-8895-d5db4232b05c" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="c3a947f2-efa9-4782-b83d-eadda8659695" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="d39406e4-27aa-4d44-beaa-402f56b34fae" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Item_Ledger_Entries-main" doc:id="108dcc58-48b9-433f-a083-61e382a57fb8" name="get-Item_Ledger_Entries-main"/>
+    </flow>
+    <flow name="get:\Item_Families:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="004e1b9c-eecf-4605-9a43-ee2875a98ccd" >
+			<when expression='#[p("Select_Item_Families") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectItemFamiliesRaw =&#10;  (p("Select_Item_Families"))&#10;---&#10;SelectItemFamiliesRaw]' doc:name="bcselect" doc:id="770364e1-7c49-4f4c-8cdd-43e8144e5b1d" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="7366e9a0-5fb7-4870-8844-33722c7392b5" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="1f9e56a3-eaa9-40f4-97ef-8c90fca3678a" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Item_Families-main" doc:id="d7775bde-b4b1-4ff3-b21f-51f9d0007c56" name="get-Item_Families-main"/>
+    </flow>
+    <flow name="get:\Customers:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="75bfccec-2de0-499d-8b5f-50feb096ecd6" >
+			<when expression='#[p("Select_Customer") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectCustomerRaw =&#10;  (p("Select_Customer"))&#10;---&#10;SelectCustomerRaw]' doc:name="bcselect" doc:id="e9850744-ffab-496d-8d69-33c2825418aa" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="d0bd1818-f587-4bf3-abbc-0f2d97a355f0" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="6bcac90e-10e2-4ce9-8729-04326e861cb8" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Customers-main" doc:id="b8134827-cc75-4d80-a2fc-a33eca36f88a" name="get-Customers-main"/>
+    </flow>
+     <flow name="get:\DimensionValues:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="5763d2a8-756b-4bc7-a230-8edf25108d10" >
+			<when expression='#[p("Select_Dimension_Values") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectDimensionValuesRaw =&#10;  (p("Select_Dimension_Values"))&#10;---&#10;SelectDimensionValuesRaw]' doc:name="bcselect" doc:id="671664ef-b158-4a9c-8a26-0fe7417d743a" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="9ec0b7cf-a60c-4891-8182-e65c79918a05" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="dd455876-0a3d-4e41-b3c4-0fe8aa2bfd2c" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-DimensionValues-main" doc:id="927881f7-a94d-4a39-a7c0-7e7977d50d0f" name="get-DimensionValues-main"/>
+    </flow>
+    <flow name="get:\Units_of_Measure:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="6cae9bf8-bc4c-4af8-a1a7-9f110771d8d2" >
+			<when expression='#[p("Select_Units_of_Measure") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectUnitsofMeasureRaw =&#10;  (p("Select_Units_of_Measure"))&#10;---&#10;SelectUnitsofMeasureRaw]' doc:name="bcselect" doc:id="5bff7c09-95fc-4c22-9e76-3010287361a2" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="712f9a56-989f-4b8f-b99e-b8069098d93e" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="ead8b678-70f8-41c3-aed2-3253d040e487" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Units_of_Measure-main" doc:id="7a5514c2-a85f-4dd1-9732-d074dd59403e" name="get-Units_of_Measure-main"/>
+    </flow>
+    <flow name="get:\Retail_Item_Category:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="a52fad7e-e3ab-420c-8434-d16ad9a9bbab" >
+			<when expression='#[p("Select_Retail_Item_Category") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectRetailItemCategoryRaw =&#10;  (p("Select_Retail_Item_Category"))&#10;---&#10;SelectRetailItemCategoryRaw]' doc:name="bcselect" doc:id="d8ef9155-1364-4ba3-b963-68449ccc313f" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="3e57b948-2886-4d9c-8151-b88042c7df6f" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="a7e3e380-1e03-40d3-a94c-817a48b42daf" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Retail_Item_Category-main" doc:id="90f7ba32-db0d-46e8-a522-6c1b0cb26cb0" name="get-Retail_Item_Category-main"/>
+    </flow>
+    <flow name="get:\Vendors:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="bca7de7c-2e7c-4297-93ab-7f4d987c1a54" >
+			<when expression='#[p("Select_Vendors") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectVendorsRaw =&#10;  (p("Select_Vendors"))&#10;---&#10;SelectVendorsRaw]' doc:name="bcselect" doc:id="4cd88d95-7727-4b96-b34c-a41c6b369d30" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="34dc2ade-b0c2-4ad8-b815-58af12065a07" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="cd44f371-e56c-4ff4-aa88-44a10c2b15fb" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Vendors-main" doc:id="6581af7d-fc74-4e39-b090-4554c0a8fbbc" name="get-Vendors-main"/>
+    </flow>
+     <flow name="get:\Locations:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="93598989-3ee5-4a86-aeef-334cd6dde8f7" >
+			<when expression='#[p("Select_Locations") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectLocationsRaw =&#10;  (p("Select_Locations"))&#10;---&#10;SelectLocationsRaw]' doc:name="bcselect" doc:id="d56804fe-16e1-4dad-a92a-2e0f2b799bd8" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="83b75ce8-15ce-49a2-919e-aea8102dec97" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="038794b8-f394-4efb-a4e7-eccc4d976c01" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Locations-main" doc:id="3585b96d-f843-4d83-a847-9747f4336cff" name="get-Locations-main"/>
+    </flow>
+       <flow name="get:\Users:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="8a1707fe-187f-4855-a520-dd78ced9c826" >
+			<when expression='#[p("Select_Users") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectUsersRaw =&#10;  (p("Select_Users"))&#10;---&#10;SelectUsersRaw]' doc:name="bcselect" doc:id="bb9576d7-4b62-43d2-a8da-b3580027f3b1" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="53944f6c-4b5e-4cad-ba23-43f1a432f6c0" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<choice doc:name="Choice" doc:id="8a17b7ae-adc2-4e6b-8718-08ed365dfae7" >
+			<when expression='#[p("Expand_Users_Permissions") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var ExpandUsersPermissionsRaw =&#10;  (p("Expand_Users_Permissions"))&#10;---&#10;ExpandUsersPermissionsRaw]' doc:name="bcexpand" doc:id="07a59c17-5a38-4261-b76e-87e35dc8dfeb" variableName="bcexpand" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcexpand" doc:id="824f84d6-08f3-410e-a059-8cd70d2d5f5b" variableName="bcexpand"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="e01c4b17-8c6a-477e-8cb7-0fdb22cab114" message="bcselect:#[vars.bcselect]"/>
+		<logger level="INFO" doc:name="bcexpand" doc:id="71ed98b2-9817-401b-b371-04d16e485473" message="bcexpand:#[vars.bcexpand]"/>
+		<flow-ref doc:name="get-Users-main" doc:id="f5549929-3cc3-4e09-8f53-8cc11d94eabc" name="get-Users-main"/>
+    </flow>
+       <flow name="get:\Companies:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="de6bd644-6507-45bb-811b-b64c4498706d" >
+			<when expression='#[p("Select_Companies") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectCompaniesRaw =&#10;  (p("Select_Companies"))&#10;---&#10;SelectCompaniesRaw]' doc:name="bcselect" doc:id="0f4a20aa-94b5-47fb-9bea-6f926cf6e255" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="acfae8e9-0890-4631-ae17-e849bdfaff8d" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="d07a06af-e4af-44e7-813e-679ce8b0cf21" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Companies-main" doc:id="33a6c283-b8d0-4720-9fcf-3adddc140515" name="get-Companies-main"/>
+    </flow>
+           <flow name="get:\Purchase_Orders_Open_Lines:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="260ba1f9-406a-4afe-add5-35488ae5ee02" >
+			<when expression='#[p("Select_Purchase_Orders_Open_Lines") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectPurchase_Orders_Open_LinesRaw =&#10;  (p("Select_Purchase_Orders_Open_Lines"))&#10;---&#10;SelectPurchase_Orders_Open_LinesRaw]' doc:name="bcselect" doc:id="0fafa515-6a32-4ff2-9add-03ba84e14e41" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="6cd3b61a-b4bf-419a-aebf-95e076361c19" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="ebf97078-5757-424c-bb47-2f4c238f91ec" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Purchase_Orders_Open_Lines-main" doc:id="8dd8e4df-15df-403b-bb2c-7a9dfd16047b" name="get-Purchase_Orders_Open_Lines-main"/>
+    </flow>
+           <flow name="get:\Bin_Content:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="6cfab1be-add3-4780-befa-a73d4db40e64" >
+			<when expression='#[p("Select_Bin_Content") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectBin_ContentRaw =&#10;  (p("Select_Bin_Content"))&#10;---&#10;SelectBin_ContentRaw]' doc:name="bcselect" doc:id="cecd6115-11ce-4092-8526-f17d74a78a65" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="1e4c3321-1fa4-4e83-958a-00146d263b37" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="ecaf3ec2-0282-4403-94e9-ca4ee49d0721" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Bin_Content-main" doc:id="867ffecb-7928-47fe-8402-8194258dcde8" name="get-Bin_Content-main"/>
+    </flow>
+           <flow name="get:\Retail_Sales_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="5321ac52-03c0-4c3b-a209-62d8108a47bb" >
+			<when expression='#[p("Select_Retail_Sales_Entries") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectRetail_Sales_EntriesRaw =&#10;  (p("Select_Retail_Sales_Entries"))&#10;---&#10;SelectRetail_Sales_EntriesRaw]' doc:name="bcselect" doc:id="e806f4e7-3b8a-4281-aaac-710abb10f2cf" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="8e650125-68ed-4234-96e9-8163c832f156" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="32650f12-9d77-436f-956a-ed6e42e0ce2e" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Retail_Sales_Entries-main" doc:id="c1b7b8e4-0069-40d7-9a22-ac2410817acd" name="get-Retail_Sales_Entries-main"/>
+    </flow>
+           <flow name="get:\Discount_Offers:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="427da960-913a-480d-975c-1712fb787426" >
+			<when expression='#[p("Select_Discount_Offers") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectDiscount_OffersRaw =&#10;  (p("Select_Discount_Offers"))&#10;---&#10;SelectDiscount_OffersRaw]' doc:name="bcselect" doc:id="50eed2c4-78af-4d9c-9596-40813bb08648" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="1d0a91c7-62ac-46f8-a44b-d4018f6b136d" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="973f91cf-d1ee-41ad-87ca-f4b63f62a010" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Discount_Offers-main" doc:id="007bbdfa-f3d6-4182-9c28-ea85f7a7f0db" name="get-Discount_Offers-main"/>
+    </flow>
+           <flow name="get:\Discount_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="b8ea07fd-b3b0-4c6e-8c17-33a69d643f4f" >
+			<when expression='#[p("Select_Discount_Entries") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectDiscount_EntriesRaw =&#10;  (p("Select_Discount_Entries"))&#10;---&#10;SelectDiscount_EntriesRaw]' doc:name="bcselect" doc:id="21011d05-669a-4c20-b3bd-f8c240e143eb" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="325cae07-3343-498f-a2b8-4de0ac195b76" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="89c79bbd-0c47-4e04-8c2e-96692a200e58" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Discount_Entries-main" doc:id="8a7c3305-db01-4076-a328-23f56d3270a1" name="get-Discount_Entries-main"/>
+    </flow>
+            <flow name="get:\Value_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="65438537-9111-44b7-9234-f7895b929367" >
+			<when expression='#[p("Select_Value_Entries") != null]'>
+				<set-variable value='#[%dw 2.0&#10;output application/json&#10;&#10;var SelectValue_EntriesRaw =&#10;  (p("Select_Value_Entries"))&#10;---&#10;SelectValue_EntriesRaw]' doc:name="bcselect" doc:id="181cb9b5-df8c-4c3a-9eb0-1435dda5e6f0" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="2b69dee6-4ddf-4a62-ae3e-aa446290a1ee" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="bcselect" doc:id="9ee3fd14-8d0e-45fd-b9d2-7614d88a4887" message="bcselect:#[vars.bcselect]"/>
+		<flow-ref doc:name="get-Value_Entries-main" doc:id="f85f2187-65ac-47d5-be09-38e265ebc351" name="get-Value_Entries-main"/>
+    </flow>
+    		<flow name="get:\Staff:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="97627466-a753-4333-998e-969b53d049ed" >
+			<when expression='#[p("Select_Staff") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Staff') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="a9b61863-833a-4259-9056-33036b794ef3" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="65bd3cd0-f133-4113-86f2-cf34794ce692" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="2c7e84b4-714c-45ac-93e2-c5a233a242ef" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Staff-main" doc:id="a36e5f57-57b0-4ba0-a1d3-7bc2e532b09e" name="get-Staff-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="1f9f9a41-3470-44c2-9e72-59fddb044c1b" >
+			<when expression='#[p("Select_Purchase_Order_Lines") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Purchase_Order_Lines') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="38033911-d904-4081-be8f-2f49a14a1003" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="b4411d5e-8262-46e3-947e-202952434a0e" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="e970714f-8484-459c-a104-f3cfa04b329c" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Purchase_Order_Lines-main" doc:id="d256c854-c590-4ecb-a855-317d579200e1" name="get-Purchase_Order_Lines-main"/>
+    </flow>
+    	<flow name="get:\Posted_Purchase_Invoices:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="26bb1f8d-c2e7-4cc4-98ff-188e60f1ebd7" >
+			<when expression='#[p("Select_Posted_Purchase_Invoices") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Purchase_Invoices') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="413cf10b-959c-42dd-a421-9b7633d2dc83" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="3bba3548-e128-4d74-aa32-a515d05a4261" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="ea227d4b-ab1f-4b8b-a1d3-7e46910f489f" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Purchase_Invoices-main" doc:id="cabb2f5a-a5b0-469b-bd20-2226ace927c4" name="get-Posted_Purchase_Invoices-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Archives:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="78bb3e73-e903-43aa-9285-447c562285b2" >
+			<when expression='#[p("Select_Purchase_Order_Archives") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Purchase_Order_Archives') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="200f1517-1db6-4dbe-897e-12d8e0e0459c" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="fb41f91e-f21c-4fd3-b933-ec1d7face787" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="48b1603e-188b-4c3d-9345-975ed6777a17" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Purchase_Order_Archives-main" doc:id="2dc36876-64ac-4da7-954d-45af6cfb2381" name="get-Purchase_Order_Archives-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="9cde6295-fab7-4adf-af5f-d018f13cf4f5" >
+			<when expression='#[p("Select_Purchase_Order") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Purchase_Order') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="48fe6ba2-d2d0-4bab-97be-f3db453935d3" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="48f0bdbf-8889-4845-bbdb-e2954ce71bc3" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="a9a170c1-b957-4564-947f-ec4230fab627" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Purchase_Order-main" doc:id="31eae9b7-5f89-4e53-8f59-9b38fe470a0d" name="get-Purchase_Order-main"/>
+    </flow>
+    <flow name="get:\Purchase_Order_Lines_Archives:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="959a06c0-de01-4cbc-89b3-90482dae157a" >
+			<when expression='#[p("Select_Purchase_Order_Lines_Archives") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Purchase_Order_Lines_Archives') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="4eb6febf-c16c-4e6a-be56-9fedd5f87483" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="d27250c9-e5b2-410e-90e3-67e0296b16e0" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="e3d4f1a4-5290-49fd-a921-2e9dd27fe6ad" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Purchase_Order_Lines_Archives-main" doc:id="efcb7043-915d-4dfa-a13c-2de851e9897e" name="get-Purchase_Order_Lines_Archives-main"/>
+    </flow>
+    <flow name="get:\Posted_Approval_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="87c57599-28ff-4a6c-90bb-d0129341ea4a" >
+			<when expression='#[p("Select_Posted_Approval_Entries") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Approval_Entries') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="d933a851-0d40-49b0-a9e5-2caf925d2a05" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="f3166fdd-65aa-47ad-bea0-ae0deafd1f6f" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="d38f6ea2-18cc-4ff0-a4c1-e9c170c3bbe0" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Approval_Entries-main" doc:id="3a5cd5dc-1619-4f8b-8ba9-6a2ce3491568" name="get-Posted_Approval_Entries-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Receipt:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="a9ade23c-81e8-4102-8cf0-e6bc3d1430be" >
+			<when expression='#[p("Select_Posted_Purchase_Receipt") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Purchase_Receipt') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="12081da9-ff7a-4c6c-8fb1-08958da35989" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="d3bf2989-9567-4f97-98bd-58aa30d8515e" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="d7bab5cd-798b-4423-86e2-6d30c2ddde2c" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Purchase_Receipt-main" doc:id="b53f7e2e-144d-4013-8cb8-f07cd9c67990" name="get-Posted_Purchase_Receipt-main"/>
+    </flow>
+    <flow name="get:\Approval_Request_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="ae89b1b7-0aa8-4e1b-9d32-3b7df5646f7c" >
+			<when expression='#[p("Select_Approval_Request_Entries") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Approval_Request_Entries') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="5514a613-e010-473b-9f26-b85fb013679f" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="6dba2a0a-7917-4d94-b370-d3f40c762b55" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="315588cd-9fb9-4584-8856-39eb0bc13f2c" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Approval_Request_Entries-main" doc:id="ea26a32b-b68a-4a9a-b61e-987743105546" name="get-Approval_Request_Entries-main"/>
+    </flow>
+    <flow name="get:\Posted_Purchase_Invoices_Lines:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="5cc93726-7201-48e2-8a68-52ebd5066bd6" >
+			<when expression='#[p("Select_Posted_Purchase_Invoices_Lines") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Purchase_Invoices_Lines') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="d8cda315-a78a-4f2d-8067-560fcbaa5392" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="56e700aa-1dce-41f7-9d00-111dd5278266" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="a6ff8969-4617-4331-8449-376352e192b2" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Purchase_Invoices_Lines-main" doc:id="10adc3fe-a226-425a-9744-9f60d787bc85" name="get-Posted_Purchase_Invoices_Lines-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_Invoice:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="8d6c95c0-f91f-4345-9834-7e5906f9e02a" >
+			<when expression='#[p("Select_Posted_Sales_Invoice") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Sales_Invoice') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="190fba64-ac8f-4022-8d7c-f573a3558312" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="87fae3b2-5d9b-4ccf-b9a7-78adf2ea0007" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="3a4f539e-9bf3-4854-b9cf-fb68db9eef93" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Sales_Invoice-main" doc:id="d97df89c-d31d-4539-9a50-32ea76a12650" name="get-Posted_Sales_Invoice-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_invoice_lINE:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="c364e406-6b90-4c5e-aaa1-256e41317609" >
+			<when expression='#[p("Select_Posted_Sales_invoice_lINE") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Sales_invoice_lINE') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="538c0d58-534c-43ad-b600-884972a648e7" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="7d8e7e63-0433-458c-8d7f-8ee93cd968d9" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="d0cef6a5-e672-4be9-b20d-fddca8c664a8" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Sales_invoice_lINE-main" doc:id="93fc42cd-fe72-49c2-834e-ad5b2beaf370" name="get-Posted_Sales_invoice_lINE-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_Credit_Notes_Line:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="a9ea3718-94b1-421f-b47d-5954fbd2f14c" >
+			<when expression='#[p("Select_Posted_Sales_Credit_Notes_Line") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Sales_Credit_Notes_Line') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="1c2d651e-f851-455f-9de7-1015dc687d11" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="7a4d82fa-8f7e-4b4e-9815-932a6cf9530c" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="f664cf11-fd3d-442f-afaf-10032821e505" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Sales_Credit_Notes_Line-main" doc:id="a6e3db07-e381-42aa-af04-871eeb016d13" name="get-Posted_Sales_Credit_Notes_Line-main"/>
+    </flow>
+      <flow name="get:\Posted_Sales_Credit_Notes:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="e97f7a7d-0492-4e7e-babe-1b993ced3c42" >
+			<when expression='#[p("Select_Posted_Sales_Credit_Notes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Posted_Sales_Credit_Notes') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="c6f48968-8962-4608-a5c9-c55d34459912" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="30e9466e-d37b-4dc4-b6e7-af5cddad3437" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="a0fbbbcf-fe88-45b2-8022-d8de92201ff2" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Posted_Sales_Credit_Notes-main" doc:id="d99b22ca-511f-4359-ac25-af7b7f3df0a8" name="get-Posted_Sales_Credit_Notes-main"/>
+    </flow>
+      <flow name="get:\salesDocuments:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="e31d4c80-0e30-4fda-892a-4f62f2a3669d" >
+			<when expression='#[p("Select_salesDocuments") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_salesDocuments') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="e04e768d-0469-4962-b2af-ba1b1caa650b" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="7a7d13ac-8452-4d04-9d9a-95265eb141cc" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="2734d5eb-892b-49f1-970a-36e4cfc21288" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-salesDocuments-main" doc:id="2b69dc0f-5ef3-4d84-becb-cf042b2e1ebe" name="get-salesDocuments-main"/>
+    </flow>
+      <flow name="get:\Sales_Quotes:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="01985230-0f46-458e-b830-3c8dc53fe809" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Sales_Quotes') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="3ca7ea5c-3f71-4ad5-9fe5-2031b8e1aaa3" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="2fee1a08-7bb6-4852-a909-e4eb8dcbf483" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="aff8c15c-a66d-4994-b166-ef115f47cf02" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Sales_Quotes-main" doc:id="03ad68c4-8484-4999-8e8e-3a971e9ad124" name="get-Sales_Quotes-main"/>
+    </flow>   
+    
+    
+    <flow name="get:\Retail_Terminal_List:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="988b3222-5ef6-4809-911e-15032860cd12" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Retail_Terminal_List') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="164ee9fd-009c-4901-99ae-758c1ef4be9d" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="ae439701-8efa-45e0-b483-b3d0bd9b49b4" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="82067bfa-b6e9-4e5d-8e5d-19b998d94225" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Retail_Terminal_List-main" doc:id="45737437-bf74-452e-8cce-5e619d17a53a" name="get-Retail_Terminal_List-main"/>
+    </flow> 
+    <flow name="get:\LS_Flight_List:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="17a1050d-2ee6-4935-bc7a-a58716d3ac1d" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_LS_Flight_List') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="4bb692fa-cc99-48b6-8853-c3576edd4eae" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="a2993c12-bca0-4dc3-a672-bbb579d7cafb" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="22d76354-b857-4c42-988f-06b833a28ea0" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-LS_Flight_List-main" doc:id="ff73a92d-6660-4ae5-8e82-29e89d2a23da" name="get-LS_Flight_List-main"/>
+    </flow> 
+    <flow name="get:\LS_Transaction_Register:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="31e23978-e1ce-4fb5-8402-ad7f45ffb894" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_LS_Transaction_Register') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="e1e7bd45-9f26-4fc8-a835-716c3edfdbbc" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="7cf5b109-2ec5-4847-bf94-985c731c5b2b" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="f3f92f9e-fe64-4e5f-a58b-f224ee5b844d" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-LS_Transaction_Register-main" doc:id="9047ffb8-504d-4f72-86e0-965a6cffb44f" name="get-LS_Transaction_Register-main"/>
+    </flow> 
+    <flow name="get:\Boarding_Pass_details:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="28252f2f-b080-46f6-bc62-f84b61da7cfb" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Boarding_Pass_details') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="c1185f71-a9bd-4846-8047-5d67ead15a25" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="dfd77dd0-2e16-4708-86e4-5ce0763d0078" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="b8284ce3-2ec1-4bb1-a182-c9a0f2fe55c1" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Boarding_Pass_details-main" doc:id="55c2bffe-f826-453e-a6f6-8d8a0c9413d5" name="get-Boarding_Pass_details-main"/>
+    </flow> 
+    <flow name="get:\LS_Airport_Terminal:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="e5129f27-a42d-410c-8793-c0bde4f0e4fb" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_LS_Airport_Terminal') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="e0e42ee3-432c-4874-bf58-e74fb926ccb3" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="233fda23-0f75-4aa1-be76-7b2e9c41bc2f" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="f9b05a3f-da84-493d-a959-9bfef09f0c23" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-LS_Airport_Terminal-main" doc:id="62fb2aaf-f3a4-4bc6-8c63-59b60142831e" name="get-LS_Airport_Terminal-main"/>
+    </flow>     
+    
+    <flow name="get:\DimensionSetEntries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="ba872e95-ee1d-4251-aa82-e30e92127463" >
+			<when expression='#[p("Select_Sales_Quotes") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_LS_Airport_Terminal') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="6d3e806d-4738-4f4c-94a3-ae9bbc9ced2e" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="c99ad82f-0773-4d24-abda-201ece3b70c5" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="cf05fdcc-4720-4e56-9b99-09a985fe39bd" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-DimensionSetEntries-main" doc:id="677e2bcd-178c-40c8-bbe9-c51d84c23d91" name="get-DimensionSetEntries-main"/>
+    </flow>
+
+    <flow name="get:\Item_Variants:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="a1b2c3d4-e5f6-4012-a345-itemvariantsapi1" >
+			<when expression='#[p("Select_Item_Variants") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Item_Variants') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="a1b2c3d4-e5f6-4012-a345-itemvariantsapi2" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="a1b2c3d4-e5f6-4012-a345-itemvariantsapi3" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="a1b2c3d4-e5f6-4012-a345-itemvariantsapi4" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Item_Variants-main" doc:id="a1b2c3d4-e5f6-4012-a345-itemvariantsapi5" name="get-Item_Variants-main"/>
+    </flow>
+    <flow name="get:\Item_Reference_Entries:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="b2c3d4e5-f6a7-4123-b456-itemrefentriesa1" >
+			<when expression='#[p("Select_Item_Reference_Entries") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Item_Reference_Entries') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="b2c3d4e5-f6a7-4123-b456-itemrefentriesa2" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="b2c3d4e5-f6a7-4123-b456-itemrefentriesa3" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="b2c3d4e5-f6a7-4123-b456-itemrefentriesa4" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Item_Reference_Entries-main" doc:id="b2c3d4e5-f6a7-4123-b456-itemrefentriesa5" name="get-Item_Reference_Entries-main"/>
+    </flow>
+    <flow name="get:\Variant_Base_Values:exp-erp-dbricks-api-config">
+		<choice doc:name="Choice" doc:id="c3d4e5f6-a7b8-4234-c567-variantbaseapia1" >
+			<when expression='#[p("Select_Variant_Base_Values") != null]'>
+				<set-variable value="#[%dw 2.0&#10;output text/plain&#10;---&#10;(p('Select_Variant_Base_Values') splitBy &quot;,&quot;) joinBy &quot;,&quot;]" doc:name="bcselect" doc:id="c3d4e5f6-a7b8-4234-c567-variantbaseapia2" variableName="bcselect" />
+			</when>
+			<otherwise >
+				<set-variable value='#[""]' doc:name="bcselect" doc:id="c3d4e5f6-a7b8-4234-c567-variantbaseapia3" variableName="bcselect"/>
+			</otherwise>
+		</choice>
+	    <logger level="INFO" doc:name="bcselect" doc:id="c3d4e5f6-a7b8-4234-c567-variantbaseapia4" message='bcselect:#[vars.bcselect]' />
+		<flow-ref doc:name="get-Variant_Base_Values-main" doc:id="c3d4e5f6-a7b8-4234-c567-variantbaseapia5" name="get-Variant_Base_Values-main"/>
+    </flow>
+</mule>
