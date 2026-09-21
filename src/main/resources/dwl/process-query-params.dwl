@@ -9,8 +9,8 @@ var skipDates = [
 	"Adapter_Warehouse"
 ] contains endpoint
 var base = {
-	database: p("exp.sat.solutech.mysql.database"),
-	supplier: p("exp.sat.solutech.mysql.supplier"),
+	database: vars.tenant.database,
+	supplier: vars.tenant.supplier,
 	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
 }
 ---
