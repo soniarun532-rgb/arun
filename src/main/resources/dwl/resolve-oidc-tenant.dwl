@@ -1,30 +1,42 @@
 %dw 2.0
 output application/java
 import fromBase64 from dw::core::Binaries
+import try from dw::Runtime
 
 fun padB64(s) =
 	s ++ ("=" * ((4 - (sizeOf(s) mod 4)) mod 4))
+
+fun headerVal(headers, names) =
+	names reduce ((name, acc = "") ->
+		if (acc != "")
+			acc
+		else
+			trim((headers[name] default "") as String)
+	)
 
 fun jwtPayload(authHeader) = do {
 	var raw = (authHeader default "") as String
 	var token = trim(if (lower(raw) startsWith "bearer ") raw[7 to -1] else raw)
 	var part = (token splitBy ".")[1] default ""
 	var normalized = (part replace "-" with "+") replace "_" with "/"
+	var attempt =
+		if (part == "")
+			{ success: false }
+		else
+			try(() -> read((fromBase64(padB64(normalized)) as String {encoding: "UTF-8"}), "application/json"))
 	---
-	if (part == "")
-		{}
+	if (attempt.success default false)
+		attempt.result default {}
 	else
-		try(() -> read((fromBase64(padB64(normalized)) as String {encoding: "UTF-8"}), "application/json")) default {}
+		{}
 }
 
 var headers = attributes.headers default {}
-var auth = headers.authorization default headers.Authorization default ""
+var auth = headerVal(headers, ["authorization", "Authorization"])
 var jwt = jwtPayload(auth)
-var clientId = lower(trim((
-	headers.client_id default headers.clientId default headers['x-client-id']
-	default jwt.azp default jwt.appid default jwt.cid default jwt.client_id
-	default ""
-) as String))
+var headerClient = headerVal(headers, ["client_id", "clientId", "x-client-id", "X-Client-Id"])
+var jwtClient = trim((jwt.azp default jwt.appid default jwt.cid default jwt.client_id default "") as String)
+var clientId = lower(trim(if (headerClient != "") headerClient else jwtClient))
 var tenantKeys = ((p("exp.sat.oidc.tenants") default "") as String)
 	splitBy ","
 	map ((k) -> trim(k))
