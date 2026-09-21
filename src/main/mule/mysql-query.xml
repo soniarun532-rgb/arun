@@ -151,8 +151,11 @@ var sales = p("sapi.mysql.sat.table.sales")
 var orders = p("sapi.mysql.sat.table.orders")
 var products = p("sapi.mysql.sat.table.products")
 ---
-"Select a.*, b.saler_category from " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") ++ " as a " ++
+"Select a.*, b.saler_category, c.STOCKPOINT_ID from " ++ db ++ "." ++ p("sapi.mysql.sat.table.users") ++ " as a " ++
 "left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.user.categories") ++ " as b on a.rep_category = b.usercategory " ++
+"left join (Select bia.REP_ID, bia.STOCKPOINT_ID from " ++ db ++ "." ++ p("sapi.mysql.sat.table.stockpoint.allocation") ++ " bia " ++
+"inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " bicm on bia.stockpoint_ID = bicm.SHOPID " ++
+"where CUSTOMER_TYPE = 'Supplier' and (UPPER(CustomerName) like '%STOCKPOINT' or UPPER(CustomerName) like '%WAREHOUSE')) as c on a.id = c.rep_id " ++
 "where exists (Select 1 from (Select distinct userid from (" ++
 "select Distinct userid, y.product_id from " ++ db ++ "." ++ sales ++ " as y " ++
 "union all select Distinct user_id as userid, y.product_id from " ++ db ++ "." ++ orders ++ " as y" ++
@@ -194,7 +197,9 @@ var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
 ---
-"Select a.productcode, d.UOMName, b.stockpoint_name, MAX(b.date_created) as date_created, SUM(b.quantity) as quantity, SUM(b.total_cost) as total_cost from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as a " ++
+"Select a.productcode, d.UOMName, b.stockpoint_name, MAX(b.date_created) as date_created, " ++
+"SUM(CASE WHEN LOWER(b.entry_type) = 'goodsin' THEN b.quantity ELSE 0 END) - SUM(CASE WHEN LOWER(b.entry_type) = 'goodsout' THEN b.quantity ELSE 0 END) as quantity, " ++
+"SUM(b.total_cost) as total_cost from " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as a " ++
 "inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.stock.movement") ++ " as b on a.id = b.product_id " ++
 "left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom.quantities") ++ " as c on b.product_id = c.product_id " ++
 "left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.uom") ++ " as d on c.packaging_id = d.id " ++
@@ -254,8 +259,16 @@ output application/json
 	</flow>
 
 	<sub-flow name="mysql-query-subflow" doc:id="mysql-query-subflow-0001">
-		<logger level="INFO" doc:name="Run SQL"
-			message='#[output text/plain --- "[Sys-Solutech] executing query for GET /" ++ ((vars.endpoint default "") as String) ++ " database=" ++ ((vars.databaseName default "") as String) ++ " pageNumber=" ++ ((vars.pageNumber default "") as String) ++ " offset=" ++ ((vars.offset default "") as String)]' />
+		<logger level="INFO" doc:name="Logger_JSON_mysql-query-execute" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "sys-solutech-api",
+	event: "mysql-query-execute",
+	endpoint: (vars.endpoint as String) default "",
+	database: (vars.databaseName as String) default "",
+	pageNumber: (vars.pageNumber as String) default "",
+	offset: (vars.offset as String) default ""
+}]' />
 		<db:select doc:name="SAT_NobleOutlook_BI_Select" config-ref="MySQL_Config">
 			<db:sql><![CDATA[#[vars.sql]]]></db:sql>
 		</db:select>
