@@ -1,14 +1,34 @@
 {
   "info": {
-    "_postman_id": "sat-exp-datashare-gets",
-    "name": "SAT Exp Datashare",
-    "description": "Experience API GETs. Send only fromDate, toDate, pageNumber. database and supplier are injected by Exp.",
+    "_postman_id": "sat-exp-datashare-oidc-20260921",
+    "name": "SAT Datashare \u2014 Exp only",
+    "description": "Experience API only.\n\n1) Set collection variable client_secret to the Kenya app secret.\n2) Run Get Azure Token. It saves access_token.\n3) Run any of the 8 GETs. They send Authorization: Bearer {{access_token}}.\nDo not send database, supplier, client_id, or client_secret on the GETs.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "exp_base",
       "value": "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "token_url",
+      "value": "https://login.microsoftonline.com/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
+    },
+    {
+      "key": "client_id",
+      "value": "de772600-0d1f-4492-90b0-a57fcc284cf9"
+    },
+    {
+      "key": "client_secret",
+      "value": ""
+    },
+    {
+      "key": "scope",
+      "value": "api://de772600-0d1f-4492-90b0-a57fcc284cf9/.default"
+    },
+    {
+      "key": "access_token",
+      "value": ""
     },
     {
       "key": "fromDate",
@@ -25,13 +45,74 @@
   ],
   "item": [
     {
+      "name": "Get Azure Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "var json = pm.response.json();",
+              "if (json.access_token) {",
+              "    pm.collectionVariables.set('access_token', json.access_token);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials"
+            },
+            {
+              "key": "client_id",
+              "value": "{{client_id}}"
+            },
+            {
+              "key": "client_secret",
+              "value": "{{client_secret}}"
+            },
+            {
+              "key": "scope",
+              "value": "{{scope}}"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{token_url}}",
+          "host": [
+            "{{token_url}}"
+          ]
+        },
+        "description": "Kenya app SAT_Datashare_APP_API_SGKE_Reckitt. Put the secret in collection variable client_secret. Token is stored in access_token."
+      }
+    },
+    {
       "name": "GET /v1/Invoice",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -47,32 +128,36 @@
           "query": [
             {
               "key": "fromDate",
-              "value": "{{fromDate}}",
-              "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+              "value": "{{fromDate}}"
             },
             {
               "key": "toDate",
-              "value": "{{toDate}}",
-              "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+              "value": "{{toDate}}"
             },
             {
               "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+              "value": "{{pageNumber}}"
             }
           ]
         },
-        "description": "Public Invoice. Exp injects database and supplier from properties. Do not send them."
+        "description": "fromDate, toDate, pageNumber. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Order",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -88,32 +173,36 @@
           "query": [
             {
               "key": "fromDate",
-              "value": "{{fromDate}}",
-              "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+              "value": "{{fromDate}}"
             },
             {
               "key": "toDate",
-              "value": "{{toDate}}",
-              "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+              "value": "{{toDate}}"
             },
             {
               "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+              "value": "{{pageNumber}}"
             }
           ]
         },
-        "description": "Public Order. Exp injects database and supplier."
+        "description": "fromDate, toDate, pageNumber. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Product",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -128,17 +217,24 @@
           ],
           "query": []
         },
-        "description": "No query parameters required. Follow payload.next if present."
+        "description": "No query params. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Route",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -153,17 +249,24 @@
           ],
           "query": []
         },
-        "description": "No query parameters required. Follow payload.next if present."
+        "description": "No query params. Bearer token only."
       }
     },
     {
       "name": "GET /v1/SalesRep",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -178,17 +281,24 @@
           ],
           "query": []
         },
-        "description": "No query parameters required. Follow payload.next if present."
+        "description": "No query params. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Customer",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -204,32 +314,36 @@
           "query": [
             {
               "key": "fromDate",
-              "value": "{{fromDate}}",
-              "description": "Required. Inclusive start date YYYY-MM-DD (no time)."
+              "value": "{{fromDate}}"
             },
             {
               "key": "toDate",
-              "value": "{{toDate}}",
-              "description": "Required. Inclusive end date YYYY-MM-DD (no time)."
+              "value": "{{toDate}}"
             },
             {
               "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+              "value": "{{pageNumber}}"
             }
           ]
         },
-        "description": "GET /v1/Customer. Maps to PAPI Adapter_Customer then SAPI /api/customer."
+        "description": "fromDate, toDate, pageNumber. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Stock",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -245,22 +359,28 @@
           "query": [
             {
               "key": "pageNumber",
-              "value": "{{pageNumber}}",
-              "description": "Optional. 0-based page. Sent as string. Page size is 10000 in SAPI properties."
+              "value": "{{pageNumber}}"
             }
           ]
         },
-        "description": "Only pageNumber. fromDate and toDate are not used."
+        "description": "pageNumber only. Bearer token only."
       }
     },
     {
       "name": "GET /v1/Warehouse",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "GET",
         "header": [
           {
             "key": "Accept",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
           }
         ],
         "url": {
@@ -275,7 +395,7 @@
           ],
           "query": []
         },
-        "description": "No query parameters required. Follow payload.next if present."
+        "description": "No query params. Bearer token only."
       }
     }
   ]
