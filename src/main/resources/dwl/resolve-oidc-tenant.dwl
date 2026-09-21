@@ -1,7 +1,6 @@
 %dw 2.0
 output application/java
 import fromBase64 from dw::core::Binaries
-import try from dw::Runtime
 
 fun padB64(s) =
 	s ++ ("=" * ((4 - (sizeOf(s) mod 4)) mod 4))
@@ -25,21 +24,39 @@ fun headerByName(headers, wanted) = do {
 	asText(hit.value default "")
 }
 
-fun jwtPayload(authHeader) = do {
-	var raw = asText(authHeader)
-	var token = trim(if (lower(raw) startsWith "bearer ") raw[7 to -1] else raw)
-	var part = (token splitBy ".")[1] default ""
-	var normalized = (part replace "-" with "+") replace "_" with "/"
-	var attempt =
-		if (part == "")
-			{ success: false }
-		else
-			try(() -> read((fromBase64(padB64(normalized)) as String {encoding: "UTF-8"}), "application/json"))
+fun bearerToken(raw) = do {
+	var s = asText(raw)
 	---
-	if (attempt.success default false)
-		attempt.result default {}
+	if (lower(s) startsWith "bearer ")
+		trim(s[7 to -1])
+	else if (lower(s) startsWith "bearer")
+		trim(s[6 to -1])
+	else
+		s
+}
+
+fun asJwtObject(decoded) =
+	if (decoded == null)
+		{}
+	else if ((decoded.appid != null) or (decoded.azp != null) or (decoded.aud != null) or (decoded.client_id != null))
+		decoded
+	else if (decoded.success == true)
+		asJwtObject(decoded.result)
 	else
 		{}
+
+fun jwtPayload(authHeader) = do {
+	var token = bearerToken(authHeader)
+	var parts = token splitBy "."
+	var part = parts[1] default ""
+	var normalized = padB64((part replace "-" with "+") replace "_" with "/")
+	var bin = fromBase64(normalized)
+	var text = bin as String {encoding: "UTF-8"}
+	---
+	if ((part == "") or (sizeOf(parts) < 2))
+		{}
+	else
+		asJwtObject(read(text, "application/json"))
 }
 
 var headers = attributes.headers default {}
@@ -56,15 +73,15 @@ var headerClient = firstNonEmpty([
 	headerByName(headers, "appid")
 ])
 var jwtClient = firstNonEmpty([
-	jwt.azp,
 	jwt.appid,
+	jwt.azp,
 	jwt.cid,
 	jwt.client_id,
-	authnClaims.azp,
 	authnClaims.appid,
+	authnClaims.azp,
 	authnClaims.client_id,
-	authnProps.azp,
 	authnProps.appid,
+	authnProps.azp,
 	authnProps.client_id,
 	authnProps.clientId,
 	authn.principal,
