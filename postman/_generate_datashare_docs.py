@@ -1085,17 +1085,17 @@ def build_excel(path: Path):
             ],
             [
                 "presandbox",
-                "",
-                "",
-                "",
-                "Paste hosts when the presandbox apps are deployed. Collection uses {{exp_base}} / {{papi_base}} / {{sapi_base}}.",
+                "(set on the Presandbox folder)",
+                "(set on the Presandbox folder)",
+                "(set on the Presandbox folder)",
+                "One Postman collection. Open the Presandbox folder and paste the three hosts on that folder.",
             ],
             [
                 "production",
-                "",
-                "",
-                "",
-                "Paste hosts when the production apps are deployed.",
+                "(set on the Production folder)",
+                "(set on the Production folder)",
+                "(set on the Production folder)",
+                "One Postman collection. Open the Production folder and paste the three hosts on that folder.",
             ],
         ],
         [16, 70, 70, 70, 70],
@@ -1113,7 +1113,7 @@ def build_excel(path: Path):
             ["Current field map", "One row per output field", "Use when changing a DWL"],
             ["Query parameters", "Exp vs PAPI vs SAPI params and headers", "Use when building Postman or RAML"],
             ["Authentication", "OIDC, PAPI hardcoded header, SAPI none", "Use when calling each layer"],
-            ["Environments", "local / sandbox / presandbox / production hosts", "Import matching Postman environment"],
+            ["Environments", "local / sandbox / presandbox / production hosts", "Folders inside the single Postman collection"],
         ],
         [22, 70, 60],
     )
@@ -1268,21 +1268,32 @@ def token_request():
     }
 
 
-def env_file(name, env_id, exp_base, papi_base, sapi_base):
+def env_folder(name, exp_base, papi_base, sapi_base, note):
     return {
-        "id": env_id,
         "name": name,
-        "values": [
-            {"key": "exp_base", "value": exp_base, "enabled": True},
-            {"key": "papi_base", "value": papi_base, "enabled": True},
-            {"key": "sapi_base", "value": sapi_base, "enabled": True},
-            {"key": "database", "value": DATABASE, "enabled": True},
-            {"key": "supplier", "value": SUPPLIER, "enabled": True},
-            {"key": "fromDate", "value": "2026-08-13", "enabled": True},
-            {"key": "toDate", "value": "2026-08-14", "enabled": True},
-            {"key": "pageNumber", "value": "0", "enabled": True},
+        "description": note,
+        "variable": [
+            {"key": "exp_base", "value": exp_base},
+            {"key": "papi_base", "value": papi_base},
+            {"key": "sapi_base", "value": sapi_base},
         ],
-        "_postman_variable_scope": "environment",
+        "item": [
+            {
+                "name": "Exp",
+                "description": "Experience API. Bearer token only. No extra headers. No database/supplier.",
+                "item": layer_gets("exp"),
+            },
+            {
+                "name": "PAPI",
+                "description": "Process API. Authorization hardcoded to Test. No other headers.",
+                "item": layer_gets("papi"),
+            },
+            {
+                "name": "SAPI",
+                "description": "System API. No Authorization header. database and supplier required.",
+                "item": layer_gets("sapi"),
+            },
+        ],
     }
 
 
@@ -1292,11 +1303,11 @@ def build_collection():
             "_postman_id": "sat-datashare-exp-papi-sapi-20260921",
             "name": "SAT Datashare — Exp / PAPI / SAPI",
             "description": (
-                "Eight datashare GETs for Exp, PAPI, and SAPI.\n\n"
-                "Select a Postman environment: Local, Sandbox, Presandbox, or Production.\n"
-                "That sets exp_base, papi_base, and sapi_base.\n\n"
-                "Exp: run Get Azure Token first. GETs send only Authorization: Bearer {{access_token}}.\n"
-                "Do not send database or supplier on Exp.\n"
+                "One collection. Folders: Local, Sandbox, Presandbox, Production.\n"
+                "Each folder has Exp, PAPI, and SAPI.\n\n"
+                "1) Run Get Azure Token once. It saves access_token for every Exp GET.\n"
+                "2) Open Local or Sandbox (or Presandbox / Production after you paste hosts on that folder).\n\n"
+                "Exp: Authorization Bearer {{access_token}} only. No database or supplier.\n"
                 "Invoice / Order / Customer: fromDate, toDate, pageNumber.\n"
                 "Stock: pageNumber only.\n"
                 "Product / Route / SalesRep / Warehouse: no query params.\n\n"
@@ -1320,26 +1331,35 @@ def build_collection():
             {"key": "pageNumber", "value": "0"},
         ],
         "item": [
-            {
-                "name": "Auth",
-                "description": "Azure token for Exp only. PAPI and SAPI do not use this token.",
-                "item": [token_request()],
-            },
-            {
-                "name": "Exp",
-                "description": "Experience API. Bearer token only. No extra headers. No database/supplier.",
-                "item": layer_gets("exp"),
-            },
-            {
-                "name": "PAPI",
-                "description": "Process API. Authorization hardcoded to Test. No other headers.",
-                "item": layer_gets("papi"),
-            },
-            {
-                "name": "SAPI",
-                "description": "System API. No Authorization header. database and supplier required.",
-                "item": layer_gets("sapi"),
-            },
+            token_request(),
+            env_folder(
+                "Local",
+                "http://localhost:8081",
+                "http://localhost:8081",
+                "http://localhost:8081",
+                "Studio. Run one API at a time on 8081. Open Exp, PAPI, or SAPI.",
+            ),
+            env_folder(
+                "Sandbox",
+                "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io",
+                "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io",
+                "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io",
+                "CloudHub sandbox apps.",
+            ),
+            env_folder(
+                "Presandbox",
+                "",
+                "",
+                "",
+                "Paste exp_base, papi_base, and sapi_base on this folder when the apps are deployed.",
+            ),
+            env_folder(
+                "Production",
+                "",
+                "",
+                "",
+                "Paste exp_base, papi_base, and sapi_base on this folder when the apps are deployed.",
+            ),
         ],
     }
 
@@ -1351,68 +1371,11 @@ def main():
     build_excel(xlsx_alias)
 
     collection = build_collection()
-    (POSTMAN / "SAT-Datashare-Exp-PAPI-SAPI.postman_collection.json").write_text(
-        json.dumps(collection, indent=2) + "\n", encoding="utf-8"
-    )
-    (POSTMAN / "SAT-Datashare-8-GETs.postman_collection.json").write_text(
-        json.dumps(collection, indent=2) + "\n", encoding="utf-8"
-    )
-
-    envs = [
-        (
-            "SAT-Datashare-local.postman_environment.json",
-            env_file(
-                "SAT Datashare — Local",
-                "sat-datashare-env-local",
-                "http://localhost:8081",
-                "http://localhost:8081",
-                "http://localhost:8081",
-            ),
-        ),
-        (
-            "SAT-Datashare-sandbox.postman_environment.json",
-            env_file(
-                "SAT Datashare — Sandbox",
-                "sat-datashare-env-sandbox",
-                "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io",
-                "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io",
-                "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io",
-            ),
-        ),
-        (
-            "SAT-Datashare-presandbox.postman_environment.json",
-            env_file(
-                "SAT Datashare — Presandbox",
-                "sat-datashare-env-presandbox",
-                "",
-                "",
-                "",
-            ),
-        ),
-        (
-            "SAT-Datashare-production.postman_environment.json",
-            env_file(
-                "SAT Datashare — Production",
-                "sat-datashare-env-production",
-                "",
-                "",
-                "",
-            ),
-        ),
-    ]
-    for name, body in envs:
-        (POSTMAN / name).write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
-
-    # Keep older env names pointing at the same local/sandbox values.
-    (POSTMAN / "SAT-Datashare-localhost.postman_environment.json").write_text(
-        json.dumps(envs[0][1], indent=2) + "\n", encoding="utf-8"
-    )
-    (POSTMAN / "SAT-Datashare-CloudHub.postman_environment.json").write_text(
-        json.dumps(envs[1][1], indent=2) + "\n", encoding="utf-8"
-    )
+    out = POSTMAN / "SAT-Datashare-Exp-PAPI-SAPI.postman_collection.json"
+    out.write_text(json.dumps(collection, indent=2) + "\n", encoding="utf-8")
     print("wrote", xlsx)
     print("wrote", xlsx_alias)
-    print("wrote collection and 4 environments")
+    print("wrote", out)
 
 
 if __name__ == "__main__":
