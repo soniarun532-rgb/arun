@@ -1,22 +1,30 @@
 {
   "info": {
-    "_postman_id": "sat-datashare-8-gets-20260915",
-    "name": "SAT Datashare \u2014 8 GETs (Exp / PAPI / SAPI)",
-    "description": "Eight datashare GET endpoints for all three APIs.\n\nExp: clients never send database or supplier.\n- Invoice, Order, Customer: fromDate, toDate, pageNumber\n- Product, Route, SalesRep, Warehouse: no query params\n- Stock: pageNumber only\n\nPAPI and SAPI: always send database and supplier.\nInvoice, Order, Customer also send fromDate and toDate.\nProduct, Route, SalesRep, Stock, Warehouse send pageNumber only (plus database/supplier).\n\nDates are YYYY-MM-DD. pageNumber is 0-based. Follow payload.next until it is omitted.\nFor localhost, set *_base to http://localhost:8081.",
+    "_postman_id": "sat-datashare-exp-papi-sapi-20260921",
+    "name": "SAT Datashare \u2014 Exp / PAPI / SAPI",
+    "description": "Eight datashare GETs for Exp, PAPI, and SAPI.\n\nSelect a Postman environment: Local, Sandbox, Presandbox, or Production.\nThat sets exp_base, papi_base, and sapi_base.\n\nExp: run Get Azure Token first. GETs send only Authorization: Bearer {{access_token}}.\nDo not send database or supplier on Exp.\nInvoice / Order / Customer: fromDate, toDate, pageNumber.\nStock: pageNumber only.\nProduct / Route / SalesRep / Warehouse: no query params.\n\nPAPI: Authorization: Test (hardcoded, not a variable). Always send database and supplier.\nSAPI: no Authorization header. Always send database and supplier.\n\nKenya defaults: database=sat_nobleoutlook, supplier=RECKITT BENCKISER.\nDates are YYYY-MM-DD. pageNumber is 0-based.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
-      "key": "exp_base",
-      "value": "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+      "key": "token_url",
+      "value": "https://login.microsoftonline.com/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
     },
     {
-      "key": "papi_base",
-      "value": "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+      "key": "client_id",
+      "value": "de772600-0d1f-4492-90b0-a57fcc284cf9"
     },
     {
-      "key": "sapi_base",
-      "value": "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+      "key": "client_secret",
+      "value": ""
+    },
+    {
+      "key": "scope",
+      "value": "https://graph.microsoft.com/.default"
+    },
+    {
+      "key": "access_token",
+      "value": ""
     },
     {
       "key": "database",
@@ -24,7 +32,7 @@
     },
     {
       "key": "supplier",
-      "value": "BIC EAST AFRCA LIMITED"
+      "value": "RECKITT BENCKISER"
     },
     {
       "key": "fromDate",
@@ -37,26 +45,84 @@
     {
       "key": "pageNumber",
       "value": "0"
-    },
-    {
-      "key": "access_token",
-      "value": ""
     }
   ],
   "item": [
     {
-      "name": "Exp",
-      "description": "Experience API. Send Bearer token from the Azure app. Do not send database or supplier.",
+      "name": "Auth",
+      "description": "Azure token for Exp only. PAPI and SAPI do not use this token.",
       "item": [
         {
-          "name": "GET /v1/Invoice",
+          "name": "Get Azure Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.access_token) {",
+                  "    pm.collectionVariables.set('access_token', json.access_token);",
+                  "}"
+                ]
+              }
+            }
+          ],
           "request": {
-            "method": "GET",
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
-              },
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{client_id}}"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{client_secret}}"
+                },
+                {
+                  "key": "scope",
+                  "value": "{{scope}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{token_url}}",
+              "host": [
+                "{{token_url}}"
+              ]
+            },
+            "description": "Kenya app SAT_Datashare_APP_API_SGKE_Reckitt. Put the secret in collection variable client_secret. Saves access_token for Exp GETs only."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Exp",
+      "description": "Experience API. Bearer token only. No extra headers. No database/supplier.",
+      "item": [
+        {
+          "name": "GET /api/v1/Invoice",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -75,33 +141,29 @@
               "query": [
                 {
                   "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{fromDate}}"
                 },
                 {
                   "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{toDate}}"
                 },
                 {
                   "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "fromDate and toDate required. pageNumber optional. Do not send database or supplier."
+            "description": "Invoice. fromDate, toDate, pageNumber. Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Order",
+          "name": "GET /api/v1/Order",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -120,33 +182,29 @@
               "query": [
                 {
                   "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{fromDate}}"
                 },
                 {
                   "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{toDate}}"
                 },
                 {
                   "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "fromDate and toDate required. pageNumber optional. Do not send database or supplier."
+            "description": "Order. fromDate, toDate, pageNumber. Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Product",
+          "name": "GET /api/v1/Product",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -164,18 +222,17 @@
               ],
               "query": []
             },
-            "description": "No query parameters. Experience injects database and supplier."
+            "description": "Product. (none). Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Route",
+          "name": "GET /api/v1/Route",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -193,18 +250,17 @@
               ],
               "query": []
             },
-            "description": "No query parameters. Experience injects database and supplier."
+            "description": "Route. (none). Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/SalesRep",
+          "name": "GET /api/v1/SalesRep",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -222,18 +278,17 @@
               ],
               "query": []
             },
-            "description": "No query parameters. Experience injects database and supplier."
+            "description": "SalesRep. (none). Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Customer",
+          "name": "GET /api/v1/Customer",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -252,33 +307,29 @@
               "query": [
                 {
                   "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{fromDate}}"
                 },
                 {
                   "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
+                  "value": "{{toDate}}"
                 },
                 {
                   "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "fromDate and toDate required. pageNumber optional. Do not send database or supplier."
+            "description": "Customer. fromDate, toDate, pageNumber. Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Stock",
+          "name": "GET /api/v1/Stock",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -297,23 +348,21 @@
               "query": [
                 {
                   "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Only pageNumber. Do not send fromDate, toDate, database, or supplier."
+            "description": "Stock. pageNumber. Bearer token only. Do not send database or supplier."
           }
         },
         {
-          "name": "GET /v1/Warehouse",
+          "name": "GET /api/v1/Warehouse",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
               {
                 "key": "Authorization",
                 "value": "Bearer {{access_token}}"
@@ -331,27 +380,30 @@
               ],
               "query": []
             },
-            "description": "No query parameters. Experience injects database and supplier."
+            "description": "Warehouse. (none). Bearer token only. Do not send database or supplier."
           }
         }
       ]
     },
     {
       "name": "PAPI",
-      "description": "Process API. Requires database and supplier. pageNumber is forwarded as a string.",
+      "description": "Process API. Authorization hardcoded to Test. No other headers.",
       "item": [
         {
-          "name": "GET Adapter_Invoice",
+          "name": "GET /api/Adapter_Invoice",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -362,46 +414,44 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/invoice."
+            "description": "Invoice. database, supplier, fromDate, toDate, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Order",
+          "name": "GET /api/Adapter_Order",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -412,46 +462,44 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/order."
+            "description": "Order. database, supplier, fromDate, toDate, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Product",
+          "name": "GET /api/Adapter_Product",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Product?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -462,36 +510,36 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/product. No fromDate/toDate."
+            "description": "Product. database, supplier, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Route",
+          "name": "GET /api/Adapter_Route",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Route?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -502,36 +550,36 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/route. No fromDate/toDate."
+            "description": "Route. database, supplier, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_SalesRep",
+          "name": "GET /api/Adapter_SalesRep",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_SalesRep?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_SalesRep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -542,36 +590,36 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/sales-rep. No fromDate/toDate."
+            "description": "SalesRep. database, supplier, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Customer",
+          "name": "GET /api/Adapter_Customer",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -582,46 +630,44 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/customer."
+            "description": "Customer. database, supplier, fromDate, toDate, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Stock",
+          "name": "GET /api/Adapter_Stock",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Stock?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -632,36 +678,36 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/stock. pageNumber plus database/supplier."
+            "description": "Stock. database, supplier, pageNumber. Authorization is hardcoded Test. No variable."
           }
         },
         {
-          "name": "GET Adapter_Warehouse",
+          "name": "GET /api/Adapter_Warehouse",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
             "header": [
               {
-                "key": "Accept",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Test"
               }
             ],
             "url": {
-              "raw": "{{papi_base}}/api/Adapter_Warehouse?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{papi_base}}/api/Adapter_Warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{papi_base}}"
               ],
@@ -672,42 +718,37 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Maps SAPI /api/warehouse. No fromDate/toDate."
+            "description": "Warehouse. database, supplier, pageNumber. Authorization is hardcoded Test. No variable."
           }
         }
       ]
     },
     {
       "name": "SAPI",
-      "description": "System API. Original DB columns. Use sat_nobleoutlook.",
+      "description": "System API. No Authorization header. database and supplier required.",
       "item": [
         {
           "name": "GET /api/invoice",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/invoice?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -718,46 +759,39 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. fromDate/toDate required."
+            "description": "Invoice. database, supplier, fromDate, toDate, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/order",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/order?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -768,46 +802,39 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. fromDate/toDate required."
+            "description": "Order. database, supplier, fromDate, toDate, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/product",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/product?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -818,36 +845,31 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. No fromDate/toDate."
+            "description": "Product. database, supplier, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/route",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/route?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -858,36 +880,31 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. No fromDate/toDate."
+            "description": "Route. database, supplier, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/sales-rep",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/sales-rep?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/sales-rep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -898,36 +915,31 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. No fromDate/toDate."
+            "description": "SalesRep. database, supplier, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/customer",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/customer?database={{database}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -938,46 +950,39 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "fromDate",
-                  "value": "{{fromDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "toDate",
-                  "value": "{{toDate}}",
-                  "description": "Required. YYYY-MM-DD. No time."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "{{fromDate}}"
+                },
+                {
+                  "key": "toDate",
+                  "value": "{{toDate}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. fromDate/toDate required."
+            "description": "Customer. database, supplier, fromDate, toDate, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/stock",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/stock?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -988,36 +993,31 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. pageNumber plus database/supplier."
+            "description": "Stock. database, supplier, pageNumber. No Authorization header."
           }
         },
         {
           "name": "GET /api/warehouse",
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "{{sapi_base}}/api/warehouse?database={{database}}&pageNumber={{pageNumber}}&supplier={{supplier}}",
+              "raw": "{{sapi_base}}/api/warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
               "host": [
                 "{{sapi_base}}"
               ],
@@ -1028,22 +1028,19 @@
               "query": [
                 {
                   "key": "database",
-                  "value": "{{database}}",
-                  "description": "MySQL schema. sat_nobleoutlook."
-                },
-                {
-                  "key": "pageNumber",
-                  "value": "{{pageNumber}}",
-                  "description": "Optional. 0-based. First call can omit."
+                  "value": "{{database}}"
                 },
                 {
                   "key": "supplier",
-                  "value": "{{supplier}}",
-                  "description": "products.supplier. Experience injects this for clients."
+                  "value": "{{supplier}}"
+                },
+                {
+                  "key": "pageNumber",
+                  "value": "{{pageNumber}}"
                 }
               ]
             },
-            "description": "Original DB columns. No fromDate/toDate."
+            "description": "Warehouse. database, supplier, pageNumber. No Authorization header."
           }
         }
       ]
