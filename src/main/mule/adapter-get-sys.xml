@@ -34,8 +34,15 @@ output application/java
 		doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Invoice queryParams"
-			message="[Prc-Solutech] GET /Adapter_Invoice invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Invoice_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Invoice&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Invoice variables">
 			<ee:message />
 			<ee:variables>
@@ -62,8 +69,15 @@ output application/java
 	<flow name="get-Adapter_Order-main-impl" doc:id="get-adapter-order-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Order queryParams"
-			message="[Prc-Solutech] GET /Adapter_Order invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Order_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Order&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Order variables">
 			<ee:message />
 			<ee:variables>
@@ -90,8 +104,15 @@ output application/java
 	<flow name="get-Adapter_Product-main-impl" doc:id="get-adapter-product-datashare-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Product queryParams"
-			message="[Prc-Solutech] GET /Adapter_Product invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Product_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Product&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Product variables">
 			<ee:message />
 			<ee:variables>
@@ -118,8 +139,15 @@ output application/java
 	<flow name="get-Adapter_Route-main-impl" doc:id="get-adapter-route-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Route queryParams"
-			message="[Prc-Solutech] GET /Adapter_Route invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Route_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Route&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Route variables">
 			<ee:message />
 			<ee:variables>
@@ -146,8 +174,15 @@ output application/java
 	<flow name="get-Adapter_SalesRep-main-impl" doc:id="get-adapter-salesrep-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_SalesRep queryParams"
-			message="[Prc-Solutech] GET /Adapter_SalesRep invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_SalesRep_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_SalesRep&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_SalesRep variables">
 			<ee:message />
 			<ee:variables>
@@ -174,8 +209,15 @@ output application/java
 	<flow name="get-Adapter_Customer-datashare-impl" doc:id="get-adapter-customer-datashare-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Customer queryParams"
-			message="[Prc-Solutech] GET /Adapter_Customer invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Customer_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Customer&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Customer variables">
 			<ee:message />
 			<ee:variables>
@@ -202,8 +244,15 @@ output application/java
 	<flow name="get-Adapter_Stock-main-impl" doc:id="get-adapter-stock-datashare-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Stock queryParams"
-			message="[Prc-Solutech] GET /Adapter_Stock invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Stock_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Stock&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Stock variables">
 			<ee:message />
 			<ee:variables>
@@ -230,8 +279,15 @@ output application/java
 	<flow name="get-Adapter_Warehouse-main-impl" doc:id="get-adapter-warehouse-0001">
 		<logger level="INFO" doc:name="Start Logger"
 			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
-		<logger level="INFO" doc:name="GET Adapter_Warehouse queryParams"
-			message="[Prc-Solutech] GET /Adapter_Warehouse invoked. queryParams: #[attributes.queryParams]" />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Warehouse_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Warehouse&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
 		<ee:transform doc:name="Set Adapter_Warehouse variables">
 			<ee:message />
 			<ee:variables>
