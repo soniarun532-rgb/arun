@@ -1366,15 +1366,12 @@ def build_collection():
 
 def main():
     xlsx = MAPPING / "SAT-Datashare-SAPI-PAPI-EAPI-payloads.xlsx"
-    xlsx_alias = POSTMAN / "SAT-Datashare-SAPI-PAPI-EAPI-payloads (2) (1).xlsx"
     build_excel(xlsx)
-    build_excel(xlsx_alias)
 
     collection = build_collection()
     out = POSTMAN / "SAT-Datashare-Exp-PAPI-SAPI.postman_collection.json"
     out.write_text(json.dumps(collection, indent=2) + "\n", encoding="utf-8")
     print("wrote", xlsx)
-    print("wrote", xlsx_alias)
     print("wrote", out)
 
 
