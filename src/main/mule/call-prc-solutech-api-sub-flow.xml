@@ -26,6 +26,9 @@
         <set-variable variableName="endpoint"
                       value='#[vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]'
                       doc:name="Set_Variable_endpoint"/>
+        <set-variable variableName="oidcAuthentication"
+                      value="#[authentication default {}]"
+                      doc:name="Set_Variable_oidcAuthentication"/>
         <ee:transform doc:name="Transform_Message_resolve-oidc-tenant">
             <ee:variables>
                 <ee:set-variable variableName="tenant" resource="dwl/resolve-oidc-tenant.dwl"/>
@@ -40,7 +43,10 @@
 	matched: vars.tenant.matched default false,
 	country: (vars.tenant.country as String) default "",
 	database: (vars.tenant.database as String) default "",
-	hasClientId: vars.tenant.hasClientId default false
+	hasClientId: vars.tenant.hasClientId default false,
+	hasAuthHeader: vars.tenant.hasAuthHeader default false,
+	headerKeys: vars.tenant.headerKeys default [],
+	jwtKeys: vars.tenant.jwtKeys default []
 }]' />
         <choice doc:name="Choice_oidc-tenant">
             <when expression="#[vars.tenant.matched default false]">
