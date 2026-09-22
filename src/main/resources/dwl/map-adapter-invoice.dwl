@@ -31,7 +31,7 @@ var currency = (p("papi.sat.solutech.currency") default "KES") as String
 			InvoiceNumber: sale.ENTRY_ID default "",
 			InvoiceDate: createdAt as String {format: "dd/MM/yyyy"} default "",
 			InvoiceTime: createdAt as String {format: "HH:mm:ss"} default "",
-			InvoiceStatus: sale.PAYMENT_STATUS default "",
+			InvoiceStatus: sale.DELIVERED default "",
 			UnitOfMeasure: sale.PACKAGING default "",
 			Currency: currency,
 			QuantityInvoiced: sale.QUANTITY default "",

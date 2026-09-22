@@ -13,7 +13,7 @@
       "InvoiceNumber": "2002",
       "InvoiceDate": "13/08/2026",
       "InvoiceTime": "21:41:25",
-      "InvoiceStatus": "PAID",
+      "InvoiceStatus": "Delivered",
       "UnitOfMeasure": "PCS",
       "Currency": "KES",
       "QuantityInvoiced": 2,
