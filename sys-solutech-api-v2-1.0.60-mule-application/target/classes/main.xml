@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?> <mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd  http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+
+    <!-- Flow to post customers to Solutech ERP -->
+        <!-- Flow to post products to Solutech ERP -->
+            <!-- Flow to post prices to Solutech ERP -->
+                <!-- Flow to post stock-transfer to Solutech ERP -->
+                
+		<flow name="sg-sat-http-parameter-mapping" doc:id="3e33940d-de9b-4813-8cfc-fbc883db45df" >
+		<ee:transform doc:name="Property Lookup Logic" doc:id="1b3683c1-56e5-4717-859b-b923b91322b2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var targetCompany = attributes.queryParams.Target_Company default ""
+var targetEnvironment = attributes.queryParams.Target_Environment default ""
+var targetGUID = attributes.queryParams.Target_GUID default ""
+var targetSystem = attributes.queryParams.Target_System default ""
+
+var baseKey = "mapping." ++ targetCompany
+
+---
+if (p(baseKey ++ ".name") != null)
+{
+    status: "Success",
+    data: {
+        targetCompany: targetCompany,
+        targetEnvironment: targetEnvironment,
+        targetGUID: targetGUID,
+        targetSystem: targetSystem,
+        uniqueIdentifier: p(baseKey ++ ".name"),
+        target: {
+            grant_type: p(baseKey ++ ".grant_type"),
+            client_id: p(baseKey ++ ".client_id"),
+            client_secret: p('secure::' ++ baseKey ++ ".client_secret"),
+            scope: p(baseKey ++ ".scope"),
+            provider: p(baseKey ++ ".provider")
+        }
+    }
+}
+else
+{
+    status: "Fail",
+    code: "Internal_DataNotFoundFilter",
+    message: "targetCompany " ++ targetCompany ++ " not found."
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[payload]" doc:name="mappingData" doc:id="ccb8b7ec-481e-462e-9dac-a576d66d98c6" variableName="mappingData"/>
+		<choice doc:name="Check env" doc:id="d5efdc18-79aa-4a60-aac3-54f0a239d1fa" >
+			<when expression="#[p('env') == 'dev']">
+				<logger level="INFO" doc:name="Log payload" doc:id="a8bbb1f8-4b78-4782-8dec-a2c3054bc6c2" message="output:#[vars.mappingData]" />
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="69dd6de7-19a1-47fc-bf72-24b9b5bdb90e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+vars.mappingData update {
+    case .data.target.client_secret -> "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Log payload" doc:id="4a98ed92-b682-473c-8dd1-ca09e7a41e28" message="output:#[payload]"/>
+			</otherwise>
+		</choice>
+	</flow>
+
+<sub-flow name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config"
+          doc:id="7ac53c00-1505-448c-986f-4ce53c3780b4">
+
+<set-variable variableName="maskedClientSecret"
+              value="#[output text/plain --- if (p('env') == 'dev') (vars.client_secret as String) else '********']"
+              doc:name="Set Masked Client Secret"/>
+		<logger level="INFO"
+        message="Client Secret: #[vars.maskedClientSecret]"
+        doc:name="Client Secret"/>
+
+    <http:request method="POST" path="/oauth/token" config-ref="HTTP_Request_Solutech_Token_config" doc:name="GET Solutech_Token">
+                <reconnect count="3" blocking="false" />
+			<http:body><![CDATA[#[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+    grant_type: vars.grant_type,
+    client_id: vars.client_id,
+    client_secret: vars.client_secret,
+    scope: vars.scope,
+    provider: vars.provider
+}]]]></http:body>
+                <http:headers><![CDATA[#[{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }]]]></http:headers>
+            </http:request>
+
+    <!-- Only reached on clean success with valid JSON token response -->
+    <set-variable variableName="access_token" value="#[payload.access_token]" doc:name="Token"/>
+    <logger level="INFO"
+            doc:name="access_token"
+            message="[Token] Successfully retrieved access_token "/>
+
+</sub-flow>
+
+</mule>

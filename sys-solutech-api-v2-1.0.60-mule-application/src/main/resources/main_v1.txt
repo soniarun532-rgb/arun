@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+<flow name="post:\v1\integrations\customers:application\json:solutech-system-main-config"
+      doc:id="84c1c562-3aad-426a-85d6-ccdb8746eb0c">
+
+    <!-- 🟢 Log start -->
+    <logger level="INFO"
+            message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]'
+            doc:name="Start Logger"/>
+
+    <!-- 🔑 Get OAuth Token -->
+    <flow-ref name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config"
+              doc:name="Get Access Token"/>
+
+    <!-- 🔁 Attempt ERP request -->
+    <until-successful maxRetries="${http.request.retry.count}"
+                      millisBetweenRetries="${http.request.retry.interval}"
+                      doc:name="Until Successful">
+
+        <try doc:name="ERP Request Try">
+
+            <!-- 🌍 HTTP POST to Solutech ERP -->
+            <http:request method="#[vars.request_method]"
+                          config-ref="HTTP_Request_Solutech_Token_config"
+                          path="#['/api/v1/integrations/' ++ vars.request_endpoint]"
+                          sendBodyMode="ALWAYS"
+                          doc:name="Post Customer">
+                <http:body><![CDATA[#[vars.customerPayload]]]></http:body>
+                <http:headers><![CDATA[#[{
+                    'Authorization': 'Bearer ' ++ vars.access_token,
+                    'Content-Type': 'application/json'
+                }]]]></http:headers>
+            </http:request>
+
+            <!-- 🧾 Capture ERP response -->
+            <set-variable variableName="httpStatus"
+                          value="#[attributes.statusCode]"
+                          doc:name="Capture HTTP Status"/>
+
+            <choice doc:name="Handle ERP Response">
+                <when expression="#[vars.httpStatus == 400]">
+                    <logger level="WARN"
+                            message="⚠️ ERP returned 400 Bad Request → #[payload]"
+                            doc:name="Log 400 Response"/>
+                    <set-variable variableName="httpReason" value="Bad Request"/>
+                    <set-variable variableName="responseHeaders" value='{"Content-Type": "text/plain"}'/>
+                </when>
+                <otherwise>
+                    <logger level="INFO"
+                            message="✅ ERP responded #[vars.httpStatus] → #[payload]"
+                            doc:name="Log Success Response"/>
+                    <set-variable variableName="httpReason" value="OK"/>
+                    <set-variable variableName="responseHeaders" value='{"Content-Type": "application/json"}'/>
+                </otherwise>
+            </choice>
+
+            <!-- ⚠️ Handle HTTP 400 locally -->
+            <error-handler>
+                <on-error-continue type="HTTP:BAD_REQUEST"
+                                   logException="false"
+                                   doc:name="Handle 400 Bad Request">
+                    <logger level="WARN"
+                            message="🚫 Caught 400 Bad Request → returning raw ERP error body"
+                            doc:name="Log 400 Catch"/>
+                    <set-variable variableName="httpStatus" value="400"/>
+                    <set-variable variableName="httpReason" value="Bad Request"/>
+                    <set-variable variableName="responseHeaders" value='{"Content-Type": "text/plain"}'/>
+                    <set-payload value="#[(error.detailedDescription default error.description default error.message)]"
+                                 doc:name="Set ERP Error Body"/>
+                </on-error-continue>
+            </error-handler>
+
+        </try>
+    </until-successful>
+
+    <!-- 📦 Return final response -->
+    <logger level="INFO"
+            message="✅ Finished ERP call for #[vars.request_endpoint] → Status #[vars.httpStatus]"
+            doc:name="End Logger"/>
+
+</flow>
+<!-- 🚀 Flow to manually post customer -->
+<flow name="manual-post-solutech-customer">
+
+    <http:listener doc:name="Listener"
+                   config-ref="solutech-system-api-httpListenerConfig"
+                   path="/integrations/customers"/>
+
+    <logger level="INFO" message="🚀 Starting manual POST to Solutech ERP"/>
+    <logger level="INFO"
+            doc:name="Log Incoming Payload"
+            message='Received payload: #[write(payload, "application/json")]'/>
+
+    <try doc:name="Try - Post to Solutech ERP">
+
+        <set-payload value="#[payload]" doc:name="Prepare Payload"/>
+
+        <http:request config-ref="HTTP_Request_Solutech_Token_config"
+                      method="POST"
+                      path="/api/v1/integrations/customers"
+                      sendBodyMode="ALWAYS"
+                      doc:name="POST /customers">
+            <http:headers><![CDATA[#[{
+   'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxMCIsImp0aSI6ImQyY2VkOTRiZDU4N2NjYjM1MmU3N2Y2NWM3OWZmNjBmNGVhMTdkNTRjNDA4ZGQ1YWYzOTg2YzU5MWMxODYzYjUyYmYwMDU2MjRlZjAwNGE4IiwiaWF0IjoxNzYyNjc2MzM1LjYwMDUwMiwibmJmIjoxNzYyNjc2MzM1LjYwMDUwNCwiZXhwIjoxNzYzOTcyMzM1LjU5NjU0Mywic3ViIjoiIiwic2NvcGVzIjpbIioiXX0.NkLfcyH9YRdzK5T3DCOIrd9AC_Jn5Q79DWo6OZyJBogl8K-5LeGgQRFaSbPPBlCwrPb6dgpRZ4oapdP54PZoegE5d3gqtoWSYuyYUlboBKLLCjMZVA8vu3hOIvIv1FOaiR1545VZxECnFIQqxDZafyQ377a-K_0rU6lpmXXSS3XweZ91HOaZzp-Hi73cWnVAGN49nRdHXG2aoVJJpnGE7Xnfm4pCWQxeCAAInn6EV8p-Oj8kg8WiXkl5bDZ2YDIactyNBGuMVg0FXMHOdizRlBBm-1dXCUW8GZhdcFredE1wOXloAAktC1pU5Fa6EKtqXBSHL9jxzz5JxZ0hI7d5zkVSaPKtSiZCwRUzGIe7lEOiucqADR4ezLVwyJrvYzqFPDLPsAdDqFw3p14pjGYDFDBHErovongcs9P6zW63On12_9MQFzvqyEciQGaR_yvqqIYvRo-iwdSFZlEVZNyAOs7hQSXywc5mXFRF89ejoogwE4T2-nUcqRIZ8hQXascYbPKZti8Xl9CMk_rSO25P03gQ5__zWaiPUckKs_4Z9ktEFxK5qh5NGwr5OSit38s87zbCvHeDAd4j5UDhUOCDCxk1zD1qrOwRU-0cpSumDkhXEGEDN6GQjTEabdiiSef4W8U0swbDa1YI4n-kJkBdMWhv2YP2lbpZvlMZARhrGqA',
+   'Content-Type': 'application/json'
+ }]]]></http:headers>
+        </http:request>
+
+        <logger level="INFO"
+                message="✅ ERP Response #[attributes.statusCode] → #[payload]"
+                doc:name="Log Success Response"/>
+
+        <!-- ✅ Return ERP response as JSON string -->
+        <set-payload
+            value="#[write({success: true, status: attributes.statusCode, body: payload}, 'application/json')]"
+            doc:name="Return ERP Response"/>
+
+        <error-handler>
+    <on-error-continue enableNotifications="true" logException="true" doc:name="Capture Error">
+        <logger level="WARN"
+                message="⚠️ ERP Error #[error.description] → #[error.errorType]"
+                doc:name="Log Error Details"/>
+
+        <!-- 🧩 Include ERP body if available -->
+        <set-payload
+            value="#[write({
+                success: false,
+                status: error.errorType,
+                message: error.description default error.message,
+                erpBody: error.errorMessage.payload default null
+            }, 'application/json')]"
+            doc:name="Error Payload"/>
+    </on-error-continue>
+</error-handler>
+
+
+    </try>
+
+</flow>
+
+
+
+	<sub-flow name="post:\oauth\token:application\x-www-form-urlencoded:solutech-system-main-config" doc:id="9583eea4-3d58-41ae-9106-781664568e70" >
+		<logger level="INFO" message="Client Secret: #[if (p('env') == 'dev') p('secure::erp.solutechlabs.client_secret') else '********']"/>
+		<until-successful maxRetries="${http.request.retry.count}" doc:name="Until Successful" doc:id="891d5a78-0b4a-439d-aafd-633a5bb0e894" millisBetweenRetries="${http.request.retry.interval}">
+			<http:request method="POST" doc:name="Request" doc:id="fe638887-d26e-471e-a137-830744d0cce2" path="/oauth/token" config-ref="HTTP_Request_Solutech_Token_config" sendBodyMode="ALWAYS">
+			<http:body><![CDATA[#[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+    grant_type: p("erp.solutechlabs.grant_type"),
+    client_id: p("erp.solutechlabs.client_id"),
+    client_secret: p("secure::erp.solutechlabs.client_secret"),
+    scope: p("erp.solutechlabs.scope")
+}]]]></http:body>
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"Name" : "Content-Type",
+	"Value" : "application/json"
+}]]]></http:headers>
+		</http:request>
+		</until-successful>
+		<set-variable value="#[payload.access_token]" doc:name="Set Token" doc:id="5e58b637-3825-4775-9666-03c5334a30ff" variableName="access_token"/>
+		
+		<logger level="INFO" doc:name="access_token" doc:id="8dd0b341-276a-43dd-9979-01bb79d6dbb8" message="access_token:#[vars.access_token]"/>
+	</sub-flow>
+	<sub-flow name="handle-erp-error">
+    <logger level="WARN" message="⚠️ Handling ERP Error #[error.errorType.identifier]: #[error.description]"/>
+
+    <set-variable variableName="erpErrorBody"
+                  value="#[error.errorResponse.body default error.description]"/>
+
+    <set-variable variableName="statusCode"
+                  value="#[
+                    if (error.errorType.identifier startsWith 'HTTP:BAD_REQUEST') 400
+                    else if (error.errorType.identifier startsWith 'HTTP:UNAUTHORIZED') 401
+                    else if (error.errorType.identifier startsWith 'HTTP:FORBIDDEN') 403
+                    else if (error.errorType.identifier startsWith 'HTTP:NOT_FOUND') 404
+                    else 500
+                  ]"/>
+
+    <set-payload value='#[%dw 2.0
+        output application/json
+        ---
+        {
+            statusCode: vars.statusCode,
+            statusMessage: error.description default "ERP Error",
+            details: vars.erpErrorBody as String,
+            timestamp: now() as String
+        }]'/>
+
+    <logger level="WARN" message="🚫 ERP Error Response JSON: #[payload]"/>
+</sub-flow>
+
+
+</mule>
+
