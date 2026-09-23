@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+    <sub-flow name="call-prc-solutech-api-sub-flow" doc:name="call-prc-solutech-api-sub-flow">
+        <logger level="INFO" doc:name="Logger_Start_call-prc-solutech-api-sub-flow"
+                message='#["call-prc-solutech-api-sub-flow - Start | timestamp=" ++ now()]'/>
+        <set-variable variableName="inboundPath"
+                      value="#[attributes.requestPath]"
+                      doc:name="Set_Variable_inboundPath"/>
+        <set-variable variableName="inboundQueryParams"
+                      value="#[attributes.queryParams default {}]"
+                      doc:name="Set_Variable_inboundQueryParams"/>
+        <set-variable variableName="endpoint"
+                      value='#[vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]'
+                      doc:name="Set_Variable_endpoint"/>
+        <ee:transform doc:name="Transform_Message_process-query-params">
+            <ee:variables>
+                <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl"/>
+            </ee:variables>
+        </ee:transform>
+        <http:request method="GET"
+                      config-ref="HTTP_Request_config_prc-solutech-api"
+                      path='#["/api/" ++ vars.endpoint]'
+                      responseTimeout="${http.request.response.timeout}"
+                      doc:name="HTTP_Request_GET_prc-solutech-api">
+            <http:headers><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Test"
+}]]]></http:headers>
+            <http:query-params><![CDATA[#[vars.processQueryParams]]]></http:query-params>
+        </http:request>
+        <set-variable variableName="httpStatus"
+                      value="#[attributes.statusCode default 200]"
+                      doc:name="Set_Variable_httpStatus"/>
+        <set-variable variableName="lastCallHasMore"
+                      value="#[attributes.headers.'x-has-more' default 'false']"
+                      doc:name="Set_Variable_lastCallHasMore"/>
+        <ee:transform doc:name="Transform_Message_paging">
+            <ee:variables>
+                <ee:set-variable variableName="paging" resource="dwl/paging.dwl"/>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Transform_Message_add-next-url">
+            <ee:message>
+                <ee:set-payload resource="dwl/add-next-url.dwl"/>
+            </ee:message>
+        </ee:transform>
+        <set-variable variableName="outboundHeaders"
+                      doc:name="Set_Variable_outboundHeaders"
+                      value="#[output application/java
+---
+(vars.outboundHeaders default {})
+    ++ { 'X-Has-More': (vars.paging.hasMore default false) as String }
+    ++ (if (vars.paging.nextUrl != null) { 'X-Next-Url': vars.paging.nextUrl as String } else {})]"/>
+        <logger level="INFO" doc:name="Logger_End_call-prc-solutech-api-sub-flow"
+                message='#["call-prc-solutech-api-sub-flow - End | timestamp=" ++ now() ++ " | payloadSize=" ++ sizeOf(payload default "")]'/>
+    </sub-flow>
+</mule>

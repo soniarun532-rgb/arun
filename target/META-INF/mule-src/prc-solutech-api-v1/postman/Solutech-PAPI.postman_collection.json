@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "a7c3e91b-4d2e-4f6a-9b10-adapter-invoice-get",
+		"name": "Solutech PAPI — Adapter Invoice",
+		"description": "Process API GET Adapter_Invoice (joined Sys invoice, no product+sale join in PAPI).\n\nListener path is /api/*, so the PAPI URL is {{papi_base}}/api/Adapter_Invoice.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{ "key": "papi_base", "value": "http://localhost:8081" },
+		{ "key": "sapi_base", "value": "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io" },
+		{ "key": "access_token", "value": "test" },
+		{ "key": "fromDate", "value": "2026-08-01" },
+		{ "key": "toDate", "value": "2026-08-26" },
+		{ "key": "database", "value": "DEV_DATABASE" },
+		{ "key": "supplier", "value": "DEV_SUPPLIER" },
+		{ "key": "pageNumber", "value": "0" }
+	],
+	"item": [
+		{
+			"name": "PAPI",
+			"item": [
+				{
+					"name": "GET Adapter_Invoice",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+							"host": ["{{papi_base}}"],
+							"path": ["api", "Adapter_Invoice"],
+							"query": [
+								{ "key": "fromDate", "value": "{{fromDate}}", "description": "Required. Inclusive start date YYYY-MM-DD" },
+								{ "key": "toDate", "value": "{{toDate}}", "description": "Required. Inclusive end date YYYY-MM-DD" },
+								{ "key": "database", "value": "{{database}}", "description": "Required. Passed to SAPI" },
+								{ "key": "supplier", "value": "{{supplier}}", "description": "Required. Passed to SAPI" },
+								{ "key": "pageNumber", "value": "{{pageNumber}}", "description": "Optional. 0→OFFSET 0, 1→10000. No limit query param." }
+							]
+						},
+						"description": "Calls Sys GET /api/invoice once, then maps fields.\nProductID strips leading letters from PRODUCT_CODE (BIC903018 → 903018).\nCurrency is always KES."
+					},
+					"response": [
+						{
+							"name": "Example mapped invoice row",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{papi_base}}/api/Adapter_Invoice?fromDate=2026-08-01&toDate=2026-08-26&database=DEV_DATABASE&supplier=DEV_SUPPLIER&pageNumber=0",
+									"host": ["{{papi_base}}"],
+									"path": ["api", "Adapter_Invoice"],
+									"query": [
+										{ "key": "fromDate", "value": "2026-08-01" },
+										{ "key": "toDate", "value": "2026-08-26" },
+										{ "key": "database", "value": "DEV_DATABASE" },
+										{ "key": "supplier", "value": "DEV_SUPPLIER" },
+										{ "key": "pageNumber", "value": "0" }
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{ "key": "Content-Type", "value": "application/json" }
+							],
+							"body": "[\n  {\n    \"STOREID\": \"123\",\n    \"Discount\": 0,\n    \"SalesRepID\": \"45\",\n    \"VATAmount\": 16,\n    \"RouteID\": \"7\",\n    \"DistributorID\": \"\",\n    \"ProductID\": \"903018\",\n    \"WarehouseID\": \"9\",\n    \"OrderNumber\": \"1001\",\n    \"InvoiceNumber\": \"2002\",\n    \"InvoiceDate\": \"13/08/2026\",\n    \"InvoiceTime\": \"21:41:25\",\n    \"InvoiceStatus\": \"PAID\",\n    \"UnitOfMeasure\": \"PCS\",\n    \"Currency\": \"KES\",\n    \"QuantityInvoiced\": 2,\n    \"AmountInvoiced\": 500,\n    \"TransType\": \"SALE\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "POST Adapter_Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record_id\": \"1\",\n  \"customer_code\": \"CUST001\",\n  \"name\": \"Test Shop\",\n  \"contact_person\": \"Jane\",\n  \"address\": \"Nairobi\",\n  \"location\": \"CBD\",\n  \"region\": \"Nairobi\",\n  \"postal_address\": \"00100\",\n  \"country_code\": \"KE\",\n  \"phone_number\": \"0700000000\",\n  \"email\": \"shop@example.com\",\n  \"category\": \"TRADE\",\n  \"vat_number\": \"P000000000X\",\n  \"account_status\": \"1\",\n  \"credit_limit\": 100000,\n  \"payment_terms_code\": \"30D\"\n}"
+						},
+						"url": {
+							"raw": "{{papi_base}}/api/Adapter_Customer?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+							"host": ["{{papi_base}}"],
+							"path": ["api", "Adapter_Customer"],
+							"query": [
+								{ "key": "ACTION", "value": "POST" },
+								{ "key": "SOURCE_System", "value": "SAT" },
+								{ "key": "TARGET_System", "value": "bc" },
+								{ "key": "TARGET_GUID", "value": "" },
+								{ "key": "TARGET_Environment", "value": "" },
+								{ "key": "TARGET_Company", "value": "" }
+							]
+						}
+					}
+				},
+				{
+					"name": "POST Adapter_Sales_Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transaction_type\": \"SALE\",\n  \"customer_code\": \"CUST001\",\n  \"record_id\": 1,\n  \"user_code\": \"SR01\",\n  \"user_name\": \"salesrep\",\n  \"lpo_number\": \"\",\n  \"expected_delivery_date\": \"2026-08-26 00:00:00\",\n  \"sales_order_erp_reference\": \"\",\n  \"tax_invoice_number\": \"\",\n  \"tax_verification_code\": \"\",\n  \"tax_receipt_number\": \"\",\n  \"tax_qr_code\": \"\",\n  \"tax_sync_time\": \"2026-08-26 10:00:00\",\n  \"tax_printer\": \"\",\n  \"tax_identification_number\": \"\",\n  \"item_list\": [\n    {\n      \"item_code\": \"903018\",\n      \"item_quantity\": 1,\n      \"item_price\": 250,\n      \"discount_rate\": 0,\n      \"uom_code\": \"PCS\",\n      \"store_code\": \"WH1\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{papi_base}}/api/Adapter_Sales_Document?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+							"host": ["{{papi_base}}"],
+							"path": ["api", "Adapter_Sales_Document"],
+							"query": [
+								{ "key": "ACTION", "value": "POST" },
+								{ "key": "SOURCE_System", "value": "SAT" },
+								{ "key": "TARGET_System", "value": "bc" },
+								{ "key": "TARGET_GUID", "value": "" },
+								{ "key": "TARGET_Environment", "value": "" },
+								{ "key": "TARGET_Company", "value": "" }
+							]
+						}
+					}
+				},
+				{
+					"name": "POST Adapter_Payment_Receipt",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record_id\": \"RCPT1\",\n  \"customer_code\": \"CUST001\",\n  \"amount\": 500,\n  \"payment_mode\": \"CASH\",\n  \"payment_reference\": \"REF1\",\n  \"record_date\": \"2026-08-26 10:00:00\",\n  \"user_code\": \"SR01\",\n  \"invoices\": [\n    {\n      \"erp_reference\": \"INV001\",\n      \"amount\": 500\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{papi_base}}/api/Adapter_Payment_Receipt?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+							"host": ["{{papi_base}}"],
+							"path": ["api", "Adapter_Payment_Receipt"],
+							"query": [
+								{ "key": "ACTION", "value": "POST" },
+								{ "key": "SOURCE_System", "value": "SAT" },
+								{ "key": "TARGET_System", "value": "bc" },
+								{ "key": "TARGET_GUID", "value": "" },
+								{ "key": "TARGET_Environment", "value": "" },
+								{ "key": "TARGET_Company", "value": "" }
+							]
+						}
+					}
+				},
+				{
+					"name": "POST Adapter_Inventory_Transfer_Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"record_id\": 1,\n  \"from_warehouse\": \"WH1\",\n  \"to_warehouse\": \"WH2\",\n  \"record_date\": \"2026-08-26 10:00:00\",\n  \"item_list\": [\n    {\n      \"item_code\": \"903018\",\n      \"item_quantity\": 2\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{papi_base}}/api/Adapter_Inventory_Transfer_Request?ACTION=POST&SOURCE_System=SAT&TARGET_System=bc&TARGET_GUID=&TARGET_Environment=&TARGET_Company=",
+							"host": ["{{papi_base}}"],
+							"path": ["api", "Adapter_Inventory_Transfer_Request"],
+							"query": [
+								{ "key": "ACTION", "value": "POST" },
+								{ "key": "SOURCE_System", "value": "SAT" },
+								{ "key": "TARGET_System", "value": "bc" },
+								{ "key": "TARGET_GUID", "value": "" },
+								{ "key": "TARGET_Environment", "value": "" },
+								{ "key": "TARGET_Company", "value": "" }
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Sys (what PAPI Invoice calls)",
+			"item": [
+				{
+					"name": "GET /api/invoice",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{ "key": "token", "value": "{{access_token}}", "type": "string" }
+							]
+						},
+						"method": "GET",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": {
+							"raw": "{{sapi_base}}/api/invoice?fromDate={{fromDate}}&toDate={{toDate}}&database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+							"host": ["{{sapi_base}}"],
+							"path": ["api", "invoice"],
+							"query": [
+								{ "key": "fromDate", "value": "{{fromDate}}" },
+								{ "key": "toDate", "value": "{{toDate}}" },
+								{ "key": "database", "value": "{{database}}" },
+								{ "key": "supplier", "value": "{{supplier}}" },
+								{ "key": "pageNumber", "value": "{{pageNumber}}" }
+							]
+						},
+						"description": "Joined invoice payload PAPI maps. Expect { \"data\": [ ... ] } or a raw array."
+					}
+				}
+			]
+		}
+	]
+}

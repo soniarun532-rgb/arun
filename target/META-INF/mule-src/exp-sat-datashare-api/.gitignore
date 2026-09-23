@@ -1,0 +1,7 @@
+target/
+.mule/
+.classpath
+.settings/
+.project
+*.iml
+.idea/

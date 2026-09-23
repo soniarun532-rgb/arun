@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+	<sub-flow name="store-Sys-Get-QueryParams"
+		doc:id="93f6a9c2-75be-40d1-998d-21120a4dbe7a">
+		<ee:transform doc:name="Store inbound query params">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="access_token"><![CDATA[p("sys.solutech.access_token")]]></ee:set-variable>
+				<ee:set-variable variableName="request_method"><![CDATA["GET"]]></ee:set-variable>
+				<ee:set-variable variableName="sysQueryParams"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	fromDate: attributes.queryParams.fromDate,
+	toDate: attributes.queryParams.toDate,
+	database: attributes.queryParams.database as String,
+	supplier: (attributes.queryParams.supplier default attributes.queryParams.Supplier default "") as String,
+	pageNumber: ((attributes.queryParams.pageNumber default 0) as Number) as String
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+
+	<flow name="get-Adapter_Invoice-main-impl"
+		doc:id="8a82a7a9-2042-47b8-af10-d0feb062b322">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Invoice_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Invoice&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Invoice variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.invoice.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.invoice.path") default "/api/Adapter_Invoice"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Invoice fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-invoice.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Order-main-impl" doc:id="get-adapter-order-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Order_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Order&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Order variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.order.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.order.path") default "/api/Adapter_Order"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Order fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-order.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Product-main-impl" doc:id="get-adapter-product-datashare-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Product_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Product&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Product variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.product.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.product.path") default "/api/Adapter_Product"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Product fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-product.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Route-main-impl" doc:id="get-adapter-route-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Route_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Route&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Route variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.route.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.route.path") default "/api/Adapter_Route"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Route fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-route.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_SalesRep-main-impl" doc:id="get-adapter-salesrep-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_SalesRep_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_SalesRep&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_SalesRep variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.salesrep.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.salesrep.path") default "/api/Adapter_SalesRep"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_SalesRep fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-salesrep.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Customer-datashare-impl" doc:id="get-adapter-customer-datashare-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Customer_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Customer&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Customer variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.customer.path") default "/api/customer"]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.customer.path") default "/api/Adapter_Customer"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Customer fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-customer.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Stock-main-impl" doc:id="get-adapter-stock-datashare-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Stock_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Stock&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Stock variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.stock.path") default "/api/stock"]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.stock.path") default "/api/Adapter_Stock"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Stock fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-stock.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Warehouse-main-impl" doc:id="get-adapter-warehouse-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<logger level="INFO" doc:name="Logger_JSON_GET_Adapter_Warehouse_start" message="#[output application/json ---
+{
+	timestamp: now() as String {format: &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;},
+	layer: &quot;prc-solutech-api&quot;,
+	event: &quot;adapter-get-start&quot;,
+	adapter: &quot;Adapter_Warehouse&quot;,
+	database: (attributes.queryParams.database as String) default &quot;&quot;,
+	pageNumber: (attributes.queryParams.pageNumber as String) default &quot;&quot;
+}]" />
+		<ee:transform doc:name="Set Adapter_Warehouse variables">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="request_path"><![CDATA[p("sys.solutech.warehouse.path")]]></ee:set-variable>
+				<ee:set-variable variableName="adapterPublicPath"><![CDATA[p("sys.solutech.adapter.warehouse.path") default "/api/Adapter_Warehouse"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="store-Sys-Get-QueryParams" name="store-Sys-Get-QueryParams" />
+		<flow-ref doc:name="call-Sys-Solutech-Subflow" name="call-Sys-Solutech-Subflow" />
+		<ee:transform doc:name="Map Adapter_Warehouse fields">
+			<ee:message>
+				<ee:set-payload resource="dwl/map-adapter-warehouse.dwl" />
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Prefix next with Experience base URL">
+			<ee:message>
+				<ee:set-payload resource="dwl/prefix-next-url.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Inventory_Transfer_Request-sys-impl"
+		doc:id="sys-get-adapter-itr-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable
+			value='#[p("sys.solutech.inventory.transfer.path")]'
+			doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Payment_Receipt-sys-impl"
+		doc:id="sys-get-adapter-payment-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable
+			value='#[p("sys.solutech.payment.receipt.path")]'
+			doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Sales_Document-sys-impl"
+		doc:id="sys-get-adapter-sales-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable
+			value='#[p("sys.solutech.sales.document.path")]'
+			doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Stock_Transfer-sys-impl"
+		doc:id="sys-get-adapter-stock-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable
+			value='#[p("sys.solutech.stock.transfer.path")]'
+			doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+
+	<flow name="get-Adapter_Price-sys-impl"
+		doc:id="sys-get-adapter-price-0001">
+		<logger level="INFO" doc:name="Start Logger"
+			message='#["Starting the " ++ flow.name ++ " at " ++ now() as String]' />
+		<flow-ref name="store-Sys-Get-QueryParams" />
+		<set-variable value='#[p("sys.solutech.price.path")]'
+			doc:name="request_path" variableName="request_path" />
+		<flow-ref name="call-Sys-Solutech-Subflow" />
+		<logger level="INFO" doc:name="End Logger"
+			message='#["Ending the " ++ flow.name ++ " at " ++ now() as String]' />
+	</flow>
+</mule>

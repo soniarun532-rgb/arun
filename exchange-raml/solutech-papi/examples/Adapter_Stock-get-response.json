@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "ProductID": "903018",
+      "UnitofMeasure": "PCS",
+      "WarehouseName": "Main Warehouse",
+      "DateCreated": "13/08/2026",
+      "Quantity": 100,
+      "TotalCost": 25000
+    }
+  ],
+  "next": "/api/Adapter_Stock?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "StoreID": "123",
+      "SalesRepID": "45",
+      "RouteID": "7",
+      "ProductID": "903018",
+      "DistributorID": "",
+      "WarehouseID": "9",
+      "OrderNumber": "5001",
+      "OrderDate": "13/08/2026",
+      "OrderStartTime": "09:15:00",
+      "OrderEndTime": "09:40:00",
+      "OrderStatus": "1",
+      "UnitOfMeasure": "PCS",
+      "Currency": "KES",
+      "QuantityOrdered": 2,
+      "AmountOrdered": 500,
+      "Discount": 0,
+      "VATAmount": 16
+    }
+  ],
+  "next": "/api/Adapter_Order?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}

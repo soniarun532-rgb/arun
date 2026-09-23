@@ -1,0 +1,28 @@
+#%RAML 1.0 Trait
+queryParameters:
+  fromDate:
+    type: date-only
+    required: false
+    description: Optional inclusive start date (YYYY-MM-DD). Used by Invoice and Order when present.
+    example: 2026-08-01
+  toDate:
+    type: date-only
+    required: false
+    description: Optional inclusive end date (YYYY-MM-DD). Used by Invoice and Order when present.
+    example: 2026-08-10
+  database:
+    type: string
+    required: true
+    description: SAT Noble Outlook schema name. Experience injects this from exp.sat.solutech.mysql.database.
+    example: sat_nobleoutlook
+  supplier:
+    type: string
+    required: true
+    description: Product supplier filter. Experience injects this from exp.sat.solutech.mysql.supplier.
+    example: BIC EAST AFRCA LIMITED
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    description: Page index. OFFSET = pageNumber * pageSize. Page size comes from SAPI sapi.mysql.sat.query.page.size.
+    example: 0

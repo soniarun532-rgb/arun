@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "SHOPID": 123,
+      "SHOP_NAME": "Test Shop",
+      "Customer_Type": "Customer",
+      "PHONE": "0700000000",
+      "REGION": "Nairobi"
+    }
+  ],
+  "next": "/api/Adapter_Customer?fromDate=2026-08-13&toDate=2026-08-14&database=sat_nobleoutlook&supplier=BIC%20EAST%20AFRCA%20LIMITED&pageNumber=1"
+}
