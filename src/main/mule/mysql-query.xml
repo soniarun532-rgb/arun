@@ -66,7 +66,7 @@ output text/plain
 var db = vars.databaseName
 var supplier = vars.supplier as String default ""
 var fromTs = (vars.fromDate as String default "") ++ " 00:00:00"
-var toTs = (vars.toDate as String default "") ++ " 00:00:00"
+var toTs = (vars.toDate as String default "") ++ " 23:59:59"
 ---
 "Select a.*, b.routeid
 from " ++ db ++ "." ++ p("sapi.mysql.sat.table.sales") ++ " as a
@@ -104,10 +104,13 @@ output text/plain
 var db = vars.databaseName
 var supplier = (vars.supplier default "") as String
 var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++ (vars.offset as String)
+var fromTs = (vars.fromDate as String default "") ++ " 00:00:00"
+var toTs = (vars.toDate as String default "") ++ " 23:59:59"
 ---
 "Select a.*, b.routeid, b.CHECKINTIME, b.CHECKOUTTIME from " ++ db ++ "." ++ p("sapi.mysql.sat.table.orders") ++ " as a " ++
 "inner join " ++ db ++ "." ++ p("sapi.mysql.sat.table.products") ++ " as c on a.PRODUCT_ID = c.id and c.supplier = '" ++ supplier ++ "' " ++
 "left join " ++ db ++ "." ++ p("sapi.mysql.sat.table.visits") ++ " as b on a.VISIT_ID = b.visitid " ++
+"where a.ENTRY_TIME between '" ++ fromTs ++ "' and '" ++ toTs ++ "' " ++
 "order by a.ENTRY_ID desc" ++ lim]]></ee:set-variable>
 					</ee:variables>
 				</ee:transform>
@@ -176,9 +179,12 @@ var lim = " LIMIT " ++ (((vars.limit as Number) + 1) as String) ++ " OFFSET " ++
 var sales = p("sapi.mysql.sat.table.sales")
 var orders = p("sapi.mysql.sat.table.orders")
 var products = p("sapi.mysql.sat.table.products")
+var fromTs = (vars.fromDate as String default "") ++ " 00:00:00"
+var toTs = (vars.toDate as String default "") ++ " 23:59:59"
 ---
 "Select a.* from " ++ db ++ "." ++ p("sapi.mysql.sat.table.customers") ++ " as a " ++
 "where a.Customer_Type = 'Customer' " ++
+"and a.DATECREATED between '" ++ fromTs ++ "' and '" ++ toTs ++ "' " ++
 "and exists (Select 1 from (Select distinct SHOPID from (" ++
 "select Distinct SHOPID, product_id from " ++ db ++ "." ++ sales ++ " as y " ++
 "union all select Distinct SHOP_ID as SHOPID, product_id from " ++ db ++ "." ++ orders ++ " as y" ++
