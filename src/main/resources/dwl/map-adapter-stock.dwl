@@ -10,7 +10,7 @@ var rows = payload.data default payload default []
 		DistributorWarehouseCode: row.stockpoint_name default "",
 		Date: if (row.date_created == null) "" else ((row.date_created as DateTime as String {format: "dd/MM/yyyy"}) default ""),
 		InventoryQuantity: row.quantity default "",
-		InventoryPrice: row.total_cost default ""
+		InventoryPrice: null
 	}),
 	(next: payload.next) if (payload.next != null)
 }

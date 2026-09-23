@@ -9,7 +9,7 @@ var rows = payload.data default payload default []
 		StoreCategory: row.CUSTOMERCATEGORY default "",
 		Channel: row.CHANNEL default "",
 		StoreClassification: row.CHANNEL default "",
-		WarehouseID: "???",
+		WarehouseID: null,
 		Longitude: row.LONGITUDE default "",
 		Latitude: row.LATITUDE default "",
 		City: row.LOCATIONNAME default "",

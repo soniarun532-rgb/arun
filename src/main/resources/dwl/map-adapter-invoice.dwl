@@ -35,7 +35,7 @@ var currency = (p("papi.sat.solutech.currency") default "KES") as String
 			UnitOfMeasure: sale.PACKAGING default "",
 			Currency: currency,
 			QuantityInvoiced: sale.QUANTITY default "",
-			AmountInvoiced: sale.VALUE_SOLD default "",
+			AmountInvoiced: amount2(sale.VALUE_SOLD),
 			TransType: sale.ENTRY_TYPE default ""
 		}
 	}),
