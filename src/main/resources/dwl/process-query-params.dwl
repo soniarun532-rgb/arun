@@ -1,5 +1,7 @@
 %dw 2.0
 output application/java
+// Tenant comes from the OAuth client map only.
+// Client query params named database or supplier are ignored and never forwarded.
 var endpoint = vars.endpoint default ""
 var skipDates = [
 	"Adapter_Product",

@@ -153,21 +153,21 @@ ENDPOINTS = [
         "path": "/api/v1/Product",
         "params": [],
         "query": "",
-        "notes": "No query parameters. Do not send fromDate or toDate.",
+        "notes": "Returns the product catalogue.",
     },
     {
         "name": "Route",
         "path": "/api/v1/Route",
         "params": [],
         "query": "",
-        "notes": "No query parameters. Do not send fromDate or toDate.",
+        "notes": "Returns sales routes.",
     },
     {
         "name": "SalesRep",
         "path": "/api/v1/SalesRep",
         "params": [],
         "query": "",
-        "notes": "No query parameters. Do not send fromDate or toDate.",
+        "notes": "Returns sales representatives.",
     },
     {
         "name": "Customer",
@@ -181,14 +181,14 @@ ENDPOINTS = [
         "path": "/api/v1/Stock",
         "params": PAGE_PARAMS,
         "query": "pageNumber=0",
-        "notes": "Only pageNumber is accepted. Do not send fromDate or toDate.",
+        "notes": "Returns inventory by warehouse.",
     },
     {
         "name": "Warehouse",
         "path": "/api/v1/Warehouse",
         "params": [],
         "query": "",
-        "notes": "No query parameters. Do not send fromDate or toDate.",
+        "notes": "Returns warehouses.",
     },
 ]
 
@@ -324,7 +324,7 @@ def add_header_footer(doc) -> None:
     footer.is_linked_to_previous = False
     fp = footer.paragraphs[0]
     fp.text = ""
-    run = fp.add_run("Confidential  ·  For the client test team  ·  Replace placeholder credentials before use  ·  Page ")
+    run = fp.add_run("Confidential  ·  For the client test team  ·  Client secret sent separately  ·  Page ")
     set_run(run, size=8.5, color=MUTED)
     # PAGE field
     fld = OxmlElement("w:fldChar")
@@ -350,7 +350,6 @@ def token_curl() -> str:
         "  --header 'Content-Type: application/x-www-form-urlencoded' \\\n"
         "  --data-urlencode 'grant_type=client_credentials' \\\n"
         "  --data-urlencode 'client_id=<YOUR_KENYA_CLIENT_ID>' \\\n"
-        "  --data-urlencode 'client_secret=<YOUR_KENYA_CLIENT_SECRET>' \\\n"
         f"  --data-urlencode 'scope={SCOPE}'"
     )
 
@@ -407,15 +406,15 @@ def build() -> Path:
     add_heading_styled(doc, "1. What to replace before you test", size=14)
     add_para(
         doc,
-        "This document is a template. Replace the three placeholders below with the values issued to you. Do not commit secrets into email threads or shared drives.",
+        "This document is a template. Replace the placeholders below with the values issued to you. "
+        "The client secret is not included here. It will be sent separately.",
         size=11,
         space_after=8,
     )
-    table = doc.add_table(rows=4, cols=3)
+    table = doc.add_table(rows=3, cols=3)
     headers = ("Placeholder", "Where it is used", "Replace with")
     rows = [
         ("<YOUR_KENYA_CLIENT_ID>", "Token request — client_id", "Kenya OAuth application (client) ID"),
-        ("<YOUR_KENYA_CLIENT_SECRET>", "Token request — client_secret", "Kenya OAuth client secret"),
         ("<ACCESS_TOKEN>", "Every GET — Authorization header", "access_token from the token response"),
     ]
     for i, h in enumerate(headers):
@@ -431,8 +430,8 @@ def build() -> Path:
     add_heading_styled(doc, "2. Kenya environment", size=14)
     add_para(
         doc,
-        "Kenya Reckitt data is served from database sat_nobleoutlook and supplier RECKITT BENCKISER. "
-        "The API selects this tenant from your Kenya OAuth client. Do not send database or supplier on any request.",
+        "Kenya Reckitt data is selected from your Kenya OAuth client "
+        "(sat_nobleoutlook / RECKITT BENCKISER).",
         size=11,
         space_after=8,
     )
@@ -441,20 +440,28 @@ def build() -> Path:
     add_para(
         doc,
         "Call Azure AD with grant_type=client_credentials. Copy access_token from the JSON response. "
-        "Tokens expire (typically about 60 minutes). Request a new token when calls return HTTP 401.",
+        "Tokens expire (typically about 60 minutes). Request a new token when calls return HTTP 401. "
+        "The client secret will be sent separately. Add it to this token request when you receive it.",
         size=11,
         space_after=6,
     )
     add_para(doc, "Token cURL", size=11, bold=True, color=NAVY, space_after=4)
     add_code_block(doc, token_curl())
+    add_para(
+        doc,
+        "Note: the client secret is not shown in this guide. It will be sent separately. "
+        "When you have it, include it on the token request as the client_secret form field.",
+        size=10.5,
+        color=NAVY,
+        space_after=8,
+    )
     add_para(doc, "Token form fields", size=11, bold=True, color=NAVY, space_after=4)
-    t = doc.add_table(rows=5, cols=3)
+    t = doc.add_table(rows=4, cols=3)
     for i, h in enumerate(("Field", "Required", "Value")):
         write_cell(t.cell(0, i), h, bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
     fields = [
         ("grant_type", "Yes", "client_credentials"),
         ("client_id", "Yes", "<YOUR_KENYA_CLIENT_ID>"),
-        ("client_secret", "Yes", "<YOUR_KENYA_CLIENT_SECRET>"),
         ("scope", "Yes", SCOPE),
     ]
     for r, row in enumerate(fields, start=1):
@@ -482,7 +489,6 @@ def build() -> Path:
     for line in (
         "Use GET. Send only the Authorization header and the query parameters listed for that endpoint.",
         "Authorization: Bearer <ACCESS_TOKEN>",
-        "Do not send database, supplier, client_id, or client_secret on the GET.",
         "fromDate and toDate are YYYY-MM-DD only. Example: 2026-09-24. Do not send a time (no 00:00:00).",
         "pageNumber is 0-based. First call can omit it or send 0. If the body contains next, call again with the next pageNumber.",
         "A successful call returns HTTP 200 and a JSON object with a data array. Dates inside the payload use dd/MM/yyyy.",
@@ -558,15 +564,8 @@ def build() -> Path:
         )
         add_para(doc, ep["notes"], size=10.5, color=MUTED, space_after=6)
 
-        add_para(doc, "Query parameters", size=11, bold=True, color=NAVY, space_after=4)
-        if not ep["params"]:
-            add_para(
-                doc,
-                "None. Do not add fromDate, toDate, database, or supplier.",
-                size=10.5,
-                space_after=6,
-            )
-        else:
+        if ep["params"]:
+            add_para(doc, "Query parameters", size=11, bold=True, color=NAVY, space_after=4)
             pt = doc.add_table(rows=1 + len(ep["params"]), cols=5)
             for i, h in enumerate(("Parameter", "Required", "Format", "Example", "What to provide")):
                 write_cell(pt.cell(0, i), h, bold=True, size=8.5, color=WHITE, fill=NAVY_HEX)
