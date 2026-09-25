@@ -27,7 +27,7 @@ CODE_HEX = "F3F4F6"
 AMBER_HEX = "FFF4D6"
 AMBER_BORDER = "E0C36A"
 
-VERSION = "v1.0"
+VERSION = "v1.1"
 VERSION_DATE = "25 September 2026"
 AUTHOR = "SAT Datashare"
 PAGE_SIZE = 10000
@@ -258,11 +258,24 @@ def write_cell(cell, text, *, bold=False, size=10, color=TEXT, font="Calibri", f
     set_cell_border(cell)
 
 
-def add_para(doc, text, *, size=11, bold=False, color=TEXT, space_after=8, space_before=0, align=None):
+def add_para(
+    doc,
+    text,
+    *,
+    size=11,
+    bold=False,
+    color=TEXT,
+    space_after=8,
+    space_before=0,
+    align=None,
+    keep_with_next=False,
+):
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(space_before)
     p.paragraph_format.space_after = Pt(space_after)
     p.paragraph_format.line_spacing = 1.15
+    p.paragraph_format.keep_together = True
+    p.paragraph_format.keep_with_next = keep_with_next
     if align:
         p.alignment = align
     run = p.add_run(text)
@@ -342,6 +355,9 @@ def set_table_widths(table, widths_cm) -> None:
                 tcPr.append(tcW)
             tcW.set(qn("w:w"), str(tw))
             tcW.set(qn("w:type"), "dxa")
+        trPr = row._tr.get_or_add_trPr()
+        if trPr.find(qn("w:cantSplit")) is None:
+            trPr.append(OxmlElement("w:cantSplit"))
 
 
 def add_code_block(doc, text) -> None:
@@ -353,6 +369,7 @@ def add_code_block(doc, text) -> None:
     p.paragraph_format.space_before = Pt(4)
     p.paragraph_format.space_after = Pt(4)
     p.paragraph_format.line_spacing = 1.1
+    p.paragraph_format.keep_together = True
     run = p.add_run(text)
     set_run(run, name="Consolas", size=8.5, color=TEXT)
     shade(cell, CODE_HEX)
@@ -480,7 +497,7 @@ def set_core_properties(doc) -> None:
     core.author = AUTHOR
     core.last_modified_by = AUTHOR
     core.title = "SAT Datashare Client Test Guide — Kenya"
-    core.subject = f"exp-sat-datashare-prod-api {VERSION}"
+    core.subject = f"exp-sat-datashare-prod-api {VERSION} – {VERSION_DATE}"
     core.category = "Client test guide"
     core.comments = ""
     core.keywords = ""
@@ -545,7 +562,7 @@ def build() -> Path:
         "When you receive it, replace <CLIENT_SECRET> in the token request.",
     )
 
-    add_heading(doc, "1. OAuth credentials", level=1)
+    add_heading(doc, "1. Overview and credentials", level=1)
     add_para(
         doc,
         "Do not send a country, database, or supplier on any request. "
@@ -559,6 +576,8 @@ def build() -> Path:
             ("API name", "exp-sat-datashare-prod-api"),
             ("Base URL", BASE),
             ("Country", "Kenya (derived from your client ID — do not send this)"),
+            ("Database", "sat_nobleoutlook (derived from your client ID — do not send this)"),
+            ("Supplier", "RECKITT BENCKISER (derived from your client ID — do not send this)"),
             ("Auth", "Azure AD client credentials → Bearer access token"),
             ("Date format", "fromDate / toDate = YYYY-MM-DD   (example: 2026-09-24)"),
             ("Page size", "Up to 10,000 rows per page"),
@@ -611,7 +630,16 @@ def build() -> Path:
         run = p.add_run(f"{i}.  {step}")
         set_run(run, size=11, color=TEXT)
 
-    add_para(doc, "Token cURL", size=11, bold=True, color=NAVY, space_before=8, space_after=4)
+    add_para(
+        doc,
+        "Token cURL",
+        size=11,
+        bold=True,
+        color=NAVY,
+        space_before=8,
+        space_after=4,
+        keep_with_next=True,
+    )
     add_code_block(doc, token_curl())
 
     add_para(doc, "Token form fields", size=11, bold=True, color=NAVY, space_after=4)
@@ -627,7 +655,15 @@ def build() -> Path:
         [4.4, 2.8, 10.2],
     )
 
-    add_para(doc, "Successful token response (shape)", size=11, bold=True, color=NAVY, space_after=4)
+    add_para(
+        doc,
+        "Successful token response (shape)",
+        size=11,
+        bold=True,
+        color=NAVY,
+        space_after=4,
+        keep_with_next=True,
+    )
     add_code_block(
         doc,
         json.dumps(
@@ -675,9 +711,25 @@ def build() -> Path:
         ],
         [5.2, 12.2],
     )
-    add_para(doc, "Example — more pages remain", size=11, bold=True, color=NAVY, space_after=4)
+    add_para(
+        doc,
+        "Example — more pages remain",
+        size=11,
+        bold=True,
+        color=NAVY,
+        space_after=4,
+        keep_with_next=True,
+    )
     add_code_block(doc, paged_example())
-    add_para(doc, "Example — last page", size=11, bold=True, color=NAVY, space_after=4)
+    add_para(
+        doc,
+        "Example — last page",
+        size=11,
+        bold=True,
+        color=NAVY,
+        space_after=4,
+        keep_with_next=True,
+    )
     add_code_block(doc, last_page_example())
     add_para(
         doc,
@@ -753,9 +805,17 @@ def build() -> Path:
                 list(ep["params"]),
                 [2.8, 2.0, 3.2, 2.6, 6.8],
             )
-        add_para(doc, "cURL", size=11, bold=True, color=NAVY, space_after=4)
+        add_para(doc, "cURL", size=11, bold=True, color=NAVY, space_after=4, keep_with_next=True)
         add_code_block(doc, api_curl(ep["path"], ep["query"]))
-        add_para(doc, "Sample output", size=11, bold=True, color=NAVY, space_after=4)
+        add_para(
+            doc,
+            "Sample output",
+            size=11,
+            bold=True,
+            color=NAVY,
+            space_after=4,
+            keep_with_next=True,
+        )
         add_code_block(doc, sample_payload(ep["name"]))
 
     add_heading(doc, "8. Expected results", level=1)
@@ -768,7 +828,6 @@ def build() -> Path:
             ("Date endpoints", "Rows fall inside the fromDate / toDate window you sent"),
             ("More pages", "next is present and pageNumber can be incremented"),
             ("Last page", "next is absent"),
-            ("401 Unauthorized", "Token missing, expired, or wrong client — request a new token"),
         ],
         [4.5, 12.9],
     )
@@ -778,6 +837,20 @@ def build() -> Path:
         size=11,
         space_before=8,
         space_after=4,
+    )
+
+    add_heading(doc, "9. Troubleshooting", level=1)
+    add_header_table(
+        doc,
+        ("HTTP status", "Likely cause", "What to do"),
+        [
+            (
+                "401 Unauthorized",
+                "Token missing, expired, or from the wrong client",
+                "Request a new access token and retry the GET",
+            ),
+        ],
+        [4.2, 6.6, 6.6],
     )
 
     set_core_properties(doc)
