@@ -3,14 +3,16 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
+from zipfile import ZipFile, ZIP_DEFLATED
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
-from docx.oxml.ns import qn, nsdecls
-from docx.shared import Cm, Inches, Pt, RGBColor
+from docx.oxml.ns import qn
+from docx.shared import Cm, Pt, RGBColor
 
 OUT = Path(__file__).resolve().parent / "SAT-Datashare-Client-Test-Guide-Kenya.docx"
 
@@ -20,18 +22,23 @@ TEXT = RGBColor(0x2D, 0x2D, 0x2D)
 MUTED = RGBColor(0x5B, 0x65, 0x70)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 NAVY_HEX = "1F4E79"
-TEAL_HEX = "2E75B6"
 ROW_HEX = "E9F0F7"
-LIGHT_HEX = "F4F7FA"
 CODE_HEX = "F3F4F6"
 AMBER_HEX = "FFF4D6"
+AMBER_BORDER = "E0C36A"
+
+VERSION = "v1.0"
+VERSION_DATE = "25 September 2026"
+AUTHOR = "SAT Datashare"
+PAGE_SIZE = 10000
 
 BASE = "https://exp-sat-datashare-prod-api-vx7q2k.2ky31l-1.deu-c1.eu1.cloudhub.io"
-TOKEN_URL = (
-    "https://login.microsoftonline.com/"
-    "f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
-)
+TENANT_ID = "f4faf003-d90b-4832-9df8-c8a22d29bdd4"
+CLIENT_ID = "de772600-0d1f-4492-90b0-a57fcc284cf9"
+TOKEN_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
 SCOPE = "https://graph.microsoft.com/.default"
+CONTENT_WIDTH_CM = 17.4
+TWIPS_PER_CM = 567
 
 SAMPLES = {
     "Invoice": {
@@ -194,8 +201,10 @@ ENDPOINTS = [
 
 
 def shade(cell, hex_color: str) -> None:
-    tc = cell._tc
-    tcPr = tc.get_or_add_tcPr()
+    tcPr = cell._tc.get_or_add_tcPr()
+    existing = tcPr.find(qn("w:shd"))
+    if existing is not None:
+        tcPr.remove(existing)
     shd = OxmlElement("w:shd")
     shd.set(qn("w:fill"), hex_color)
     shd.set(qn("w:val"), "clear")
@@ -203,8 +212,10 @@ def shade(cell, hex_color: str) -> None:
 
 
 def set_cell_border(cell, color="BFBFBF") -> None:
-    tc = cell._tc
-    tcPr = tc.get_or_add_tcPr()
+    tcPr = cell._tc.get_or_add_tcPr()
+    existing = tcPr.find(qn("w:tcBorders"))
+    if existing is not None:
+        tcPr.remove(existing)
     tcBorders = OxmlElement("w:tcBorders")
     for edge in ("top", "left", "bottom", "right"):
         el = OxmlElement(f"w:{edge}")
@@ -230,6 +241,7 @@ def set_run(run, *, name="Calibri", size=11, bold=False, color=TEXT, italic=Fals
     rFonts.set(qn("w:ascii"), name)
     rFonts.set(qn("w:hAnsi"), name)
     rFonts.set(qn("w:cs"), name)
+    rFonts.set(qn("w:eastAsia"), name)
 
 
 def write_cell(cell, text, *, bold=False, size=10, color=TEXT, font="Calibri", fill=None, align=None) -> None:
@@ -246,7 +258,7 @@ def write_cell(cell, text, *, bold=False, size=10, color=TEXT, font="Calibri", f
     set_cell_border(cell)
 
 
-def add_para(doc, text, *, size=11, bold=False, color=TEXT, space_after=8, space_before=0, align=None) -> None:
+def add_para(doc, text, *, size=11, bold=False, color=TEXT, space_after=8, space_before=0, align=None):
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(space_before)
     p.paragraph_format.space_after = Pt(space_after)
@@ -258,17 +270,83 @@ def add_para(doc, text, *, size=11, bold=False, color=TEXT, space_after=8, space
     return p
 
 
-def add_heading_styled(doc, text, size=16) -> None:
-    p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(16)
-    p.paragraph_format.space_after = Pt(8)
-    run = p.add_run(text)
-    set_run(run, size=size, bold=True, color=NAVY)
+def configure_heading_styles(doc) -> None:
+    for style_name, size, before, after in (
+        ("Heading 1", 16, 16, 8),
+        ("Heading 2", 13, 14, 6),
+    ):
+        style = doc.styles[style_name]
+        style.font.name = "Calibri"
+        style.font.size = Pt(size)
+        style.font.bold = True
+        style.font.color.rgb = NAVY
+        style.font.italic = False
+        style.paragraph_format.space_before = Pt(before)
+        style.paragraph_format.space_after = Pt(after)
+        rPr = style.element.get_or_add_rPr()
+        rFonts = rPr.find(qn("w:rFonts"))
+        if rFonts is None:
+            rFonts = OxmlElement("w:rFonts")
+            rPr.append(rFonts)
+        rFonts.set(qn("w:ascii"), "Calibri")
+        rFonts.set(qn("w:hAnsi"), "Calibri")
+        rFonts.set(qn("w:cs"), "Calibri")
+        rFonts.set(qn("w:eastAsia"), "Calibri")
+
+
+def add_heading(doc, text, level=1):
+    p = doc.add_heading(text, level=level)
+    for run in p.runs:
+        set_run(run, size=16 if level == 1 else 13, bold=True, color=NAVY)
+    return p
+
+
+def set_table_widths(table, widths_cm) -> None:
+    """Keep tblGrid and cell tcW in sync so Google Docs / LibreOffice align columns."""
+    table.autofit = False
+    table.allow_autofit = False
+    twips = [int(round(w * TWIPS_PER_CM)) for w in widths_cm]
+    total = sum(twips)
+    tbl = table._tbl
+    tblPr = tbl.tblPr
+    if tblPr is None:
+        tblPr = OxmlElement("w:tblPr")
+        tbl.insert(0, tblPr)
+    tblW = tblPr.find(qn("w:tblW"))
+    if tblW is None:
+        tblW = OxmlElement("w:tblW")
+        tblPr.append(tblW)
+    tblW.set(qn("w:w"), str(total))
+    tblW.set(qn("w:type"), "dxa")
+    layout = tblPr.find(qn("w:tblLayout"))
+    if layout is None:
+        layout = OxmlElement("w:tblLayout")
+        tblPr.append(layout)
+    layout.set(qn("w:type"), "fixed")
+    grid = tbl.find(qn("w:tblGrid"))
+    if grid is not None:
+        tbl.remove(grid)
+    grid = OxmlElement("w:tblGrid")
+    for tw in twips:
+        col = OxmlElement("w:gridCol")
+        col.set(qn("w:w"), str(tw))
+        grid.append(col)
+    tblPr.addnext(grid)
+    for row in table.rows:
+        for cell, tw, cm in zip(row.cells, twips, widths_cm):
+            cell.width = Cm(cm)
+            tcPr = cell._tc.get_or_add_tcPr()
+            tcW = tcPr.find(qn("w:tcW"))
+            if tcW is None:
+                tcW = OxmlElement("w:tcW")
+                tcPr.append(tcW)
+            tcW.set(qn("w:w"), str(tw))
+            tcW.set(qn("w:type"), "dxa")
 
 
 def add_code_block(doc, text) -> None:
     table = doc.add_table(rows=1, cols=1)
-    table.autofit = True
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = table.cell(0, 0)
     cell.text = ""
     p = cell.paragraphs[0]
@@ -279,37 +357,45 @@ def add_code_block(doc, text) -> None:
     set_run(run, name="Consolas", size=8.5, color=TEXT)
     shade(cell, CODE_HEX)
     set_cell_border(cell, "D0D5DD")
+    set_table_widths(table, [CONTENT_WIDTH_CM])
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
 
 
-def set_col_widths(table, widths) -> None:
-    table.autofit = False
-    for row in table.rows:
-        for idx, width in enumerate(widths):
-            row.cells[idx].width = width
+def add_callout(doc, text) -> None:
+    table = doc.add_table(rows=1, cols=1)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    cell = table.cell(0, 0)
+    write_cell(cell, text, size=11, bold=True, color=NAVY, fill=AMBER_HEX)
+    set_cell_border(cell, AMBER_BORDER)
+    set_table_widths(table, [CONTENT_WIDTH_CM])
+    doc.add_paragraph().paragraph_format.space_after = Pt(8)
 
 
-def style_table(table, header=True) -> None:
-    for r_i, row in enumerate(table.rows):
-        for cell in row.cells:
-            set_cell_border(cell)
-            if header and r_i == 0:
-                shade(cell, NAVY_HEX)
-                for p in cell.paragraphs:
-                    for run in p.runs:
-                        set_run(run, size=9.5, bold=True, color=WHITE)
-            elif r_i % 2 == 0:
-                shade(cell, ROW_HEX)
-
-
-def add_kv_table(doc, rows) -> None:
+def add_kv_table(doc, rows, widths=(5.2, 12.2)) -> None:
     table = doc.add_table(rows=len(rows), cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     for i, (k, v) in enumerate(rows):
         write_cell(table.cell(i, 0), k, bold=True, size=10, fill=ROW_HEX)
         write_cell(table.cell(i, 1), v, size=10)
-    set_col_widths(table, (Cm(5.2), Cm(12.3)))
+    set_table_widths(table, list(widths))
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
+
+
+def add_header_table(doc, headers, rows, widths) -> None:
+    table = doc.add_table(rows=1 + len(rows), cols=len(headers))
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, h in enumerate(headers):
+        write_cell(table.cell(0, i), h, bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
+    for r, row in enumerate(rows, start=1):
+        fill = ROW_HEX if r % 2 == 0 else "FFFFFF"
+        for c, value in enumerate(row):
+            font = "Consolas" if c in (0, 2, 3) and len(headers) > 3 else "Calibri"
+            if len(headers) <= 3 and c == 0:
+                font = "Consolas"
+            write_cell(table.cell(r, c), value, size=9.5, fill=fill, font=font)
+    set_table_widths(table, widths)
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+    return table
 
 
 def add_header_footer(doc) -> None:
@@ -318,15 +404,16 @@ def add_header_footer(doc) -> None:
     header.is_linked_to_previous = False
     hp = header.paragraphs[0]
     hp.text = ""
-    run = hp.add_run("SAT Datashare  ·  exp-sat-datashare-prod-api  ·  Kenya client test guide")
+    run = hp.add_run(
+        f"SAT Datashare  ·  exp-sat-datashare-prod-api  ·  Kenya  ·  {VERSION} – {VERSION_DATE}"
+    )
     set_run(run, size=9, color=NAVY, bold=True)
     footer = section.footer
     footer.is_linked_to_previous = False
     fp = footer.paragraphs[0]
     fp.text = ""
-    run = fp.add_run("Confidential  ·  For the client test team  ·  Client secret sent separately  ·  Page ")
+    run = fp.add_run(f"Confidential  ·  For the client test team  ·  {VERSION}  ·  Page ")
     set_run(run, size=8.5, color=MUTED)
-    # PAGE field
     fld = OxmlElement("w:fldChar")
     fld.set(qn("w:fldCharType"), "begin")
     run2 = fp.add_run()
@@ -349,7 +436,8 @@ def token_curl() -> str:
         f"curl --location '{TOKEN_URL}' \\\n"
         "  --header 'Content-Type: application/x-www-form-urlencoded' \\\n"
         "  --data-urlencode 'grant_type=client_credentials' \\\n"
-        "  --data-urlencode 'client_id=<YOUR_KENYA_CLIENT_ID>' \\\n"
+        f"  --data-urlencode 'client_id={CLIENT_ID}' \\\n"
+        "  --data-urlencode 'client_secret=<CLIENT_SECRET>' \\\n"
         f"  --data-urlencode 'scope={SCOPE}'"
     )
 
@@ -369,8 +457,62 @@ def sample_payload(name: str) -> str:
     return json.dumps({"data": [SAMPLES[name]]}, indent=2, ensure_ascii=False)
 
 
+def paged_example() -> str:
+    return json.dumps(
+        {
+            "data": [SAMPLES["Invoice"], "... up to 10,000 rows ..."],
+            "next": (
+                f"{BASE}/api/v1/Invoice"
+                "?fromDate=2026-09-24&toDate=2026-09-24&pageNumber=1"
+            ),
+        },
+        indent=2,
+        ensure_ascii=False,
+    )
+
+
+def last_page_example() -> str:
+    return json.dumps({"data": [SAMPLES["Invoice"]]}, indent=2, ensure_ascii=False)
+
+
+def set_core_properties(doc) -> None:
+    core = doc.core_properties
+    core.author = AUTHOR
+    core.last_modified_by = AUTHOR
+    core.title = "SAT Datashare Client Test Guide — Kenya"
+    core.subject = f"exp-sat-datashare-prod-api {VERSION}"
+    core.category = "Client test guide"
+    core.comments = ""
+    core.keywords = ""
+    core.revision = 1
+    now = datetime.now(timezone.utc)
+    core.created = now
+    core.modified = now
+
+
+def strip_generator_metadata(path: Path) -> None:
+    """Clear python-docx Application / comments leftovers after save."""
+    tmp = path.with_suffix(".tmp.docx")
+    with ZipFile(path, "r") as zin, ZipFile(tmp, "w", compression=ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == "docProps/core.xml":
+                text = data.decode("utf-8")
+                text = text.replace(">python-docx<", f">{AUTHOR}<")
+                text = text.replace("generated by python-docx", "")
+                data = text.encode("utf-8")
+            elif item.filename == "docProps/app.xml":
+                text = data.decode("utf-8")
+                text = text.replace(">python-docx<", ">Microsoft Office Word<")
+                text = text.replace("generated by python-docx", "")
+                data = text.encode("utf-8")
+            zout.writestr(item, data)
+    tmp.replace(path)
+
+
 def build() -> Path:
     doc = Document()
+    configure_heading_styles(doc)
     section = doc.sections[0]
     section.page_width = Cm(21.0)
     section.page_height = Cm(29.7)
@@ -379,98 +521,112 @@ def build() -> Path:
     section.top_margin = Cm(2.0)
     section.bottom_margin = Cm(2.0)
     add_header_footer(doc)
+    set_core_properties(doc)
 
     add_para(doc, "CLIENT TEST GUIDE", size=11, bold=True, color=TEAL, space_after=2)
-    add_para(doc, "SAT Datashare Experience API", size=22, bold=True, color=NAVY, space_after=4)
+    add_para(doc, "SAT Datashare Experience API", size=22, bold=True, color=NAVY, space_after=2)
     add_para(
         doc,
-        "How to request a Kenya token and call the eight production GET endpoints.",
+        f"{VERSION} – {VERSION_DATE}   ·   Kenya   ·   exp-sat-datashare-prod-api",
         size=12,
         color=MUTED,
+        space_after=8,
+    )
+    add_para(
+        doc,
+        "How to request a Kenya access token and call the eight production GET endpoints.",
+        size=11,
         space_after=10,
     )
 
+    add_callout(
+        doc,
+        "The client secret is not included in this guide. It will be sent separately. "
+        "When you receive it, replace <CLIENT_SECRET> in the token request.",
+    )
+
+    add_heading(doc, "1. OAuth credentials", level=1)
+    add_para(
+        doc,
+        "Do not send a country, database, or supplier on any request. "
+        "The API derives Kenya Reckitt data from your client ID.",
+        size=11,
+        space_after=8,
+    )
     add_kv_table(
         doc,
         [
             ("API name", "exp-sat-datashare-prod-api"),
             ("Base URL", BASE),
-            ("Country", "Kenya"),
-            ("Database", "sat_nobleoutlook"),
-            ("Supplier", "RECKITT BENCKISER"),
-            ("Auth", "Azure AD client credentials  →  Bearer access token"),
+            ("Country", "Kenya (derived from your client ID — do not send this)"),
+            ("Auth", "Azure AD client credentials → Bearer access token"),
             ("Date format", "fromDate / toDate = YYYY-MM-DD   (example: 2026-09-24)"),
+            ("Page size", "Up to 10,000 rows per page"),
         ],
     )
 
-    add_heading_styled(doc, "1. What to replace before you test", size=14)
-    add_para(
+    add_para(doc, "Credentials", size=11, bold=True, color=NAVY, space_after=4)
+    add_header_table(
         doc,
-        "This document is a template. Replace the placeholders below with the values issued to you. "
-        "The client secret is not included here. It will be sent separately.",
-        size=11,
-        space_after=8,
-    )
-    table = doc.add_table(rows=3, cols=3)
-    headers = ("Placeholder", "Where it is used", "Replace with")
-    rows = [
-        ("<YOUR_KENYA_CLIENT_ID>", "Token request — client_id", "Kenya OAuth application (client) ID"),
-        ("<ACCESS_TOKEN>", "Every GET — Authorization header", "access_token from the token response"),
-    ]
-    for i, h in enumerate(headers):
-        write_cell(table.cell(0, i), h, bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
-    for r, row in enumerate(rows, start=1):
-        fill = ROW_HEX if r % 2 == 0 else "FFFFFF"
-        write_cell(table.cell(r, 0), row[0], size=9, font="Consolas", fill=fill)
-        write_cell(table.cell(r, 1), row[1], size=9.5, fill=fill)
-        write_cell(table.cell(r, 2), row[2], size=9.5, fill=fill)
-    set_col_widths(table, (Cm(6.2), Cm(5.8), Cm(5.5)))
-    doc.add_paragraph().paragraph_format.space_after = Pt(4)
-
-    add_heading_styled(doc, "2. Kenya environment", size=14)
-    add_para(
-        doc,
-        "Kenya Reckitt data is selected from your Kenya OAuth client "
-        "(sat_nobleoutlook / RECKITT BENCKISER).",
-        size=11,
-        space_after=8,
+        ("Field", "Value"),
+        [
+            ("Tenant ID", TENANT_ID),
+            ("Client ID", CLIENT_ID),
+            ("Scope", SCOPE),
+            ("Client secret", "Sent separately"),
+        ],
+        [5.2, 12.2],
     )
 
-    add_heading_styled(doc, "3. Step 1 — get a Kenya access token", size=14)
+    add_para(doc, "Placeholders you replace", size=11, bold=True, color=NAVY, space_after=4)
+    add_header_table(
+        doc,
+        ("Placeholder", "Replace with"),
+        [
+            ("<CLIENT_SECRET>", "Your client secret (sent separately)"),
+            ("<ACCESS_TOKEN>", "access_token from the token response"),
+        ],
+        [5.2, 12.2],
+    )
+
+    add_heading(doc, "2. Get an access token", level=1)
     add_para(
         doc,
-        "Call Azure AD with grant_type=client_credentials. Copy access_token from the JSON response. "
-        "Tokens expire (typically about 60 minutes). Request a new token when calls return HTTP 401. "
-        "The client secret will be sent separately. Add it to this token request when you receive it.",
+        "Use Azure AD client credentials. Tokens expire after about 60 minutes "
+        "(expires_in: 3599 seconds). Request a new token when calls return HTTP 401.",
         size=11,
         space_after=6,
     )
-    add_para(doc, "Token cURL", size=11, bold=True, color=NAVY, space_after=4)
+    for i, step in enumerate(
+        (
+            "Run the token request below.",
+            "Copy access_token from the JSON response.",
+            "Send it as the Bearer token on every GET.",
+        ),
+        start=1,
+    ):
+        p = doc.add_paragraph()
+        p.paragraph_format.left_indent = Cm(0.4)
+        p.paragraph_format.space_after = Pt(3)
+        run = p.add_run(f"{i}.  {step}")
+        set_run(run, size=11, color=TEXT)
+
+    add_para(doc, "Token cURL", size=11, bold=True, color=NAVY, space_before=8, space_after=4)
     add_code_block(doc, token_curl())
-    add_para(
-        doc,
-        "Note: the client secret is not shown in this guide. It will be sent separately. "
-        "When you have it, include it on the token request as the client_secret form field.",
-        size=10.5,
-        color=NAVY,
-        space_after=8,
-    )
+
     add_para(doc, "Token form fields", size=11, bold=True, color=NAVY, space_after=4)
-    t = doc.add_table(rows=4, cols=3)
-    for i, h in enumerate(("Field", "Required", "Value")):
-        write_cell(t.cell(0, i), h, bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
-    fields = [
-        ("grant_type", "Yes", "client_credentials"),
-        ("client_id", "Yes", "<YOUR_KENYA_CLIENT_ID>"),
-        ("scope", "Yes", SCOPE),
-    ]
-    for r, row in enumerate(fields, start=1):
-        fill = ROW_HEX if r % 2 == 0 else "FFFFFF"
-        write_cell(t.cell(r, 0), row[0], size=9.5, font="Consolas", fill=fill)
-        write_cell(t.cell(r, 1), row[1], size=9.5, fill=fill)
-        write_cell(t.cell(r, 2), row[2], size=9, font="Consolas", fill=fill)
-    set_col_widths(t, (Cm(4.5), Cm(3.0), Cm(10.0)))
-    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+    add_header_table(
+        doc,
+        ("Field", "Required", "Value"),
+        [
+            ("grant_type", "Yes", "client_credentials"),
+            ("client_id", "Yes", CLIENT_ID),
+            ("client_secret", "Yes", "Your client secret (sent separately)"),
+            ("scope", "Yes", SCOPE),
+        ],
+        [4.4, 2.8, 10.2],
+    )
+
     add_para(doc, "Successful token response (shape)", size=11, bold=True, color=NAVY, space_after=4)
     add_code_block(
         doc,
@@ -485,37 +641,70 @@ def build() -> Path:
         ),
     )
 
-    add_heading_styled(doc, "4. How to call every endpoint", size=14)
+    add_heading(doc, "3. How to call every endpoint", level=1)
     for line in (
         "Use GET. Send only the Authorization header and the query parameters listed for that endpoint.",
         "Authorization: Bearer <ACCESS_TOKEN>",
         "fromDate and toDate are YYYY-MM-DD only. Example: 2026-09-24. Do not send a time (no 00:00:00).",
-        "pageNumber is 0-based. First call can omit it or send 0. If the body contains next, call again with the next pageNumber.",
+        "pageNumber is 0-based. First call can omit it or send 0.",
         "A successful call returns HTTP 200 and a JSON object with a data array. Dates inside the payload use dd/MM/yyyy.",
     ):
-        p = doc.add_paragraph(style=None)
+        p = doc.add_paragraph()
         p.paragraph_format.left_indent = Cm(0.4)
         p.paragraph_format.space_after = Pt(3)
         run = p.add_run("•  " + line)
         set_run(run, size=11, color=TEXT)
 
-    add_heading_styled(doc, "5. Endpoint catalogue", size=14)
-    cat = doc.add_table(rows=9, cols=4)
-    for i, h in enumerate(("#", "Endpoint", "Path", "Query parameters you send")):
-        write_cell(cat.cell(0, i), h, bold=True, size=9, color=WHITE, fill=NAVY_HEX)
-    for i, ep in enumerate(ENDPOINTS, start=1):
-        fill = ROW_HEX if i % 2 == 0 else "FFFFFF"
-        write_cell(cat.cell(i, 0), str(i), size=9.5, fill=fill, align=WD_ALIGN_PARAGRAPH.CENTER)
-        write_cell(cat.cell(i, 1), ep["name"], size=9.5, bold=True, fill=fill)
-        write_cell(cat.cell(i, 2), ep["path"], size=9, font="Consolas", fill=fill)
-        qp = "fromDate, toDate, pageNumber" if ep["params"] is DATE_PARAMS else (
-            "pageNumber" if ep["params"] is PAGE_PARAMS else "None"
-        )
-        write_cell(cat.cell(i, 3), qp, size=9.5, fill=fill)
-    set_col_widths(cat, (Cm(1.2), Cm(3.4), Cm(5.2), Cm(7.7)))
-    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    add_heading(doc, "4. Pagination", level=1)
+    add_para(
+        doc,
+        "Each page contains up to 10,000 rows. pageNumber starts at 0. "
+        "If another page exists, the body includes a next URL. "
+        "The last page has no next field — stop when next is absent.",
+        size=11,
+        space_after=8,
+    )
+    add_header_table(
+        doc,
+        ("Check", "Meaning"),
+        [
+            ("data array length", "Up to 10,000 rows on this page"),
+            ("next is present", "More rows exist. Call the next URL, or increment pageNumber by 1"),
+            ("next is absent", "This is the last page. Stop paging"),
+            ("pageNumber=0", "First page (you may omit pageNumber)"),
+        ],
+        [5.2, 12.2],
+    )
+    add_para(doc, "Example — more pages remain", size=11, bold=True, color=NAVY, space_after=4)
+    add_code_block(doc, paged_example())
+    add_para(doc, "Example — last page", size=11, bold=True, color=NAVY, space_after=4)
+    add_code_block(doc, last_page_example())
+    add_para(
+        doc,
+        "Follow next with the same Authorization: Bearer <ACCESS_TOKEN> header. "
+        "Do not add extra query parameters of your own when using next.",
+        size=11,
+        space_after=8,
+    )
 
-    add_heading_styled(doc, "6. Date format", size=14)
+    add_heading(doc, "5. Endpoint catalogue", level=1)
+    cat_rows = []
+    for i, ep in enumerate(ENDPOINTS, start=1):
+        if ep["params"] is DATE_PARAMS:
+            qp = "fromDate, toDate, pageNumber"
+        elif ep["params"] is PAGE_PARAMS:
+            qp = "pageNumber"
+        else:
+            qp = "None"
+        cat_rows.append((str(i), ep["name"], ep["path"], qp))
+    add_header_table(
+        doc,
+        ("#", "Endpoint", "Path", "Query parameters"),
+        cat_rows,
+        [1.2, 3.4, 5.4, 7.4],
+    )
+
+    add_heading(doc, "6. Date format", level=1)
     add_para(
         doc,
         "Query parameters fromDate and toDate must be ISO date-only: YYYY-MM-DD. Both dates are inclusive. "
@@ -524,25 +713,18 @@ def build() -> Path:
         size=11,
         space_after=6,
     )
-    df = doc.add_table(rows=4, cols=3)
-    for i, h in enumerate(("Use", "Format", "Example")):
-        write_cell(df.cell(0, i), h, bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
-    for r, row in enumerate(
-        (
+    add_header_table(
+        doc,
+        ("Use", "Format", "Example"),
+        [
             ("fromDate / toDate on the URL", "YYYY-MM-DD", "2026-09-24"),
             ("Do not send", "date + time", "2026-09-24T00:00:00  or  24/09/2026"),
             ("Dates inside the JSON body", "dd/MM/yyyy", "24/09/2026"),
-        ),
-        start=1,
-    ):
-        fill = ROW_HEX if r % 2 == 0 else "FFFFFF"
-        write_cell(df.cell(r, 0), row[0], size=9.5, fill=fill)
-        write_cell(df.cell(r, 1), row[1], size=9.5, font="Consolas", fill=fill)
-        write_cell(df.cell(r, 2), row[2], size=9.5, font="Consolas", fill=fill)
-    set_col_widths(df, (Cm(6.5), Cm(5.0), Cm(6.0)))
-    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+        ],
+        [6.5, 5.0, 5.9],
+    )
 
-    add_heading_styled(doc, "7. Endpoints — cURL and sample output", size=14)
+    add_heading(doc, "7. Endpoints — cURL and sample output", level=1)
     add_para(
         doc,
         "For each endpoint: copy the cURL, replace <ACCESS_TOKEN>, and confirm HTTP 200. "
@@ -552,7 +734,7 @@ def build() -> Path:
     )
 
     for idx, ep in enumerate(ENDPOINTS, start=1):
-        add_heading_styled(doc, f"{idx}) {ep['name']}", size=13)
+        add_heading(doc, f"{idx}) {ep['name']}", level=2)
         add_kv_table(
             doc,
             [
@@ -563,52 +745,44 @@ def build() -> Path:
             ],
         )
         add_para(doc, ep["notes"], size=10.5, color=MUTED, space_after=6)
-
         if ep["params"]:
             add_para(doc, "Query parameters", size=11, bold=True, color=NAVY, space_after=4)
-            pt = doc.add_table(rows=1 + len(ep["params"]), cols=5)
-            for i, h in enumerate(("Parameter", "Required", "Format", "Example", "What to provide")):
-                write_cell(pt.cell(0, i), h, bold=True, size=8.5, color=WHITE, fill=NAVY_HEX)
-            for r, row in enumerate(ep["params"], start=1):
-                fill = ROW_HEX if r % 2 == 0 else "FFFFFF"
-                write_cell(pt.cell(r, 0), row[0], size=8.5, font="Consolas", fill=fill)
-                write_cell(pt.cell(r, 1), row[1], size=8.5, fill=fill)
-                write_cell(pt.cell(r, 2), row[2], size=8.5, fill=fill)
-                write_cell(pt.cell(r, 3), row[3], size=8.5, font="Consolas", fill=fill)
-                write_cell(pt.cell(r, 4), row[4], size=8, fill=fill)
-            set_col_widths(pt, (Cm(2.8), Cm(2.0), Cm(3.2), Cm(2.6), Cm(6.9)))
-            doc.add_paragraph().paragraph_format.space_after = Pt(4)
-
+            add_header_table(
+                doc,
+                ("Parameter", "Required", "Format", "Example", "What to provide"),
+                list(ep["params"]),
+                [2.8, 2.0, 3.2, 2.6, 6.8],
+            )
         add_para(doc, "cURL", size=11, bold=True, color=NAVY, space_after=4)
         add_code_block(doc, api_curl(ep["path"], ep["query"]))
         add_para(doc, "Sample output", size=11, bold=True, color=NAVY, space_after=4)
         add_code_block(doc, sample_payload(ep["name"]))
 
-    add_heading_styled(doc, "8. Expected results", size=14)
-    exp = doc.add_table(rows=5, cols=2)
-    write_cell(exp.cell(0, 0), "Check", bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
-    write_cell(exp.cell(0, 1), "Pass when", bold=True, size=9.5, color=WHITE, fill=NAVY_HEX)
-    checks = [
-        ("Token call", "HTTP 200 and an access_token string"),
-        ("Each GET", "HTTP 200 and a JSON body with a data array"),
-        ("Date endpoints", "Rows fall inside the fromDate / toDate window you sent"),
-        ("401 Unauthorized", "Token missing, expired, or wrong client — request a new token"),
-    ]
-    for i, (k, v) in enumerate(checks, start=1):
-        fill = ROW_HEX if i % 2 == 0 else "FFFFFF"
-        write_cell(exp.cell(i, 0), k, size=9.5, bold=True, fill=fill)
-        write_cell(exp.cell(i, 1), v, size=9.5, fill=fill)
-    set_col_widths(exp, (Cm(4.5), Cm(13.0)))
-
+    add_heading(doc, "8. Expected results", level=1)
+    add_header_table(
+        doc,
+        ("Check", "Pass when"),
+        [
+            ("Token call", "HTTP 200 and an access_token string"),
+            ("Each GET", "HTTP 200 and a JSON body with a data array"),
+            ("Date endpoints", "Rows fall inside the fromDate / toDate window you sent"),
+            ("More pages", "next is present and pageNumber can be incremented"),
+            ("Last page", "next is absent"),
+            ("401 Unauthorized", "Token missing, expired, or wrong client — request a new token"),
+        ],
+        [4.5, 12.9],
+    )
     add_para(
         doc,
         "If you need a different date window, change only fromDate and toDate. Keep the YYYY-MM-DD format.",
         size=11,
-        space_before=12,
+        space_before=8,
         space_after=4,
     )
 
+    set_core_properties(doc)
     doc.save(OUT)
+    strip_generator_metadata(OUT)
     return OUT
 
 
