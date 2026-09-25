@@ -14,7 +14,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
-OUT = Path(__file__).resolve().parent / "SAT-Datashare-Client-Test-Guide-Kenya.docx"
+OUT = Path(__file__).resolve().parent / "SAT-Datashare-Client-Test-Guide-Kenya-v1.0.docx"
 
 NAVY = RGBColor(0x1F, 0x4E, 0x79)
 TEAL = RGBColor(0x2E, 0x75, 0xB6)
@@ -27,7 +27,7 @@ CODE_HEX = "F3F4F6"
 AMBER_HEX = "FFF4D6"
 AMBER_BORDER = "E0C36A"
 
-VERSION = "v1.1"
+VERSION = "v1.0"
 VERSION_DATE = "25 September 2026"
 AUTHOR = "SAT Datashare"
 PAGE_SIZE = 10000
@@ -429,23 +429,9 @@ def add_header_footer(doc) -> None:
     footer.is_linked_to_previous = False
     fp = footer.paragraphs[0]
     fp.text = ""
-    run = fp.add_run(f"Confidential  ·  For the client test team  ·  {VERSION}  ·  Page ")
-    set_run(run, size=8.5, color=MUTED)
-    fld = OxmlElement("w:fldChar")
-    fld.set(qn("w:fldCharType"), "begin")
-    run2 = fp.add_run()
-    run2._r.append(fld)
-    instr = OxmlElement("w:instrText")
-    instr.set(qn("xml:space"), "preserve")
-    instr.text = " PAGE "
-    run3 = fp.add_run()
-    run3._r.append(instr)
-    fld_end = OxmlElement("w:fldChar")
-    fld_end.set(qn("w:fldCharType"), "end")
-    run4 = fp.add_run()
-    run4._r.append(fld_end)
-    for r in (run2, run3, run4):
-        set_run(r, size=8.5, color=MUTED)
+    fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = fp.add_run("SAT Datashare Client Test Guide — Kenya")
+    set_run(run, size=9, bold=True, color=NAVY)
 
 
 def token_curl() -> str:
@@ -563,13 +549,6 @@ def build() -> Path:
     )
 
     add_heading(doc, "1. Overview and credentials", level=1)
-    add_para(
-        doc,
-        "Do not send a country, database, or supplier on any request. "
-        "The API derives Kenya Reckitt data from your client ID.",
-        size=11,
-        space_after=8,
-    )
     add_kv_table(
         doc,
         [
@@ -787,15 +766,16 @@ def build() -> Path:
 
     for idx, ep in enumerate(ENDPOINTS, start=1):
         add_heading(doc, f"{idx}) {ep['name']}", level=2)
-        add_kv_table(
-            doc,
-            [
-                ("Endpoint name", ep["name"]),
-                ("Method", "GET"),
-                ("URL", BASE + ep["path"]),
-                ("Query parameters", "See table below" if ep["params"] else "None"),
-            ],
-        )
+        kv_rows = [
+            ("Endpoint name", ep["name"]),
+            ("Method", "GET"),
+            ("URL", BASE + ep["path"]),
+        ]
+        if ep["params"] is DATE_PARAMS:
+            kv_rows.append(("Query parameters", "fromDate, toDate, pageNumber"))
+        elif ep["params"] is PAGE_PARAMS:
+            kv_rows.append(("Query parameters", "pageNumber"))
+        add_kv_table(doc, kv_rows)
         add_para(doc, ep["notes"], size=10.5, color=MUTED, space_after=6)
         if ep["params"]:
             add_para(doc, "Query parameters", size=11, bold=True, color=NAVY, space_after=4)
@@ -835,6 +815,7 @@ def build() -> Path:
         doc,
         "If you need a different date window, change only fromDate and toDate. Keep the YYYY-MM-DD format.",
         size=11,
+        bold=True,
         space_before=8,
         space_after=4,
     )
