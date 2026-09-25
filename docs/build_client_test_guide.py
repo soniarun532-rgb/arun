@@ -30,7 +30,7 @@ AMBER_BORDER = "E0C36A"
 VERSION = "v1.0"
 VERSION_DATE = "25 September 2026"
 AUTHOR = "SAT Datashare"
-PAGE_SIZE = 10000
+PAGE_SIZE = 2000
 
 BASE = "https://exp-sat-datashare-prod-api-vx7q2k.2ky31l-1.deu-c1.eu1.cloudhub.io"
 TENANT_ID = "f4faf003-d90b-4832-9df8-c8a22d29bdd4"
@@ -42,48 +42,48 @@ TWIPS_PER_CM = 567
 
 SAMPLES = {
     "Invoice": {
-        "STOREID": 2655,
+        "StoreID": 2151,
         "Discount": 0,
-        "SalesRepID": 111,
-        "VATAmount": "80.46",
+        "SalesRepID": 112,
+        "VATAmount": "49.04",
         "RouteID": "",
         "DistributorID": "1000097205",
-        "ProductID": "3286535",
+        "ProductID": "0238167",
         "WarehouseID": 1925,
-        "OrderNumber": 265,
-        "InvoiceNumber": 2857,
-        "InvoiceDate": "24/09/2026",
-        "InvoiceTime": "15:46:26",
+        "OrderNumber": 286,
+        "InvoiceNumber": 2901,
+        "InvoiceDate": "25/09/2026",
+        "InvoiceTime": "15:15:36",
         "InvoiceStatus": "Delivered",
         "UnitOfMeasure": "PIECE",
         "Currency": "KES",
-        "QuantityInvoiced": 10,
-        "AmountInvoiced": "583.30",
+        "QuantityInvoiced": 12,
+        "AmountInvoiced": "355.56",
         "TransType": "Sale",
     },
     "Order": {
-        "StoreID": 2348,
-        "SalesRepID": 108,
-        "RouteID": "",
-        "ProductID": "3049801",
+        "StoreID": 2814,
+        "SalesRepID": 103,
+        "RouteID": 115,
+        "ProductID": "3109556",
         "DistributorID": "1000097205",
-        "WarehouseID": 2503,
-        "OrderNumber": 320,
-        "OrderDate": "24/09/2026",
-        "OrderStartTime": "",
-        "OrderEndTime": "",
+        "WarehouseID": 2166,
+        "OrderNumber": 366,
+        "OrderDate": "25/09/2026",
+        "OrderStartTime": "17:42:38",
+        "OrderEndTime": "18:12:59",
         "OrderStatus": "Open",
         "UnitOfMeasure": "PIECE",
         "Currency": "KES",
-        "QuantityOrdered": 5,
-        "AmountOrdered": "590.90",
+        "QuantityOrdered": 6,
+        "AmountOrdered": "1104.00",
         "Discount": 0,
-        "VATAmount": "81.50",
+        "VATAmount": "152.28",
     },
     "Product": {
         "ProductID": "3268896",
         "ProductSKU": "AWICK FRESHMATIC ROSE  + GADGET SEEDING PRICE 250ML (4)",
-        "UnitofMeasure": "PIECE",
+        "UnitOfMeasure": "PIECE",
     },
     "Route": {
         "RouteID": 110,
@@ -117,8 +117,8 @@ SAMPLES = {
         "StoreSize": "",
     },
     "Stock": {
-        "ProductSKU": "3300090",
-        "UnitofMeasure": "PIECE",
+        "ProductID": "3300090",
+        "UnitOfMeasure": "PIECE",
         "DistributorWarehouseCode": "EMBU STOCKPOINT",
         "Date": "22/09/2026",
         "InventoryQuantity": 21,
@@ -430,8 +430,23 @@ def add_header_footer(doc) -> None:
     fp = footer.paragraphs[0]
     fp.text = ""
     fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = fp.add_run("SAT Datashare Client Test Guide — Kenya")
+    run = fp.add_run(f"Confidential  ·  {VERSION}  ·  Page ")
     set_run(run, size=9, bold=True, color=NAVY)
+    fld = OxmlElement("w:fldChar")
+    fld.set(qn("w:fldCharType"), "begin")
+    run2 = fp.add_run()
+    run2._r.append(fld)
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = " PAGE "
+    run3 = fp.add_run()
+    run3._r.append(instr)
+    fld_end = OxmlElement("w:fldChar")
+    fld_end.set(qn("w:fldCharType"), "end")
+    run4 = fp.add_run()
+    run4._r.append(fld_end)
+    for r in (run2, run3, run4):
+        set_run(r, size=9, bold=True, color=NAVY)
 
 
 def token_curl() -> str:
@@ -463,7 +478,7 @@ def sample_payload(name: str) -> str:
 def paged_example() -> str:
     return json.dumps(
         {
-            "data": [SAMPLES["Invoice"], "... up to 10,000 rows ..."],
+            "data": [SAMPLES["Invoice"], "... up to 2,000 rows ..."],
             "next": (
                 f"{BASE}/api/v1/Invoice"
                 "?fromDate=2026-09-24&toDate=2026-09-24&pageNumber=1"
@@ -554,12 +569,11 @@ def build() -> Path:
         [
             ("API name", "exp-sat-datashare-prod-api"),
             ("Base URL", BASE),
-            ("Country", "Kenya (derived from your client ID — do not send this)"),
             ("Database", "sat_nobleoutlook (derived from your client ID — do not send this)"),
             ("Supplier", "RECKITT BENCKISER (derived from your client ID — do not send this)"),
             ("Auth", "Azure AD client credentials → Bearer access token"),
             ("Date format", "fromDate / toDate = YYYY-MM-DD   (example: 2026-09-24)"),
-            ("Page size", "Up to 10,000 rows per page"),
+            ("Page size", "Up to 2,000 rows per page"),
         ],
     )
 
@@ -568,7 +582,7 @@ def build() -> Path:
         doc,
         ("Field", "Value"),
         [
-            ("Tenant ID", TENANT_ID),
+            ("access_token_url", TOKEN_URL),
             ("Client ID", CLIENT_ID),
             ("Scope", SCOPE),
             ("Client secret", "Sent separately"),
@@ -673,7 +687,7 @@ def build() -> Path:
     add_heading(doc, "4. Pagination", level=1)
     add_para(
         doc,
-        "Each page contains up to 10,000 rows. pageNumber starts at 0. "
+        "Each page contains up to 2,000 rows. pageNumber starts at 0. "
         "If another page exists, the body includes a next URL. "
         "The last page has no next field — stop when next is absent.",
         size=11,
@@ -683,7 +697,7 @@ def build() -> Path:
         doc,
         ("Check", "Meaning"),
         [
-            ("data array length", "Up to 10,000 rows on this page"),
+            ("data array length", "Up to 2,000 rows on this page"),
             ("next is present", "More rows exist. Call the next URL, or increment pageNumber by 1"),
             ("next is absent", "This is the last page. Stop paging"),
             ("pageNumber=0", "First page (you may omit pageNumber)"),
