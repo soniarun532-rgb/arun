@@ -1,6 +1,5 @@
 {
-  "minMuleVersion": "4.8.0",
-  "javaSpecificationVersions": [
-    "17"
-  ]
+  "minMuleVersion": "4.4.0",
+  "javaSpecificationVersions": ["1.8", "11", "17"],
+  "secureProperties": ["secure.key"]
 }

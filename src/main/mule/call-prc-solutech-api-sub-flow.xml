@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+    <sub-flow name="call-prc-solutech-api-sub-flow" doc:name="call-prc-solutech-api-sub-flow">
+        <logger level="INFO" doc:name="Logger_JSON_Start_call-prc-solutech-api-sub-flow" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "exp-sat-datashare-api",
+	event: "call-prc-start",
+	endpoint: (vars.endpoint as String) default ""
+}]' />
+        <set-variable variableName="inboundPath"
+                      value="#[attributes.requestPath]"
+                      doc:name="Set_Variable_inboundPath"/>
+        <set-variable variableName="inboundQueryParams"
+                      value="#[attributes.queryParams default {}]"
+                      doc:name="Set_Variable_inboundQueryParams"/>
+        <set-variable variableName="endpoint"
+                      value='#[vars.endpoint default ((attributes.requestPath splitBy "/")[-1])]'
+                      doc:name="Set_Variable_endpoint"/>
+        <set-variable variableName="oidcAuthentication"
+                      value="#[authentication default {}]"
+                      doc:name="Set_Variable_oidcAuthentication"/>
+        <ee:transform doc:name="Transform_Message_resolve-oidc-tenant">
+            <ee:variables>
+                <ee:set-variable variableName="tenant" resource="dwl/resolve-oidc-tenant.dwl"/>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" doc:name="Logger_JSON_oidc-tenant" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "exp-sat-datashare-api",
+	event: "oidc-tenant-resolved",
+	endpoint: (vars.endpoint as String) default "",
+	matched: vars.tenant.matched default false,
+	country: (vars.tenant.country as String) default "",
+	database: (vars.tenant.database as String) default "",
+	hasClientId: vars.tenant.hasClientId default false,
+	hasAuthHeader: vars.tenant.hasAuthHeader default false,
+	headerKeys: vars.tenant.headerKeys default [],
+	jwtKeys: vars.tenant.jwtKeys default []
+}]' />
+        <choice doc:name="Choice_oidc-tenant">
+            <when expression="#[vars.tenant.matched default false]">
+                <ee:transform doc:name="Transform_Message_process-query-params">
+                    <ee:variables>
+                        <ee:set-variable variableName="processQueryParams" resource="dwl/process-query-params.dwl"/>
+                    </ee:variables>
+                </ee:transform>
+                <http:request method="GET"
+                              config-ref="HTTP_Request_config_prc-solutech-api"
+                              path='#["/api/" ++ vars.endpoint]'
+                              responseTimeout="${http.request.response.timeout}"
+                              doc:name="HTTP_Request_GET_prc-solutech-api">
+                    <http:headers><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Test"
+}]]]></http:headers>
+                    <http:query-params><![CDATA[#[vars.processQueryParams]]]></http:query-params>
+                </http:request>
+                <set-variable variableName="httpStatus"
+                              value="#[attributes.statusCode default 200]"
+                              doc:name="Set_Variable_httpStatus"/>
+                <set-variable variableName="lastCallHasMore"
+                              value="#[attributes.headers.'x-has-more' default 'false']"
+                              doc:name="Set_Variable_lastCallHasMore"/>
+                <ee:transform doc:name="Transform_Message_paging">
+                    <ee:variables>
+                        <ee:set-variable variableName="paging" resource="dwl/paging.dwl"/>
+                    </ee:variables>
+                </ee:transform>
+                <ee:transform doc:name="Transform_Message_add-next-url">
+                    <ee:message>
+                        <ee:set-payload resource="dwl/add-next-url.dwl"/>
+                    </ee:message>
+                </ee:transform>
+                <set-variable variableName="outboundHeaders"
+                              doc:name="Set_Variable_outboundHeaders"
+                              value="#[output application/java
+---
+(vars.outboundHeaders default {})
+    ++ { 'X-Has-More': (vars.paging.hasMore default false) as String }
+    ++ (if (vars.paging.nextUrl != null) { 'X-Next-Url': vars.paging.nextUrl as String } else {})]"/>
+            </when>
+            <otherwise>
+                <ee:transform doc:name="Transform_Message_oidc-unauthorized">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	status: 401,
+	message: if (vars.tenant.hasClientId default false)
+		"Unknown OpenID client. No database mapping for this application."
+	else
+		"Missing OpenID client id. Send a Bearer access token from the registered app."
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[401]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+                <logger level="INFO" doc:name="Logger_JSON_oidc-unauthorized" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "exp-sat-datashare-api",
+	event: "oidc-tenant-unauthorized",
+	endpoint: (vars.endpoint as String) default "",
+	hasClientId: vars.tenant.hasClientId default false
+}]' />
+            </otherwise>
+        </choice>
+        <logger level="INFO" doc:name="Logger_JSON_End_call-prc-solutech-api-sub-flow" message='#[output application/json ---
+{
+	timestamp: now() as String {format: "yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSSZ"},
+	layer: "exp-sat-datashare-api",
+	event: "call-prc-end",
+	endpoint: (vars.endpoint as String) default "",
+	httpStatus: vars.httpStatus default 200
+}]' />
+    </sub-flow>
+</mule>
