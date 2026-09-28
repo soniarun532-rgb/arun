@@ -18,14 +18,10 @@ OUT = ROOT / "SAT-Datashare-Kenya-Endpoint-Payloads.xlsx"
 PAYLOAD_JSON = {
     "Invoice": ROOT / "payloads" / "invoice.json",
     "Order": ROOT / "payloads" / "order.json",
+    "Product": ROOT / "payloads" / "product.json",
 }
 
 SAMPLES = {
-    "Product": {
-        "ProductID": "3268896",
-        "ProductSKU": "AWICK FRESHMATIC ROSE  + GADGET SEEDING PRICE 250ML (4)",
-        "UnitOfMeasure": "PIECE",
-    },
     "Route": {
         "RouteID": 110,
         "RouteName": "MOSES RB TUESDAY",
