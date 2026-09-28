@@ -7,35 +7,20 @@ from copy import copy
 from pathlib import Path
 
 from openpyxl import Workbook
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.styles import Alignment, Border, Font, GradientFill, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.page import PageMargins
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "SAT-Datashare-Kenya-Endpoint-Payloads.xlsx"
-INVOICE_JSON = ROOT / "payloads" / "invoice.json"
+
+PAYLOAD_JSON = {
+    "Invoice": ROOT / "payloads" / "invoice.json",
+    "Order": ROOT / "payloads" / "order.json",
+}
 
 SAMPLES = {
-    "Order": {
-        "StoreID": 2814,
-        "SalesRepID": 103,
-        "RouteID": 115,
-        "ProductID": "3109556",
-        "DistributorID": "1000097205",
-        "WarehouseID": 2166,
-        "OrderNumber": 366,
-        "OrderDate": "25/09/2026",
-        "OrderStartTime": "17:42:38",
-        "OrderEndTime": "18:12:59",
-        "OrderStatus": "Open",
-        "UnitOfMeasure": "PIECE",
-        "Currency": "KES",
-        "QuantityOrdered": 6,
-        "AmountOrdered": "1104.00",
-        "Discount": 0,
-        "VATAmount": "152.28",
-    },
     "Product": {
         "ProductID": "3268896",
         "ProductSKU": "AWICK FRESHMATIC ROSE  + GADGET SEEDING PRICE 250ML (4)",
@@ -86,25 +71,6 @@ SAMPLES = {
         "DistributorID": "1000097205",
     },
 }
-OUT = ROOT / "SAT-Datashare-Kenya-Endpoint-Payloads.xlsx"
-INVOICE_JSON = ROOT / "payloads" / "invoice.json"
-
-NAVY = "1F4E79"
-WHITE = "FFFFFF"
-ZEBRA = "F3F6FA"
-THIN = Border(
-    left=Side(style="thin", color="D0D7DE"),
-    right=Side(style="thin", color="D0D7DE"),
-    top=Side(style="thin", color="D0D7DE"),
-    bottom=Side(style="thin", color="D0D7DE"),
-)
-HEADER_FONT = Font(name="Calibri", bold=True, color=WHITE, size=11)
-CELL_FONT = Font(name="Calibri", size=10, color="2D2D2D")
-HEADER_FILL = PatternFill("solid", fgColor=NAVY)
-ZEBRA_FILL = PatternFill("solid", fgColor=ZEBRA)
-WRAP = Alignment(horizontal="center", vertical="center", wrap_text=True)
-LEFT = Alignment(horizontal="left", vertical="center")
-RIGHT = Alignment(horizontal="right", vertical="center")
 
 SHEET_ORDER = [
     "Invoice",
@@ -116,6 +82,42 @@ SHEET_ORDER = [
     "Stock",
     "Warehouse",
 ]
+
+# Dark blue → grey across the eight sheet tabs.
+TAB_COLORS = {
+    "Invoice": "1B365D",
+    "Order": "243E5C",
+    "Product": "2E4A5C",
+    "Route": "3A5363",
+    "SalesRep": "485C6B",
+    "Customer": "566675",
+    "Stock": "65707E",
+    "Warehouse": "747B86",
+}
+
+DARK_BLUE = "1B365D"
+GREY = "6B7280"
+WHITE = "FFFFFF"
+ZEBRA = "E8EAED"
+ALT_ROW = "F4F5F7"
+BORDER_GREY = "C5C9CE"
+INK = "374151"
+
+THIN = Border(
+    left=Side(style="thin", color=BORDER_GREY),
+    right=Side(style="thin", color=BORDER_GREY),
+    top=Side(style="thin", color=BORDER_GREY),
+    bottom=Side(style="thin", color=BORDER_GREY),
+)
+HEADER_FONT = Font(name="Calibri", bold=True, color=WHITE, size=11)
+CELL_FONT = Font(name="Calibri", size=10, color=INK)
+HEADER_FILL = PatternFill("solid", fgColor=DARK_BLUE)
+HEADER_GRADIENT = GradientFill(stop=(DARK_BLUE, GREY), degree=0)
+ZEBRA_FILL = PatternFill("solid", fgColor=ZEBRA)
+ALT_FILL = PatternFill("solid", fgColor=ALT_ROW)
+WRAP = Alignment(horizontal="center", vertical="center", wrap_text=True)
+LEFT = Alignment(horizontal="left", vertical="center")
+RIGHT = Alignment(horizontal="right", vertical="center")
 
 TEXT_KEYS = {
     "ProductID",
@@ -154,11 +156,12 @@ TEXT_KEYS = {
 
 
 def load_rows(name: str) -> list[dict]:
-    if name == "Invoice":
-        payload = json.loads(INVOICE_JSON.read_text(encoding="utf-8"))
+    path = PAYLOAD_JSON.get(name)
+    if path is not None:
+        payload = json.loads(path.read_text(encoding="utf-8"))
         rows = payload.get("data") or []
         if not rows:
-            raise SystemExit(f"{INVOICE_JSON} has no data array")
+            raise SystemExit(f"{path} has no data array")
         return rows
     sample = SAMPLES[name]
     return [copy(sample)]
@@ -199,9 +202,11 @@ def autosize(ws, headers: list[str], rows: list[dict]) -> None:
 def write_sheet(wb: Workbook, name: str, rows: list[dict]) -> None:
     ws = wb.create_sheet(name)
     headers = columns_for(rows)
-    ws.sheet_properties.tabColor = NAVY
+    ws.sheet_properties.tabColor = TAB_COLORS[name]
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:{get_column_letter(len(headers))}{len(rows) + 1}"
+    last_col = get_column_letter(len(headers))
+    last_row = len(rows) + 1
+    ws.auto_filter.ref = f"A1:{last_col}{last_row}"
     ws.page_setup.orientation = "landscape"
     ws.page_setup.fitToPage = True
     ws.page_setup.fitToWidth = 1
@@ -215,20 +220,19 @@ def write_sheet(wb: Workbook, name: str, rows: list[dict]) -> None:
     for col, header in enumerate(headers, 1):
         cell = ws.cell(1, col, header)
         cell.font = HEADER_FONT
-        cell.fill = HEADER_FILL
+        cell.fill = HEADER_GRADIENT
         cell.alignment = WRAP
         cell.border = THIN
     ws.row_dimensions[1].height = 22
 
     for r_i, row in enumerate(rows, 2):
-        fill = ZEBRA_FILL if r_i % 2 == 0 else None
+        fill = ZEBRA_FILL if r_i % 2 == 0 else ALT_FILL
         for c_i, header in enumerate(headers, 1):
             value = cell_value(header, row.get(header))
             cell = ws.cell(r_i, c_i, value)
             cell.font = CELL_FONT
             cell.border = THIN
-            if fill:
-                cell.fill = fill
+            cell.fill = fill
             if header in TEXT_KEYS or header in {"RouteID", "OrderNumber", "ProductID"}:
                 cell.number_format = "@"
                 cell.alignment = LEFT
@@ -241,16 +245,24 @@ def write_sheet(wb: Workbook, name: str, rows: list[dict]) -> None:
 
     table = Table(
         displayName=f"{name}Data",
-        ref=f"A1:{get_column_letter(len(headers))}{len(rows) + 1}",
+        ref=f"A1:{last_col}{last_row}",
     )
     table.tableStyleInfo = TableStyleInfo(
-        name="TableStyleMedium2",
+        name="TableStyleMedium9",
         showFirstColumn=False,
         showLastColumn=False,
         showRowStripes=True,
         showColumnStripes=False,
     )
     ws.add_table(table)
+
+    # Re-apply header gradient after the table so dark-blue-to-grey survives Excel table styles.
+    for col in range(1, len(headers) + 1):
+        cell = ws.cell(1, col)
+        cell.fill = HEADER_GRADIENT
+        cell.font = HEADER_FONT
+        cell.alignment = WRAP
+        cell.border = THIN
 
 
 def main() -> None:
