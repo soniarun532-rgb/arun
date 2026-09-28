@@ -36,21 +36,20 @@ SHEET_ORDER = [
     "Warehouse",
 ]
 
-# Grey tabs only — no blue.
+# Blue column headers and sheet tabs; grey body rows.
 TAB_COLORS = {
-    "Invoice": "4B5563",
-    "Order": "545B66",
-    "Product": "5D646C",
-    "Route": "666D74",
-    "SalesRep": "6F767C",
-    "Customer": "787F85",
-    "Stock": "81888D",
-    "Warehouse": "8A9196",
+    "Invoice": "1B365D",
+    "Order": "1E3D63",
+    "Product": "214269",
+    "Route": "24476F",
+    "SalesRep": "274C75",
+    "Customer": "2A517B",
+    "Stock": "2D5681",
+    "Warehouse": "305B87",
 }
 
-HEADER_GREY = "4B5563"
-GREY = "6B7280"
-LIGHT_GREY = "9CA3AF"
+DARK_BLUE = "1B365D"
+MID_BLUE = "2563EB"
 WHITE = "FFFFFF"
 ZEBRA = "E5E7EB"
 ALT_ROW = "F3F4F6"
@@ -65,8 +64,8 @@ THIN = Border(
 )
 HEADER_FONT = Font(name="Calibri", bold=True, color=WHITE, size=11)
 CELL_FONT = Font(name="Calibri", size=10, color=INK)
-HEADER_FILL = PatternFill("solid", fgColor=HEADER_GREY)
-HEADER_GRADIENT = GradientFill(stop=(HEADER_GREY, LIGHT_GREY), degree=0)
+HEADER_FILL = PatternFill("solid", fgColor=DARK_BLUE)
+HEADER_GRADIENT = GradientFill(stop=(DARK_BLUE, MID_BLUE), degree=0)
 ZEBRA_FILL = PatternFill("solid", fgColor=ZEBRA)
 ALT_FILL = PatternFill("solid", fgColor=ALT_ROW)
 WRAP = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -199,7 +198,7 @@ def write_sheet(wb: Workbook, name: str, rows: list[dict]) -> None:
         ref=f"A1:{last_col}{last_row}",
     )
     table.tableStyleInfo = TableStyleInfo(
-        name="TableStyleMedium21",
+        name="TableStyleMedium9",
         showFirstColumn=False,
         showLastColumn=False,
         showRowStripes=True,
@@ -207,7 +206,7 @@ def write_sheet(wb: Workbook, name: str, rows: list[dict]) -> None:
     )
     ws.add_table(table)
 
-    # Re-apply grey header after the table so the custom fill survives Excel table styles.
+    # Re-apply blue header after the table so the custom fill survives Excel table styles.
     for col in range(1, len(headers) + 1):
         cell = ws.cell(1, col)
         cell.fill = HEADER_GRADIENT
