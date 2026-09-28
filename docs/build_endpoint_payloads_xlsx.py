@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-from copy import copy
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -19,53 +18,11 @@ PAYLOAD_JSON = {
     "Invoice": ROOT / "payloads" / "invoice.json",
     "Order": ROOT / "payloads" / "order.json",
     "Product": ROOT / "payloads" / "product.json",
-}
-
-SAMPLES = {
-    "Route": {
-        "RouteID": 110,
-        "RouteName": "MOSES RB TUESDAY",
-        "SalesRepID": 110,
-        "RouteType": "Weekly",
-        "SalesRepType": "Van Sales",
-        "Date": "07/09/2026",
-    },
-    "SalesRep": {
-        "SalesRepID": 100,
-        "SalesRepName": "ISAAC MUGE",
-        "DistributorID": "1000097205",
-        "WarehouseID": 183,
-        "SalesRepType": "Admin",
-    },
-    "Customer": {
-        "StoreID": 1980,
-        "StoreName": "ONE ZERO ONE SELFRIGES",
-        "StoreCategory": "SHOP AND BROWSER",
-        "Channel": "GENERAL TRADE",
-        "StoreClassification": "GENERAL TRADE",
-        "WarehouseID": None,
-        "Longitude": 37.5852265,
-        "Latitude": 0.3526255,
-        "City": "MERU",
-        "Region": "MOUNTAIN",
-        "County": "",
-        "StoreStatus": 1,
-        "StoreCreationDate": "10/09/2026",
-        "StoreSize": "",
-    },
-    "Stock": {
-        "ProductID": "3300090",
-        "UnitOfMeasure": "PIECE",
-        "DistributorWarehouseCode": "EMBU STOCKPOINT",
-        "Date": "22/09/2026",
-        "InventoryQuantity": 21,
-        "InventoryPrice": None,
-    },
-    "Warehouse": {
-        "WarehouseID": 183,
-        "WarehouseName": "GIKAMBURA STOCKPOINT",
-        "DistributorID": "1000097205",
-    },
+    "Route": ROOT / "payloads" / "route.json",
+    "SalesRep": ROOT / "payloads" / "salesrep.json",
+    "Customer": ROOT / "payloads" / "customer.json",
+    "Stock": ROOT / "payloads" / "stock.json",
+    "Warehouse": ROOT / "payloads" / "warehouse.json",
 }
 
 SHEET_ORDER = [
@@ -152,15 +109,12 @@ TEXT_KEYS = {
 
 
 def load_rows(name: str) -> list[dict]:
-    path = PAYLOAD_JSON.get(name)
-    if path is not None:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        rows = payload.get("data") or []
-        if not rows:
-            raise SystemExit(f"{path} has no data array")
-        return rows
-    sample = SAMPLES[name]
-    return [copy(sample)]
+    path = PAYLOAD_JSON[name]
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("data") or []
+    if not rows:
+        raise SystemExit(f"{path} has no data array")
+    return rows
 
 
 def columns_for(rows: list[dict]) -> list[str]:

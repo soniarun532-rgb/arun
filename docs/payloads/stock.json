@@ -1,0 +1,4700 @@
+{
+  "data": [
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 21,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300090",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300089",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300089",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300089",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300089",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109122",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109556",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109556",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109556",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109556",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3109556",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055078",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -10,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055078",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "16/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055078",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055078",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055075",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055075",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055075",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055075",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055075",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055076",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -10,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055076",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "16/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055076",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055076",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055074",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "17/09/2026",
+      "InventoryQuantity": -15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055074",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055074",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055074",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8055074",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -41,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 64,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 10,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 19,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 14,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3066839",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -41,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 14,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384688",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -455,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 450,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 84,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 101,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 202,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384683",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 20,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 10,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 2,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3031111",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -129,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 252,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 81,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 99,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384686",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -1375,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 3498,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 1752,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 636,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 738,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 522,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3012868",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 750,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -84,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 252,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 138,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384677",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3178721",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3178721",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3178721",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3178721",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3178721",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "17/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 8,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350657",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 4,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 62,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 27,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 40,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384663",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 40,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -56,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 39,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 21,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384666",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384658",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -153,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384658",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 360,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384658",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 360,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384658",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 250,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0384658",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -4280,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 45840,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 27720,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 2220,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 8184,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 2082,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0238167",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 7284,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -87,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 93,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 39,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 27,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313643",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 21,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3313641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330724",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -39,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330725",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330727",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330727",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 180,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330727",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "16/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0330726",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3280717",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3280717",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "17/09/2026",
+      "InventoryQuantity": -15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323044",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021482",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021482",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021482",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021482",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021482",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021480",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021480",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021480",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3021480",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -25,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 7,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158005",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -132,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 180,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8158006",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -406,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 690,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 594,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 348,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 264,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 227,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3286535",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 186,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -126,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 192,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299719",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "22/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299715",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 38,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299711",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -608,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 2877,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 1170,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 187,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "22/09/2026",
+      "InventoryQuantity": 546,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 324,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299714",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 546,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -239,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 719,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 372,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 268,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 163,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0299713",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252301",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252301",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252301",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252301",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252301",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252290",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252290",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252290",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252290",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252290",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252303",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252303",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252303",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252303",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252298",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252298",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252298",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252298",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252298",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252305",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252305",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 192,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252305",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252305",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252305",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252300",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252300",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252300",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3252300",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 102,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "0352645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 51,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132947",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132947",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132947",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132947",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132486",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132486",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132486",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3132486",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8161705",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3285468",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298365",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298365",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "16/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298365",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298365",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298365",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243990",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243990",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243990",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243990",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243990",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243991",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243941",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "23/09/2026",
+      "InventoryQuantity": -6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3243946",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263704",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263704",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263704",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263704",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "07/09/2026",
+      "InventoryQuantity": -12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3263696",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296496",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296496",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "16/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3296475",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -159,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 864,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 1848,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 183,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 216,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315649",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 216,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -536,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 1080,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 510,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 270,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 315,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 140,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315647",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 225,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -658,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 2157,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 1236,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 429,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 828,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 264,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315646",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 741,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -216,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 336,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 126,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 66,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315642",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 336,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 384,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315641",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239863",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "19/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239863",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239863",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "19/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239864",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -8,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239864",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239864",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239864",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239866",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239866",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 360,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239866",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 432,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239866",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239866",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "19/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239865",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3239865",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 128,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 42,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 39,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323038",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "09/09/2026",
+      "InventoryQuantity": -72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305977",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323042",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323042",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323042",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323042",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323042",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -108,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 66,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 78,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -66,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 150,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315645",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "09/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 128,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323043",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -162,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305978",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -19,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 128,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323040",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 13,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 39,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323037",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -204,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 576,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 132,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 156,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 84,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3298961",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315651",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315651",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 720,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315651",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 1080,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315651",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 132,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326539",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326539",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 480,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326539",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 720,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326539",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 210,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -336,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 1080,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 396,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 288,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 291,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 108,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3315648",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 290,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "16/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323034",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 15,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323036",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -30,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 33,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 21,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "22/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3323033",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 54,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 183,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3326525",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -84,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 565,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 720,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 102,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 21,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049805",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049808",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049808",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049808",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049808",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 143,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 240,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 33,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049806",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 96,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049807",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049807",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049807",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049807",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -547,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 4282,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 9600,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 318,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 105,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3049801",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 486,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 180,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350644",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "25/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "18/09/2026",
+      "InventoryQuantity": -3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 180,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 117,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "18/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350629",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350634",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350634",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350634",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3350634",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 12,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3348616",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -63,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3348616",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 360,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3348616",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 720,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3348616",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 171,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305699",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "22/09/2026",
+      "InventoryQuantity": 47,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305699",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3305699",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 1,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300846",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 283,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300846",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 312,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300846",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 6,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300846",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 5,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3301388",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 60,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3301388",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 120,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300850",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 48,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3300850",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3242329",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 24,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3242329",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "17/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133958",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "26/09/2026",
+      "InventoryQuantity": -1,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133958",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 2400,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133958",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 7600,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133958",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 200,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133957",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "23/09/2026",
+      "InventoryQuantity": -62,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133957",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 3600,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133957",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3900,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "8133957",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 162,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "28/09/2026",
+      "InventoryQuantity": -32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 144,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3297999",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 72,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "07/09/2026",
+      "InventoryQuantity": -16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "26/09/2026",
+      "InventoryQuantity": 32,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 0,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 10,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "07/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3332058",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 16,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "",
+      "Date": "25/09/2026",
+      "InventoryQuantity": -18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "EMBU STOCKPOINT",
+      "Date": "28/09/2026",
+      "InventoryQuantity": 90,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAIN WAREHOUSE",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 45,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MAKUTANO SHOP",
+      "Date": "24/09/2026",
+      "InventoryQuantity": 3,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MERU STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 18,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "MURANGA STOCKPOINT",
+      "Date": "09/09/2026",
+      "InventoryQuantity": 9,
+      "InventoryPrice": null
+    },
+    {
+      "ProductID": "3342803",
+      "UnitOfMeasure": "PIECE",
+      "DistributorWarehouseCode": "NYERI STOCKPOINT",
+      "Date": "14/09/2026",
+      "InventoryQuantity": 36,
+      "InventoryPrice": null
+    }
+  ]
+}
