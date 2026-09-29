@@ -1,0 +1,79 @@
+{
+  "data": [
+    {
+      "WarehouseID": 183,
+      "WarehouseName": "GIKAMBURA STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 186,
+      "WarehouseName": "NAIROBI WEST STCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 187,
+      "WarehouseName": "NAIROBI CBD STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 188,
+      "WarehouseName": "KITENGELA STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 198,
+      "WarehouseName": "MAIN WAREHOUSE",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 361,
+      "WarehouseName": "Order Delivery",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 1043,
+      "WarehouseName": "NYERI STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 1686,
+      "WarehouseName": "Delivery-DSR",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 1925,
+      "WarehouseName": "EMBU STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 1926,
+      "WarehouseName": "MERU STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 1935,
+      "WarehouseName": "MURANGA STOCKPOINT",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 2166,
+      "WarehouseName": "PETER MUGAMBI - DSR EMBU",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 2184,
+      "WarehouseName": "FRANCIS ODONGO - DSR MERU",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 2234,
+      "WarehouseName": "ALBERT MUTEMBEI - NYERI DSR",
+      "DistributorID": "1000097205"
+    },
+    {
+      "WarehouseID": 2503,
+      "WarehouseName": "MICHAEL KANGAU - MURANGA DSR",
+      "DistributorID": "1000097205"
+    }
+  ]
+}

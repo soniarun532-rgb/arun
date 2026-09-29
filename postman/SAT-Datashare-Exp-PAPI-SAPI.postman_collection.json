@@ -1,0 +1,4021 @@
+{
+  "info": {
+    "_postman_id": "sat-datashare-exp-papi-sapi-20260921",
+    "name": "SAT Datashare \u2014 Exp / PAPI / SAPI",
+    "description": "One collection. All variables are on the collection.\n\nFolders: Eapi / PAPI / SAPI, each with local, sandbox, presandbox, production.\n\nEapi sandbox, presandbox, and production each have Get Azure Token.\nExp: Authorization Bearer {{access_token}} only. No database or supplier.\nPAPI: Authorization: Test (hardcoded). Send database and supplier.\nSAPI: no Authorization header. Send database and supplier.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "local_exp_url",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "local_papi_url",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "local_sapi_url",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "sandbox_exp_url",
+      "value": "https://exp-sat-datashare-sand-api-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "sandbox_papi_url",
+      "value": "https://prc-solutech-api-v1-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "sandbox_sapi_url",
+      "value": "https://sys-solutech-api-v1-5nct48.2ky31l-2.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "presandbox_exp_url",
+      "value": "https://exp-sat-datashare-presand-api-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "presandbox_papi_url",
+      "value": "https://prc-solutech-presand-api-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "presandbox_sapi_url",
+      "value": "https://sys-solutech-presand-api-5nct48.2ky31l-1.deu-c1.eu1.cloudhub.io"
+    },
+    {
+      "key": "production_exp_url",
+      "value": ""
+    },
+    {
+      "key": "production_papi_url",
+      "value": ""
+    },
+    {
+      "key": "production_sapi_url",
+      "value": ""
+    },
+    {
+      "key": "sandbox_token_url",
+      "value": "https://login.microsoftonline.com/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
+    },
+    {
+      "key": "presandbox_token_url",
+      "value": "https://login.microsoftonline.com/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
+    },
+    {
+      "key": "production_token_url",
+      "value": "https://login.microsoftonline.com/f4faf003-d90b-4832-9df8-c8a22d29bdd4/oauth2/v2.0/token"
+    },
+    {
+      "key": "client_id",
+      "value": "de772600-0d1f-4492-90b0-a57fcc284cf9"
+    },
+    {
+      "key": "client_secret",
+      "value": ""
+    },
+    {
+      "key": "scope",
+      "value": "https://graph.microsoft.com/.default"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "database",
+      "value": "sat_nobleoutlook"
+    },
+    {
+      "key": "supplier",
+      "value": "RECKITT BENCKISER"
+    },
+    {
+      "key": "fromDate",
+      "value": "2026-08-13"
+    },
+    {
+      "key": "toDate",
+      "value": "2026-08-14"
+    },
+    {
+      "key": "pageNumber",
+      "value": "0"
+    }
+  ],
+  "item": [
+    {
+      "name": "Eapi",
+      "description": "Experience API. Bearer token only. No database or supplier.",
+      "item": [
+        {
+          "name": "local",
+          "item": [
+            {
+              "name": "GET /api/v1/Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Product",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Product"
+                  ],
+                  "query": []
+                },
+                "description": "Product. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Route",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Route"
+                  ],
+                  "query": []
+                },
+                "description": "Route. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/SalesRep",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "SalesRep"
+                  ],
+                  "query": []
+                },
+                "description": "SalesRep. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Customer?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Stock?pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_exp_url}}/api/v1/Warehouse",
+                  "host": [
+                    "{{local_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Warehouse"
+                  ],
+                  "query": []
+                },
+                "description": "Warehouse. Bearer token only. Do not send database or supplier."
+              }
+            }
+          ]
+        },
+        {
+          "name": "sandbox",
+          "item": [
+            {
+              "name": "Get Azure Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "var json = pm.response.json();",
+                      "if (json.access_token) {",
+                      "    pm.collectionVariables.set('access_token', json.access_token);",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "{{client_id}}"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "{{client_secret}}"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "{{scope}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{sandbox_token_url}}",
+                  "host": [
+                    "{{sandbox_token_url}}"
+                  ]
+                },
+                "description": "Azure client_credentials for Exp. Secret is collection variable client_secret. Saves access_token."
+              }
+            },
+            {
+              "name": "GET /api/v1/Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Product",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Product"
+                  ],
+                  "query": []
+                },
+                "description": "Product. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Route",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Route"
+                  ],
+                  "query": []
+                },
+                "description": "Route. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/SalesRep",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "SalesRep"
+                  ],
+                  "query": []
+                },
+                "description": "SalesRep. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Customer?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Stock?pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_exp_url}}/api/v1/Warehouse",
+                  "host": [
+                    "{{sandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Warehouse"
+                  ],
+                  "query": []
+                },
+                "description": "Warehouse. Bearer token only. Do not send database or supplier."
+              }
+            }
+          ]
+        },
+        {
+          "name": "presandbox",
+          "item": [
+            {
+              "name": "Get Azure Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "var json = pm.response.json();",
+                      "if (json.access_token) {",
+                      "    pm.collectionVariables.set('access_token', json.access_token);",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "{{client_id}}"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "{{client_secret}}"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "{{scope}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{presandbox_token_url}}",
+                  "host": [
+                    "{{presandbox_token_url}}"
+                  ]
+                },
+                "description": "Azure client_credentials for Exp. Secret is collection variable client_secret. Saves access_token."
+              }
+            },
+            {
+              "name": "GET /api/v1/Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Product",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Product"
+                  ],
+                  "query": []
+                },
+                "description": "Product. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Route",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Route"
+                  ],
+                  "query": []
+                },
+                "description": "Route. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/SalesRep",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "SalesRep"
+                  ],
+                  "query": []
+                },
+                "description": "SalesRep. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Customer?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Stock?pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_exp_url}}/api/v1/Warehouse",
+                  "host": [
+                    "{{presandbox_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Warehouse"
+                  ],
+                  "query": []
+                },
+                "description": "Warehouse. Bearer token only. Do not send database or supplier."
+              }
+            }
+          ]
+        },
+        {
+          "name": "production",
+          "item": [
+            {
+              "name": "Get Azure Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "var json = pm.response.json();",
+                      "if (json.access_token) {",
+                      "    pm.collectionVariables.set('access_token', json.access_token);",
+                      "}"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "{{client_id}}"
+                    },
+                    {
+                      "key": "client_secret",
+                      "value": "{{client_secret}}"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "{{scope}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{production_token_url}}",
+                  "host": [
+                    "{{production_token_url}}"
+                  ]
+                },
+                "description": "Azure client_credentials for Exp. Secret is collection variable client_secret. Saves access_token."
+              }
+            },
+            {
+              "name": "GET /api/v1/Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Invoice?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Order?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Product",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Product"
+                  ],
+                  "query": []
+                },
+                "description": "Product. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Route",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Route"
+                  ],
+                  "query": []
+                },
+                "description": "Route. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/SalesRep",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "SalesRep"
+                  ],
+                  "query": []
+                },
+                "description": "SalesRep. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Customer?fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Stock?pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Bearer token only. Do not send database or supplier."
+              }
+            },
+            {
+              "name": "GET /api/v1/Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_exp_url}}/api/v1/Warehouse",
+                  "host": [
+                    "{{production_exp_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "Warehouse"
+                  ],
+                  "query": []
+                },
+                "description": "Warehouse. Bearer token only. Do not send database or supplier."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PAPI",
+      "description": "Process API. Authorization: Test hardcoded.",
+      "item": [
+        {
+          "name": "local",
+          "item": [
+            {
+              "name": "GET /api/Adapter_Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_SalesRep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_SalesRep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{local_papi_url}}/api/Adapter_Warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. Authorization hardcoded Test. No variable."
+              }
+            }
+          ]
+        },
+        {
+          "name": "sandbox",
+          "item": [
+            {
+              "name": "GET /api/Adapter_Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_SalesRep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_SalesRep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{sandbox_papi_url}}/api/Adapter_Warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. Authorization hardcoded Test. No variable."
+              }
+            }
+          ]
+        },
+        {
+          "name": "presandbox",
+          "item": [
+            {
+              "name": "GET /api/Adapter_Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_SalesRep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_SalesRep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{presandbox_papi_url}}/api/Adapter_Warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. Authorization hardcoded Test. No variable."
+              }
+            }
+          ]
+        },
+        {
+          "name": "production",
+          "item": [
+            {
+              "name": "GET /api/Adapter_Invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_SalesRep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_SalesRep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_SalesRep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. Authorization hardcoded Test. No variable."
+              }
+            },
+            {
+              "name": "GET /api/Adapter_Warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Test"
+                  }
+                ],
+                "url": {
+                  "raw": "{{production_papi_url}}/api/Adapter_Warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_papi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Adapter_Warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. Authorization hardcoded Test. No variable."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SAPI",
+      "description": "System API. No Authorization header.",
+      "item": [
+        {
+          "name": "local",
+          "item": [
+            {
+              "name": "GET /api/invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/sales-rep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/sales-rep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "sales-rep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{local_sapi_url}}/api/warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{local_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. No Authorization header."
+              }
+            }
+          ]
+        },
+        {
+          "name": "sandbox",
+          "item": [
+            {
+              "name": "GET /api/invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/sales-rep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/sales-rep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "sales-rep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sandbox_sapi_url}}/api/warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{sandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. No Authorization header."
+              }
+            }
+          ]
+        },
+        {
+          "name": "presandbox",
+          "item": [
+            {
+              "name": "GET /api/invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/sales-rep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/sales-rep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "sales-rep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{presandbox_sapi_url}}/api/warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{presandbox_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. No Authorization header."
+              }
+            }
+          ]
+        },
+        {
+          "name": "production",
+          "item": [
+            {
+              "name": "GET /api/invoice",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/invoice?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "invoice"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Invoice. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/order",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/order?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "order"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Order. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/product",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/product?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Product. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/route",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/route?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "route"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Route. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/sales-rep",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/sales-rep?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "sales-rep"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "SalesRep. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/customer",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/customer?database={{database}}&supplier={{supplier}}&fromDate={{fromDate}}&toDate={{toDate}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "customer"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "{{fromDate}}"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "{{toDate}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Customer. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/stock",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/stock?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Stock. No Authorization header."
+              }
+            },
+            {
+              "name": "GET /api/warehouse",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{production_sapi_url}}/api/warehouse?database={{database}}&supplier={{supplier}}&pageNumber={{pageNumber}}",
+                  "host": [
+                    "{{production_sapi_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "warehouse"
+                  ],
+                  "query": [
+                    {
+                      "key": "database",
+                      "value": "{{database}}"
+                    },
+                    {
+                      "key": "supplier",
+                      "value": "{{supplier}}"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "{{pageNumber}}"
+                    }
+                  ]
+                },
+                "description": "Warehouse. No Authorization header."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

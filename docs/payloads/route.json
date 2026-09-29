@@ -1,0 +1,268 @@
+{
+  "data": [
+    {
+      "RouteID": 110,
+      "RouteName": "MOSES RB TUESDAY",
+      "SalesRepID": 110,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "07/09/2026"
+    },
+    {
+      "RouteID": 111,
+      "RouteName": "BENJAMIN RB MONDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "07/09/2026"
+    },
+    {
+      "RouteID": 112,
+      "RouteName": "BENJAMIN RB TUESDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "07/09/2026"
+    },
+    {
+      "RouteID": 113,
+      "RouteName": "BENJAMIN RB WEDNESDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 114,
+      "RouteName": "BENJAMIN RB THURSDAY",
+      "SalesRepID": 80,
+      "RouteType": "Weekly",
+      "SalesRepType": "Admin",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 114,
+      "RouteName": "BENJAMIN RB THURSDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 115,
+      "RouteName": "BENJAMIN RB FRIDAY",
+      "SalesRepID": 80,
+      "RouteType": "Weekly",
+      "SalesRepType": "Admin",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 115,
+      "RouteName": "BENJAMIN RB FRIDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 116,
+      "RouteName": "BENJAMIN RB SATURDAY",
+      "SalesRepID": 80,
+      "RouteType": "Weekly",
+      "SalesRepType": "Admin",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 116,
+      "RouteName": "BENJAMIN RB SATURDAY",
+      "SalesRepID": 103,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "08/09/2026"
+    },
+    {
+      "RouteID": 117,
+      "RouteName": "MOSES RB WEDNESDAY",
+      "SalesRepID": 110,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "09/09/2026"
+    },
+    {
+      "RouteID": 118,
+      "RouteName": "JACKSON RB FRIDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 119,
+      "RouteName": "JACKSON RB MONDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 120,
+      "RouteName": "JACKSON RB TUESDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 121,
+      "RouteName": "JACKSON RB WEDNESDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 122,
+      "RouteName": "JACKSON RB THURSDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 123,
+      "RouteName": "JACKSON RB SATURDAY",
+      "SalesRepID": 107,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "11/09/2026"
+    },
+    {
+      "RouteID": 124,
+      "RouteName": "ALBERT RB MONDAY",
+      "SalesRepID": 108,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "14/09/2026"
+    },
+    {
+      "RouteID": 126,
+      "RouteName": "SIMON RB MONDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "14/09/2026"
+    },
+    {
+      "RouteID": 127,
+      "RouteName": "ALBERT RB TUESDAY",
+      "SalesRepID": 108,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 128,
+      "RouteName": "ALBERT RB WEDNESDAY",
+      "SalesRepID": 108,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 130,
+      "RouteName": "ALBERT RB FRIDAY",
+      "SalesRepID": 108,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 131,
+      "RouteName": "ALBERT RB SATURDAY",
+      "SalesRepID": 108,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 133,
+      "RouteName": "MOSES RB FRIDAY",
+      "SalesRepID": 110,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 134,
+      "RouteName": "MOSES RB SATURDAY",
+      "SalesRepID": 110,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 135,
+      "RouteName": "SIMON RB TUESDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 136,
+      "RouteName": "SIMON RB WEDNESDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 137,
+      "RouteName": "SIMON RB THURSDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 138,
+      "RouteName": "SIMON RB FRIDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 139,
+      "RouteName": "SIMON RB SATURDAY",
+      "SalesRepID": 114,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "15/09/2026"
+    },
+    {
+      "RouteID": 140,
+      "RouteName": "JOHN RB ROUTE",
+      "SalesRepID": 115,
+      "RouteType": "Daily",
+      "SalesRepType": "Van Sales",
+      "Date": "16/09/2026"
+    },
+    {
+      "RouteID": 141,
+      "RouteName": "MICHAEL RB FRIDAY",
+      "SalesRepID": 111,
+      "RouteType": "Daily",
+      "SalesRepType": "Van Sales",
+      "Date": "18/09/2026"
+    },
+    {
+      "RouteID": 145,
+      "RouteName": "JOHN RB MR THURSDAY",
+      "SalesRepID": 119,
+      "RouteType": "Weekly",
+      "SalesRepType": "Van Sales",
+      "Date": "18/09/2026"
+    }
+  ]
+}

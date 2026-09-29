@@ -1,0 +1,19 @@
+#%RAML 1.0 Trait
+description: fromDate and toDate required. pageNumber optional. Do not send database or supplier.
+queryParameters:
+  fromDate:
+    type: date-only
+    required: true
+    description: Inclusive start date. YYYY-MM-DD only. No time.
+    example: 2026-08-13
+  toDate:
+    type: date-only
+    required: true
+    description: Inclusive end date. YYYY-MM-DD only. No time.
+    example: 2026-08-14
+  pageNumber:
+    type: integer
+    required: false
+    default: 0
+    description: 0-based page. First call can omit it. Follow payload.next if present.
+    example: 0

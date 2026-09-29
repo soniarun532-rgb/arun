@@ -1,0 +1,95 @@
+{
+  "data": [
+    {
+      "SalesRepID": 100,
+      "SalesRepName": "ISAAC MUGE",
+      "DistributorID": "1000097205",
+      "WarehouseID": 183,
+      "SalesRepType": "Admin"
+    },
+    {
+      "SalesRepID": 103,
+      "SalesRepName": "BENJAMIN MURAGE",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 104,
+      "SalesRepName": "MOSES KAMAU",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 107,
+      "SalesRepName": "JACKSON THUKU",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1043,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 108,
+      "SalesRepName": "ALBERT MANDELA",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 110,
+      "SalesRepName": "MOSES MACHARIA",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 111,
+      "SalesRepName": "MICHAEL KANGAU",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1935,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 112,
+      "SalesRepName": "PETER MUGAMBI",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 114,
+      "SalesRepName": "SIMON KAMAU",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 115,
+      "SalesRepName": "JOHN MUNYUA",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1925,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 116,
+      "SalesRepName": "FRANCIS ODONGO",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1926,
+      "SalesRepType": "Van Sales"
+    },
+    {
+      "SalesRepID": 118,
+      "SalesRepName": "ALBERT MUTEMBEI",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1043,
+      "SalesRepType": "Drivers (Delivery Agents)"
+    },
+    {
+      "SalesRepID": 119,
+      "SalesRepName": "JOHN NJUGUNA",
+      "DistributorID": "1000097205",
+      "WarehouseID": 1926,
+      "SalesRepType": "Van Sales"
+    }
+  ]
+}
