@@ -7,7 +7,7 @@ var rows = payload.data default payload default []
 	data: rows map ((row) -> {
 		ProductID: productIdFromCode(row.productcode),
 		ProductSKU: row.product_desc default "",
-		UnitofMeasure: row.uomname default row.UOMName default ""
+		UnitOfMeasure: row.uomname default row.UOMName default ""
 	}),
 	(next: payload.next) if (payload.next != null)
 }

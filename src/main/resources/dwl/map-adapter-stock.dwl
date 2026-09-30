@@ -5,8 +5,8 @@ var rows = payload.data default payload default []
 ---
 {
 	data: rows map ((row) -> {
-		ProductSKU: fromFirstNumeric(row.productcode),
-		UnitofMeasure: row.uomname default "",
+		ProductID: fromFirstNumeric(row.productcode),
+		UnitOfMeasure: row.uomname default "",
 		DistributorWarehouseCode: row.stockpoint_name default "",
 		Date: if (row.date_created == null) "" else ((row.date_created as DateTime as String {format: "dd/MM/yyyy"}) default ""),
 		InventoryQuantity: row.quantity default "",

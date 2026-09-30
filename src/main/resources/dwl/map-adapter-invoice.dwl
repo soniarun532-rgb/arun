@@ -19,7 +19,7 @@ var currency = (p("papi.sat.solutech.currency") default "KES") as String
 		var createdAt = sale.CREATED_AT as DateTime
 		---
 		{
-			STOREID: sale.SHOPID default "",
+			StoreID: sale.SHOPID default "",
 			Discount: sale.DISCOUNT default "",
 			SalesRepID: sale.USERID default "",
 			VATAmount: amount2(sale.TOTAL_VAT),
