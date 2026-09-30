@@ -2,18 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
-	<artifactId>sys-solutech-api-v2</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
+	<artifactId>prc-solutech-api-v1</artifactId>
+	<version>1.0.5</version>
 	<packaging>mule-application</packaging>
 
-	<name>sys-solutech-api-v2-1.0.61-mule-application</name>
+	<name>prc-solutech-api-v1-1.0.104-mule-application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.8.1</app.runtime>
+		<app.runtime>4.9.0</app.runtime>
 		<mule.maven.plugin.version>4.9.1</mule.maven.plugin.version>
 	</properties>
 
@@ -31,12 +31,6 @@
 				<extensions>true</extensions>
 				<configuration>
 					<classifier>mule-application</classifier>
-					<sharedLibraries>
-						<sharedLibrary>
-							<groupId>com.mysql</groupId>
-							<artifactId>mysql-connector-j</artifactId>
-						</sharedLibrary>
-					</sharedLibraries>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -58,7 +52,7 @@
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
-			<version>1.11.2</version>
+			<version>1.11.3</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
@@ -68,38 +62,28 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>org.mule.connectors</groupId>
-			<artifactId>mule-db-connector</artifactId>
-			<version>1.14.13</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>8.4.0</version>
-		</dependency>
-		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi</artifactId>
-			<version>1.0.4</version>
+			<artifactId>solutech-papi-uat</artifactId>
+			<version>1.0.18</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi-prod</artifactId>
+			<artifactId>solutech-papi-prod</artifactId>
 			<version>1.0.0</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi-uat</artifactId>
-			<version>1.0.29</version>
+			<artifactId>solutech-papi</artifactId>
+			<version>1.0.12</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 	</dependencies>
+
 	<repositories>
 		<repository>
 			<id>anypoint-exchange-v3</id>
