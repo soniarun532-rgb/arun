@@ -3,14 +3,14 @@
      
     <!-- RAML Sandbox -->
     <!--  
-    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi:1.0.4:raml:zip:solutech-system-api.raml" 
+    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi:1.0.5:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
      -->
     <!-- RAML Pre-Sandbox -->
     <!--  
       <apikit:config name="solutech-system-api-config" 
-    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.20:raml:zip:solutech-system-api.raml" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.31:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
     -->
@@ -18,7 +18,7 @@
       <!-- RAML Production -->
     
       <apikit:config name="solutech-system-api-config" 
-    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.0:raml:zip:solutech-system-api.raml" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.1:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
     

@@ -7,7 +7,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>sys-solutech-api-v2-1.0.60-mule-application</name>
+	<name>sys-solutech-api-v2-1.0.77-mule-application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,12 +45,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
-			<artifactId>mule-http-connector</artifactId>
-			<version>1.10.3</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.5</version>
 			<classifier>mule-plugin</classifier>
@@ -81,21 +75,21 @@
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
 			<artifactId>solutech-sapi</artifactId>
-			<version>1.0.4</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
-			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
-			<artifactId>solutech-sapi-uat</artifactId>
-			<version>1.0.20</version>
+			<version>1.0.5</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
 			<artifactId>solutech-sapi-prod</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>e4352f2d-9759-4055-930e-8a13244d0f45</groupId>
+			<artifactId>solutech-sapi-uat</artifactId>
+			<version>1.0.31</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>

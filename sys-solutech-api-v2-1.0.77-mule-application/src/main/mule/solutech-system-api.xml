@@ -3,14 +3,14 @@
      
     <!-- RAML Sandbox -->
     <!--  
-    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi:1.0.4:raml:zip:solutech-system-api.raml" 
+    <apikit:config name="solutech-system-api-config" api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi:1.0.5:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
      -->
     <!-- RAML Pre-Sandbox -->
     <!--  
       <apikit:config name="solutech-system-api-config" 
-    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.20:raml:zip:solutech-system-api.raml" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-uat:1.0.31:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
     -->
@@ -18,7 +18,7 @@
       <!-- RAML Production -->
     
       <apikit:config name="solutech-system-api-config" 
-    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.0:raml:zip:solutech-system-api.raml" 
+    api="resource::e4352f2d-9759-4055-930e-8a13244d0f45:solutech-sapi-prod:1.0.1:raml:zip:solutech-system-api.raml" 
     outboundHeadersMapName="outboundHeaders" 
     httpStatusVarName="httpStatus" />
     
@@ -208,5 +208,38 @@ output application/json
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+    </flow>
+    <!-- SAT datashare GETs. Same as sandbox. Each path sets endpoint then reuses mysql-query-main. -->
+    <flow name="get:\invoice:solutech-system-api-config">
+        <set-variable value="invoice" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\order:solutech-system-api-config">
+        <set-variable value="order" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\product:solutech-system-api-config">
+        <set-variable value="product" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\route:solutech-system-api-config">
+        <set-variable value="route" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\sales-rep:solutech-system-api-config">
+        <set-variable value="sales-rep" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\customer:solutech-system-api-config">
+        <set-variable value="customer" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\stock:solutech-system-api-config">
+        <set-variable value="stock" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
+    </flow>
+    <flow name="get:\warehouse:solutech-system-api-config">
+        <set-variable value="warehouse" doc:name="endpoint" variableName="endpoint" />
+        <flow-ref doc:name="mysql-query-main" name="mysql-query-main" />
     </flow>
 </mule>
